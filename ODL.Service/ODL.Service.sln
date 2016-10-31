@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{896673B8-3E1C-449F-A6CA-0833F12814A1}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ODL.Service", "src\ODL.Service\ODL.Service.xproj", "{C40CC3FB-F5B4-4855-BEBA-71E770AB8B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.ApplicationServices", "ODL.ApplicationServices\ODL.ApplicationServices.csproj", "{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DataAccess", "ODL.DataAccess\ODL.DataAccess.csproj", "{00730B19-2441-42DB-9FEE-F71EDCA04682}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.InfrastructureServices", "ODL.InfrastructureServices\ODL.InfrastructureServices.csproj", "{79955D1C-0A3D-40AF-8435-1B950358F745}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{92F7ECD1-723D-4398-867A-3E7AB3D8FE4E}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Description = Solution for the Online Data Layer ("ODL") Service
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C40CC3FB-F5B4-4855-BEBA-71E770AB8B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C40CC3FB-F5B4-4855-BEBA-71E770AB8B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C40CC3FB-F5B4-4855-BEBA-71E770AB8B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C40CC3FB-F5B4-4855-BEBA-71E770AB8B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00730B19-2441-42DB-9FEE-F71EDCA04682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00730B19-2441-42DB-9FEE-F71EDCA04682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00730B19-2441-42DB-9FEE-F71EDCA04682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00730B19-2441-42DB-9FEE-F71EDCA04682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79955D1C-0A3D-40AF-8435-1B950358F745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79955D1C-0A3D-40AF-8435-1B950358F745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79955D1C-0A3D-40AF-8435-1B950358F745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79955D1C-0A3D-40AF-8435-1B950358F745}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C40CC3FB-F5B4-4855-BEBA-71E770AB8B3A} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
+		{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
+		{00730B19-2441-42DB-9FEE-F71EDCA04682} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
+		{79955D1C-0A3D-40AF-8435-1B950358F745} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
+		{92F7ECD1-723D-4398-867A-3E7AB3D8FE4E} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
+	EndGlobalSection
+EndGlobal

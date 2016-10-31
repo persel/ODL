@@ -1,0 +1,10 @@
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\obj\Debug\ODL.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\bin\Debug\ODL.DataAccess.dll.config
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\bin\Debug\ODL.DataAccess.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\bin\Debug\ODL.DataAccess.pdb
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\obj\Debug\ODL.DataAccess.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.DataAccess\obj\Debug\ODL.DataAccess.pdb

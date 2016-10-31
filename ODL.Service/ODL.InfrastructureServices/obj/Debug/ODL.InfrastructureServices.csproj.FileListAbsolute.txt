@@ -1,0 +1,5 @@
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.InfrastructureServices\bin\Debug\ODL.InfrastructureServices.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.InfrastructureServices\bin\Debug\ODL.InfrastructureServices.pdb
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.InfrastructureServices\obj\Debug\ODL.InfrastructureServices.csprojResolveAssemblyReference.cache
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.InfrastructureServices\obj\Debug\ODL.InfrastructureServices.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.InfrastructureServices\obj\Debug\ODL.InfrastructureServices.pdb

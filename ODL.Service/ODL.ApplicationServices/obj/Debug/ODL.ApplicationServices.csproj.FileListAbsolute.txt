@@ -1,0 +1,12 @@
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\ODL.ApplicationServices.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\ODL.ApplicationServices.pdb
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\obj\Debug\ODL.ApplicationServices.csprojResolveAssemblyReference.cache
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\obj\Debug\ODL.ApplicationServices.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\obj\Debug\ODL.ApplicationServices.pdb
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\ODL.ApplicationServices.dll.config
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\EntityFramework.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\ODL.DataAccess.dll
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\ODL.DataAccess.pdb
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\EntityFramework.xml
+C:\Users\taco\Source\Repos\PTJ.ODLService\ODL.Service\ODL.ApplicationServices\bin\Debug\EntityFramework.SqlServer.xml
