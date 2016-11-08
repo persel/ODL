@@ -25,7 +25,7 @@ namespace ODL.Service
             if (env.IsEnvironment("Development"))
             {
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
+                //builder.AddApplicationInsightsSettings(developerMode: true);
             }
 
             builder.AddEnvironmentVariables();
@@ -38,7 +38,7 @@ namespace ODL.Service
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
+            //services.AddApplicationInsightsTelemetry(Configuration);
             services.AddScoped(_ => new ODLDbContext(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IPersonService, PersonService>();
@@ -56,9 +56,9 @@ namespace ODL.Service
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseApplicationInsightsRequestTelemetry();
+            //app.UseApplicationInsightsRequestTelemetry();
 
-            app.UseApplicationInsightsExceptionTelemetry();
+            //app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseMvc();
         }
