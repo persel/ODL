@@ -20,16 +20,16 @@ namespace ODL.Service.Controllers
         }
 
         // GET api/anstalld
-        [HttpGet]
-        public IEnumerable<AnstalldDTO> Get()
-        {
+        //[HttpGet]
+        //public IEnumerable<AnstalldDTO> Get()
+        //{
 
-            var anstallda =
-                _personService.GetAllAnstallda()
-                    .Select(anstalld => new AnstalldDTO {Id = anstalld.Id, Alias = anstalld.Alias});
+        //    var anstallda =
+        //        _personService.GetAllAnstallda()
+        //            .Select(anstalld => new AnstalldDTO {Id = anstalld.Id, Alias = anstalld.Alias});
 
-            return anstallda;
-        }
+        //    return anstallda;
+        //}
 
         // GET api/anstalld/5
         [HttpGet("{id}")]

@@ -7,6 +7,7 @@ namespace ODL.DataAccess.Repositories
 
     public class AnstalldRepository : IAnstalldRepository
     {
+        /*
         private ModelDbContext DbContext { get; }
         private readonly Repository<Anstalld, ModelDbContext> _internalGenericRepository;
 
@@ -39,5 +40,6 @@ namespace ODL.DataAccess.Repositories
         {
             _internalGenericRepository.Update(); // alt. dbContext.SaveChanges();
         }
+        */
     }
 }

@@ -1,44 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ODL.ApplicationServices;
+using ODL.Service.Models;
 
 namespace ODL.Service.Controllers
 {
     [Route("api/[controller]")]
     public class OrganisationController : Controller
     {
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IOrganisationService _organisationService;
+
+        public OrganisationController(IOrganisationService organisationService)
         {
-            return new string[] { "value1", "value2" };
+            _organisationService = organisationService;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/organisation/resultatenhet/197501011405
+        [HttpGet("resultatenhet/{personnummer}")]
+        public IEnumerable<ResultatenhetDTO> GetResultatenhet(string personnummer) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
         {
-            return "value";
+            return _organisationService.GetResultatenhetByPersonnummer(personnummer).Select(enhet => new ResultatenhetDTO { Id = enhet.Id, KostnadsstalleNr = enhet.Kstnr.ToString(), Namn = enhet.Namn});
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        //// GET api/values/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// POST api/values
+        //[HttpPost]
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// PUT api/values/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
+
+        //// DELETE api/values/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

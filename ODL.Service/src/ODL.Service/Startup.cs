@@ -39,10 +39,13 @@ namespace ODL.Service
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddScoped(_ => new ModelDbContext(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped(_ => new ODLDbContext(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IOrganisationService, OrganisationService>();
 
             services.AddScoped<IAnstalldRepository, AnstalldRepository>();
-            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IResultatenhetRepository, ResultatenhetRepository>();
 
             services.AddMvc();
         }

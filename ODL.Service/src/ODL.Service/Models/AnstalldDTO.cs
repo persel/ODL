@@ -1,4 +1,4 @@
-﻿namespace ODL.Service.Controllers
+﻿namespace ODL.Service.Models
 {
     public class AnstalldDTO
     {

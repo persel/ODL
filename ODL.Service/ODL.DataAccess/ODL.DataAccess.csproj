@@ -41,6 +41,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,34 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelDbContextFactory.cs" />
-    <Compile Include="Models\Adress.cs" />
-    <Compile Include="Models\AdressTyp.cs" />
-    <Compile Include="Models\AdressVariant.cs" />
-    <Compile Include="Models\Anstalld.cs" />
-    <Compile Include="Models\AnstalldAvtal.cs" />
-    <Compile Include="Models\Avtal.cs" />
-    <Compile Include="Models\AvtalResultatEnhet.cs" />
-    <Compile Include="Models\GatuAdress.cs" />
-    <Compile Include="Models\Konsult.cs" />
-    <Compile Include="Models\Mail.cs" />
-    <Compile Include="ModelDbContext.cs" />
+    <Compile Include="ODLDbContextFactory.cs" />
+    <Compile Include="ODLDbContext.cs" />
     <Compile Include="Models\Organisation.cs" />
-    <Compile Include="Models\OrganisationAdress.cs" />
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\PersonAdress.cs" />
-    <Compile Include="Models\PersonAnnanPerson.cs" />
-    <Compile Include="Models\PersonAnstalld.cs" />
-    <Compile Include="Models\PersonKonsult.cs" />
-    <Compile Include="Models\PersonPatient.cs" />
-    <Compile Include="Models\PersonSjukHalsovardsPersonal.cs" />
-    <Compile Include="Models\ResultatEnhet.cs" />
-    <Compile Include="Models\Telefon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AnstalldRepository.cs" />
     <Compile Include="Repositories\IAnstalldRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IResultatenhetRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Models\Resultatenhet.cs" />
+    <Compile Include="Repositories\ResultatenhetRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

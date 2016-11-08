@@ -9,9 +9,11 @@ namespace ODL.DataAccess.Repositories
 
     public interface IAnstalldRepository
     {
+        /*
         IEnumerable<Anstalld> GetAll();
         IEnumerable<Anstalld> GetByAlias(string alias);
         Anstalld GetById(int id);
         void Update();
+        */
     }
 }
