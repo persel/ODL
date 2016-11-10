@@ -1,15 +1,15 @@
 USE [ODL]
 GO
-
+ 
 -- #############################################################
 -- # TEMPORARILY DROP FK CONSTRAINTS IF EXIST (SINCE TRUNCATE IS NOT POSSIBLE WITH ENABLED FK CONSTRAINTS)
 -- #############################################################
 
-IF (OBJECT_ID('Person.FK_AvtalResultatenhet_Resultatenhet', 'F') IS NOT NULL)
-	ALTER TABLE [Person].[ResultatenhetAvtal] DROP CONSTRAINT [FK_AvtalResultatenhet_Resultatenhet]
+IF (OBJECT_ID('Person.FK_OrganisationAvtal_Organisation', 'F') IS NOT NULL)
+	ALTER TABLE [Person].[OrganisationAvtal] DROP CONSTRAINT [FK_OrganisationAvtal_Organisation]
 GO
-IF (OBJECT_ID('Person.FK_AvtalResultatenhet_Avtal', 'F') IS NOT NULL)
-	ALTER TABLE [Person].[ResultatenhetAvtal] DROP CONSTRAINT [FK_AvtalResultatenhet_Avtal]
+IF (OBJECT_ID('Person.FK_OrganisationAvtal_Avtal', 'F') IS NOT NULL)
+	ALTER TABLE [Person].[OrganisationAvtal] DROP CONSTRAINT [FK_OrganisationAvtal_Avtal]
 GO
 IF (OBJECT_ID('Person.FK_KonsultAvtal_Konsult', 'F') IS NOT NULL)
 	ALTER TABLE [Person].[KonsultAvtal] DROP CONSTRAINT [FK_KonsultAvtal_Konsult]
@@ -63,13 +63,14 @@ IF (OBJECT_ID('Adress.FK_Adress_AdressVariant', 'F') IS NOT NULL)
 	ALTER TABLE [Adress].[Adress] DROP CONSTRAINT [FK_Adress_AdressVariant]
 GO
 
+
 -- #############################################################
 -- # TRUNCATE TABLES (IDENTITY COLUMN COUNTERS ARE RESET)
 -- #############################################################
 
 TRUNCATE TABLE [Person].[KonsultAvtal]
 TRUNCATE TABLE [Person].[AnstalldAvtal]
-TRUNCATE TABLE [Person].[ResultatenhetAvtal]
+TRUNCATE TABLE [Person].[OrganisationAvtal]
 
 TRUNCATE TABLE [Adress].[PersonAdress]
 TRUNCATE TABLE [Adress].[OrganisationAdress]
@@ -147,13 +148,18 @@ REFERENCES [Organisation].[Organisation] ([Id])
 GO
 ALTER TABLE [Organisation].[Resultatenhet] CHECK CONSTRAINT [FK_Resultatenhet_Organisation]
 GO
+ALTER TABLE [Organisation].[Organisation]  WITH CHECK ADD  CONSTRAINT [FK_Organisation_Organisation] FOREIGN KEY([OrganisationFKId])
+REFERENCES [Organisation].[Organisation] ([Id])
+GO
+ALTER TABLE [Organisation].[Organisation] CHECK CONSTRAINT [FK_Organisation_Organisation]
+GO
 ALTER TABLE [Person].[Anstalld]  WITH CHECK ADD  CONSTRAINT [FK_Anstalld_Person] FOREIGN KEY([PersonFKId])
 REFERENCES [Person].[Person] ([Id])
 GO
 ALTER TABLE [Person].[Anstalld] CHECK CONSTRAINT [FK_Anstalld_Person]
 GO
-ALTER TABLE [Person].[AnstalldAvtal]  WITH CHECK ADD  CONSTRAINT [FK_AnstalldAvtal_Anstalld] FOREIGN KEY([AnstalldFKId])
-REFERENCES [Person].[Anstalld] ([Id])
+ALTER TABLE [Person].[AnstalldAvtal]  WITH CHECK ADD  CONSTRAINT [FK_AnstalldAvtal_Anstalld] FOREIGN KEY([PersonFKId])
+REFERENCES [Person].[Anstalld] ([PersonFKId])
 GO
 ALTER TABLE [Person].[AnstalldAvtal] CHECK CONSTRAINT [FK_AnstalldAvtal_Anstalld]
 GO
@@ -172,24 +178,24 @@ REFERENCES [Person].[Avtal] ([Id])
 GO
 ALTER TABLE [Person].[KonsultAvtal] CHECK CONSTRAINT [FK_KonsultAvtal_Avtal]
 GO
-ALTER TABLE [Person].[KonsultAvtal]  WITH CHECK ADD  CONSTRAINT [FK_KonsultAvtal_Konsult] FOREIGN KEY([KonsultFKId])
-REFERENCES [Person].[Konsult] ([Id])
+ALTER TABLE [Person].[KonsultAvtal]  WITH CHECK ADD  CONSTRAINT [FK_KonsultAvtal_Konsult] FOREIGN KEY([PersonFKId])
+REFERENCES [Person].[Konsult] ([PersonFKId])
 GO
 ALTER TABLE [Person].[KonsultAvtal] CHECK CONSTRAINT [FK_KonsultAvtal_Konsult]
 GO
-ALTER TABLE [Person].[ResultatenhetAvtal]  WITH CHECK ADD  CONSTRAINT [FK_AvtalResultatenhet_Avtal] FOREIGN KEY([AvtalFKId])
+ALTER TABLE [Person].[OrganisationAvtal]  WITH CHECK ADD  CONSTRAINT [FK_OrganisationAvtal_Avtal] FOREIGN KEY([AvtalFKId])
 REFERENCES [Person].[Avtal] ([Id])
 GO
-ALTER TABLE [Person].[ResultatenhetAvtal] CHECK CONSTRAINT [FK_AvtalResultatenhet_Avtal]
+ALTER TABLE [Person].[OrganisationAvtal] CHECK CONSTRAINT [FK_OrganisationAvtal_Avtal]
 GO
-ALTER TABLE [Person].[ResultatenhetAvtal]  WITH CHECK ADD  CONSTRAINT [FK_AvtalResultatenhet_Resultatenhet] FOREIGN KEY([ResultatenhetFKId])
-REFERENCES [Organisation].[Resultatenhet] ([Id])
+ALTER TABLE [Person].[OrganisationAvtal]  WITH CHECK ADD  CONSTRAINT [FK_OrganisationAvtal_Organisation] FOREIGN KEY([OrganisationFKId])
+REFERENCES [Organisation].[Organisation] ([Id])
 GO
-ALTER TABLE [Person].[ResultatenhetAvtal] CHECK CONSTRAINT [FK_AvtalResultatenhet_Resultatenhet]
+ALTER TABLE [Person].[OrganisationAvtal] CHECK CONSTRAINT [FK_OrganisationAvtal_Organisation]
 GO
 
 DECLARE @updatedTime as datetime;
-SET @updatedTime = SYSDATETIME();
+SET @updatedTime = SYSDATETIME(); -- '2016-11-08 08:13:27.5080812'
 
 
 -- #############################################################
@@ -197,22 +203,22 @@ SET @updatedTime = SYSDATETIME();
 -- #############################################################
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Kalle', 'Ove', 'Nilsson', '8012123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+VALUES('Kalle', 'Ove', 'Nilsson', '197012123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Marie', 'Eva', 'Persson', '7012123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+VALUES('Marie', 'Eva', 'Persson', '196212303456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Anders', 'Ola', 'Svensson', '7512123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+VALUES('Anders', 'Ola', 'Svensson', '197505223456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Per', '', 'Andersson', '8512123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+VALUES('Per', '', 'Andersson', '198512123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Olle', 'Sven', 'Andersson', '5512123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+VALUES('Olle', 'Sven', 'Andersson', '195506103456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Anna', 'Maria', 'Nilsson', '6512123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+VALUES('Anna', 'Maria', 'Nilsson', '196511301456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 -- #############################################################
 -- # INSERT Anställda
@@ -243,27 +249,6 @@ VALUES(6, 'TANI', @updatedTime, 'DBO', @updatedTime, 'DBO')
 INSERT INTO [Person].[Konsult]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1, 'TKNI', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
--- #############################################################
--- # INSERT Avtal
--- #############################################################
-
-INSERT INTO [Person].[Avtal]([Avtalskod], [Avtalstext], [ArbetstidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('E03', 'Vård och omsorg',40, 1, 'Underläkare', 1, 0, 0, '2011-06-15', @updatedTime, 'DBO', @updatedTime, 'DBO')
-
-INSERT INTO [Person].[AnstalldAvtal]([AnstalldFKID], [AvtalFKID])
-VALUES(1,1)
-
-INSERT INTO [Person].[Avtal]([AvtalsKod], [AvtalsText], [ArbetsTidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('T01', 'Unionen, CF, tjänstemän. Månadslön', 40, 1, 'Läkare', 1, 0, 0, '2007-06-30', @updatedTime, 'DBO', @updatedTime, 'DBO')
-
-INSERT INTO [Person].[AnstalldAvtal]([AnstalldFKID], [AvtalFKID])
-VALUES(2,2)
-
-INSERT INTO [Person].[Avtal]([AvtalsKod], [AvtalsText], [ArbetsTidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('T01', 'Unionen, CF, tjänstemän. Månadslön', 40, 1, 'Undersköterska', 1, 0, 0, '2010-01-01', @updatedTime, 'DBO', @updatedTime, 'DBO')
-
-INSERT INTO [Person].[AnstalldAvtal]([AnstalldFKID], [AvtalFKID])
-VALUES(3,3)
 
 -- #############################################################
 -- # INSERT Adresstyp
@@ -282,33 +267,33 @@ VALUES('Facebook', @updatedTime, 'DBO', @updatedTime, 'DBO')
 -- # INSERT Adressvariant
 -- #############################################################
 
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Folkbokföringsadress', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Adress Arbete', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'LeveransAdress', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'FaktureringsAdress', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Adressens Adress', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Tomte Adress', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2,'MailAdress Arbete', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2,'Mailadress Privat', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'Mobil Arbete', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'Mobil Privat', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'Telefon Arbete', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'Telefon Privat', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(4,'Facebook Privat', @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKID], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(4,'Facebook Arbete', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 
@@ -317,99 +302,150 @@ VALUES(4,'Facebook Arbete', @updatedTime, 'DBO', @updatedTime, 'DBO')
 -- #############################################################
 
 /*Hem*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKID], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Storvägen 11',84019,'Färila', 'Sverige', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Jobb*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKID], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2,'Drottningvägen 23',82240,'Järvsö', 'Sverige', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Mail Arbete*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(7, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[Mail]([AdressFKID], [MailAdress], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Mail]([AdressFKId], [MailAdress], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'jarvsobacken@ptj.se', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Mail Privat*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(8, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[Mail]([AdressFKID], [MailAdress], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Mail]([AdressFKId], [MailAdress], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(4,'kalle.ove@gmail.com', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Tele Privat*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(9, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[Telefon]([AdressFKID], [TelefonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Telefon]([AdressFKId], [TelefonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(5,'065112345', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Tele Arbete*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(10, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[Telefon]([AdressFKID], [TelefonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Telefon]([AdressFKId], [TelefonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(6,'070123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Hem*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKID], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(7,'Strandvägen 13',76534,'Alingsås', 'Sverige', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Hem*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKID], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(8,'Bruksvägen 55',59732,'Uppsala', 'Sverige', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Hem*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKID], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(9,'Glimmervägen 7',78563,'Uppsala', 'Sverige', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Hem*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKID], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(10,'Falsterbovägen 2',78543,'Falsterbo', 'Sverige', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 /*Hem*/
-INSERT INTO [Adress].[Adress]([AdressVariantFKID], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @updatedTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKID], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(11,'Lundavägen 12A',96745,'Malmö', 'Sverige', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 -- #############################################################
 -- # INSERT Personadress
 -- #############################################################
 
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(1,1)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(1,2)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(1,3)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(1,4)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(1,5)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(1,6)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(2,7)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(2,8)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(3,9)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(4,10)
-INSERT INTO [Adress].[PersonAdress]([PersonFKID], [AdressFKID])
+INSERT INTO [Adress].[PersonAdress]([PersonFKId], [AdressFKId])
 VALUES(5,11)
 
 
-GO
+-- #############################################################
+-- # INSERT Avtal
+-- #############################################################
+
+INSERT INTO [Person].[Avtal]([Avtalskod], [Avtalstext], [ArbetstidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('E03', 'Vård och omsorg',20, 1, 'Underläkare', 1, 0, 0, '2011-06-15', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[AnstalldAvtal]([PersonFKId], [AvtalFKId])
+VALUES(1,1)
+
+INSERT INTO [Person].[Avtal]([AvtalsKod], [AvtalsText], [ArbetsTidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('T01', 'Unionen, CF, tjänstemän. Månadslön', 40, 1, 'Läkare', 1, 0, 0, '2007-06-30', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[AnstalldAvtal]([PersonFKId], [AvtalFKId])
+VALUES(2,2)
+
+INSERT INTO [Person].[Avtal]([AvtalsKod], [AvtalsText], [ArbetsTidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('T01', 'Unionen, CF, tjänstemän. Månadslön', 40, 1, 'Undersköterska', 1, 0, 0, '2010-01-01', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[AnstalldAvtal]([PersonFKId], [AvtalFKId])
+VALUES(3,3)
+
+INSERT INTO [Person].[Avtal]([AvtalsKod], [AvtalsText], [ArbetsTidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('K01', 'Konsultavtal 1', 20, 1, 'Ortopedkonsult', 1, 0, 0, '2012-01-01', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[KonsultAvtal]([PersonFKId], [AvtalFKId])
+VALUES(1,4)
 
 
+-- #############################################################
+-- # INSERT Organisation, Resultatenhet tables
+-- #############################################################
+
+
+-- Organisation
+INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('556038-0793', 'Södra ortopedmottagningen', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('557800-7753', 'Norra ortopedmottagningen', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+-- Resultatenhet
+INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(15, 'H', 1, @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(22, 'H', 2, @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+-- ResultatenhetAvtal
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId])
+VALUES(1,1)
+
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId])
+VALUES(4,2)
