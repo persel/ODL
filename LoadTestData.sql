@@ -212,13 +212,19 @@ INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNumme
 VALUES('Anders', 'Ola', 'Svensson', '197505223456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Per', '', 'Andersson', '198512123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+VALUES('Per', null, 'Andersson', '198512123456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES('Olle', 'Sven', 'Andersson', '195506103456', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Anna', 'Maria', 'Nilsson', '196511301456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+VALUES('Anna', 'Maria', 'Nilsson', '196410261356', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('Erik', 'Henrik', 'Karlsson', '195511301456', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[Person]([Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('Stina', null, 'Einarsson', '197002201406', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 -- #############################################################
 -- # INSERT Anställda
@@ -236,15 +242,20 @@ VALUES(3, 1, 'ASV', @updatedTime, 'DBO', @updatedTime, 'DBO')
 INSERT INTO [Person].[Anstalld]([PersonFKId], [Typ], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(4, 1, 'PAN', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
+INSERT INTO [Person].[Anstalld]([PersonFKId], [Typ], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(6, 1, 'ANI', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[Anstalld]([PersonFKId], [Typ], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(7, 1, 'EKA', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[Anstalld]([PersonFKId], [Typ], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(8, 1, 'SEI', @updatedTime, 'DBO', @updatedTime, 'DBO')
 -- #############################################################
 -- # INSERT Konsulter
 -- #############################################################
 
 INSERT INTO [Person].[Konsult]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(5, 'TOSV', @updatedTime, 'DBO', @updatedTime, 'DBO')
-
-INSERT INTO [Person].[Konsult]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(6, 'TANI', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 INSERT INTO [Person].[Konsult]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1, 'TKNI', @updatedTime, 'DBO', @updatedTime, 'DBO')
@@ -423,6 +434,25 @@ VALUES('K01', 'Konsultavtal 1', 20, 1, 'Ortopedkonsult', 1, 0, 0, '2012-01-01', 
 INSERT INTO [Person].[KonsultAvtal]([PersonFKId], [AvtalFKId])
 VALUES(1,4)
 
+-----
+INSERT INTO [Person].[Avtal]([AvtalsKod], [AvtalsText], [ArbetsTidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('K01', 'Anställningsavtal X', 40, 1, 'Tandläkare', 1, 1, 1, '2012-01-01', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[AnstalldAvtal]([PersonFKId], [AvtalFKId])
+VALUES(6,5)
+
+INSERT INTO [Person].[Avtal]([AvtalsKod], [AvtalsText], [ArbetsTidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('K01', 'Anställningsavtal Y', 40, 1, 'Tandläkare', 1, 1, 0, '2012-01-01', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[AnstalldAvtal]([PersonFKId], [AvtalFKId])
+VALUES(7,6)
+
+INSERT INTO [Person].[Avtal]([AvtalsKod], [AvtalsText], [ArbetsTidVecka], [Befkod], [BefText], [Aktiv], [Ansvarig], [Chef], [AnstallningsDatum], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('K01', 'Anställningsavtal Z', 40, 6, 'Receptionist', 1, 0, 0, '2012-01-01', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Person].[AnstalldAvtal]([PersonFKId], [AvtalFKId])
+VALUES(8,7)
+-----
 
 -- #############################################################
 -- # INSERT Organisation, Resultatenhet tables
@@ -436,6 +466,15 @@ VALUES('556038-0793', 'Södra ortopedmottagningen', @updatedTime, 'DBO', @updated
 INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES('557800-7753', 'Norra ortopedmottagningen', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
+INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('512500-7751', 'Tandläkarna i Väst, Gemensamma', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('523500-7862', 'Tandläkarna i Väst, Hk 1', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('534500-7973', 'Tandläkarna i Väst, Hk 2', @updatedTime, 'DBO', @updatedTime, 'DBO')
+
 -- Resultatenhet
 INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(15, 'H', 1, @updatedTime, 'DBO', @updatedTime, 'DBO')
@@ -443,9 +482,27 @@ VALUES(15, 'H', 1, @updatedTime, 'DBO', @updatedTime, 'DBO')
 INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(22, 'H', 2, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
--- ResultatenhetAvtal
+INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(60, 'G', 3, @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(61, 'H', 4, @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(62, 'H', 5, @updatedTime, 'DBO', @updatedTime, 'DBO')
+
+-- OrganisationAvtal
 INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId])
 VALUES(1,1)
 
 INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId])
 VALUES(4,2)
+----------
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId])
+VALUES(7,3)
+
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId])
+VALUES(5,4)
+
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId])
+VALUES(6,5)
