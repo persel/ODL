@@ -40,7 +40,7 @@
     "include": [
       "wwwroot",
       "**/*.cshtml",
-      "appsettings.json",
+      "appsettings_default.json",
       "web.config"
     ]
   },

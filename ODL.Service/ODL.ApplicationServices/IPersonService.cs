@@ -9,8 +9,10 @@ namespace ODL.ApplicationServices
 {
     public interface IPersonService
     {
-        //IEnumerable<Anstalld> GetAllAnstallda();
-        //Anstalld GetAnstalldById(int id);
+        List<Person> GetByResultatenhetId(int resultatenhetId);
 
+        //IEnumerable<Anställd> GetAllAnställda();
+        //Anställd GetAnställdById(int id);
+        
     }
 }

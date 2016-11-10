@@ -1,22 +1,21 @@
 namespace ODL.DataAccess.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    [Table("Organisation.Resultatenhet")]
-    public partial class Resultatenhet
+    [Table("Person.Anstalld")]
+    public partial class Anställd
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int OrganisationFKId { get; set; }
+        public int PersonFKId { get; set; }
 
-        public int Kstnr { get; set; }
+        public byte? Typ { get; set; }
 
+        [Required]
         [StringLength(10)]
-        public string Typ { get; set; }
+        public string Alias { get; set; }
 
         public DateTime UppdateradDatum { get; set; }
 
@@ -30,6 +29,6 @@ namespace ODL.DataAccess.Models
         [StringLength(10)]
         public string SkapadAv { get; set; }
 
-        public virtual Organisation Organisation { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

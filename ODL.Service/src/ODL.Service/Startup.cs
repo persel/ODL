@@ -19,7 +19,7 @@ namespace ODL.Service
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings_default.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsEnvironment("Development"))
@@ -44,7 +44,7 @@ namespace ODL.Service
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IOrganisationService, OrganisationService>();
 
-            services.AddScoped<IAnstalldRepository, AnstalldRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IResultatenhetRepository, ResultatenhetRepository>();
 
             services.AddMvc();

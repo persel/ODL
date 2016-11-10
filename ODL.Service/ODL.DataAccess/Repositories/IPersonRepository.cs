@@ -7,13 +7,14 @@ namespace ODL.DataAccess.Repositories
     // Här väljer vi dock att förenkla och lägga både interface och implementationer i DataAccess-projektet.
     // För bättre testbarhet bör vi dock injecta implementationen via DI etc.
 
-    public interface IAnstalldRepository
+    public interface IPersonRepository
     {
         /*
-        IEnumerable<Anstalld> GetAll();
-        IEnumerable<Anstalld> GetByAlias(string alias);
-        Anstalld GetById(int id);
+        IEnumerable<Anställd> GetAll();
+        IEnumerable<Anställd> GetByAlias(string alias);
+        Anställd GetById(int id);
         void Update();
         */
+        List<Person> GetByResultatenhetId(int resultatenhetId);
     }
 }

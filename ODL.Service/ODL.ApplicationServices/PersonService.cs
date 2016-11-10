@@ -9,21 +9,17 @@ namespace ODL.ApplicationServices
     public class PersonService : IPersonService
     {
 
-        //private readonly IAnstalldRepository _anstalldRepository;
+        private readonly IPersonRepository _personRepository;
+        
+        public PersonService(IPersonRepository personRepository)
+        {
+            _personRepository = personRepository;
+        }
 
-        //public PersonService(IAnstalldRepository anstalldRepository)
-        //{
-        //    _anstalldRepository = anstalldRepository;
-        //}
+        public List<Person> GetByResultatenhetId(int resultatenhetId)
+        {
+            return _personRepository.GetByResultatenhetId(resultatenhetId);
+        }
 
-        //public IEnumerable<Anstalld> GetAllAnstallda()
-        //{
-        //    return _anstalldRepository.GetAll();
-        //}
-
-        //public Anstalld GetAnstalldById(int id)
-        //{
-        //    return _anstalldRepository.GetById(id);
-        //}
     }
 }

@@ -12,7 +12,7 @@ namespace ODL.DataAccess.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Organisation()
         {
-            Resultatenhet = new HashSet<Resultatenhet>();
+            Underliggande = new HashSet<Organisation>();
         }
 
         public int Id { get; set; }
@@ -21,17 +21,28 @@ namespace ODL.DataAccess.Models
         [StringLength(50)]
         public string OrganisationsId { get; set; }
 
-        public DateTime? UppdateradDatum { get; set; }
-
         [StringLength(100)]
+        public string Namn { get; set; }
+
+        public int? OrganisationFKId { get; set; }
+
+        public DateTime UppdateradDatum { get; set; }
+
+        [Required]
+        [StringLength(10)]
         public string UppdateradAv { get; set; }
 
         public DateTime SkapadDatum { get; set; }
 
-        [StringLength(100)]
+        [Required]
+        [StringLength(10)]
         public string SkapadAv { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Resultatenhet> Resultatenhet { get; set; }
+        public virtual ICollection<Organisation> Underliggande { get; set; }
+
+        public virtual Organisation Överordnad { get; set; }
+
+        public virtual Resultatenhet Resultatenhet { get; set; }
     }
 }
