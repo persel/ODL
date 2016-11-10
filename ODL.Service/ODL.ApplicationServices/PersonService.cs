@@ -2,6 +2,7 @@
 using System.Linq;
 using ODL.DataAccess;
 using ODL.DataAccess.Models;
+using ODL.DataAccess.Models.Extensions;
 using ODL.DataAccess.Repositories;
 
 namespace ODL.ApplicationServices
@@ -10,16 +11,31 @@ namespace ODL.ApplicationServices
     {
 
         private readonly IPersonRepository _personRepository;
-        
-        public PersonService(IPersonRepository personRepository)
+        private readonly IResultatenhetRepository _resultatenhetRepository;
+
+        public PersonService(IPersonRepository personRepository, IResultatenhetRepository resultatenhetRepository)
         {
             _personRepository = personRepository;
+            _resultatenhetRepository = resultatenhetRepository;
         }
 
-        public List<Person> GetByResultatenhetId(int resultatenhetId)
+        public List<Person> GetByResultatenhetId(int id)
         {
-            return _personRepository.GetByResultatenhetId(resultatenhetId);
+            var resultatenhet = _resultatenhetRepository.GetById(id);
+
+            var allaResultatenhetersId = GetAllaRelateradeResultatenhetersIdn(resultatenhet);
+
+            return _personRepository.GetByResultatenhetId(allaResultatenhetersId.ToArray());
         }
 
+        private IEnumerable<int> GetAllaRelateradeResultatenhetersIdn(Resultatenhet resultatenhet)
+        {
+            var organisation = resultatenhet.Organisation;
+            
+            var allaIngåendeOrganisationer = organisation.Root().Flatten();
+
+            return allaIngåendeOrganisationer.Select(org => org.Id);
+        }
+        
     }
 }

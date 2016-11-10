@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Anställd.cs" />
+    <Compile Include="Models\Extensions\OrganisationExtensions.cs" />
     <Compile Include="Models\Extensions\PersonExtensions.cs" />
     <Compile Include="Models\Konsult.cs" />
     <Compile Include="ODLDbContextFactory.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Models\Resultatenhet.cs" />
     <Compile Include="Repositories\ResultatenhetRepository.cs" />
+    <Compile Include="RepositoryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

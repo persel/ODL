@@ -20,7 +20,7 @@ namespace ODL.ApplicationServices
 
         public List<Resultatenhet> GetResultatenhetByPersonnummer(string personnummer)
         {
-            return _resultatenhetRepository.GetByPersonnummer(personnummer);
+            return _resultatenhetRepository.GetByPersonnummer(personnummer); ;
         }
     }
 }

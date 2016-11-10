@@ -19,7 +19,7 @@ namespace ODL.Service.Controllers
         }
 
         // GET api/person/resultatenhet/5
-        [HttpGet("personByResultatenhetId/{resultatenhetId}")]
+        [HttpGet("resultatenhet/{resultatenhetId}")]
         public IEnumerable<PersonDTO> GetPersonByResultatenhetId(int resultatenhetId) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
         {
             var personer = _personService.GetByResultatenhetId(resultatenhetId);

@@ -10,5 +10,6 @@ namespace ODL.DataAccess.Repositories
     public interface IResultatenhetRepository
     {
         List<Resultatenhet> GetByPersonnummer(string personnummer);
+        Resultatenhet GetById(int id);
     }
 }

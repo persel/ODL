@@ -15,6 +15,6 @@ namespace ODL.DataAccess.Repositories
         Anställd GetById(int id);
         void Update();
         */
-        List<Person> GetByResultatenhetId(int resultatenhetId);
+        List<Person> GetByResultatenhetId(IEnumerable<int> idn);
     }
 }
