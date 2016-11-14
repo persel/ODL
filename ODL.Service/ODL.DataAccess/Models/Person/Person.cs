@@ -1,4 +1,4 @@
-namespace ODL.DataAccess.Models
+namespace ODL.DataAccess.Models.Person
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -11,8 +11,7 @@ namespace ODL.DataAccess.Models
 
         [Required]
         [StringLength(255)]
-        [Column("Fornamn")]
-        public string Förnamn { get; set; }
+        public string Fornamn { get; set; }
 
         [StringLength(255)]
         public string Mellannamn { get; set; }
@@ -37,7 +36,7 @@ namespace ODL.DataAccess.Models
         [StringLength(10)]
         public string SkapadAv { get; set; }
 
-        public virtual Anställd Anställd { get; set; }
+        public virtual Anstalld Anstalld { get; set; }
 
         public virtual Konsult Konsult { get; set; }
     }

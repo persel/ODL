@@ -1,10 +1,11 @@
-namespace ODL.DataAccess.Models
+namespace ODL.DataAccess.Models.Organisation
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("Organisation.Organisation")]
     public partial class Organisation
@@ -13,6 +14,7 @@ namespace ODL.DataAccess.Models
         public Organisation()
         {
             Underliggande = new HashSet<Organisation>();
+            OrganisationsAvtal = new HashSet<OrganisationsAvtal>();
         }
 
         public int Id { get; set; }
@@ -24,7 +26,7 @@ namespace ODL.DataAccess.Models
         [StringLength(100)]
         public string Namn { get; set; }
 
-        public int? OrganisationFKId { get; set; }
+        public int? IngarIOrganisationFKId { get; set; }
 
         public DateTime UppdateradDatum { get; set; }
 
@@ -41,7 +43,13 @@ namespace ODL.DataAccess.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Organisation> Underliggande { get; set; }
 
-        public virtual Organisation Överordnad { get; set; }
+        public virtual Organisation Overordnad { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrganisationsAvtal> OrganisationsAvtal { get; set; }
+
+        [NotMapped]
+        public IEnumerable<int> AllaAvtalIdn => OrganisationsAvtal.Select(orgAvtal => orgAvtal.AvtalFKId);
 
         public virtual Resultatenhet Resultatenhet { get; set; }
     }

@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using ODL.DataAccess.Models;
+using ODL.DataAccess.Models.Extensions;
+using ODL.DataAccess.Models.Organisation;
+using ODL.DataAccess.Models.Person;
 
 
 namespace ODL.DataAccess.Repositories
@@ -20,24 +24,26 @@ namespace ODL.DataAccess.Repositories
             _internalGenericRepository = new Repository<Person, ODLDbContext>(DbContext);
         }
 
-
-        public List<Person> GetByResultatenhetId(IEnumerable<int> idn)
+        public IEnumerable<int> GetAllaAvtalIdnPerPerson(string personnummer)
         {
-            var test = _internalGenericRepository.GetById(7);
-            // Hämta alla personer på dessa resultatenheter.
+            var person = _internalGenericRepository.FindSingle(p => p.Personnummer == personnummer);
+            var allaAvtalIdn = person.AllaAvtalIdn();
+            return allaAvtalIdn;
+        }
 
-            // Vanlig SQL används eftersom vi inte vill skapa ett större "aggregat" med fler ingående entiteter
-            // än vad vi behöver här. Om vi skapar ett aggregat som innehåller både Resultatenhet och Person kan vi här använda Linq istället.
-
-            var parameters = idn.Select((id, index) => new SqlParameter($"p{index}", id));
-            var parameterString = string.Join(",", parameters.Select(param => "@" + param.ParameterName));
+        public List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn)
+        {
+            return DbContext.Person.Where(
+                person => person.Anstalld.AnstallningsAvtal.Any(avtal => avtalIdn.Contains(avtal.AvtalFKId)) ||
+                          person.Konsult.KonsultAvtal.Any(avtal => avtalIdn.Contains(avtal.AvtalFKId))).ToList();
+        }
         
-            var personIdn = DbContext.Database.SqlQuery<int>(
-                RepositoryHelper.GetPersonToOrganisationSql("Person.Id", $"Resultatenhet.OrganisationFKId IN({parameterString})"),
-                parameters.ToArray());
-
-            // Går via en lista av idn istället för Person direkt eftersom SqlQuery inte klarar mappning (t.ex. Fornamn -> Förnamn)
-            return DbContext.Person.Where(person => personIdn.Contains(person.Id)).ToList();
+        public Person GetByPersonnummer(string personnummer)
+        {
+            return DbContext.Set<Person>().Where(person => person.Personnummer == personnummer)
+                .Include(a => a.Anstalld.AnstallningsAvtal)
+                .Include(k => k.Konsult.KonsultAvtal).Single();
+            //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
         }
 
         /*
@@ -53,12 +59,7 @@ namespace ODL.DataAccess.Repositories
         {
             return _internalGenericRepository.GetById(id);
         }
-
-        public IEnumerable<Person> GetByPersonnummer(string personnummer)
-        {
-            return _internalGenericRepository.Find(person => person.Personnummer == personnummer);
-        }
-
+        
         public void Update()
         {
             _internalGenericRepository.Update(); // alt. dbContext.SaveChanges();

@@ -30,6 +30,11 @@ namespace ODL.DataAccess.Repositories
             return context.Set<TEntity>().Where(filter).AsEnumerable();
         }
 
+        public TEntity FindSingle(Expression<Func<TEntity, bool>> filter)
+        {
+            return context.Set<TEntity>().Where(filter).Single();
+        }
+
         public void Add(TEntity newEntity)
         {
             context.Set<TEntity>().Add(newEntity);

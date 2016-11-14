@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOrganisationService.cs" />
+    <Compile Include="Models\PersonDTO.cs" />
+    <Compile Include="Models\ResultatenhetDTO.cs" />
     <Compile Include="OrganisationService.cs" />
     <Compile Include="PersonService.cs" />
     <Compile Include="IPersonService.cs" />

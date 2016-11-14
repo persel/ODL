@@ -148,7 +148,7 @@ REFERENCES [Organisation].[Organisation] ([Id])
 GO
 ALTER TABLE [Organisation].[Resultatenhet] CHECK CONSTRAINT [FK_Resultatenhet_Organisation]
 GO
-ALTER TABLE [Organisation].[Organisation]  WITH CHECK ADD  CONSTRAINT [FK_Organisation_Organisation] FOREIGN KEY([OrganisationFKId])
+ALTER TABLE [Organisation].[Organisation]  WITH CHECK ADD  CONSTRAINT [FK_Organisation_Organisation] FOREIGN KEY([IngarIOrganisationFKId])
 REFERENCES [Organisation].[Organisation] ([Id])
 GO
 ALTER TABLE [Organisation].[Organisation] CHECK CONSTRAINT [FK_Organisation_Organisation]
@@ -469,11 +469,11 @@ VALUES('557800-7753', 'Norra ortopedmottagningen', @updatedTime, 'DBO', @updated
 INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES('512500-7751', 'Tandläkarna i Väst, Gemensamma', @updatedTime, 'DBO', @updatedTime, 'DBO')
 
-INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('523500-7862', 'Tandläkarna i Väst, Hk 1', @updatedTime, 'DBO', @updatedTime, 'DBO')
+INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [IngarIOrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('523500-7862', 'Tandläkarna i Väst, Hk 1', 3, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
-INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('534500-7973', 'Tandläkarna i Väst, Hk 2', @updatedTime, 'DBO', @updatedTime, 'DBO')
+INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [IngarIOrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES('534500-7973', 'Tandläkarna i Väst, Hk 2', 3, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 -- Resultatenhet
 INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])

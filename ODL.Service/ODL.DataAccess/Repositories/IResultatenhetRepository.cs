@@ -1,15 +1,18 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ODL.DataAccess.Models;
+
+using ODL.DataAccess.Models.Organisation;
 
 namespace ODL.DataAccess.Repositories
 {
     public interface IResultatenhetRepository
     {
-        List<Resultatenhet> GetByPersonnummer(string personnummer);
+
         Resultatenhet GetById(int id);
+
+        /// <summary>
+        /// Hämta alla Resultatenheter på dessa avtal.
+        /// </summary>
+        IList<Resultatenhet> GetByAvtalIdn(IEnumerable<int> avtalIdn);
     }
 }

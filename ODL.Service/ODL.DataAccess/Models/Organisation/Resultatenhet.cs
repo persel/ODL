@@ -1,4 +1,4 @@
-namespace ODL.DataAccess.Models
+namespace ODL.DataAccess.Models.Organisation
 {
     using System;
     using System.Collections.Generic;

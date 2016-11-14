@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ODL.ApplicationServices;
-using ODL.Service.Models;
+using ODL.ApplicationServices.Models;
 
 // TODO: Beroende till DataAccess bör ev. tas bort, lägg persistence model i eget projekt och referera till detta istället? (motsv. Domain Model)
 
@@ -22,7 +22,7 @@ namespace ODL.Service.Controllers
         [HttpGet("resultatenhet/{personnummer}")]
         public IEnumerable<ResultatenhetDTO> GetResultatenhet(string personnummer) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
         {
-            return _organisationService.GetResultatenhetByPersonnummer(personnummer).Select(enhet => new ResultatenhetDTO { Id = enhet.OrganisationFKId, KostnadsstalleNr = enhet.Kstnr.ToString(), Typ = enhet.Typ, Namn = enhet.Organisation.Namn});
+            return _organisationService.GetResultatenhetByPersonnummer(personnummer);
         }
 
         //// GET api/values/5

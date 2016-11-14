@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ODL.DataAccess.Models.Extensions
 {
@@ -11,14 +9,31 @@ namespace ODL.DataAccess.Models.Extensions
 
     public static class PersonExtensions
     {
-        public static bool IsAnställd(this Person person)
+        public static bool IsAnstalld(this Person.Person person)
         {
-            return person.Anställd != null;
+            return person.Anstalld != null;
         }
 
-        public static bool IsKonsult(this Person person)
+        public static bool IsKonsult(this Person.Person person)
         {
             return person.Konsult != null;
+        }
+
+        public static IEnumerable<int> AllaAvtalIdn(this Person.Person person)
+        {
+            if (person.IsAnstalld() && person.IsKonsult())
+                return person.Anstalld.AnstallningsAvtalIdn.Concat(person.Konsult.KonsultAvtalIdn);
+            return person.IsAnstalld()
+                ? person.Anstalld.AnstallningsAvtalIdn
+                : (person.IsKonsult() ? person.Konsult.KonsultAvtalIdn : new List<int>()); // Tar hänsyn till om en person är varken konsult eller anställd...
+        }
+
+        /// <summary>
+        /// Personen är kopplad till organisationen genom minst ett avtal 
+        /// </summary>
+        public static bool KoppladTill(this Person.Person person, Organisation.Organisation organisation)
+        {
+            return person.AllaAvtalIdn().Intersect(organisation.AllaAvtalIdn).Any();
         }
     }
 }

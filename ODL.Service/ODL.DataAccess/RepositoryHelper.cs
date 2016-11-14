@@ -16,11 +16,11 @@ namespace ODL.DataAccess
                 FROM Person.Konsult Konsult JOIN Person.KonsultAvtal KonsultAvtal ON KonsultAvtal.PersonFKId = Konsult.PersonFKId
                     UNION ALL
                 SELECT Anstalld.PersonFKId PersonId, AvtalFKId
-                FROM Person.Anstalld Anstalld JOIN Person.AnstalldAvtal AnstalldAvtal ON AnstalldAvtal.PersonFKId = Anstalld.PersonFKId
+                FROM Person.Anstalld Anstalld JOIN Person.AnstalldAvtal AnstallningsAvtal ON AnstallningsAvtal.PersonFKId = Anstalld.PersonFKId
                 ) PersonAvtal
                 ON Person.Id = PersonAvtal.PersonId
                 JOIN Person.Avtal Avtal ON Avtal.Id = PersonAvtal.AvtalFKId
-                JOIN Person.OrganisationAvtal OrganisationAvtal ON OrganisationAvtal.AvtalFKId = Avtal.Id
+                JOIN Person.OrganisationAvtal OrganisationsAvtal ON OrganisationsAvtal.AvtalFKId = Avtal.Id
                 JOIN Organisation.Organisation Organisation ON Organisation.Id = OrganisationAvtal.OrganisationFKId
                 JOIN Organisation.Resultatenhet Resultatenhet ON Resultatenhet.OrganisationFKId = Organisation.Id
                 WHERE {whereClause}";

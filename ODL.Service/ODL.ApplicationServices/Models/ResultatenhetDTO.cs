@@ -1,9 +1,9 @@
-﻿namespace ODL.Service.Models
+﻿namespace ODL.ApplicationServices.Models
 {
     public class ResultatenhetDTO
     {
         public int Id { get; set; }
-        public string KostnadsstalleNr { get; set; }
+        public int KostnadsstalleNr { get; set; }
         public string Namn { get; set; }
         public string Typ { get; set; }
     }

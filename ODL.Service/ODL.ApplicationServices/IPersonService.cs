@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ODL.DataAccess.Models;
+using ODL.ApplicationServices.Models;
+using ODL.DataAccess.Models.Person;
 
 namespace ODL.ApplicationServices
 {
@@ -13,10 +14,10 @@ namespace ODL.ApplicationServices
         /// Hämtar alla Personer som har avtal med angiven resultatenhet eller andra resultatenheter i samma
         /// organisationshierarki
         /// </summary>
-        List<Person> GetByResultatenhetId(int resultatenhetId);
+        List<PersonDTO> GetByResultatenhetId(int resultatenhetId);
 
-        //IEnumerable<Anställd> GetAllAnställda();
-        //Anställd GetAnställdById(int id);
+        //IEnumerable<Anstalld> GetAllAnställda();
+        //Anstalld GetAnställdById(int id);
         
     }
 }

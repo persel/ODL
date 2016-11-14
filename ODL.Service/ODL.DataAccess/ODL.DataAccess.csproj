@@ -51,21 +51,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Anställd.cs" />
+    <Compile Include="Models\Person\Anstalld.cs" />
+    <Compile Include="Models\Person\AnstallningsAvtal.cs" />
+    <Compile Include="Models\Person\Konsult.cs" />
+    <Compile Include="Models\Person\KonsultAvtal.cs" />
     <Compile Include="Models\Extensions\OrganisationExtensions.cs" />
     <Compile Include="Models\Extensions\PersonExtensions.cs" />
-    <Compile Include="Models\Konsult.cs" />
     <Compile Include="ODLDbContextFactory.cs" />
     <Compile Include="ODLDbContext.cs" />
-    <Compile Include="Models\Organisation.cs" />
-    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Organisation\Organisation.cs" />
+    <Compile Include="Models\Organisation\OrganisationsAvtal.cs" />
+    <Compile Include="Models\Person\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\PersonRepository.cs" />
     <Compile Include="Repositories\IPersonRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IResultatenhetRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Models\Resultatenhet.cs" />
+    <Compile Include="Models\Organisation\Resultatenhet.cs" />
     <Compile Include="Repositories\ResultatenhetRepository.cs" />
     <Compile Include="RepositoryHelper.cs" />
   </ItemGroup>
