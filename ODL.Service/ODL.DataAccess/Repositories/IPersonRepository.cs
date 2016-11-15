@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ODL.DataAccess.Models.Person;
+using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Repositories
 {

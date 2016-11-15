@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ODL.ApplicationServices.Models
+namespace ODL.ApplicationServices.DTOModel
 {
     public class PersonDTO
     {

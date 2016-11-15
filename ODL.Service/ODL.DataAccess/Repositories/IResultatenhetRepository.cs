@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-using ODL.DataAccess.Models.Organisation;
+using ODL.DomainModel.Organisation;
 
 namespace ODL.DataAccess.Repositories
 {

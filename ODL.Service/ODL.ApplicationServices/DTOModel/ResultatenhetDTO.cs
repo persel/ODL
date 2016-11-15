@@ -1,4 +1,4 @@
-﻿namespace ODL.ApplicationServices.Models
+﻿namespace ODL.ApplicationServices.DTOModel
 {
     public class ResultatenhetDTO
     {

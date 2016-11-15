@@ -1,6 +1,6 @@
-namespace ODL.DataAccess.Models.Person
+namespace ODL.DomainModel.Person
 {
-    using System;
+    using Common;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -25,17 +25,7 @@ namespace ODL.DataAccess.Models.Person
         [StringLength(10)]
         public string Alias { get; set; }
 
-        public DateTime UppdateradDatum { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string UppdateradAv { get; set; }
-
-        public DateTime SkapadDatum { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string SkapadAv { get; set; }
+        public Metadata Metadata { get; set; }
 
         public virtual Person Person { get; set; }
 

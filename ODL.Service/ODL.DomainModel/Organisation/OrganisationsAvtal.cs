@@ -1,10 +1,7 @@
-namespace ODL.DataAccess.Models.Organisation
+namespace ODL.DomainModel.Organisation
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("Person.OrganisationAvtal")]
     public partial class OrganisationsAvtal

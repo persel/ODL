@@ -476,19 +476,19 @@ INSERT INTO [Organisation].[Organisation]([OrganisationsId], [Namn], [IngarIOrga
 VALUES('534500-7973', 'Tandläkarna i Väst, Hk 2', 3, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 -- Resultatenhet
-INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Organisation].[Resultatenhet]([KstNr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(15, 'H', 1, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
-INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Organisation].[Resultatenhet]([KstNr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(22, 'H', 2, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
-INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Organisation].[Resultatenhet]([KstNr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(60, 'G', 3, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
-INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Organisation].[Resultatenhet]([KstNr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(61, 'H', 4, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
-INSERT INTO [Organisation].[Resultatenhet]([Kstnr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Organisation].[Resultatenhet]([KstNr], [Typ], [OrganisationFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(62, 'H', 5, @updatedTime, 'DBO', @updatedTime, 'DBO')
 
 -- OrganisationAvtal

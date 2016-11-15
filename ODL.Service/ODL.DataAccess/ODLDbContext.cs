@@ -1,13 +1,10 @@
-using ODL.DataAccess.Models;
-using ODL.DataAccess.Models.Organisation;
-using ODL.DataAccess.Models.Person;
+
+using ODL.DomainModel.Organisation;
+using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess
 {
-    using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
 
     public partial class ODLDbContext : DbContext
     {

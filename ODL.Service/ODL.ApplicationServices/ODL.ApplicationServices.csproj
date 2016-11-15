@@ -50,8 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOrganisationService.cs" />
-    <Compile Include="Models\PersonDTO.cs" />
-    <Compile Include="Models\ResultatenhetDTO.cs" />
+    <Compile Include="DTOModel\PersonDTO.cs" />
+    <Compile Include="DTOModel\ResultatenhetDTO.cs" />
     <Compile Include="OrganisationService.cs" />
     <Compile Include="PersonService.cs" />
     <Compile Include="IPersonService.cs" />
@@ -61,6 +61,10 @@
     <ProjectReference Include="..\ODL.DataAccess\ODL.DataAccess.csproj">
       <Project>{00730b19-2441-42db-9fee-f71edca04682}</Project>
       <Name>ODL.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ODL.DomainModel\ODL.DomainModel.csproj">
+      <Project>{6820eef2-fc9d-49bc-8e01-b5ceca63a146}</Project>
+      <Name>ODL.DomainModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

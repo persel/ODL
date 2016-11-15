@@ -1,12 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
-using ODL.DataAccess.Models;
-using ODL.DataAccess.Models.Extensions;
-using ODL.DataAccess.Models.Organisation;
-using ODL.DataAccess.Models.Person;
-
+using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Repositories
 {

@@ -38,6 +38,25 @@
           "copyToOutput": true
         }
       }
+    },
+    "ODL.DomainModel/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5.2",
+      "compile": {
+        "bin/Debug/ODL.DomainModel.dll": {}
+      },
+      "runtime": {
+        "../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.SqlServer.dll": {},
+        "../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
+        "bin/Debug/ODL.DomainModel.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/ODL.DomainModel.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
     }
   }
 }

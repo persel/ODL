@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ODL.DataAccess.Models.Extensions
+namespace ODL.DomainModel.Person
 {
-    // Extension methods används för viss logik i EF-modellen, så ev. omskapande av modellen via "EF database first" inte 
-    // skriver över egenskriven kod i modellklasserna
+    // Extension methods används för implementation av logik i domain model, så att ev. omskapande av modellen via "EF database first" inte 
+    // skriver över egenskriven kod i modellklasserna. Kan flyttas till resp. klass när vi inte längre genererar från databasen.
 
     public static class PersonExtensions
     {
-        public static bool IsAnstalld(this Person.Person person)
+        public static bool IsAnstalld(this Person person)
         {
             return person.Anstalld != null;
         }
 
-        public static bool IsKonsult(this Person.Person person)
+        public static bool IsKonsult(this Person person)
         {
             return person.Konsult != null;
         }
 
-        public static IEnumerable<int> AllaAvtalIdn(this Person.Person person)
+        public static IEnumerable<int> AllaAvtalIdn(this Person person)
         {
             if (person.IsAnstalld() && person.IsKonsult())
                 return person.Anstalld.AnstallningsAvtalIdn.Concat(person.Konsult.KonsultAvtalIdn);
@@ -31,7 +31,7 @@ namespace ODL.DataAccess.Models.Extensions
         /// <summary>
         /// Personen är kopplad till organisationen genom minst ett avtal 
         /// </summary>
-        public static bool KoppladTill(this Person.Person person, Organisation.Organisation organisation)
+        public static bool KoppladTill(this Person person, Organisation.Organisation organisation)
         {
             return person.AllaAvtalIdn().Intersect(organisation.AllaAvtalIdn).Any();
         }

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ODL.ApplicationServices.Models;
-using ODL.DataAccess.Models.Extensions;
+using ODL.ApplicationServices.DTOModel;
 using ODL.DataAccess.Repositories;
+using ODL.DomainModel.Organisation;
+using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices
 {
@@ -39,7 +40,7 @@ namespace ODL.ApplicationServices
                 foreach (var organisation in allaOrganisationer)
                 {
                     if(person.KoppladTill(organisation)) 
-                        personDTO.Resultatenheter.Add(new ResultatenhetDTO() {Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.Kstnr, Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ});
+                        personDTO.Resultatenheter.Add(new ResultatenhetDTO {Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr, Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ});
                 }
                 personDtos.Add(personDTO);
             }

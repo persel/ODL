@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
-using ODL.DataAccess.Models;
-using ODL.DataAccess.Models.Organisation;
+using ODL.DomainModel.Organisation;
 
 namespace ODL.DataAccess.Repositories
 {

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ODL.ApplicationServices.Models;
-using ODL.DataAccess.Models;
-using ODL.DataAccess.Models.Extensions;
-using ODL.DataAccess.Models.Organisation;
+using ODL.ApplicationServices.DTOModel;
 using ODL.DataAccess.Repositories;
+using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices
 {
@@ -33,7 +28,7 @@ namespace ODL.ApplicationServices
                 new ResultatenhetDTO
                 {
                     Id = enhet.OrganisationFKId,
-                    KostnadsstalleNr = enhet.Kstnr,
+                    KostnadsstalleNr = enhet.KstNr,
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
                 });

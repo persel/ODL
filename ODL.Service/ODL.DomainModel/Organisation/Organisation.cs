@@ -1,10 +1,11 @@
-namespace ODL.DataAccess.Models.Organisation
+
+using ODL.DomainModel.Common;
+
+namespace ODL.DomainModel.Organisation
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
     using System.Linq;
 
     [Table("Organisation.Organisation")]
@@ -28,17 +29,7 @@ namespace ODL.DataAccess.Models.Organisation
 
         public int? IngarIOrganisationFKId { get; set; }
 
-        public DateTime UppdateradDatum { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string UppdateradAv { get; set; }
-
-        public DateTime SkapadDatum { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string SkapadAv { get; set; }
+        public Metadata Metadata { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Organisation> Underliggande { get; set; }

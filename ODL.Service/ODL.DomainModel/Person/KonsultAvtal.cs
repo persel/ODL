@@ -1,13 +1,10 @@
-namespace ODL.DataAccess.Models.Person
+namespace ODL.DomainModel.Person
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    [Table("Person.AnstalldAvtal")]
-    public partial class AnstallningsAvtal
+    [Table("Person.KonsultAvtal")]
+    public partial class KonsultAvtal
     {
         [Key]
         [Column(Order = 0)]
@@ -19,7 +16,6 @@ namespace ODL.DataAccess.Models.Person
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AvtalFKId { get; set; }
 
-        public virtual Anstalld Anstalld { get; set; }
-
+        public virtual Konsult Konsult { get; set; }
     }
 }
