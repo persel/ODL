@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOModel\Load\PersonInputDTO.cs" />
     <Compile Include="IOrganisationService.cs" />
     <Compile Include="DTOModel\PersonDTO.cs" />
     <Compile Include="DTOModel\ResultatenhetDTO.cs" />
