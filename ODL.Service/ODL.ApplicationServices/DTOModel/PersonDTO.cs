@@ -9,4 +9,5 @@ namespace ODL.ApplicationServices.DTOModel
         public string Namn { get; set; }
         public List<ResultatenhetDTO> Resultatenheter { get; set; }
     }
+    
 }

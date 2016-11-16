@@ -11,20 +11,20 @@ namespace ODL.DomainModel.Common
     [ComplexType]
     public class Metadata
     {
-        [Column("UppdateradDatum")]
+        //[Column("UppdateradDatum")]
         public DateTime UppdateradDatum { get; set; }
-
-        [Required]
+        
         [StringLength(10)]
-        [Column("UppdateradAv")]
+        //[Column("UppdateradAv")]
         public string UppdateradAv { get; set; }
 
-        [Column("SkapadDatum")]
+        [Required]
+        //[Column("SkapadDatum")]
         public DateTime SkapadDatum { get; set; }
 
         [Required]
         [StringLength(10)]
-        [Column("SkapadAv")]
+        //[Column("SkapadAv")]
         public string SkapadAv { get; set; }
     }
 }

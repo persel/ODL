@@ -19,8 +19,6 @@ namespace ODL.DomainModel.Person
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PersonFKId { get; set; }
 
-        public byte? Typ { get; set; }
-
         [Required]
         [StringLength(10)]
         public string Alias { get; set; }

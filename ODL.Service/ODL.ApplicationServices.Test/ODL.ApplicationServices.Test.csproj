@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC}</ProjectGuid>
+    <ProjectGuid>{CC5D2B7E-F0A2-4039-97B1-CC83058416F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ODL.ApplicationServices</RootNamespace>
-    <AssemblyName>ODL.ApplicationServices</AssemblyName>
+    <RootNamespace>ODL.ApplicationServices.Test</RootNamespace>
+    <AssemblyName>ODL.ApplicationServices.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,16 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,36 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOModel\Load\AvtalInputDTO.cs" />
-    <Compile Include="DTOModel\Load\InputDTO.cs" />
-    <Compile Include="DTOModel\Load\PersonInputDTO.cs" />
-    <Compile Include="Validation\AvtalInputValidator.cs" />
-    <Compile Include="Validation\PersonInputValidator.cs" />
-    <Compile Include="Validation\ValidationError.cs" />
-    <Compile Include="Validation\ValidationRule.cs" />
-    <Compile Include="Validation\ValidationRuleBuilder.cs" />
-    <Compile Include="Validation\Validator.cs" />
-    <Compile Include="IOrganisationService.cs" />
-    <Compile Include="DTOModel\PersonDTO.cs" />
-    <Compile Include="DTOModel\ResultatenhetDTO.cs" />
-    <Compile Include="OrganisationService.cs" />
-    <Compile Include="PersonService.cs" />
-    <Compile Include="IPersonService.cs" />
+    <Compile Include="AvtalInputValidatorTests.cs" />
+    <Compile Include="PersonInputValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ODL.DataAccess\ODL.DataAccess.csproj">
-      <Project>{00730b19-2441-42db-9fee-f71edca04682}</Project>
-      <Name>ODL.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ODL.DomainModel\ODL.DomainModel.csproj">
-      <Project>{6820eef2-fc9d-49bc-8e01-b5ceca63a146}</Project>
-      <Name>ODL.DomainModel</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <ProjectReference Include="..\ODL.ApplicationServices\ODL.ApplicationServices.csproj">
+      <Project>{bf34aa84-2fa4-4258-8099-a39d3aeb0acc}</Project>
+      <Name>ODL.ApplicationServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

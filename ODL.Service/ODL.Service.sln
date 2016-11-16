@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{92F7ECD1-7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DomainModel", "ODL.DomainModel\ODL.DomainModel.csproj", "{6820EEF2-FC9D-49BC-8E01-B5CECA63A146}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.ApplicationServices.Test", "ODL.ApplicationServices.Test\ODL.ApplicationServices.Test.csproj", "{CC5D2B7E-F0A2-4039-97B1-CC83058416F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{6820EEF2-FC9D-49BC-8E01-B5CECA63A146}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6820EEF2-FC9D-49BC-8E01-B5CECA63A146}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6820EEF2-FC9D-49BC-8E01-B5CECA63A146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5D2B7E-F0A2-4039-97B1-CC83058416F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5D2B7E-F0A2-4039-97B1-CC83058416F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5D2B7E-F0A2-4039-97B1-CC83058416F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5D2B7E-F0A2-4039-97B1-CC83058416F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,5 +69,6 @@ Global
 		{79955D1C-0A3D-40AF-8435-1B950358F745} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
 		{92F7ECD1-723D-4398-867A-3E7AB3D8FE4E} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
 		{6820EEF2-FC9D-49BC-8E01-B5CECA63A146} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
+		{CC5D2B7E-F0A2-4039-97B1-CC83058416F4} = {92F7ECD1-723D-4398-867A-3E7AB3D8FE4E}
 	EndGlobalSection
 EndGlobal
