@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.Validation;
@@ -50,7 +51,10 @@ namespace ODL.ApplicationServices.Test
 
             var brokenRules = validator.Validate(avtal);
 
-            Assert.That(brokenRules.Count, Is.EqualTo(5));
+            Assert.That(brokenRules.Count, Is.EqualTo(2));
+
+            Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'AvtalInputDTO.LonDatum' har ej korrekt datumformat ('yyyy-MM-dd'). (Id: 123456)")));
+            Assert.That(brokenRules.Any(ve => ve.Message.Equals("Avtalet kan ej tillhöra både anställd och konsult.")));
 
         }
     }

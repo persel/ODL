@@ -24,7 +24,8 @@ namespace ODL.ApplicationServices.Validation
             RuleFor(avtal => avtal.Anstallningsdatum).ValidDateFormat();
             RuleFor(avtal => avtal.Avgangsdatum).ValidDateFormat();
             
-            AddRule(avtal => !string.IsNullOrEmpty(avtal.AnstalldPersonId) && !string.IsNullOrEmpty(avtal.KonsultPersonId), "Avtalet kan ej tillhöra både anställd och konsult.");
+            AddRule(avtal => string.IsNullOrEmpty(avtal.AnstalldPersonId) || string.IsNullOrEmpty(avtal.KonsultPersonId), "Avtalet kan ej tillhöra både anställd och konsult.");
+
             AddStandardRules();
         }
     }

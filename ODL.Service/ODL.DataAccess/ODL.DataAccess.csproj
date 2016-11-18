@@ -51,8 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Avtal.cs" />
-    <Compile Include="ModelAvtal.cs" />
     <Compile Include="ODLDbContextFactory.cs" />
     <Compile Include="ODLDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

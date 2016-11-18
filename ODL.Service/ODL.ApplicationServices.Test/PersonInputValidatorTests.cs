@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.Validation;
@@ -35,11 +36,11 @@ namespace ODL.ApplicationServices.Test
 
             Assert.That(brokenRules.Count, Is.EqualTo(5));
 
-            Assert.That(brokenRules.Find(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Efternamn' saknar värde. (Id: 123456)")), Is.Not.Null);
-            Assert.That(brokenRules.Find(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Personnummer' får innehålla max 12 tecken. (Id: 123456)")), Is.Not.Null);
-            Assert.That(brokenRules.Find(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Alias' saknar värde. (Id: 123456)")), Is.Not.Null);
-            Assert.That(brokenRules.Find(ve => ve.Message.Equals("Fältet 'PersonInputDTO.SkapadAv' saknar värde. (Id: 123456)")), Is.Not.Null);
-            Assert.That(brokenRules.Find(ve => ve.Message.Equals("Fältet 'PersonInputDTO.SkapadDatum' saknar värde. (Id: 123456)")), Is.Not.Null);
+            Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Efternamn' saknar värde. (Id: 123456)")));
+            Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Personnummer' får innehålla max 12 tecken. (Id: 123456)")));
+            Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Alias' saknar värde. (Id: 123456)")));
+            Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.SkapadAv' saknar värde. (Id: 123456)")));
+            Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.SkapadDatum' saknar värde. (Id: 123456)")));
         }
     }
 }

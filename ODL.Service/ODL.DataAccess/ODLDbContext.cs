@@ -56,18 +56,6 @@ namespace ODL.DataAccess
                 .HasOptional(e => e.Konsult)
                 .WithRequired(e => e.Person);
 
-            modelBuilder.Entity<Avtal>()
-                .Property(e => e.DeltidFranvaro)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Avtal>()
-                .Property(e => e.SjukP)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Avtal>()
-                .Property(e => e.LoneTyp)
-                .IsFixedLength();
-
 
             // Organisation:
 

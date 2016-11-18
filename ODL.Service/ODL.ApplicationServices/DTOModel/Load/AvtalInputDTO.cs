@@ -60,6 +60,6 @@ namespace ODL.ApplicationServices.DTOModel.Load
         public string Anstallningsdatum { get; set; }
 
         public string Avgangsdatum { get; set; }
-
+        
     }
 }
