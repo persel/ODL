@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ODL.DomainModel.Common;
 
 namespace ODL.ApplicationServices.DTOModel.Load
 {
@@ -60,6 +61,5 @@ namespace ODL.ApplicationServices.DTOModel.Load
         public string Anstallningsdatum { get; set; }
 
         public string Avgangsdatum { get; set; }
-        
     }
 }

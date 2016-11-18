@@ -8,7 +8,8 @@ namespace ODL.ApplicationServices.Validation
 
     public class ValidationRuleBuilder<T> where T : InputDTO
     {
-        private const string DateFormat = "yyyy-MM-dd"; // TODO: Flytta denna till konfigurationsfil eller centraliserad plats!
+        public const string DateFormat = "yyyy-MM-dd"; // TODO: Flytta denna till konfigurationsfil eller centraliserad plats!
+
         private Expression<Func<T, string>> PropertySelector { get; }
         private Validator<T> Validator { get; }
         public string SubjectName { get; }

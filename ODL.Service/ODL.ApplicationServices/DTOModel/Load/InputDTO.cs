@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ODL.DomainModel.Common;
 
 namespace ODL.ApplicationServices.DTOModel.Load
 {
@@ -17,6 +13,10 @@ namespace ODL.ApplicationServices.DTOModel.Load
         public string SkapadDatum { get; set; }
 
         public string SkapadAv { get; set; }
-
+        
+        public Metadata GetMetadata()
+        {
+            return new Metadata(UppdateradDatum.ToDateTime(), UppdateradAv, SkapadDatum.ToDateTime().Value, SkapadAv); // TODO: Överväg att bara använda nullable DateTime.
+        }
     }
 }

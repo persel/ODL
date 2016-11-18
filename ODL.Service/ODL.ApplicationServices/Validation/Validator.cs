@@ -8,6 +8,7 @@ namespace ODL.ApplicationServices.Validation
 {
     public abstract class Validator<T> where T : InputDTO
     {
+        
         public List<ValidationRule<T>> Rules { get; internal set; }
 
         protected Validator()
@@ -22,7 +23,7 @@ namespace ODL.ApplicationServices.Validation
 
 
         /// <summary>
-        /// Kör alla regler
+        /// Kör alla valideringsregler och returnera en lista med eventuella fel
         /// </summary>
         public List<ValidationError> Validate(T subject)
         {
@@ -34,7 +35,7 @@ namespace ODL.ApplicationServices.Validation
                 var result = rule.Evaluate(subject);
 
                 if (result) continue;
-                var message = rule.Message + (rule.AddIdToMessage ? idText : string.Empty);
+                var message = rule.Message + (rule.AddIdToMessage ? idText : String.Empty);
                 errors.Add(new ValidationError(message));
             }
 
@@ -53,7 +54,7 @@ namespace ODL.ApplicationServices.Validation
 
         /// <summary>
         /// Kör alla regler och lägg resultatet i angiven lista.
-        /// Returnerar false om valideringsfel påträffades.
+        /// Returnerar true om subject klarade valideringen.
         /// </summary>
         public bool Validate(T subject, List<ValidationError> validationErrors)
         {

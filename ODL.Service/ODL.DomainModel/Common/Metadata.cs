@@ -1,24 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ODL.DomainModel.Common
 {
     [ComplexType]
     public class Metadata
     {
+        public Metadata(){}
+        public Metadata(DateTime? uppdateradDatum, string uppdateradAv, DateTime skapadDatum, string skapadAv)
+        {
+            UppdateradDatum = uppdateradDatum;
+            UppdateradAv = uppdateradAv;
+            SkapadDatum = skapadDatum;
+            SkapadAv = skapadAv;
+        }
+
+        public Metadata(DateTime skapadDatum, string skapadAv)
+        {
+            SkapadDatum = skapadDatum;
+            SkapadAv = skapadAv;
+        }
+
         //[Column("UppdateradDatum")]
-        public DateTime UppdateradDatum { get; set; }
+        public DateTime? UppdateradDatum { get; set; }
         
         [StringLength(10)]
         //[Column("UppdateradAv")]
         public string UppdateradAv { get; set; }
 
-        [Required]
         //[Column("SkapadDatum")]
         public DateTime SkapadDatum { get; set; }
 

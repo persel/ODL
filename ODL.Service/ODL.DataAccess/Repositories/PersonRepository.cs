@@ -41,6 +41,21 @@ namespace ODL.DataAccess.Repositories
             //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
         }
 
+        public Avtal GetByKallsystemId(string systemId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Add(Avtal avtal)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /*
         
         // Här kan man implementera mer specialiserade metoder för att hämta Person, direkt genom context eller genom att använda den generiska Repository<T>

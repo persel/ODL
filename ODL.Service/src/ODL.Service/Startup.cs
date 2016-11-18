@@ -30,6 +30,8 @@ namespace ODL.Service
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            log4net.Config.XmlConfigurator.Configure();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -47,7 +49,8 @@ namespace ODL.Service
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IResultatenhetRepository, ResultatenhetRepository>();
 
-            services.AddMvc();
+            services.AddMvc(config => { config.Filters.Add(typeof(GlobalExceptionFilter)); });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -60,6 +63,7 @@ namespace ODL.Service
             //app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseMvc();
+            
         }
     }
 }

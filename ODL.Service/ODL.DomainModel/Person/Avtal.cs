@@ -1,15 +1,19 @@
-namespace ODL.DataAccess
+using ODL.DomainModel.Common;
+
+namespace ODL.DomainModel.Person
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("Person.Avtal")]
     public partial class Avtal
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
+
+        [Required]
+        [StringLength(25)]
+        public string KallsystemId { get; set; }
 
         [StringLength(50)]
         public string Avtalskod { get; set; }
@@ -61,16 +65,7 @@ namespace ODL.DataAccess
 
         public DateTime? Avgangsdatum { get; set; }
 
-        public DateTime UppdateradDatum { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string UppdateradAv { get; set; }
-
-        public DateTime SkapadDatum { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string SkapadAv { get; set; }
+        public Metadata Metadata { get; set; }
+        public bool IsNew => Id == default(int);
     }
 }

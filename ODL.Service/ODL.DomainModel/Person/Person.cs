@@ -11,6 +11,10 @@ namespace ODL.DomainModel.Person
         public int Id { get; set; }
 
         [Required]
+        [StringLength(25)]
+        public string KallsystemId { get; set; }
+
+        [Required]
         [StringLength(255)]
         public string Fornamn { get; set; }
 
