@@ -10,15 +10,6 @@ namespace ODL.Service
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GlobalExceptionFilter));
 
-        //public GlobalExceptionFilter(ILoggerFactory logger)
-        //{
-        //    if (logger == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(logger));
-        //    }
-
-        //    this._logger = logger.CreateLogger("Global Exception Filter");
-        //}
 
         public void OnException(ExceptionContext context)
         {
@@ -47,8 +38,7 @@ namespace ODL.Service
             response.ContentType = "application/json";
             var err = message + " " + context.Exception.StackTrace;
             response.WriteAsync(err);
-
-
+            
         }
     }
 }

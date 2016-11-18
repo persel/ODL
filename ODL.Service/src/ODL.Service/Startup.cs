@@ -48,6 +48,7 @@ namespace ODL.Service
 
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IResultatenhetRepository, ResultatenhetRepository>();
+            services.AddScoped<IAvtalRepository, AvtalRepository>();
 
             services.AddMvc(config => { config.Filters.Add(typeof(GlobalExceptionFilter)); });
 
