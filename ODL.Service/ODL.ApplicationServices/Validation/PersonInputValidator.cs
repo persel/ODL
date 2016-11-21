@@ -9,7 +9,9 @@ namespace ODL.ApplicationServices.Validation
 
         public PersonInputValidator()
         {
-            //AddRule(person => string.IsNullOrEmpty(person.Fornamn), "Förnamn saknas.");
+            //AddRule(person => !string.IsNullOrEmpty(person.Fornamn), "Förnamn saknas.");
+            //NotNull(person => person.Efternamn);
+
             RuleFor(person => person.Fornamn).NotNullOrEmpty().WithinMaxLength(255);
             RuleFor(person => person.Mellannamn).WithinMaxLength(255);
             RuleFor(person => person.Efternamn).NotNullOrEmpty().WithinMaxLength(255);

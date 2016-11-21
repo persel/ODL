@@ -5,6 +5,9 @@ using ODL.ApplicationServices.DTOModel.Load;
 
 namespace ODL.ApplicationServices.Validation
 {
+    /// <summary>
+    /// Används för att lägga till regler i Validator (anges i konstruktorn) för en specifik string-property på T mha ett "fluent api" enligt Builder pattern.
+    /// </summary>
 
     public class ValidationRuleBuilder<T> where T : InputDTO
     {
@@ -15,21 +18,17 @@ namespace ODL.ApplicationServices.Validation
         public string SubjectName { get; }
         public string PropertyName { get; }
 
-        public ValidationRuleBuilder(Expression<Func<T, string>> propertySelector, Validator<T> validator)
+        internal ValidationRuleBuilder(Expression<Func<T, string>> propertySelector, Validator<T> validator)
         {
             PropertySelector = propertySelector;
             Validator = validator;
 
             SubjectName = typeof(T).Name;
             PropertyName = ((MemberExpression)propertySelector.Body).Member.Name;
-            
         }
         
         internal ValidationRuleBuilder<T> NotNull()
         {
-            //Func<T, bool> rule = x => PropertySelector.Compile().Invoke(x) != null;
-            //Validator.AddRule(rule, $"Fältet '{SubjectName}.{PropertyName}' av typen '{TypeName}' får ej vara null.", true);
-
             Validator.NotNull(PropertySelector);
             return this;
         }

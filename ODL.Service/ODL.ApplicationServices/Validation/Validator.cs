@@ -67,6 +67,10 @@ namespace ODL.ApplicationServices.Validation
             return false;
         }
 
+        /// <summary>
+        /// Skapar och returnerar en ValidationRuleBuilder som kan användas för att peka ut en specifik sträng-property på T och
+        /// lägga till regler i Validator för den mha ett "fluent api" enligt Builder pattern.
+        /// </summary>
         protected ValidationRuleBuilder<T> RuleFor(Expression<Func<T, string>> propertySelector)
         {
             return new ValidationRuleBuilder<T>(propertySelector, this);

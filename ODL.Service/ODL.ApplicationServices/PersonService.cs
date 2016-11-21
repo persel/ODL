@@ -70,7 +70,7 @@ namespace ODL.ApplicationServices
 
             var avtal = personRepository.GetByKallsystemId(avtalDTO.SystemId) ?? new Avtal();
             
-            // TODO: Skapa DTOMapper-klass!
+            // TODO: Skapa DTOMapper-klass! (Automapper?)
 
             avtal.KallsystemId = avtalDTO.SystemId;
             avtal.Avtalskod = avtalDTO.Avtalskod;
@@ -102,6 +102,6 @@ namespace ODL.ApplicationServices
             else
                 personRepository.Update();
         }
-        
+
     }
 }

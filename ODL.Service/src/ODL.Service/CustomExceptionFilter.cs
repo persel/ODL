@@ -27,7 +27,7 @@ namespace ODL.Service
             }
             else
             {
-                message = "Ett serverfel har inträffat."; // TODO: Lägg ev. till ett korrelationsid i loggen och i meddelandet!
+                message = "Ett serverfel har inträffat."; // TODO: Lägg ev. till ett korrelationsid (eller bara timestamp) i loggen och i meddelandet!
 
                 if (Log.IsErrorEnabled)
                     Log.Error(context.Exception);
