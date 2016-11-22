@@ -35,5 +35,10 @@ namespace ODL.DataAccess.Repositories
                 resultatEnhet => resultatEnhet.Organisation.OrganisationsAvtal.Any(
                     avtal => avtalIdn.Contains(avtal.AvtalFKId))).ToList();
         }
+
+        public IList<Resultatenhet> GetAll()
+        {
+            return DbContext.Set<Resultatenhet>().Include(r => r.Organisation).ToList();
+        }
     }
 }

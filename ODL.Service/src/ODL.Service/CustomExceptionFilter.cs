@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Net;
-using log4net;
+using System.Threading;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace ODL.Service
 {
-    public class GlobalExceptionFilter : IExceptionFilter//, IDisposable
+    public class GlobalExceptionFilter : IExceptionFilter//, ActionFilterAttribute, IDisposable
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(GlobalExceptionFilter));
+        private readonly ILogger<GlobalExceptionFilter> logger;
 
+        public GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger)
+        {
+            this.logger = logger;
+        }
+        
 
         public void OnException(ExceptionContext context)
         {
@@ -23,22 +30,20 @@ namespace ODL.Service
 
             if (exceptionType == typeof(ApplicationException)) // Visa felmeddelandet (skapat av oss - användarvänligt meddelande!)
             {
-                message = context.Exception.ToString();
+                message = context.Exception.Message;
             }
             else
             {
                 message = "Ett serverfel har inträffat."; // TODO: Lägg ev. till ett korrelationsid (eller bara timestamp) i loggen och i meddelandet!
 
-                if (Log.IsErrorEnabled)
-                    Log.Error(context.Exception);
+                logger.LogError("Ett fel hanterades i GlobalExceptionFilter: '{message}'. Stacktrace: {stackTrace}", exception.Message, exception.StackTrace);
             }
 
             var response = context.HttpContext.Response;
             response.StatusCode = (int)status;
             response.ContentType = "application/json";
-            var err = message + " " + context.Exception.StackTrace;
-            response.WriteAsync(err);
-            
+        
+            context.Result = new JsonResult(message);
         }
     }
 }

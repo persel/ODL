@@ -9,5 +9,7 @@ namespace ODL.ApplicationServices
         /// Hämtar alla resultatenheter med vilka angiven person har ett avtal.
         /// </summary>
         IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer);
+        
+        IEnumerable<ResultatenhetDTO> GetResultatenheter();
     }
 }

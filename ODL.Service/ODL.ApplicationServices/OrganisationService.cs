@@ -33,5 +33,19 @@ namespace ODL.ApplicationServices
                     Namn = enhet.Organisation.Namn
                 });
         }
+
+        public IEnumerable<ResultatenhetDTO> GetResultatenheter()
+        {
+            var resultatenheter = _resultatenhetRepository.GetAll();
+
+            return resultatenheter.Select(enhet =>
+                new ResultatenhetDTO
+                {
+                    Id = enhet.OrganisationFKId,
+                    KostnadsstalleNr = enhet.KstNr,
+                    Typ = enhet.Typ,
+                    Namn = enhet.Organisation.Namn
+                });
+        }
     }
 }

@@ -29,5 +29,6 @@ namespace ODL.Service.Controllers
         {
             _personService.SparaAvtal(avtal);
         }
+
     }
 }

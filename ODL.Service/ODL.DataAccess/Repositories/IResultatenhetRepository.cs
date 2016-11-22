@@ -14,5 +14,7 @@ namespace ODL.DataAccess.Repositories
         /// Hämta alla Resultatenheter på dessa avtal.
         /// </summary>
         IList<Resultatenhet> GetByAvtalIdn(IEnumerable<int> avtalIdn);
+
+        IList<Resultatenhet> GetAll();
     }
 }

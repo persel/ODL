@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +8,9 @@ using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices;
 using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
+using Serilog;
+using Swashbuckle.Swagger;
+using Swashbuckle.Swagger.Model;
 
 namespace ODL.Service
 {
@@ -30,8 +31,6 @@ namespace ODL.Service
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
-
-            log4net.Config.XmlConfigurator.Configure();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -49,22 +48,38 @@ namespace ODL.Service
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IResultatenhetRepository, ResultatenhetRepository>();
             services.AddScoped<IAvtalRepository, AvtalRepository>();
-
-            services.AddMvc(config => { config.Filters.Add(typeof(GlobalExceptionFilter)); });
-
+            
+            // Add framework services.
+            services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddMvc(config =>
+                {
+                    config.Filters.Add(typeof(GlobalExceptionFilter));
+                }
+            );
+            
+            //Inject an implementation of ISwaggerProvider with defaulted settings applied
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            //app.UseApplicationInsightsRequestTelemetry();
-            //app.UseApplicationInsightsExceptionTelemetry();
+        {           
 
             app.UseMvc();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
+            app.UseSwaggerUi();
             
+            Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Error() // TODO: Konfigurera detta!
+                    .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "logs/log-{Date}.txt"))
+                    .CreateLogger();
+
+            loggerFactory.AddSerilog();
+
         }
     }
 }

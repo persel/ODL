@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using log4net;
+using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.Validation;
@@ -13,18 +13,18 @@ namespace ODL.ApplicationServices
 {
     public class PersonService : IPersonService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(PersonService));
-
         private readonly IPersonRepository personRepository;
         private readonly IResultatenhetRepository resultatenhetRepository;
         private readonly IAvtalRepository avtalRepository;
+        private readonly ILogger<PersonService> logger;
 
-        public PersonService(IPersonRepository personRepository, IResultatenhetRepository resultatenhetRepository, IAvtalRepository avtalRepository)
+        public PersonService(IPersonRepository personRepository, IResultatenhetRepository resultatenhetRepository, IAvtalRepository avtalRepository, ILogger<PersonService> logger)
         {
             this.personRepository = personRepository;
             this.resultatenhetRepository = resultatenhetRepository;
             this.avtalRepository = avtalRepository;
-        }
+            this.logger = logger;
+    }
 
         public List<PersonDTO> GetByResultatenhetId(int id)
         {
@@ -63,8 +63,7 @@ namespace ODL.ApplicationServices
             if (valideringsfel.Any())
             {
                 foreach (var fel in valideringsfel)
-                    if(Log.IsInfoEnabled)
-                        Log.Info(fel.Message);
+                        logger.LogError(fel.Message); // Hmm, borde vi logga detta med Info? 
                 throw new ApplicationException($"Valideringsfel inträffade vid validering av Avtal med Id: {avtalDTO.SystemId}.");
             }
 
