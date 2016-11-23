@@ -38,17 +38,17 @@ namespace ODL.DomainModel.Person
 
         public DateTime? TjledigTom { get; set; }
 
-        public double? Fproc { get; set; }
+        public decimal? Fproc { get; set; }
 
         [StringLength(10)]
         public string DeltidFranvaro { get; set; }
 
-        public double? FranvaroProcent { get; set; }
+        public decimal? FranvaroProcent { get; set; }
 
         [StringLength(10)]
         public string SjukP { get; set; }
 
-        public double? GrundArbtidVecka { get; set; }
+        public decimal? GrundArbtidVecka { get; set; }
 
         public int? Lon { get; set; }
 
