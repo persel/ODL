@@ -32,7 +32,7 @@ namespace ODL.ApplicationServices.Test
                 TjledigTom = null,
                 Fproc = null,
                 DeltidFranvaro = "AB",
-                FranvaroProcent = 10.4d,
+                FranvaroProcent = 10.4m,
                 SjukP = null,
                 GrundArbtidVecka = null,
                 AvtalsTyp = 3,

@@ -30,7 +30,7 @@ namespace ODL.DomainModel.Person
         public string Personnummer { get; set; }
 
         public Metadata Metadata { get; set; }
-
+        
         public virtual Anstalld Anstalld { get; set; }
 
         public virtual Konsult Konsult { get; set; }

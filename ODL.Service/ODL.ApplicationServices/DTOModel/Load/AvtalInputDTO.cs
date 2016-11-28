@@ -36,15 +36,15 @@ namespace ODL.ApplicationServices.DTOModel.Load
 
         public string TjledigTom { get; set; }
 
-        public double? Fproc { get; set; }
+        public decimal? Fproc { get; set; }
 
         public string DeltidFranvaro { get; set; }
 
-        public double? FranvaroProcent { get; set; }
+        public decimal? FranvaroProcent { get; set; }
 
         public string SjukP { get; set; }
 
-        public double? GrundArbtidVecka { get; set; }
+        public decimal? GrundArbtidVecka { get; set; }
 
         public int AvtalsTyp { get; set; }
 
