@@ -1,4 +1,5 @@
 
+using System.Diagnostics;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
 
@@ -9,13 +10,18 @@ namespace ODL.DataAccess
     public partial class ODLDbContext : DbContext
     {
 
-        public ODLDbContext()
-            : base("name=ODLDbContext")
+        public ODLDbContext() : base("name=ODLDbContext")
         {
+            #if DEBUG
+            Database.Log = s => Debug.WriteLine(s);
+            #endif
         }
 
         public ODLDbContext(string connString) : base(connString)
         {
+            #if DEBUG
+            Database.Log = s => Debug.WriteLine(s);
+            #endif
         }
 
         // Person:

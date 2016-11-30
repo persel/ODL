@@ -23,9 +23,7 @@ namespace ODL.DataAccess.Repositories
 
             // Vi eager-laddar Organisation och OrganisationsAvtal, dock ej på (rekursivt) relaterade Organisationer
             // Include på Overordnad och Underliggande organisationer kräver ett specificerat djup i hierarkin, därav ej implementerat
-            return DbContext.Set<Resultatenhet>().Where(resEnhet => resEnhet.OrganisationFKId == id)
-                .Include(r => r.Organisation.OrganisationsAvtal)
-                .SingleOrDefault();
+            return DbContext.Set<Resultatenhet>().Include(r => r.Organisation.OrganisationsAvtal).SingleOrDefault(resEnhet => resEnhet.OrganisationFKId == id);
         }
 
 
