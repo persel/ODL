@@ -255,3 +255,4 @@ ModelManifest.xml
 /ODL.Service/.vs/restore.dg
 /ODL.Service/.vs/ODL.Service/v14/.suo
 /ODL.Service/.vs/config/applicationhost.config
+/ODL.Service/src/ODL.Service/appsettings.json
