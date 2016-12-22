@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ODL.ApplicationServices;
 using ODL.ApplicationServices.DTOModel;
+using ODL.ApplicationServices.DTOModel.Query;
 
 namespace ODL.Service.Controllers
 {

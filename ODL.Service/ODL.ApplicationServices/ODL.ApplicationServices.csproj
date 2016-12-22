@@ -64,8 +64,8 @@
     <Compile Include="Validation\ValidationRuleBuilder.cs" />
     <Compile Include="Validation\Validator.cs" />
     <Compile Include="IOrganisationService.cs" />
-    <Compile Include="DTOModel\PersonDTO.cs" />
-    <Compile Include="DTOModel\ResultatenhetDTO.cs" />
+    <Compile Include="DTOModel\Query\PersonDTO.cs" />
+    <Compile Include="DTOModel\Query\ResultatenhetDTO.cs" />
     <Compile Include="OrganisationService.cs" />
     <Compile Include="PersonService.cs" />
     <Compile Include="IPersonService.cs" />
