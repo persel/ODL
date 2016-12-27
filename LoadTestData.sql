@@ -494,17 +494,17 @@ INSERT INTO [Organisation].[Resultatenhet]([KstNr], [Typ], [OrganisationFKId], [
 VALUES(62, 'H', 5, @updatedTime, 'DBO', @createdTime, 'DBO')
 
 -- OrganisationAvtal
-INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [AvserAnstallning])
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [Huvudkostnadsstalle])
 VALUES(1, 1, 100, 1)
 
-INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [AvserAnstallning])
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [Huvudkostnadsstalle])
 VALUES(4, 2, null, 0) -- Avser ett konsultavtal, ev borde [AvserAnstallning] istället vara en typ/enum istället?
 ----------
-INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [AvserAnstallning])
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [Huvudkostnadsstalle])
 VALUES(7, 3, 100, 1)
 
-INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [AvserAnstallning])
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [Huvudkostnadsstalle])
 VALUES(5, 4, 100, 1)
 
-INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [AvserAnstallning])
+INSERT INTO [Person].[OrganisationAvtal]([AvtalFKId], [OrganisationFKId], [ProcentuellFordelning], [Huvudkostnadsstalle])
 VALUES(6, 5, 100, 1)
