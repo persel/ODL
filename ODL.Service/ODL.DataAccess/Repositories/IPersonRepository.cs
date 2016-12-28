@@ -14,8 +14,16 @@ namespace ODL.DataAccess.Repositories
         List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn);
 
         Person GetByPersonnummer(string personnummer);
+
         Avtal GetByKallsystemId(string systemId);
-        void Add(Avtal avtal);
+
         void Update();
+
+        void Add(Person person);
+
+        Anstalld GetAnstalld(int personId);
+
+        Konsult GetKonsult(int personId);
+
     }
 }

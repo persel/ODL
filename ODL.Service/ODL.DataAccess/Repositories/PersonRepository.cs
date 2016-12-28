@@ -36,25 +36,52 @@ namespace ODL.DataAccess.Repositories
         
         public Person GetByPersonnummer(string personnummer)
         {
-            return DbContext.Set<Person>()
-                .Include(a => a.Anstalld.AnstallningsAvtal)
-                .Include(k => k.Konsult.KonsultAvtal).Single(person => person.Personnummer == personnummer);
+            var obj = DbContext.Person.FirstOrDefault(x => x.Personnummer == personnummer);
+
+            return obj;
+
+            //if (DbContext.Person.Any(p => p.Personnummer == personnummer))
+            //{
+            //    return p;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            //return DbContext.Set<Person>()
+            //    .Include(a => a.Anstalld.AnstallningsAvtal)
+            //    .Include(k => k.Konsult.KonsultAvtal).Single(person => person.Personnummer == personnummer);
             //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
+            //return _internalGenericRepository.Find(person => person.Personnummer == personnummer);
         }
+
+        public Anstalld GetAnstalld(int personId)
+        {
+            var obj = DbContext.Anstalld.FirstOrDefault(x => x.PersonFKId == personId);
+            return obj;
+        }
+
+        public Konsult GetKonsult(int personId)
+        {
+            var obj = DbContext.Konsult.FirstOrDefault(x => x.PersonFKId == personId);
+            return obj;
+        }
+
 
         public Avtal GetByKallsystemId(string systemId)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Add(Avtal avtal)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Update()
         {
-            throw new System.NotImplementedException();
+            _internalGenericRepository.Update();
+        }
+
+
+        public void Add(Person nyPerson)
+        {
+            _internalGenericRepository.Add(nyPerson);
         }
 
         /*

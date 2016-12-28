@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Load;
+using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices
 {
@@ -13,5 +14,8 @@ namespace ODL.ApplicationServices
         List<PersonDTO> GetByResultatenhetId(int resultatenhetId);
         
         void SparaAvtal(AvtalInputDTO avtal);
+
+        void SparaPerson(PersonInputDTO person);
+
     }
 }
