@@ -16,6 +16,11 @@ namespace ODL.DomainModel.Organisation
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrganisationFKId { get; set; }
 
+        public decimal? ProcentuellFordelning { get; set; }
+
+        [Required]
+        public bool Huvudkostnadsstalle { get; set; }
+
         public virtual Organisation Organisation { get; set; }
     }
 }
