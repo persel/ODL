@@ -30,5 +30,11 @@ namespace ODL.Service.Controllers
             _personService.SparaAvtal(avtal);
         }
 
+        // POST api/person/avtal/
+        [HttpPost("person")]
+        public void SparaPerson([FromBody]PersonInputDTO person)
+        {
+            _personService.SparaPerson(person);
+        }
     }
 }

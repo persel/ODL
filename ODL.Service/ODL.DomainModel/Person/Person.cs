@@ -34,5 +34,7 @@ namespace ODL.DomainModel.Person
         public virtual Anstalld Anstalld { get; set; }
 
         public virtual Konsult Konsult { get; set; }
+
+        public bool IsNew => Id == default(int);
     }
 }

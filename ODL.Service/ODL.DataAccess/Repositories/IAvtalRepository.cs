@@ -6,5 +6,7 @@ namespace ODL.DataAccess.Repositories
     {
         Avtal GetByKallsystemId(string systemId);
         void Add(Avtal nyttAvtal);
+
+        void Update();
     }
 }
