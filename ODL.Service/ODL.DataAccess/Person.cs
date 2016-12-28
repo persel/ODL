@@ -1,14 +1,15 @@
-using System.Collections.Generic;
-using ODL.DomainModel.Common;
-
-namespace ODL.DomainModel.Person
+namespace ODL.DataAccess
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("Person.Person")]
     public partial class Person
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Person()
         {
             PersonVerksamhetsroll = new HashSet<PersonVerksamhetsroll>();
@@ -35,11 +36,18 @@ namespace ODL.DomainModel.Person
         [StringLength(12)]
         public string Personnummer { get; set; }
 
-        public Metadata Metadata { get; set; }
-        
-        public virtual Anstalld Anstalld { get; set; }
+        public DateTime? UppdateradDatum { get; set; }
 
-        public virtual Konsult Konsult { get; set; }
+        [StringLength(10)]
+        public string UppdateradAv { get; set; }
+
+        public DateTime SkapadDatum { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string SkapadAv { get; set; }
+
+        public virtual Anvandare Anvandare { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonVerksamhetsroll> PersonVerksamhetsroll { get; set; }

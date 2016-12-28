@@ -49,6 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behorighet\Verksamhetsroll\PersonVerksamhetsroll.cs" />
+    <Compile Include="Behorighet\Verksamhetsroll\PersonVerksamhetsrollVerksamhetsdimensionvarde.cs" />
+    <Compile Include="Behorighet\Verksamhetsroll\RelevantVerksamhetsdimension.cs" />
+    <Compile Include="Behorighet\Verksamhetsroll\Systembegransning.cs" />
+    <Compile Include="Behorighet\Verksamhetsroll\Verksamhetsroll.cs" />
     <Compile Include="Common\Metadata.cs" />
     <Compile Include="Organisation\OrganisationExtensions.cs" />
     <Compile Include="Person\Avtal.cs" />

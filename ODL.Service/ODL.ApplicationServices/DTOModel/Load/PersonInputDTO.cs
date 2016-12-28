@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using ODL.DomainModel.Common;
-using ODL.DomainModel.Person;
+﻿
 
 namespace ODL.ApplicationServices.DTOModel.Load
 {
