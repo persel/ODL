@@ -10,11 +10,18 @@ namespace ODL.DataAccess.Repositories
 
         Resultatenhet GetById(int id);
 
+        Resultatenhet GetResultatenhetByKstnr(int kstnr);
+
         /// <summary>
         /// Hämta alla Resultatenheter på dessa avtal.
         /// </summary>
         IList<Resultatenhet> GetByAvtalIdn(IEnumerable<int> avtalIdn);
 
         IList<Resultatenhet> GetAll();
+
+        void Update();
+
+        void Add(Resultatenhet resultatenhet);
+
     }
 }

@@ -43,5 +43,7 @@ namespace ODL.DomainModel.Organisation
         public IEnumerable<int> AllaAvtalIdn => OrganisationsAvtal.Select(orgAvtal => orgAvtal.AvtalFKId);
 
         public virtual Resultatenhet Resultatenhet { get; set; }
+
+        public bool IsNew => Id == default(int);
     }
 }

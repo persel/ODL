@@ -26,6 +26,12 @@ namespace ODL.DataAccess.Repositories
             return DbContext.Set<Resultatenhet>().Include(r => r.Organisation.OrganisationsAvtal).SingleOrDefault(resEnhet => resEnhet.OrganisationFKId == id);
         }
 
+        public Resultatenhet GetResultatenhetByKstnr(int kstnr)
+        {
+            var obj = DbContext.Resultatenhet.FirstOrDefault(x => x.KstNr == kstnr);
+            return obj;
+        }
+
 
         public IList<Resultatenhet> GetByAvtalIdn(IEnumerable<int> avtalIdn)
         {
@@ -37,6 +43,17 @@ namespace ODL.DataAccess.Repositories
         public IList<Resultatenhet> GetAll()
         {
             return DbContext.Set<Resultatenhet>().Include(r => r.Organisation).ToList();
+        }
+
+        public void Update()
+        {
+            _internalGenericRepository.Update();
+        }
+
+
+        public void Add(Resultatenhet nyResultatenhet)
+        {
+            _internalGenericRepository.Add(nyResultatenhet);
         }
     }
 }

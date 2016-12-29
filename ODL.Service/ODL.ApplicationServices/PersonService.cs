@@ -85,7 +85,6 @@ namespace ODL.ApplicationServices
 
         public void SparaAvtal(AvtalInputDTO avtalDTO)
         {
-
             var valideringsfel = new AvtalInputValidator().Validate(avtalDTO);
 
             if (valideringsfel.Any())

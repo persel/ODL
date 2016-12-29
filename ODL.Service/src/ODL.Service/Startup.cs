@@ -48,7 +48,8 @@ namespace ODL.Service
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IResultatenhetRepository, ResultatenhetRepository>();
             services.AddScoped<IAvtalRepository, AvtalRepository>();
-            
+            services.AddScoped<IOrganisationRepository, OrganisationRepository>();
+
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMvc(config =>

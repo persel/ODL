@@ -11,5 +11,10 @@ namespace ODL.ApplicationServices
         IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer);
         
         IEnumerable<ResultatenhetDTO> GetResultatenheter();
+
+        void SparaResultatenhet(ResultatenhetInputDTO resEnhet);
+
+        void SparaOrganisation(OrganisationInputDTO orgInputDTO);
+
     }
 }

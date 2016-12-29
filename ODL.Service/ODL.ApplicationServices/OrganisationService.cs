@@ -1,28 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel.Person;
+using ODL.ApplicationServices.Validation;
+using ODL.DomainModel.Organisation;
 
 namespace ODL.ApplicationServices
 {
     public class OrganisationService : IOrganisationService
     {
 
-        private readonly IResultatenhetRepository _resultatenhetRepository;
-        private readonly IPersonRepository _personRepository;
-        
-        public OrganisationService(IResultatenhetRepository resultatenhetRepository, IPersonRepository personRepository)
+        private readonly IResultatenhetRepository resultatenhetRepository;
+        private readonly IOrganisationRepository organisationRepository;
+        private readonly IPersonRepository personRepository;
+        private readonly ILogger<OrganisationService> logger;
+
+        public OrganisationService(IResultatenhetRepository resultatenhetRepository, IPersonRepository personRepository, IOrganisationRepository organisationRepository, ILogger<OrganisationService> logger)
         {
-            _resultatenhetRepository = resultatenhetRepository;
-            _personRepository = personRepository;
+            this.resultatenhetRepository = resultatenhetRepository;
+            this.personRepository = personRepository;
+            this.organisationRepository = organisationRepository;
+            this.logger = logger;
         }
 
         public IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer)
         {
-            var person = _personRepository.GetByPersonnummer(personnummer);
+            var person = personRepository.GetByPersonnummer(personnummer);
 
-            var resultatenheter =  _resultatenhetRepository.GetByAvtalIdn(person.AllaAvtalIdn());
+            var resultatenheter =  resultatenhetRepository.GetByAvtalIdn(person.AllaAvtalIdn());
 
             return resultatenheter.Select(enhet =>
                 new ResultatenhetDTO
@@ -36,7 +44,7 @@ namespace ODL.ApplicationServices
 
         public IEnumerable<ResultatenhetDTO> GetResultatenheter()
         {
-            var resultatenheter = _resultatenhetRepository.GetAll();
+            var resultatenheter = resultatenhetRepository.GetAll();
 
             return resultatenheter.Select(enhet =>
                 new ResultatenhetDTO
@@ -46,6 +54,57 @@ namespace ODL.ApplicationServices
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
                 });
+        }
+
+        public void SparaResultatenhet(ResultatenhetInputDTO resEnhetInputDTO)
+        {
+            var valideringsfel = new ResultatenhetInputValidator().Validate(resEnhetInputDTO);
+
+            if (valideringsfel.Any())
+            {
+                foreach (var fel in valideringsfel)
+                    logger.LogError(fel.Message);
+                throw new ApplicationException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resEnhetInputDTO.KostnadsstalleNr}.");
+            }
+
+            var resultatenhet = resultatenhetRepository.GetResultatenhetByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? new Resultatenhet();
+
+            resultatenhet.Typ = resEnhetInputDTO.Typ;
+            resultatenhet.KstNr = resEnhetInputDTO.KostnadsstalleNr;
+            resultatenhet.Metadata = resEnhetInputDTO.GetMetadata();
+            //TODO - Alle? Nytt kstnr, orgid?
+            //resultatenhet.Organisation =
+            resultatenhet.OrganisationFKId = 5;
+
+            if (resultatenhet.IsNew)
+                resultatenhetRepository.Add(resultatenhet);
+            else
+                resultatenhetRepository.Update();
+        }
+
+        public void SparaOrganisation(OrganisationInputDTO orgInputDTO)
+        {
+            var valideringsfel = new OrganisationInputValidator().Validate(orgInputDTO);
+
+            if (valideringsfel.Any())
+            {
+                foreach (var fel in valideringsfel)
+                    logger.LogError(fel.Message);
+                throw new ApplicationException($"Valideringsfel inträffade vid validering av organisation med organisationsid: {orgInputDTO.OrgId}.");
+            }
+
+            var organisation = organisationRepository.GetByOrgId(orgInputDTO.OrgId) ?? new Organisation();
+
+            organisation.OrganisationsId = orgInputDTO.OrgId;
+            organisation.Metadata = orgInputDTO.GetMetadata();
+            organisation.Namn = orgInputDTO.Namn;
+            //TODO - Resten 
+
+
+            if (organisation.IsNew)
+                organisationRepository.Add(organisation);
+            else
+                organisationRepository.Update();
         }
     }
 }
