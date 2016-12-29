@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel;
+using ODL.ApplicationServices.DTOModel.Query;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel.Person;
 using ODL.ApplicationServices.Validation;

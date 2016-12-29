@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ODL.ApplicationServices.DTOModel;
+using ODL.ApplicationServices.DTOModel.Query;
 
 namespace ODL.ApplicationServices
 {
