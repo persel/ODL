@@ -9,10 +9,6 @@ namespace ODL.DomainModel.Person
     [Table("Person.Person")]
     public partial class Person
     {
-        public Person()
-        {
-            PersonVerksamhetsroll = new HashSet<PersonVerksamhetsroll>();
-        }
 
         public int Id { get; set; }
 
@@ -40,8 +36,6 @@ namespace ODL.DomainModel.Person
         public virtual Anstalld Anstalld { get; set; }
 
         public virtual Konsult Konsult { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonVerksamhetsroll> PersonVerksamhetsroll { get; set; }
+        
     }
 }

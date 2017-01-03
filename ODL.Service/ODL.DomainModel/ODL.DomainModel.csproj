@@ -49,11 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behorighet\Verksamhetsroll\PersonVerksamhetsroll.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\PersonVerksamhetsrollVerksamhetsdimensionvarde.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\RelevantVerksamhetsdimension.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\Systembegransning.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\Verksamhetsroll.cs" />
     <Compile Include="Common\Metadata.cs" />
     <Compile Include="Organisation\OrganisationExtensions.cs" />
     <Compile Include="Person\Avtal.cs" />
@@ -71,6 +66,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behorighet\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
