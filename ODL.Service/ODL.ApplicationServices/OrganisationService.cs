@@ -73,9 +73,9 @@ namespace ODL.ApplicationServices
             resultatenhet.Typ = resEnhetInputDTO.Typ;
             resultatenhet.KstNr = resEnhetInputDTO.KostnadsstalleNr;
             resultatenhet.Metadata = resEnhetInputDTO.GetMetadata();
-            //TODO - Alle? Nytt kstnr, orgid?
+            //TODO - Alle? Nytt kstnr, orgid? Via mappningen
             //resultatenhet.Organisation =
-            resultatenhet.OrganisationFKId = 5;
+            //resultatenhet.OrganisationFKId = resEnhetInputDTO.OrganisationsId;
 
             if (resultatenhet.IsNew)
                 resultatenhetRepository.Add(resultatenhet);

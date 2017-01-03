@@ -131,14 +131,13 @@ namespace ODL.ApplicationServices
         }
 
 
-        //TODO - Alle - private metod i Interface?
         private Person CreateOrUpdateAnstalldOrKonsult(Person person, PersonInputDTO personInputDTO)
         {
             if (personInputDTO.IsAnstalld)
             {
                 //check if exists
                 var anstalld = personRepository.GetAnstalld(person.Id) ?? new Anstalld();
-                anstalld.PersonFKId = person.Id; //TODO - Alle?
+                //anstalld.PersonFKId = person.Id; //TODO - Alle?
                 anstalld.Alias = personInputDTO.Alias;
                 anstalld.Metadata = personInputDTO.GetMetadata();
 
@@ -147,7 +146,7 @@ namespace ODL.ApplicationServices
             if (personInputDTO.IsKonsult)
             {
                 var konsult = personRepository.GetKonsult(person.Id) ?? new Konsult();
-                konsult.PersonFKId = person.Id; //TODO - Alle?
+                //konsult.PersonFKId = person.Id; //TODO - Alle?
                 konsult.Alias = personInputDTO.Alias;
                 konsult.Metadata = personInputDTO.GetMetadata();
 

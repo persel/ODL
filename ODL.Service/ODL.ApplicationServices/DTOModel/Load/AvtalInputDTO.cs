@@ -10,7 +10,7 @@ namespace ODL.ApplicationServices.DTOModel.Load
 
     public class AvtalInputDTO : InputDTO
     {
-        public string[] OrganisationId { get; set; }
+        public int[] KostnadsstalleNr { get; set; }
 
         public string AnstalldPersonId { get; set; }
 

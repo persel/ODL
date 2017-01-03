@@ -11,7 +11,7 @@ namespace ODL.ApplicationServices.Validation
         public ResultatenhetInputValidator()
         {
             RuleFor(resEnhet => resEnhet.Namn).NotNullOrEmpty().WithinMaxLength(255);
-            //RuleFor(resEnhet => resEnhet.KostnadsstalleNr).NotNull().WithinMaxLength(255);
+            AboveZero(resEnhet => resEnhet.KostnadsstalleNr);
             RuleFor(resEnhet => resEnhet.Typ).NotNullOrEmpty().WithinMaxLength(5);
             AddStandardRules();
         }
