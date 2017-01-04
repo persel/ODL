@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ODL.DomainModel.Common;
 
 namespace ODL.DomainModel.Person
@@ -8,6 +9,7 @@ namespace ODL.DomainModel.Person
     [Table("Person.Person")]
     public partial class Person
     {
+
         public int Id { get; set; }
 
         [Required]
@@ -34,5 +36,6 @@ namespace ODL.DomainModel.Person
         public virtual Anstalld Anstalld { get; set; }
 
         public virtual Konsult Konsult { get; set; }
+        
     }
 }
