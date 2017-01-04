@@ -19,10 +19,6 @@ namespace ODL.DomainModel.Person
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PersonFKId { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string Alias { get; set; }
-
         public Metadata Metadata { get; set; }
 
         public virtual Person Person { get; set; }
