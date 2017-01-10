@@ -11,30 +11,18 @@ GO
 IF (OBJECT_ID('Person.FK_OrganisationAvtal_Avtal', 'F') IS NOT NULL)
 	ALTER TABLE [Person].[OrganisationAvtal] DROP CONSTRAINT [FK_OrganisationAvtal_Avtal]
 GO
---IF (OBJECT_ID('Person.FK_KonsultAvtal_Konsult', 'F') IS NOT NULL)
---	ALTER TABLE [Person].[KonsultAvtal] DROP CONSTRAINT [FK_KonsultAvtal_Konsult]
---GO
 IF (OBJECT_ID('Person.FK_KonsultAvtal_Person', 'F') IS NOT NULL)
 	ALTER TABLE [Person].[KonsultAvtal] DROP CONSTRAINT [FK_KonsultAvtal_Person]
 GO
 IF (OBJECT_ID('Person.FK_KonsultAvtal_Avtal', 'F') IS NOT NULL)
 	ALTER TABLE [Person].[KonsultAvtal] DROP CONSTRAINT [FK_KonsultAvtal_Avtal]
 GO
---IF (OBJECT_ID('Person.FK_Konsult_Person', 'F') IS NOT NULL)
---	ALTER TABLE [Person].[Konsult] DROP CONSTRAINT [FK_Konsult_Person]
---GO
 IF (OBJECT_ID('Person.FK_AnstalldAvtal_Avtal', 'F') IS NOT NULL)
 	ALTER TABLE [Person].[AnstalldAvtal] DROP CONSTRAINT [FK_AnstalldAvtal_Avtal]
 GO
---IF (OBJECT_ID('Person.FK_AnstalldAvtal_Anstalld', 'F') IS NOT NULL)
---	ALTER TABLE [Person].[AnstalldAvtal] DROP CONSTRAINT [FK_AnstalldAvtal_Anstalld]
---GO
 IF (OBJECT_ID('Person.FK_AnstalldAvtal_Person', 'F') IS NOT NULL)
 	ALTER TABLE [Person].[AnstalldAvtal] DROP CONSTRAINT [FK_AnstalldAvtal_Person]
 GO
---IF (OBJECT_ID('Person.FK_Anstalld_Person', 'F') IS NOT NULL)
---	ALTER TABLE [Person].[Anstalld] DROP CONSTRAINT [FK_Anstalld_Person]
---GO
 IF (OBJECT_ID('Organisation.FK_Resultatenhet_Organisation', 'F') IS NOT NULL)
 	ALTER TABLE [Organisation].[Resultatenhet] DROP CONSTRAINT [FK_Resultatenhet_Organisation]
 GO
@@ -86,9 +74,6 @@ TRUNCATE TABLE [Adress].[GatuAdress]
 
 TRUNCATE TABLE [Organisation].[Resultatenhet]
 TRUNCATE TABLE [Organisation].[Organisation]
-
---TRUNCATE TABLE [Person].[Konsult]
---TRUNCATE TABLE [Person].[Anstalld]
 
 TRUNCATE TABLE [Person].[Person]
 TRUNCATE TABLE [Person].[Avtal]
@@ -158,38 +143,17 @@ REFERENCES [Organisation].[Organisation] ([Id])
 GO
 ALTER TABLE [Organisation].[Organisation] CHECK CONSTRAINT [FK_Organisation_Organisation]
 GO
---ALTER TABLE [Person].[Anstalld]  WITH CHECK ADD  CONSTRAINT [FK_Anstalld_Person] FOREIGN KEY([PersonFKId])
---REFERENCES [Person].[Person] ([Id])
---GO
---ALTER TABLE [Person].[Anstalld] CHECK CONSTRAINT [FK_Anstalld_Person]
---GO
---ALTER TABLE [Person].[AnstalldAvtal]  WITH CHECK ADD  CONSTRAINT [FK_AnstalldAvtal_Anstalld] FOREIGN KEY([PersonFKId])
---REFERENCES [Person].[Anstalld] ([PersonFKId])
---GO
---ALTER TABLE [Person].[AnstalldAvtal] CHECK CONSTRAINT [FK_AnstalldAvtal_Anstalld]
---GO
 ALTER TABLE [Person].[AnstalldAvtal]  WITH CHECK ADD  CONSTRAINT [FK_AnstalldAvtal_Avtal] FOREIGN KEY([AvtalFKId])
 REFERENCES [Person].[Avtal] ([Id])
 GO
 ALTER TABLE [Person].[AnstalldAvtal] CHECK CONSTRAINT [FK_AnstalldAvtal_Avtal]
 GO
---ALTER TABLE [Person].[Konsult]  WITH CHECK ADD  CONSTRAINT [FK_Konsult_Person] FOREIGN KEY([PersonFKId])
---REFERENCES [Person].[Person] ([Id])
---GO
---ALTER TABLE [Person].[Konsult] CHECK CONSTRAINT [FK_Konsult_Person]
---GO
+
 ALTER TABLE [Person].[KonsultAvtal]  WITH CHECK ADD  CONSTRAINT [FK_KonsultAvtal_Avtal] FOREIGN KEY([AvtalFKId])
 REFERENCES [Person].[Avtal] ([Id])
 GO
 ALTER TABLE [Person].[KonsultAvtal] CHECK CONSTRAINT [FK_KonsultAvtal_Avtal]
 GO
---ALTER TABLE [Person].[KonsultAvtal]  WITH CHECK ADD  CONSTRAINT [FK_KonsultAvtal_Konsult] FOREIGN KEY([PersonFKId])
---REFERENCES [Person].[Konsult] ([PersonFKId])
---GO
---ALTER TABLE [Person].[KonsultAvtal] CHECK CONSTRAINT [FK_KonsultAvtal_Konsult]
---GO
-
-
 ALTER TABLE [Person].[KonsultAvtal]  WITH CHECK ADD  CONSTRAINT [FK_KonsultAvtal_Person] FOREIGN KEY([PersonFKId])
 REFERENCES [Person].[Person] ([Id])
 GO
@@ -247,40 +211,6 @@ VALUES('12093839', 'Erik', 'Henrik', 'Karlsson', '195511301456', @updatedTime, '
 
 INSERT INTO [Person].[Person]([KallsystemId], [Fornamn], [Mellannamn], [Efternamn], [PersonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES('56453549', 'Stina', null, 'Einarsson', '197002201406', @updatedTime, 'DBO', @createdTime, 'DBO')
-
--- #############################################################
--- # INSERT Anställda
--- #############################################################
-
---INSERT INTO [Person].[Anstalld]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(1, 'KNI', @updatedTime, 'DBO', @createdTime, 'DBO')
-
---INSERT INTO [Person].[Anstalld]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(2, 'MPE', @updatedTime, 'DBO', @createdTime, 'DBO')
-
---INSERT INTO [Person].[Anstalld]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(3, 'ASV', @updatedTime, 'DBO', @createdTime, 'DBO')
-
---INSERT INTO [Person].[Anstalld]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(4, 'PAN', @updatedTime, 'DBO', @createdTime, 'DBO')
-
---INSERT INTO [Person].[Anstalld]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(6, 'ANI', @updatedTime, 'DBO', @createdTime, 'DBO')
-
---INSERT INTO [Person].[Anstalld]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(7, 'EKA', @updatedTime, 'DBO', @createdTime, 'DBO')
-
---INSERT INTO [Person].[Anstalld]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(8, 'SEI', @updatedTime, 'DBO', @createdTime, 'DBO')
--- #############################################################
--- # INSERT Konsulter
--- #############################################################
-
---INSERT INTO [Person].[Konsult]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(5, 'TOSV', @updatedTime, 'DBO', @createdTime, 'DBO')
-
---INSERT INTO [Person].[Konsult]([PersonFKId], [Alias], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
---VALUES(1, 'TKNI', @updatedTime, 'DBO', @createdTime, 'DBO')
 
 
 -- #############################################################
