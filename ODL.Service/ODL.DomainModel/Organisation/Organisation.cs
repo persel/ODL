@@ -1,13 +1,13 @@
 
 using ODL.DomainModel.Common;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace ODL.DomainModel.Organisation
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
+    
     [Table("Organisation.Organisation")]
     public partial class Organisation
     {
@@ -18,6 +18,7 @@ namespace ODL.DomainModel.Organisation
             OrganisationsAvtal = new HashSet<OrganisationsAvtal>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

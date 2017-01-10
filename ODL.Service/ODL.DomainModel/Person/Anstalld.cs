@@ -1,10 +1,11 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using ODL.DomainModel.Common;
+
 namespace ODL.DomainModel.Person
 {
-    using Common;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
 
     [Table("Person.Anstalld")]
     public partial class Anstalld
