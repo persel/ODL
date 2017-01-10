@@ -14,14 +14,12 @@ namespace ODL.ApplicationServices
     public class OrganisationService : IOrganisationService
     {
 
-        private readonly IResultatenhetRepository resultatenhetRepository;
         private readonly IOrganisationRepository organisationRepository;
         private readonly IPersonRepository personRepository;
         private readonly ILogger<OrganisationService> logger;
 
-        public OrganisationService(IResultatenhetRepository resultatenhetRepository, IPersonRepository personRepository, IOrganisationRepository organisationRepository, ILogger<OrganisationService> logger)
+        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, ILogger<OrganisationService> logger)
         {
-            this.resultatenhetRepository = resultatenhetRepository;
             this.personRepository = personRepository;
             this.organisationRepository = organisationRepository;
             this.logger = logger;
@@ -31,7 +29,8 @@ namespace ODL.ApplicationServices
         {
             var person = personRepository.GetByPersonnummer(personnummer);
 
-            var resultatenheter =  resultatenhetRepository.GetByAvtalIdn(person.AllaAvtalIdn());
+            var organisationer = organisationRepository.GetByAvtalIdn(person.AllaAvtalIdn());
+            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
 
             return resultatenheter.Select(enhet =>
                 new ResultatenhetDTO
@@ -45,7 +44,8 @@ namespace ODL.ApplicationServices
 
         public IEnumerable<ResultatenhetDTO> GetResultatenheter()
         {
-            var resultatenheter = resultatenhetRepository.GetAll();
+            var organisationer = organisationRepository.GetAll();
+            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
 
             return resultatenheter.Select(enhet =>
                 new ResultatenhetDTO
@@ -85,29 +85,5 @@ namespace ODL.ApplicationServices
                 organisationRepository.Update();
         }
 
-    //    public void SparaOrganisation(OrganisationInputDTO orgInputDTO)
-    //    {
-    //        var valideringsfel = new OrganisationInputValidator().Validate(orgInputDTO);
-
-    //        if (valideringsfel.Any())
-    //        {
-    //            foreach (var fel in valideringsfel)
-    //                logger.LogError(fel.Message);
-    //            throw new ApplicationException($"Valideringsfel inträffade vid validering av organisation med organisationsid: {orgInputDTO.OrgId}.");
-    //        }
-
-    //        var organisation = organisationRepository.GetByOrgId(orgInputDTO.OrgId) ?? new Organisation();
-
-    //        organisation.OrganisationsId = orgInputDTO.OrgId;
-    //        organisation.Metadata = orgInputDTO.GetMetadata();
-    //        organisation.Namn = orgInputDTO.Namn;
-    //        //TODO - Resten 
-
-
-    //        if (organisation.IsNew)
-    //            organisationRepository.Add(organisation);
-    //        else
-    //            organisationRepository.Update();
-    //    }
     }
 }

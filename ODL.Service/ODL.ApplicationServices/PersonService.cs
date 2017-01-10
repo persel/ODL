@@ -15,21 +15,21 @@ namespace ODL.ApplicationServices
     public class PersonService : IPersonService
     {
         private readonly IPersonRepository personRepository;
-        private readonly IResultatenhetRepository resultatenhetRepository;
+        private readonly IOrganisationRepository organisationRepository;
         private readonly IAvtalRepository avtalRepository;
         private readonly ILogger<PersonService> logger;
 
-        public PersonService(IPersonRepository personRepository, IResultatenhetRepository resultatenhetRepository, IAvtalRepository avtalRepository, ILogger<PersonService> logger)
+        public PersonService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, ILogger<PersonService> logger)
         {
             this.personRepository = personRepository;
-            this.resultatenhetRepository = resultatenhetRepository;
+            this.organisationRepository = organisationRepository;
             this.avtalRepository = avtalRepository;
             this.logger = logger;
     }
 
         public List<PersonDTO> GetByResultatenhetId(int id)
         {
-            var resultatenhet = resultatenhetRepository.GetById(id);
+            var resultatenhet = organisationRepository.GetOrganisationByKstnr(id).Resultatenhet;
 
             var allaOrganisationer = resultatenhet.Organisation.AllaRelaterade();
 
@@ -138,7 +138,6 @@ namespace ODL.ApplicationServices
                 //check if exists
                 var anstalld = personRepository.GetAnstalld(person.Id) ?? new Anstalld();
                 //anstalld.PersonFKId = person.Id; //TODO - Alle?
-                anstalld.Alias = personInputDTO.Alias;
                 anstalld.Metadata = personInputDTO.GetMetadata();
 
                 person.Anstalld = anstalld;
@@ -147,7 +146,6 @@ namespace ODL.ApplicationServices
             {
                 var konsult = personRepository.GetKonsult(person.Id) ?? new Konsult();
                 //konsult.PersonFKId = person.Id; //TODO - Alle?
-                konsult.Alias = personInputDTO.Alias;
                 konsult.Metadata = personInputDTO.GetMetadata();
 
                 person.Konsult = konsult;

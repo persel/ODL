@@ -46,7 +46,6 @@ namespace ODL.Service
             services.AddScoped<IOrganisationService, OrganisationService>();
 
             services.AddScoped<IPersonRepository, PersonRepository>();
-            services.AddScoped<IResultatenhetRepository, ResultatenhetRepository>();
             services.AddScoped<IAvtalRepository, AvtalRepository>();
             services.AddScoped<IOrganisationRepository, OrganisationRepository>();
 

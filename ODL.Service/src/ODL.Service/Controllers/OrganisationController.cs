@@ -38,11 +38,5 @@ namespace ODL.Service.Controllers
             _organisationService.SparaResultatenhet(resultatenhet);
         }
 
-        //// POST api/organisation/
-        //[HttpPost("organisation")]
-        //public void SparaOrganisation([FromBody]OrganisationInputDTO organisation)
-        //{
-        //    _organisationService.SparaOrganisation(organisation);
-        //}
     }
 }
