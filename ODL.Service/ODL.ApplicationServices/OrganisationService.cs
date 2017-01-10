@@ -72,6 +72,7 @@ namespace ODL.ApplicationServices
             var organisation = organisationRepository.GetOrganisationByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet();
 
             organisation.OrganisationsId = resEnhetInputDTO.OrganisationsId;
+            organisation.Namn = resEnhetInputDTO.Namn;
             organisation.Metadata = resEnhetInputDTO.GetMetadata();
 
             var resultatenhet = organisation.Resultatenhet;
