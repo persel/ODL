@@ -1,7 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ODL.DomainModel.Organisation
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Person.OrganisationAvtal")]
     public partial class OrganisationsAvtal

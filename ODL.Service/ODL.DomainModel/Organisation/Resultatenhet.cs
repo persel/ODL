@@ -1,12 +1,11 @@
 
 using ODL.DomainModel.Common;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ODL.DomainModel.Organisation
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-
+    
     // Troligen är Organisation en bättre Aggregate root än Resultatenhet eftersom Resultatenhet alltid har en Organisation, medan Organisation inte alltid har Resultatenhet...
 
     [Table("Organisation.Resultatenhet")]

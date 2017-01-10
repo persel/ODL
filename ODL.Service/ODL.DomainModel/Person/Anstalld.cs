@@ -1,10 +1,11 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using ODL.DomainModel.Common;
+
 namespace ODL.DomainModel.Person
 {
-    using Common;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
 
     [Table("Person.Anstalld")]
     public partial class Anstalld
@@ -18,10 +19,6 @@ namespace ODL.DomainModel.Person
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PersonFKId { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string Alias { get; set; }
 
         public Metadata Metadata { get; set; }
 
