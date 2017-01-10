@@ -21,9 +21,5 @@ namespace ODL.DataAccess.Repositories
 
         void Add(Person person);
 
-        Anstalld GetAnstalld(int personId);
-
-        Konsult GetKonsult(int personId);
-
     }
 }

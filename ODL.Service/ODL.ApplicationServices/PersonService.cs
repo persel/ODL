@@ -75,8 +75,7 @@ namespace ODL.ApplicationServices
             person.Mellannamn = personInputDTO.Mellannamn;
             person.KallsystemId = personInputDTO.SystemId;
             person.Metadata = personInputDTO.GetMetadata();
-            person = CreateOrUpdateAnstalldOrKonsult(person, personInputDTO);
-
+            
             if (person.IsNew)
                 personRepository.Add(person);
             else
@@ -129,29 +128,5 @@ namespace ODL.ApplicationServices
             else
                 avtalRepository.Update();
         }
-
-
-        private Person CreateOrUpdateAnstalldOrKonsult(Person person, PersonInputDTO personInputDTO)
-        {
-            if (personInputDTO.IsAnstalld)
-            {
-                //check if exists
-                var anstalld = personRepository.GetAnstalld(person.Id) ?? new Anstalld();
-                //anstalld.PersonFKId = person.Id; //TODO - Alle?
-                anstalld.Metadata = personInputDTO.GetMetadata();
-
-                person.Anstalld = anstalld;
-            }
-            if (personInputDTO.IsKonsult)
-            {
-                var konsult = personRepository.GetKonsult(person.Id) ?? new Konsult();
-                //konsult.PersonFKId = person.Id; //TODO - Alle?
-                konsult.Metadata = personInputDTO.GetMetadata();
-
-                person.Konsult = konsult;
-            }
-            return person;
-        }
-
     }
 }

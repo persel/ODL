@@ -43,18 +43,6 @@ namespace ODL.DataAccess.Repositories
             //return _internalGenericRepository.Find(person => person.Personnummer == personnummer);
         }
 
-        public Anstalld GetAnstalld(int personId)
-        {
-            var obj = DbContext.Anstalld.FirstOrDefault(x => x.PersonFKId == personId);
-            return obj;
-        }
-
-        public Konsult GetKonsult(int personId)
-        {
-            var obj = DbContext.Konsult.FirstOrDefault(x => x.PersonFKId == personId);
-            return obj;
-        }
-
 
         public Avtal GetByKallsystemId(string systemId)
         {

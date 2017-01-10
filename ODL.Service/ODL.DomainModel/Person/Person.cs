@@ -54,5 +54,8 @@ namespace ODL.DomainModel.Person
         [NotMapped]
         public IEnumerable<int> KonsultAvtalIdn => KonsultAvtal.Select(konsultAvtal => konsultAvtal.AvtalFKId);
 
+        [NotMapped]
+        public bool IsNew => Id == 0;
+        
     }
 }
