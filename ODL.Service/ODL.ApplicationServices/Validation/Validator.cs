@@ -42,7 +42,7 @@ namespace ODL.ApplicationServices.Validation
             return errors;
         }
 
-        internal void NotNull<T2>(Expression<Func<T, T2>> propertySelector)
+        internal void NotNull<T2>(Expression<Func<T, T2>> propertySelector) 
         {
             var subjectName = typeof(T).Name;
             var propertyName = ((MemberExpression)propertySelector.Body).Member.Name;
@@ -51,6 +51,25 @@ namespace ODL.ApplicationServices.Validation
 
             AddRule(rule, $"Fältet '{subjectName}.{propertyName}' av typen '{typeName}' får ej vara null.", true);
         }
+
+        internal void AboveZero(Expression<Func<T, int>> propertySelector)
+        {
+            var subjectName = typeof(T).Name;
+            var propertyName = ((MemberExpression)propertySelector.Body).Member.Name;
+            Func<T, bool> rule = x => propertySelector.Compile().Invoke(x) > 0;
+
+            AddRule(rule, $"Fältet '{subjectName}.{propertyName}' måste vara > 0.", true);
+        }
+
+        internal void AboveZero(Expression<Func<T, decimal>> propertySelector)
+        {
+            var subjectName = typeof(T).Name;
+            var propertyName = ((MemberExpression)propertySelector.Body).Member.Name;
+            Func<T, bool> rule = x => propertySelector.Compile().Invoke(x) > 0;
+
+            AddRule(rule, $"Fältet '{subjectName}.{propertyName}' måste vara > 0.", true);
+        }
+
 
         /// <summary>
         /// Kör alla regler och lägg resultatet i angiven lista.

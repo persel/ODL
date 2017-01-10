@@ -15,6 +15,7 @@ namespace ODL.DataAccess.Repositories
 
         public PersonRepository(ODLDbContext dbContext)
         {
+            //TODO-Marie
             DbContext = dbContext;
             _internalGenericRepository = new Repository<Person, ODLDbContext>(DbContext);
         }
@@ -39,21 +40,36 @@ namespace ODL.DataAccess.Repositories
                 .Include(a => a.AnstallningsAvtal)
                 .Include(k => k.KonsultAvtal).Single(person => person.Personnummer == personnummer);
             //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
+            //return _internalGenericRepository.Find(person => person.Personnummer == personnummer);
         }
+
+        public Anstalld GetAnstalld(int personId)
+        {
+            var obj = DbContext.Anstalld.FirstOrDefault(x => x.PersonFKId == personId);
+            return obj;
+        }
+
+        public Konsult GetKonsult(int personId)
+        {
+            var obj = DbContext.Konsult.FirstOrDefault(x => x.PersonFKId == personId);
+            return obj;
+        }
+
 
         public Avtal GetByKallsystemId(string systemId)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Add(Avtal avtal)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Update()
         {
-            throw new System.NotImplementedException();
+            _internalGenericRepository.Update();
+        }
+
+
+        public void Add(Person nyPerson)
+        {
+            _internalGenericRepository.Add(nyPerson);
         }
 
         /*

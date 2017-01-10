@@ -56,8 +56,12 @@
     <Compile Include="DTOExtensions.cs" />
     <Compile Include="DTOModel\Load\AvtalInputDTO.cs" />
     <Compile Include="DTOModel\Load\InputDTO.cs" />
+    <Compile Include="DTOModel\Load\ResultatenhetInputDTO.cs" />
     <Compile Include="DTOModel\Load\PersonInputDTO.cs" />
+    <Compile Include="DTOModel\Load\OrganisationtInputDTO.cs" />
     <Compile Include="Validation\AvtalInputValidator.cs" />
+    <Compile Include="Validation\ResultatenhetInputValidator.cs" />
+    <Compile Include="Validation\OrganisationInputValidator.cs" />
     <Compile Include="Validation\PersonInputValidator.cs" />
     <Compile Include="Validation\ValidationError.cs" />
     <Compile Include="Validation\ValidationRule.cs" />

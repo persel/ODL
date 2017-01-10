@@ -1,24 +1,30 @@
 
 using ODL.DomainModel.Common;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace ODL.DomainModel.Organisation
 {
-    
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
     [Table("Organisation.Organisation")]
     public partial class Organisation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Organisation()
+        protected Organisation()
         {
             Underliggande = new HashSet<Organisation>();
             OrganisationsAvtal = new HashSet<OrganisationsAvtal>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public static Organisation SkapaNyResultatenhet()
+        {
+            var org = new Organisation();
+            org.Resultatenhet = new Resultatenhet();
+            return org;
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -44,5 +50,7 @@ namespace ODL.DomainModel.Organisation
         public IEnumerable<int> AllaAvtalIdn => OrganisationsAvtal.Select(orgAvtal => orgAvtal.AvtalFKId);
 
         public virtual Resultatenhet Resultatenhet { get; set; }
+
+        public bool IsNew => Id == default(int);
     }
 }

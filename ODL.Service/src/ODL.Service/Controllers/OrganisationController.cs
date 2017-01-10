@@ -30,5 +30,13 @@ namespace ODL.Service.Controllers
         {
             return _organisationService.GetResultatenhetByPersonnummer(personnummer);
         }
+
+        // POST api/resultatenhet/
+        [HttpPost("resultatenhet")]
+        public void SparaResultatenhet([FromBody]ResultatenhetInputDTO resultatenhet)
+        {
+            _organisationService.SparaResultatenhet(resultatenhet);
+        }
+
     }
 }

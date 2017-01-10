@@ -15,21 +15,21 @@ namespace ODL.ApplicationServices
     public class PersonService : IPersonService
     {
         private readonly IPersonRepository personRepository;
-        private readonly IResultatenhetRepository resultatenhetRepository;
+        private readonly IOrganisationRepository organisationRepository;
         private readonly IAvtalRepository avtalRepository;
         private readonly ILogger<PersonService> logger;
 
-        public PersonService(IPersonRepository personRepository, IResultatenhetRepository resultatenhetRepository, IAvtalRepository avtalRepository, ILogger<PersonService> logger)
+        public PersonService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, ILogger<PersonService> logger)
         {
             this.personRepository = personRepository;
-            this.resultatenhetRepository = resultatenhetRepository;
+            this.organisationRepository = organisationRepository;
             this.avtalRepository = avtalRepository;
             this.logger = logger;
     }
 
         public List<PersonDTO> GetByResultatenhetId(int id)
         {
-            var resultatenhet = resultatenhetRepository.GetById(id);
+            var resultatenhet = organisationRepository.GetOrganisationByKstnr(id).Resultatenhet;
 
             var allaOrganisationer = resultatenhet.Organisation.AllaRelaterade();
 
@@ -56,9 +56,36 @@ namespace ODL.ApplicationServices
             return personDtos;
         }
 
+        public void SparaPerson(PersonInputDTO personInputDTO)
+        {
+            var valideringsfel = new PersonInputValidator().Validate(personInputDTO);
+
+            if (valideringsfel.Any())
+            {
+                foreach (var fel in valideringsfel)
+                    logger.LogError(fel.Message); 
+                throw new ApplicationException($"Valideringsfel inträffade vid validering av Person med Id: {personInputDTO.Personnummer}.");
+            }
+
+            var person = personRepository.GetByPersonnummer(personInputDTO.Personnummer) ?? new Person();
+
+            person.Personnummer = personInputDTO.Personnummer;
+            person.Efternamn = personInputDTO.Efternamn;
+            person.Fornamn = personInputDTO.Fornamn;
+            person.Mellannamn = personInputDTO.Mellannamn;
+            person.KallsystemId = personInputDTO.SystemId;
+            person.Metadata = personInputDTO.GetMetadata();
+            person = CreateOrUpdateAnstalldOrKonsult(person, personInputDTO);
+
+            if (person.IsNew)
+                personRepository.Add(person);
+            else
+                personRepository.Update();
+
+        }
+
         public void SparaAvtal(AvtalInputDTO avtalDTO)
         {
-
             var valideringsfel = new AvtalInputValidator().Validate(avtalDTO);
 
             if (valideringsfel.Any())
@@ -100,7 +127,30 @@ namespace ODL.ApplicationServices
             if(avtal.IsNew)
                 avtalRepository.Add(avtal);
             else
-                personRepository.Update();
+                avtalRepository.Update();
+        }
+
+
+        private Person CreateOrUpdateAnstalldOrKonsult(Person person, PersonInputDTO personInputDTO)
+        {
+            if (personInputDTO.IsAnstalld)
+            {
+                //check if exists
+                var anstalld = personRepository.GetAnstalld(person.Id) ?? new Anstalld();
+                //anstalld.PersonFKId = person.Id; //TODO - Alle?
+                anstalld.Metadata = personInputDTO.GetMetadata();
+
+                person.Anstalld = anstalld;
+            }
+            if (personInputDTO.IsKonsult)
+            {
+                var konsult = personRepository.GetKonsult(person.Id) ?? new Konsult();
+                //konsult.PersonFKId = person.Id; //TODO - Alle?
+                konsult.Metadata = personInputDTO.GetMetadata();
+
+                person.Konsult = konsult;
+            }
+            return person;
         }
 
     }

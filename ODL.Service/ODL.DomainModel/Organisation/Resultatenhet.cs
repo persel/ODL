@@ -23,5 +23,7 @@ namespace ODL.DomainModel.Organisation
         public Metadata Metadata { get; set; }
 
         public virtual Organisation Organisation { get; set; }
+
+        public bool IsNew => OrganisationFKId == default(int);
     }
 }
