@@ -32,7 +32,7 @@ namespace ODL.DataAccess.Repositories
 
         public TEntity FindSingle(Expression<Func<TEntity, bool>> filter)
         {
-            return context.Set<TEntity>().Where(filter).Single();
+            return context.Set<TEntity>().Where(filter).SingleOrDefault();
         }
 
         public void Add(TEntity newEntity)

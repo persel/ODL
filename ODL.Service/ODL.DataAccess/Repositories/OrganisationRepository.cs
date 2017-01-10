@@ -45,5 +45,10 @@ namespace ODL.DataAccess.Repositories
         {
             _internalGenericRepository.Add(nyOrganisation);
         }
+
+        public Organisation GetOrganisationByKstnr(int kstnr)
+        {
+            return _internalGenericRepository.FindSingle(org => org.Resultatenhet.KstNr == kstnr);
+        }
     }
 }

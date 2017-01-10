@@ -68,44 +68,46 @@ namespace ODL.ApplicationServices
                 throw new ApplicationException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resEnhetInputDTO.KostnadsstalleNr}.");
             }
 
-            var resultatenhet = resultatenhetRepository.GetResultatenhetByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? new Resultatenhet();
+            //var organisation = organisationRepository.GetOrganisationByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? new Organisation();
+            var organisation = organisationRepository.GetOrganisationByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet();
 
+            organisation.OrganisationsId = resEnhetInputDTO.OrganisationsId;
+            organisation.Metadata = resEnhetInputDTO.GetMetadata();
+
+            var resultatenhet = organisation.Resultatenhet;
             resultatenhet.Typ = resEnhetInputDTO.Typ;
             resultatenhet.KstNr = resEnhetInputDTO.KostnadsstalleNr;
             resultatenhet.Metadata = resEnhetInputDTO.GetMetadata();
-            //TODO - Alle? Nytt kstnr, orgid? Via mappningen
-            //resultatenhet.Organisation =
-            //resultatenhet.OrganisationFKId = resEnhetInputDTO.OrganisationsId;
 
             if (resultatenhet.IsNew)
-                resultatenhetRepository.Add(resultatenhet);
-            else
-                resultatenhetRepository.Update();
-        }
-
-        public void SparaOrganisation(OrganisationInputDTO orgInputDTO)
-        {
-            var valideringsfel = new OrganisationInputValidator().Validate(orgInputDTO);
-
-            if (valideringsfel.Any())
-            {
-                foreach (var fel in valideringsfel)
-                    logger.LogError(fel.Message);
-                throw new ApplicationException($"Valideringsfel inträffade vid validering av organisation med organisationsid: {orgInputDTO.OrgId}.");
-            }
-
-            var organisation = organisationRepository.GetByOrgId(orgInputDTO.OrgId) ?? new Organisation();
-
-            organisation.OrganisationsId = orgInputDTO.OrgId;
-            organisation.Metadata = orgInputDTO.GetMetadata();
-            organisation.Namn = orgInputDTO.Namn;
-            //TODO - Resten 
-
-
-            if (organisation.IsNew)
                 organisationRepository.Add(organisation);
             else
                 organisationRepository.Update();
         }
+
+    //    public void SparaOrganisation(OrganisationInputDTO orgInputDTO)
+    //    {
+    //        var valideringsfel = new OrganisationInputValidator().Validate(orgInputDTO);
+
+    //        if (valideringsfel.Any())
+    //        {
+    //            foreach (var fel in valideringsfel)
+    //                logger.LogError(fel.Message);
+    //            throw new ApplicationException($"Valideringsfel inträffade vid validering av organisation med organisationsid: {orgInputDTO.OrgId}.");
+    //        }
+
+    //        var organisation = organisationRepository.GetByOrgId(orgInputDTO.OrgId) ?? new Organisation();
+
+    //        organisation.OrganisationsId = orgInputDTO.OrgId;
+    //        organisation.Metadata = orgInputDTO.GetMetadata();
+    //        organisation.Namn = orgInputDTO.Namn;
+    //        //TODO - Resten 
+
+
+    //        if (organisation.IsNew)
+    //            organisationRepository.Add(organisation);
+    //        else
+    //            organisationRepository.Update();
+    //    }
     }
 }

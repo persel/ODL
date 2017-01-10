@@ -12,10 +12,17 @@ namespace ODL.DomainModel.Organisation
     public partial class Organisation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Organisation()
+        protected Organisation()
         {
             Underliggande = new HashSet<Organisation>();
             OrganisationsAvtal = new HashSet<OrganisationsAvtal>();
+        }
+
+        public static Organisation SkapaNyResultatenhet()
+        {
+            var org = new Organisation();
+            org.Resultatenhet = new Resultatenhet();
+            return org;
         }
 
         public int Id { get; set; }

@@ -15,7 +15,7 @@ namespace ODL.ApplicationServices
 
         void SparaResultatenhet(ResultatenhetInputDTO resEnhet);
 
-        void SparaOrganisation(OrganisationInputDTO orgInputDTO);
+        //void SparaOrganisation(OrganisationInputDTO orgInputDTO);
 
     }
 }

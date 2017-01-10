@@ -19,5 +19,8 @@ namespace ODL.DataAccess.Repositories
         void Update();
 
         void Add(Organisation organisation);
+
+        Organisation GetOrganisationByKstnr(int i);
+
     }
 }
