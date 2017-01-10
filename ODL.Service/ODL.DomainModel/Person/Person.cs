@@ -56,6 +56,33 @@ namespace ODL.DomainModel.Person
 
         [NotMapped]
         public bool IsNew => Id == 0;
-        
+
+        public bool IsAnstalld()
+        {
+            return AnstallningsAvtal.Any();
+        }
+
+        public bool IsKonsult()
+        {
+            return KonsultAvtal.Any();
+        }
+
+        public IEnumerable<int> AllaAvtalIdn()
+        {
+            if (IsAnstalld() && IsKonsult())
+                return AnstallningsAvtalIdn.Concat(KonsultAvtalIdn);
+            return IsAnstalld()
+                ? AnstallningsAvtalIdn
+                : (IsKonsult() ? KonsultAvtalIdn : new List<int>()); // Tar hänsyn till om en person är varken konsult eller anställd...
+        }
+
+        /// <summary>
+        /// Personen är kopplad till organisationen genom minst ett avtal 
+        /// </summary>
+        public bool KoppladTill(Organisation.Organisation organisation)
+        {
+            return AllaAvtalIdn().Intersect(organisation.AllaAvtalIdn).Any();
+        }
+
     }
 }
