@@ -77,9 +77,7 @@
     <Compile Include="Organisation\Organisation.cs" />
     <Compile Include="Organisation\OrganisationsAvtal.cs" />
     <Compile Include="Organisation\Resultatenhet.cs" />
-    <Compile Include="Person\Anstalld.cs" />
     <Compile Include="Person\AnstallningsAvtal.cs" />
-    <Compile Include="Person\Konsult.cs" />
     <Compile Include="Person\KonsultAvtal.cs" />
     <Compile Include="Person\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

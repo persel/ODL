@@ -17,6 +17,6 @@ namespace ODL.DomainModel.Person
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AvtalFKId { get; set; }
 
-        public virtual Konsult Konsult { get; set; }
+        public virtual Person Konsult { get; set; }
     }
 }

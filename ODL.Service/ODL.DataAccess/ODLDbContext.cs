@@ -31,9 +31,7 @@ namespace ODL.DataAccess
 
         // Person:
 
-        public virtual DbSet<Anstalld> Anstalld { get; set; }
         public virtual DbSet<AnstallningsAvtal> AnstallningsAvtal { get; set; }
-        public virtual DbSet<Konsult> Konsult { get; set; }
         public virtual DbSet<KonsultAvtal> KonsultAvtal { get; set; }
         public virtual DbSet<Person> Person { get; set; }
 
@@ -82,25 +80,16 @@ namespace ODL.DataAccess
 
             // Person:
 
-            modelBuilder.Entity<Anstalld>()
+            modelBuilder.Entity<Person>()
                 .HasMany(e => e.AnstallningsAvtal)
-                .WithRequired(e => e.Anstalld)
+                .WithRequired(e => e.Anstalld).HasForeignKey(k => k.PersonFKId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Konsult>()
+            modelBuilder.Entity<Person>()
                 .HasMany(e => e.KonsultAvtal)
-                .WithRequired(e => e.Konsult)
+                .WithRequired(e => e.Konsult).HasForeignKey(k => k.PersonFKId)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Person>()
-                .HasOptional(e => e.Anstalld)
-                .WithRequired(e => e.Person);
-
-            modelBuilder.Entity<Person>()
-                .HasOptional(e => e.Konsult)
-                .WithRequired(e => e.Person);
-
-
+            
             // Organisation:
 
             modelBuilder.Entity<Organisation>()

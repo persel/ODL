@@ -17,7 +17,7 @@ namespace ODL.DomainModel.Person
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AvtalFKId { get; set; }
 
-        public virtual Anstalld Anstalld { get; set; }
+        public virtual Person Anstalld { get; set; }
 
     }
 }

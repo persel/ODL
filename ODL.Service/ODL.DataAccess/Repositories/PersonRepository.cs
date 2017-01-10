@@ -29,15 +29,15 @@ namespace ODL.DataAccess.Repositories
         public List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn)
         {
             return DbContext.Person.Where(
-                person => person.Anstalld.AnstallningsAvtal.Any(avtal => avtalIdn.Contains(avtal.AvtalFKId)) ||
-                          person.Konsult.KonsultAvtal.Any(avtal => avtalIdn.Contains(avtal.AvtalFKId))).ToList();
+                person => person.AnstallningsAvtal.Any(avtal => avtalIdn.Contains(avtal.AvtalFKId)) ||
+                          person.KonsultAvtal.Any(avtal => avtalIdn.Contains(avtal.AvtalFKId))).ToList();
         }
         
         public Person GetByPersonnummer(string personnummer)
         {
             return DbContext.Set<Person>()
-                .Include(a => a.Anstalld.AnstallningsAvtal)
-                .Include(k => k.Konsult.KonsultAvtal).Single(person => person.Personnummer == personnummer);
+                .Include(a => a.AnstallningsAvtal)
+                .Include(k => k.KonsultAvtal).Single(person => person.Personnummer == personnummer);
             //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
         }
 
