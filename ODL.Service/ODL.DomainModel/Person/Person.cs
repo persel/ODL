@@ -42,6 +42,11 @@ namespace ODL.DomainModel.Person
 
         public Metadata Metadata { get; set; }
 
+
+        // TODO: Person har listor av konsultavtal och anställningsavtal - Praktiskt men inte helt optimalt eftersom Avtal har samma referenser (genom 1:1-relationer) och 
+        // man därigenom kan uppdatera samma tabeller via två olika aggregat (Person och Avtal), vilket kan ge concurrency issues etc. Vore bra om Person inte hade konsultavtal och anställningsavtal,
+        // vilket dock ger mer logik i Servicen, utanför modellen.
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AnstallningsAvtal> AnstallningsAvtal { get; set; }
 
