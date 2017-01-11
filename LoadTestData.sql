@@ -5,57 +5,14 @@ GO
 -- # TEMPORARILY DROP FK CONSTRAINTS IF EXIST (SINCE TRUNCATE IS NOT POSSIBLE WITH ENABLED FK CONSTRAINTS)
 -- #############################################################
 
-IF (OBJECT_ID('Person.FK_OrganisationAvtal_Organisation', 'F') IS NOT NULL)
-	ALTER TABLE [Person].[OrganisationAvtal] DROP CONSTRAINT [FK_OrganisationAvtal_Organisation]
-GO
-IF (OBJECT_ID('Person.FK_OrganisationAvtal_Avtal', 'F') IS NOT NULL)
-	ALTER TABLE [Person].[OrganisationAvtal] DROP CONSTRAINT [FK_OrganisationAvtal_Avtal]
-GO
-IF (OBJECT_ID('Person.FK_KonsultAvtal_Person', 'F') IS NOT NULL)
-	ALTER TABLE [Person].[KonsultAvtal] DROP CONSTRAINT [FK_KonsultAvtal_Person]
-GO
-IF (OBJECT_ID('Person.FK_KonsultAvtal_Avtal', 'F') IS NOT NULL)
-	ALTER TABLE [Person].[KonsultAvtal] DROP CONSTRAINT [FK_KonsultAvtal_Avtal]
-GO
-IF (OBJECT_ID('Person.FK_AnstalldAvtal_Avtal', 'F') IS NOT NULL)
-	ALTER TABLE [Person].[AnstalldAvtal] DROP CONSTRAINT [FK_AnstalldAvtal_Avtal]
-GO
-IF (OBJECT_ID('Person.FK_AnstalldAvtal_Person', 'F') IS NOT NULL)
-	ALTER TABLE [Person].[AnstalldAvtal] DROP CONSTRAINT [FK_AnstalldAvtal_Person]
-GO
-IF (OBJECT_ID('Organisation.FK_Resultatenhet_Organisation', 'F') IS NOT NULL)
-	ALTER TABLE [Organisation].[Resultatenhet] DROP CONSTRAINT [FK_Resultatenhet_Organisation]
-GO
-IF (OBJECT_ID('Organisation.FK_Organisation_Organisation', 'F') IS NOT NULL)
-	ALTER TABLE [Organisation].[Organisation] DROP CONSTRAINT [FK_Organisation_Organisation]
-GO
-IF (OBJECT_ID('Adress.FK_Telefon_Adress', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[Telefon] DROP CONSTRAINT [FK_Telefon_Adress]
-GO
-IF (OBJECT_ID('Adress.FK_PersonAdress_Person', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[PersonAdress] DROP CONSTRAINT [FK_PersonAdress_Person]
-GO
-IF (OBJECT_ID('Adress.FK_PersonAdress_Adress', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[PersonAdress] DROP CONSTRAINT [FK_PersonAdress_Adress]
-GO
-IF (OBJECT_ID('Adress.FK_OrganisationAdress_Organisation', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[OrganisationAdress] DROP CONSTRAINT [FK_OrganisationAdress_Organisation]
-GO
-IF (OBJECT_ID('Adress.FK_OrganisationAdress_Adress', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[OrganisationAdress] DROP CONSTRAINT [FK_OrganisationAdress_Adress]
-GO
-IF (OBJECT_ID('Adress.FK_Mail_Adress', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[Mail] DROP CONSTRAINT [FK_Mail_Adress]
-GO
-IF (OBJECT_ID('Adress.FK_GatuAdress_Adress', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[GatuAdress] DROP CONSTRAINT [FK_GatuAdress_Adress]
-GO
-IF (OBJECT_ID('Adress.FK_AdressVariant_AdressTyp', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[AdressVariant] DROP CONSTRAINT [FK_AdressVariant_AdressTyp]
-GO
-IF (OBJECT_ID('Adress.FK_Adress_AdressVariant', 'F') IS NOT NULL)
-	ALTER TABLE [Adress].[Adress] DROP CONSTRAINT [FK_Adress_AdressVariant]
-GO
+declare @sql1 nvarchar(max) = N'';
+SELECT @sql1 += ('ALTER TABLE ' + TABLE_SCHEMA + '.[' + TABLE_NAME
++ '] DROP CONSTRAINT [' + CONSTRAINT_NAME + '];')
+FROM information_schema.table_constraints
+WHERE CONSTRAINT_TYPE = 'FOREIGN KEY' AND TABLE_SCHEMA IN('Adress', 'Organisation', 'Person', 'Behorighet') -- CONSTRAINT_CATALOG = 'ODL'
+--PRINT @sql1;
+EXEC (@sql1)
+
 
 -- #############################################################
 -- # TRUNCATE TABLES (IDENTITY COLUMN COUNTERS ARE RESET)
@@ -176,6 +133,153 @@ REFERENCES [Organisation].[Organisation] ([Id])
 GO
 ALTER TABLE [Person].[OrganisationAvtal] CHECK CONSTRAINT [FK_OrganisationAvtal_Organisation]
 GO
+
+
+-- #############################################################
+-- # CREATE Behörighet FK CONSTRAINTS
+-- #############################################################
+
+ALTER TABLE [Behorighet].[Anvandare]  WITH CHECK ADD  CONSTRAINT [FK_Anvandare_Person] FOREIGN KEY([PersonFKId])
+REFERENCES [Person].[Person] ([Id])
+GO
+ALTER TABLE [Behorighet].[Anvandare] CHECK CONSTRAINT [FK_Anvandare_Person]
+GO
+ALTER TABLE [Behorighet].[Behorighetsniva]  WITH CHECK ADD  CONSTRAINT [FK_Behorighetsniva_System] FOREIGN KEY([SystemFKId])
+REFERENCES [Behorighet].[System] ([Id])
+GO
+ALTER TABLE [Behorighet].[Behorighetsniva] CHECK CONSTRAINT [FK_Behorighetsniva_System]
+GO
+ALTER TABLE [Behorighet].[PersonIVerksamhetsroll]  WITH CHECK ADD  CONSTRAINT [FK_PersonIVerksamhetsroll_Person] FOREIGN KEY([PersonFKId])
+REFERENCES [Person].[Person] ([Id])
+GO
+ALTER TABLE [Behorighet].[PersonIVerksamhetsroll] CHECK CONSTRAINT [FK_PersonIVerksamhetsroll_Person]
+GO
+ALTER TABLE [Behorighet].[PersonIVerksamhetsroll]  WITH CHECK ADD  CONSTRAINT [FK_PersonIVerksamhetsroll_Verksamhetsroll] FOREIGN KEY([VerksamhetsrollFKId])
+REFERENCES [Behorighet].[Verksamhetsroll] ([Id])
+GO
+ALTER TABLE [Behorighet].[PersonIVerksamhetsroll] CHECK CONSTRAINT [FK_PersonIVerksamhetsroll_Verksamhetsroll]
+GO
+ALTER TABLE [Behorighet].[PersonIVerksamhetsrollVerksamhetsdimensionsvarde]  WITH CHECK ADD  CONSTRAINT [FK_PersonIVerksamhetsrollVerksamhetsdimensionsvarde_PersonIVerksamhetsroll] FOREIGN KEY([PersonIVerksamhetsrollFKId])
+REFERENCES [Behorighet].[PersonIVerksamhetsroll] ([Id])
+GO
+ALTER TABLE [Behorighet].[PersonIVerksamhetsrollVerksamhetsdimensionsvarde] CHECK CONSTRAINT [FK_PersonIVerksamhetsrollVerksamhetsdimensionsvarde_PersonIVerksamhetsroll]
+GO
+ALTER TABLE [Behorighet].[PersonIVerksamhetsrollVerksamhetsdimensionsvarde]  WITH CHECK ADD  CONSTRAINT [FK_PersonIVerksamhetsrollVerksamhetsdimensionsvarde_Verksamhetsdimensionsvarde] FOREIGN KEY([VerksamhetsdimensionsvardeFKId])
+REFERENCES [Behorighet].[Verksamhetsdimensionsvarde] ([Id])
+GO
+ALTER TABLE [Behorighet].[PersonIVerksamhetsrollVerksamhetsdimensionsvarde] CHECK CONSTRAINT [FK_PersonIVerksamhetsrollVerksamhetsdimensionsvarde_Verksamhetsdimensionsvarde]
+GO
+ALTER TABLE [Behorighet].[RelevantVerksamhetsdimension]  WITH CHECK ADD  CONSTRAINT [FK_RelevantVerksamhetsdimension_Verksamhetsdimension] FOREIGN KEY([VerksamhetsdimensionFKId])
+REFERENCES [Behorighet].[Verksamhetsdimension] ([Id])
+GO
+ALTER TABLE [Behorighet].[RelevantVerksamhetsdimension] CHECK CONSTRAINT [FK_RelevantVerksamhetsdimension_Verksamhetsdimension]
+GO
+ALTER TABLE [Behorighet].[RelevantVerksamhetsdimension]  WITH CHECK ADD  CONSTRAINT [FK_RelevantVerksamhetsdimension_Verksamhetsroll] FOREIGN KEY([VerksamhetsrollFKId])
+REFERENCES [Behorighet].[Verksamhetsroll] ([Id])
+GO
+ALTER TABLE [Behorighet].[RelevantVerksamhetsdimension] CHECK CONSTRAINT [FK_RelevantVerksamhetsdimension_Verksamhetsroll]
+GO
+ALTER TABLE [Behorighet].[Systemanvandargrupp]  WITH CHECK ADD  CONSTRAINT [FK_Systemanvandargrupp_Behorighetsniva] FOREIGN KEY([BehorighetsnivaFKId])
+REFERENCES [Behorighet].[Behorighetsniva] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systemanvandargrupp] CHECK CONSTRAINT [FK_Systemanvandargrupp_Behorighetsniva]
+GO
+ALTER TABLE [Behorighet].[Systemanvandargrupp]  WITH CHECK ADD  CONSTRAINT [FK_Systemanvandargrupp_System] FOREIGN KEY([SystemFKId])
+REFERENCES [Behorighet].[System] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systemanvandargrupp] CHECK CONSTRAINT [FK_Systemanvandargrupp_System]
+GO
+ALTER TABLE [Behorighet].[Systemattribut]  WITH CHECK ADD  CONSTRAINT [FK_Systemattribut_System] FOREIGN KEY([SystemFKId])
+REFERENCES [Behorighet].[System] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systemattribut] CHECK CONSTRAINT [FK_Systemattribut_System]
+GO
+ALTER TABLE [Behorighet].[Systemattributvarde]  WITH CHECK ADD  CONSTRAINT [FK_Systemattributvarde_Systemattribut] FOREIGN KEY([SystemattributFKId])
+REFERENCES [Behorighet].[Systemattribut] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systemattributvarde] CHECK CONSTRAINT [FK_Systemattributvarde_Systemattribut]
+GO
+ALTER TABLE [Behorighet].[Systemattributvarde]  WITH CHECK ADD  CONSTRAINT [FK_Systemattributvarde_Systemattributvarde] FOREIGN KEY([SystemattributvardeFKId])
+REFERENCES [Behorighet].[Systemattributvarde] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systemattributvarde] CHECK CONSTRAINT [FK_Systemattributvarde_Systemattributvarde]
+GO
+ALTER TABLE [Behorighet].[SystemattributVerksamhetsdimension]  WITH CHECK ADD  CONSTRAINT [FK_SystemattributVerksamhetsdimension_Systemattribut] FOREIGN KEY([SystemattributFKId])
+REFERENCES [Behorighet].[Systemattribut] ([Id])
+GO
+ALTER TABLE [Behorighet].[SystemattributVerksamhetsdimension] CHECK CONSTRAINT [FK_SystemattributVerksamhetsdimension_Systemattribut]
+GO
+ALTER TABLE [Behorighet].[SystemattributVerksamhetsdimension]  WITH CHECK ADD  CONSTRAINT [FK_SystemattributVerksamhetsdimension_Verksamhetsdimension] FOREIGN KEY([VerksamhetsdimensionFKId])
+REFERENCES [Behorighet].[Verksamhetsdimension] ([Id])
+GO
+ALTER TABLE [Behorighet].[SystemattributVerksamhetsdimension] CHECK CONSTRAINT [FK_SystemattributVerksamhetsdimension_Verksamhetsdimension]
+GO
+ALTER TABLE [Behorighet].[Systembegransning]  WITH CHECK ADD  CONSTRAINT [FK_Systembegransning_PersonIVerksamhetsroll] FOREIGN KEY([PersonIVerksamhetsrollFKId])
+REFERENCES [Behorighet].[PersonIVerksamhetsroll] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systembegransning] CHECK CONSTRAINT [FK_Systembegransning_PersonIVerksamhetsroll]
+GO
+ALTER TABLE [Behorighet].[Systembegransning]  WITH CHECK ADD  CONSTRAINT [FK_Systembegransning_System] FOREIGN KEY([SystemFKId])
+REFERENCES [Behorighet].[System] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systembegransning] CHECK CONSTRAINT [FK_Systembegransning_System]
+GO
+ALTER TABLE [Behorighet].[Systembehorighet]  WITH CHECK ADD  CONSTRAINT [FK_Systembehorighet_Anvandare] FOREIGN KEY([AnvandareFKId])
+REFERENCES [Behorighet].[Anvandare] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systembehorighet] CHECK CONSTRAINT [FK_Systembehorighet_Anvandare]
+GO
+ALTER TABLE [Behorighet].[Systembehorighet]  WITH CHECK ADD  CONSTRAINT [FK_Systembehorighet_Systemanvandargrupp] FOREIGN KEY([SystemanvandargruppFKId])
+REFERENCES [Behorighet].[Systemanvandargrupp] ([Id])
+GO
+ALTER TABLE [Behorighet].[Systembehorighet] CHECK CONSTRAINT [FK_Systembehorighet_Systemanvandargrupp]
+GO
+ALTER TABLE [Behorighet].[SystembehorighetAttributVarde]  WITH CHECK ADD  CONSTRAINT [FK_SystembehorighetAttributVarde_Systemattributvarde] FOREIGN KEY([SystemattributvardeFKId])
+REFERENCES [Behorighet].[Systemattributvarde] ([Id])
+GO
+ALTER TABLE [Behorighet].[SystembehorighetAttributVarde] CHECK CONSTRAINT [FK_SystembehorighetAttributVarde_Systemattributvarde]
+GO
+ALTER TABLE [Behorighet].[SystembehorighetAttributVarde]  WITH CHECK ADD  CONSTRAINT [FK_SystembehorighetAttributVarde_Systembehorighet] FOREIGN KEY([SystembehorighetFKId])
+REFERENCES [Behorighet].[Systembehorighet] ([Id])
+GO
+ALTER TABLE [Behorighet].[SystembehorighetAttributVarde] CHECK CONSTRAINT [FK_SystembehorighetAttributVarde_Systembehorighet]
+GO
+ALTER TABLE [Behorighet].[VerksamhetsdimensionsvardeSystemattributvarde]  WITH CHECK ADD  CONSTRAINT [FK_VerksamhetsdimensionsvardeSystemattributvarde_Systemattributvarde] FOREIGN KEY([SystemattributvardeFKId])
+REFERENCES [Behorighet].[Systemattributvarde] ([Id])
+GO
+ALTER TABLE [Behorighet].[VerksamhetsdimensionsvardeSystemattributvarde] CHECK CONSTRAINT [FK_VerksamhetsdimensionsvardeSystemattributvarde_Systemattributvarde]
+GO
+ALTER TABLE [Behorighet].[VerksamhetsdimensionsvardeSystemattributvarde]  WITH CHECK ADD  CONSTRAINT [FK_VerksamhetsdimensionsvardeSystemattributvarde_Verksamhetsdimensionsvarde] FOREIGN KEY([VerksamhetsdimensionsvardeFKId])
+REFERENCES [Behorighet].[Verksamhetsdimensionsvarde] ([Id])
+GO
+ALTER TABLE [Behorighet].[VerksamhetsdimensionsvardeSystemattributvarde] CHECK CONSTRAINT [FK_VerksamhetsdimensionsvardeSystemattributvarde_Verksamhetsdimensionsvarde]
+GO
+ALTER TABLE [Behorighet].[Verksamhetsdimensionsvarde]  WITH CHECK ADD  CONSTRAINT [FK_Verksamhetsdimensionsvarde_Verksamhetsdimension] FOREIGN KEY([VerksamhetsdimensionFKId])
+REFERENCES [Behorighet].[Verksamhetsdimension] ([Id])
+GO
+ALTER TABLE [Behorighet].[Verksamhetsdimensionsvarde] CHECK CONSTRAINT [FK_Verksamhetsdimensionsvarde_Verksamhetsdimension]
+GO
+ALTER TABLE [Behorighet].[Verksamhetsdimensionsvarde]  WITH CHECK ADD  CONSTRAINT [FK_Verksamhetsdimensionsvarde_Verksamhetsdimensionsvarde] FOREIGN KEY([VerksamhetsdimensionsvardeFKId])
+REFERENCES [Behorighet].[Verksamhetsdimensionsvarde] ([Id])
+GO
+ALTER TABLE [Behorighet].[Verksamhetsdimensionsvarde] CHECK CONSTRAINT [FK_Verksamhetsdimensionsvarde_Verksamhetsdimensionsvarde]
+GO
+ALTER TABLE [Behorighet].[VerksamhetsrollAnvandargrupp]  WITH CHECK ADD  CONSTRAINT [FK_VerksamhetsrollAnvandargrupp_Systemanvandargrupp] FOREIGN KEY([SystemanvandargruppFKId])
+REFERENCES [Behorighet].[Systemanvandargrupp] ([Id])
+GO
+ALTER TABLE [Behorighet].[VerksamhetsrollAnvandargrupp] CHECK CONSTRAINT [FK_VerksamhetsrollAnvandargrupp_Systemanvandargrupp]
+GO
+ALTER TABLE [Behorighet].[VerksamhetsrollAnvandargrupp]  WITH CHECK ADD  CONSTRAINT [FK_VerksamhetsrollAnvandargrupp_Verksamhetsroll] FOREIGN KEY([VerksamhetsrollFKId])
+REFERENCES [Behorighet].[Verksamhetsroll] ([Id])
+GO
+ALTER TABLE [Behorighet].[VerksamhetsrollAnvandargrupp] CHECK CONSTRAINT [FK_VerksamhetsrollAnvandargrupp_Verksamhetsroll]
+GO
+
+
+
+-- #############################################################
+-- # INSERT Actual data
+-- #############################################################
 
 
 DECLARE @createdTime datetime, @updatedTime datetime;
