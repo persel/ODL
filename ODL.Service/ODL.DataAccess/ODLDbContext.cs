@@ -89,7 +89,7 @@ namespace ODL.DataAccess
                 .HasMany(e => e.KonsultAvtal)
                 .WithRequired(e => e.Konsult).HasForeignKey(k => k.PersonFKId)
                 .WillCascadeOnDelete(false);
-            
+
             // Organisation:
 
             modelBuilder.Entity<Organisation>()
