@@ -46,7 +46,7 @@ namespace ODL.DataAccess.Repositories
 
         public Avtal GetByKallsystemId(string systemId)
         {
-            throw new System.NotImplementedException();
+            return DbContext.Avtal.SingleOrDefault(avtal => avtal.KallsystemId == systemId);
         }
 
         public void Update()

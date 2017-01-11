@@ -15,7 +15,7 @@ namespace ODL.DomainModel.Organisation
         protected Organisation()
         {
             Underliggande = new HashSet<Organisation>();
-            OrganisationsAvtal = new HashSet<OrganisationsAvtal>();
+            OrganisationsAvtal = new HashSet<OrganisationAvtal>();
         }
 
         public static Organisation SkapaNyResultatenhet()
@@ -44,7 +44,7 @@ namespace ODL.DomainModel.Organisation
         public virtual Organisation Overordnad { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrganisationsAvtal> OrganisationsAvtal { get; set; }
+        public virtual ICollection<OrganisationAvtal> OrganisationsAvtal { get; set; }
 
         [NotMapped]
         public IEnumerable<int> AllaAvtalIdn => OrganisationsAvtal.Select(orgAvtal => orgAvtal.AvtalFKId);

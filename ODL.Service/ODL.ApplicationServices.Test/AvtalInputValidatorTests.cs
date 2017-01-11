@@ -17,9 +17,13 @@ namespace ODL.ApplicationServices.Test
             var avtal = new AvtalInputDTO
             {
                 SystemId = "123456",
-                KostnadsstalleNr = new[] { 456346,847576},
-                AnstalldPersonId = "32452",
-                KonsultPersonId = "98563", // Ska ej kunna tillhöra både en konsult och en anställd!
+                Kostnadsstallen = new List<OrganisationAvtalInputDTO>
+                {
+                    new OrganisationAvtalInputDTO {Huvudkostnadsstalle = true, KostnadsstalleNr = 2424, ProcentuellFordelning = 50},
+                    new OrganisationAvtalInputDTO {Huvudkostnadsstalle = false, KostnadsstalleNr = 2454, ProcentuellFordelning = 50}
+                },
+                AnstalldPersonnummer = "32452",
+                KonsultPersonnummer = "98563", // Ska ej kunna tillhöra både en konsult och en anställd!
                 Avtalskod = "KL",
                 Avtalstext = "Lorem ipsum",
                 ArbetstidVecka = 40,

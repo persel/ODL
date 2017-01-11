@@ -22,5 +22,6 @@ namespace ODL.DataAccess.Repositories
 
         Organisation GetOrganisationByKstnr(int i);
 
+       List<Organisation> GetOrganisationerByKstnr(IEnumerable<int> kstnrList);
     }
 }

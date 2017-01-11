@@ -1,11 +1,12 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using ODL.DomainModel.Person;
 
-namespace ODL.DomainModel.Organisation
+namespace ODL.DomainModel
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Person.OrganisationAvtal")]
-    public partial class OrganisationsAvtal
+    public partial class OrganisationAvtal
     {
         [Key]
         [Column(Order = 0)]
@@ -19,9 +20,12 @@ namespace ODL.DomainModel.Organisation
 
         public decimal? ProcentuellFordelning { get; set; }
 
-        [Required]
         public bool Huvudkostnadsstalle { get; set; }
 
-        public virtual Organisation Organisation { get; set; }
+        public virtual Avtal Avtal { get; set; }
+        
+        public virtual Organisation.Organisation Organisation { get; set; }
+
+
     }
 }
