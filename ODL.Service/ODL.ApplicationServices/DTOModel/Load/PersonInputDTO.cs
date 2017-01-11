@@ -14,11 +14,8 @@ namespace ODL.ApplicationServices.DTOModel.Load
 
         public string Efternamn { get; set; }
 
-        public string Alias { get; set; }
 
-        public bool IsKonsult { get; set; }
 
-        public bool IsAnstalld { get; set; }
         
     }
 }

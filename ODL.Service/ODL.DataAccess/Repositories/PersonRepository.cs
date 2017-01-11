@@ -38,7 +38,7 @@ namespace ODL.DataAccess.Repositories
         {
             return DbContext.Set<Person>()
                 .Include(a => a.AnstallningsAvtal)
-                .Include(k => k.KonsultAvtal).Single(person => person.Personnummer == personnummer);
+                .Include(k => k.KonsultAvtal).SingleOrDefault(person => person.Personnummer == personnummer);
             //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
             //return _internalGenericRepository.Find(person => person.Personnummer == personnummer);
         }
