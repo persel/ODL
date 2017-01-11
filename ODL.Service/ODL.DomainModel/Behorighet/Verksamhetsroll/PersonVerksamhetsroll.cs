@@ -4,13 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ODL.DomainModel.Behorighet.Verksamhetsroll
 {
 
-    [Table("Behorighet.PersonIVerksamhetsroll")]
-    public partial class PersonIVerksamhetsroll
+    [Table("Behorighet.PersonVerksamhetsroll")]
+    public partial class PersonVerksamhetsroll
     {
         public int Id { get; set; }
 
         [Column("VerksamhetsrollFKId")]
         public int VerksamhetsrollId { get; set; }
+
+        public Person.Person Person { get; set; }
 
         [Column("PersonFKId")]
         public int PersonId { get; set; }
@@ -20,7 +22,6 @@ namespace ODL.DomainModel.Behorighet.Verksamhetsroll
         public DateTime? TillfalligGallerFran { get; set; }
 
         public DateTime? TillfalligGallerTill { get; set; }
-
-        public virtual Verksamhetsroll Verksamhetsroll { get; set; }
+        
     }
 }

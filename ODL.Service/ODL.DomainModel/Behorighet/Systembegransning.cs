@@ -12,7 +12,7 @@ namespace ODL.DomainModel.Behorighet
         [Column("PersonIVerksamhetsrollFKId", Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PersonIVerksamhetsrollId { get; set; }
-        public virtual PersonIVerksamhetsroll PersonIVerksamhetsroll { get; set; }
+        public virtual PersonVerksamhetsroll PersonVerksamhetsroll { get; set; }
         
 
         [Key]

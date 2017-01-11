@@ -61,7 +61,6 @@
     <Compile Include="Repositories\Behorighet\ISystemRepository.cs" />
     <Compile Include="Repositories\Behorighet\IVerksamhetsdimensionRepository.cs" />
     <Compile Include="Repositories\Behorighet\IVerksamhetsrollRepository.cs" />
-    <Compile Include="Repositories\Behorighet\PersonIVerksamhetsrollRepository.cs" />
     <Compile Include="Repositories\IAvtalRepository.cs" />
     <Compile Include="Repositories\IOrganisationRepository.cs" />
     <Compile Include="Repositories\IPersonRepository.cs" />

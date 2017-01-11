@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using ODL.DomainModel.Behorighet.Verksamhetsroll;
 using ODL.DomainModel.Common;
 
 namespace ODL.DomainModel.Person
@@ -55,6 +56,9 @@ namespace ODL.DomainModel.Person
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KonsultAvtal> KonsultAvtal { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonVerksamhetsroll> Verksamhetsroller { get; set; }
 
         [NotMapped]
         public IEnumerable<int> KonsultAvtalIdn => KonsultAvtal.Select(konsultAvtal => konsultAvtal.AvtalFKId);
