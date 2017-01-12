@@ -51,13 +51,13 @@ namespace ODL.DomainModel.Person
         public virtual ICollection<AnstalldAvtal> AnstallningsAvtal { get; set; }
 
         [NotMapped]
-        public IEnumerable<int> AnstallningsAvtalIdn => AnstallningsAvtal.Select(anstallningsAvtal => anstallningsAvtal.AvtalFKId);
+        public IEnumerable<int> AnstallningsAvtalIdn => AnstallningsAvtal.Select(anstallningsAvtal => anstallningsAvtal.Avtal.Id);
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KonsultAvtal> KonsultAvtal { get; set; }
 
         [NotMapped]
-        public IEnumerable<int> KonsultAvtalIdn => KonsultAvtal.Select(konsultAvtal => konsultAvtal.AvtalFKId);
+        public IEnumerable<int> KonsultAvtalIdn => KonsultAvtal.Select(konsultAvtal => konsultAvtal.Avtal.Id);
 
         [NotMapped]
         public bool IsNew => Id == 0;

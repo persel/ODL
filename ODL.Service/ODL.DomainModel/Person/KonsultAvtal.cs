@@ -7,9 +7,7 @@ namespace ODL.DomainModel.Person
     [Table("Person.KonsultAvtal")]
     public partial class KonsultAvtal
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+
         public int PersonFKId { get; set; }
 
         public virtual Person Konsult { get; set; }

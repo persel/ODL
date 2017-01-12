@@ -8,6 +8,13 @@ namespace ODL.DataAccess.Repositories
         private ODLDbContext DbContext { get; }
         private readonly Repository<Avtal, ODLDbContext> _internalGenericRepository;
 
+
+        public AvtalRepository(ODLDbContext dbContext)
+        {
+            DbContext = dbContext;
+            _internalGenericRepository = new Repository<Avtal, ODLDbContext>(DbContext);
+        }
+
         public Avtal GetByKallsystemId(string systemId)
         {
             return _internalGenericRepository.FindSingle(avtal => avtal.KallsystemId == systemId);

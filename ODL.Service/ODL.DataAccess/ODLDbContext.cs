@@ -93,25 +93,16 @@ namespace ODL.DataAccess
                 .WithRequired(e => e.Konsult).HasForeignKey(k => k.PersonFKId)
                 .WillCascadeOnDelete(false);
 
-                modelBuilder
+            modelBuilder
                 .Entity<AnstalldAvtal>()
-                .HasRequired(d => d.Avtal)
-                .WithMany()
-                .HasForeignKey(d => d.AvtalFKId);
+                .HasRequired(p => p.Avtal)
+                .WithOptional(p => p.AnstalldAvtal);
 
-                modelBuilder
+            modelBuilder
                 .Entity<KonsultAvtal>()
-                .HasRequired(d => d.Avtal)
-                .WithMany()
-                .HasForeignKey(d => d.AvtalFKId);
+                .HasRequired(p => p.Avtal)
+                .WithOptional(p => p.KonsultAvtal);
 
-            //modelBuilder.Entity<Avtal>()
-            //    .HasOptional(e => e.AnstalldAvtal)
-            //    .WithRequired(e => e.Avtal);
-
-            //modelBuilder.Entity<Avtal>()
-            //    .HasOptional(e => e.KonsultAvtal)
-            //    .WithRequired(e => e.Avtal);
 
 
             modelBuilder.Entity<Avtal>()

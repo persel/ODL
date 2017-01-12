@@ -127,6 +127,7 @@ namespace ODL.ApplicationServices
             if (avtal.IsNew)
             {
                 var person = personRepository.GetByPersonnummer(avtalDTO.Personnummer);
+
                 if (!IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
                     avtal.AnstalldAvtal = new AnstalldAvtal { Anstalld = person};
                 else

@@ -76,7 +76,7 @@
     <Compile Include="Person\Avtal.cs" />
     <Compile Include="Organisation\Organisation.cs" />
     <Compile Include="Organisation\Resultatenhet.cs" />
-    <Compile Include="Person\Anstallningsavtal.cs" />
+    <Compile Include="Person\AnstalldAvtal.cs" />
     <Compile Include="Person\Konsultavtal.cs" />
     <Compile Include="Person\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
