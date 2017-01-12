@@ -50,5 +50,12 @@ namespace ODL.DataAccess.Repositories
         {
             return _internalGenericRepository.FindSingle(org => org.Resultatenhet.KstNr == kstnr);
         }
+
+        public List<Organisation> GetOrganisationerByKstnr(IEnumerable<int> kstnrList)
+        {
+            if (kstnrList.Count() == 1)
+                return new List<Organisation> {GetOrganisationByKstnr(kstnrList.Single())};
+            return _internalGenericRepository.Find(org => kstnrList.Contains(org.Resultatenhet.KstNr)).ToList();
+        }
     }
 }

@@ -1,16 +1,23 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using ODL.DomainModel.Common;
 
 namespace ODL.DomainModel.Person
 {
-
     [Table("Person.Avtal")]
     public partial class Avtal
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Avtal()
+        {
+            OrganisationAvtal = new HashSet<OrganisationAvtal>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(25)]
@@ -51,6 +58,8 @@ namespace ODL.DomainModel.Person
 
         public decimal? GrundArbtidVecka { get; set; }
 
+        public byte? Avtalstyp { get; set; }
+
         public int? Lon { get; set; }
 
         public DateTime? LonDatum { get; set; }
@@ -65,8 +74,19 @@ namespace ODL.DomainModel.Person
         public DateTime? Anstallningsdatum { get; set; }
 
         public DateTime? Avgangsdatum { get; set; }
-
         public Metadata Metadata { get; set; }
         public bool IsNew => Id == default(int);
+
+        public virtual AnstalldAvtal AnstalldAvtal { get; set; }
+
+        public virtual KonsultAvtal KonsultAvtal { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; set; }
+
+        public void AddOrganisationAvtal(OrganisationAvtal orgAvtal)
+        {
+            OrganisationAvtal.Add(orgAvtal);
+        }
     }
 }

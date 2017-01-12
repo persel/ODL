@@ -1,4 +1,5 @@
-﻿using ODL.ApplicationServices.DTOModel.Load;
+﻿using System.Linq;
+using ODL.ApplicationServices.DTOModel.Load;
 
 namespace ODL.ApplicationServices.Validation
 {
@@ -11,6 +12,7 @@ namespace ODL.ApplicationServices.Validation
         public AvtalInputValidator()
         {
             //AddRule(avtal => avtal.Avtalskod != null &&  avtal.Avtalskod.Length > 50, "Avtalskod över 50 tecken");
+            
             RuleFor(avtal => avtal.Avtalskod).WithinMaxLength(50);
             RuleFor(avtal => avtal.Avtalstext).WithinMaxLength(50);
             RuleFor(avtal => avtal.BefText).WithinMaxLength(50);
@@ -23,8 +25,10 @@ namespace ODL.ApplicationServices.Validation
             RuleFor(avtal => avtal.LonDatum).ValidDateFormat();
             RuleFor(avtal => avtal.Anstallningsdatum).ValidDateFormat();
             RuleFor(avtal => avtal.Avgangsdatum).ValidDateFormat();
-            
-            AddRule(avtal => string.IsNullOrEmpty(avtal.AnstalldPersonId) || string.IsNullOrEmpty(avtal.KonsultPersonId), "Avtalet kan ej tillhöra både anställd och konsult.");
+
+            AddRule(avtal => !(string.IsNullOrEmpty(avtal.AnstalldPersonnummer) && string.IsNullOrEmpty(avtal.KonsultPersonnummer)), "Avtalet måste innehålla ett personnummer.");
+            AddRule(avtal => string.IsNullOrEmpty(avtal.AnstalldPersonnummer) || string.IsNullOrEmpty(avtal.KonsultPersonnummer), "Avtalet kan ej tillhöra både anställd och konsult.");
+            AddRule(avtal => avtal.Kostnadsstallen.Any(), "Avtalet måste ange minst ett kostnadsställenummer.");
 
             AddStandardRules();
         }

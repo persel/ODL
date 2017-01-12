@@ -1,5 +1,7 @@
 using System.Data.Entity;
+using System.Data.Entity.Migrations.Model;
 using System.Diagnostics;
+using ODL.DomainModel;
 using ODL.DomainModel.Behorighet;
 using ODL.DomainModel.Behorighet.Systemattribut;
 using ODL.DomainModel.Behorighet.Systemroll;
@@ -30,16 +32,17 @@ namespace ODL.DataAccess
         }
 
         // Person:
-
-        public virtual DbSet<AnstallningsAvtal> AnstallningsAvtal { get; set; }
-        public virtual DbSet<KonsultAvtal> KonsultAvtal { get; set; }
         public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<Avtal> Avtal { get; set; }
+        public virtual DbSet<AnstalldAvtal> AnstallningsAvtal { get; set; }
+        public virtual DbSet<KonsultAvtal> KonsultAvtal { get; set; }
+        public virtual DbSet<OrganisationAvtal> OrganisationAvtal { get; set; }
+
 
         // Organisation:
 
         public virtual DbSet<Organisation> Organisation { get; set; }
         public virtual DbSet<Resultatenhet> Resultatenhet { get; set; }
-        public virtual DbSet<OrganisationsAvtal> OrganisationAvtal { get; set; }
 
         // Behörighet.Systemroll:
 
@@ -90,6 +93,29 @@ namespace ODL.DataAccess
                 .WithRequired(e => e.Konsult).HasForeignKey(k => k.PersonFKId)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder
+                .Entity<AnstalldAvtal>()
+                .HasRequired(p => p.Avtal)
+                .WithOptional(p => p.AnstalldAvtal);
+
+            modelBuilder
+                .Entity<KonsultAvtal>()
+                .HasRequired(p => p.Avtal)
+                .WithOptional(p => p.KonsultAvtal);
+
+
+
+            modelBuilder.Entity<Avtal>()
+                .HasMany(e => e.OrganisationAvtal)
+                .WithRequired(e => e.Avtal)
+                .HasForeignKey(e => e.AvtalFKId)
+                .WillCascadeOnDelete(false);
+            
+
+            modelBuilder.Entity<OrganisationAvtal>()
+                .Property(e => e.ProcentuellFordelning)
+                .HasPrecision(5, 2);
+
             // Organisation:
 
             modelBuilder.Entity<Organisation>()
@@ -103,9 +129,10 @@ namespace ODL.DataAccess
 
             modelBuilder.Entity<Organisation>()
                 .HasMany(e => e.OrganisationsAvtal)
-                .WithRequired(e => e.Organisation)
+                .WithRequired(e => e.Organisation)// Ta bort denna nav prop!
                 .HasForeignKey(e => e.OrganisationFKId)
                 .WillCascadeOnDelete(false);
+
 
             modelBuilder.Entity<Organisation>()
                 .HasOptional(e => e.Resultatenhet)

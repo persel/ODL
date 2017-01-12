@@ -15,7 +15,7 @@ namespace ODL.DomainModel.Person
 
         public Person()
         {
-            AnstallningsAvtal = new HashSet<AnstallningsAvtal>();
+            AnstallningsAvtal = new HashSet<AnstalldAvtal>();
             KonsultAvtal = new HashSet<KonsultAvtal>();
         }
 
@@ -49,10 +49,10 @@ namespace ODL.DomainModel.Person
         // vilket dock ger mer logik i Servicen, utanför modellen.
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AnstallningsAvtal> AnstallningsAvtal { get; set; }
+        public virtual ICollection<AnstalldAvtal> AnstallningsAvtal { get; set; }
 
         [NotMapped]
-        public IEnumerable<int> AnstallningsAvtalIdn => AnstallningsAvtal.Select(anstallningsAvtal => anstallningsAvtal.AvtalFKId);
+        public IEnumerable<int> AnstallningsAvtalIdn => AnstallningsAvtal.Select(anstallningsAvtal => anstallningsAvtal.Avtal.Id);
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KonsultAvtal> KonsultAvtal { get; set; }
@@ -61,7 +61,7 @@ namespace ODL.DomainModel.Person
         public virtual ICollection<PersonVerksamhetsroll> Verksamhetsroller { get; set; }
 
         [NotMapped]
-        public IEnumerable<int> KonsultAvtalIdn => KonsultAvtal.Select(konsultAvtal => konsultAvtal.AvtalFKId);
+        public IEnumerable<int> KonsultAvtalIdn => KonsultAvtal.Select(konsultAvtal => konsultAvtal.Avtal.Id);
 
         [NotMapped]
         public bool IsNew => Id == 0;

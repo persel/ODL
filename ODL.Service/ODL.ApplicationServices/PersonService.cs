@@ -7,8 +7,10 @@ using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.DTOModel.Query;
 using ODL.ApplicationServices.Validation;
 using ODL.DataAccess.Repositories;
+using ODL.DomainModel;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
+using static System.String;
 
 namespace ODL.ApplicationServices
 {
@@ -90,13 +92,12 @@ namespace ODL.ApplicationServices
             if (valideringsfel.Any())
             {
                 foreach (var fel in valideringsfel)
-                        logger.LogError(fel.Message); // Hmm, borde vi logga detta med Info? 
-                throw new ApplicationException($"Valideringsfel inträffade vid validering av Avtal med Id: {avtalDTO.SystemId}.");
+                    logger.LogError(fel.Message); // Hmm, borde vi logga detta med Info? 
+                throw new ApplicationException(
+                    $"Valideringsfel inträffade vid validering av Avtal med Id: {avtalDTO.SystemId}.");
             }
 
-            var avtal = personRepository.GetByKallsystemId(avtalDTO.SystemId) ?? new Avtal();
-            
-            // TODO: Skapa DTOMapper-klass! (Automapper?)
+            var avtal = avtalRepository.GetByKallsystemId(avtalDTO.SystemId) ?? new Avtal();
 
             avtal.KallsystemId = avtalDTO.SystemId;
             avtal.Avtalskod = avtalDTO.Avtalskod;
@@ -123,10 +124,35 @@ namespace ODL.ApplicationServices
             avtal.Avgangsdatum = avtalDTO.Avgangsdatum.ToDateTime();
             avtal.Metadata = avtalDTO.GetMetadata();
 
-            if(avtal.IsNew)
-                avtalRepository.Add(avtal);
-            else
-                avtalRepository.Update();
-        }
+            if (avtal.IsNew)
+            {
+                var person = personRepository.GetByPersonnummer(avtalDTO.Personnummer);
+
+                if (!IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
+                    avtal.AnstalldAvtal = new AnstalldAvtal { Anstalld = person};
+                else
+                    avtal.KonsultAvtal = new KonsultAvtal { Konsult = person};
+            }
+
+            var kstnrList = avtalDTO.Kostnadsstallen.Select(kst => kst.KostnadsstalleNr);
+
+            var organisationer = organisationRepository.GetOrganisationerByKstnr(kstnrList);
+            foreach (var organisation in organisationer)
+            {
+                var orgAvtal = avtal.OrganisationAvtal.SingleOrDefault(orgAvt => orgAvt.OrganisationFKId == organisation.Id) ?? new OrganisationAvtal();
+                var kstDTO = avtalDTO.Kostnadsstallen.Single(kst => kst.KostnadsstalleNr == organisation.Resultatenhet.KstNr);
+                orgAvtal.OrganisationFKId = organisation.Id; // Bara relevant om den är ny...
+                orgAvtal.Huvudkostnadsstalle = kstDTO.Huvudkostnadsstalle;
+                orgAvtal.ProcentuellFordelning = kstDTO.ProcentuellFordelning;
+
+                if(orgAvtal.IsNew)
+                    avtal.AddOrganisationAvtal(orgAvtal);
+            }
+
+            if (avtal.IsNew)
+                    avtalRepository.Add(avtal);
+                else
+                    avtalRepository.Update();
+            }
     }
 }

@@ -10,11 +10,11 @@ namespace ODL.ApplicationServices.DTOModel.Load
 
     public class AvtalInputDTO : InputDTO
     {
-        public int[] KostnadsstalleNr { get; set; }
+        public List<OrganisationAvtalInputDTO> Kostnadsstallen { get; set; }
 
-        public string AnstalldPersonId { get; set; }
+        public string AnstalldPersonnummer { get; set; }
 
-        public string KonsultPersonId { get; set; }
+        public string KonsultPersonnummer { get; set; }
 
         public string Avtalskod { get; set; }
 
@@ -61,5 +61,7 @@ namespace ODL.ApplicationServices.DTOModel.Load
         public string Anstallningsdatum { get; set; }
 
         public string Avgangsdatum { get; set; }
+        public string Personnummer => AnstalldPersonnummer ?? KonsultPersonnummer;
     }
+
 }
