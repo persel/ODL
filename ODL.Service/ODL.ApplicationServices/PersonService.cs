@@ -97,7 +97,7 @@ namespace ODL.ApplicationServices
                     $"Valideringsfel inträffade vid validering av Avtal med Id: {avtalDTO.SystemId}.");
             }
 
-            var avtal = personRepository.GetByKallsystemId(avtalDTO.SystemId) ?? new Avtal();
+            var avtal = avtalRepository.GetByKallsystemId(avtalDTO.SystemId) ?? new Avtal();
 
             avtal.KallsystemId = avtalDTO.SystemId;
             avtal.Avtalskod = avtalDTO.Avtalskod;
@@ -144,7 +144,9 @@ namespace ODL.ApplicationServices
                 orgAvtal.OrganisationFKId = organisation.Id; // Bara relevant om den är ny...
                 orgAvtal.Huvudkostnadsstalle = kstDTO.Huvudkostnadsstalle;
                 orgAvtal.ProcentuellFordelning = kstDTO.ProcentuellFordelning;
-                avtal.OrganisationAvtal.Add(orgAvtal);
+
+                if(orgAvtal.IsNew)
+                    avtal.AddOrganisationAvtal(orgAvtal);
             }
 
             if (avtal.IsNew)

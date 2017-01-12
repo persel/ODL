@@ -83,5 +83,10 @@ namespace ODL.DomainModel.Person
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; set; }
+
+        public void AddOrganisationAvtal(OrganisationAvtal orgAvtal)
+        {
+            OrganisationAvtal.Add(orgAvtal);
+        }
     }
 }

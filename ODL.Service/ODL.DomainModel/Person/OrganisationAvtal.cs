@@ -25,7 +25,6 @@ namespace ODL.DomainModel
         public virtual Avtal Avtal { get; set; }
         
         public virtual Organisation.Organisation Organisation { get; set; }
-
-
+        public bool IsNew => AvtalFKId == 0;
     }
 }

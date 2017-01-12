@@ -42,12 +42,6 @@ namespace ODL.DataAccess.Repositories
             //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
         }
 
-
-        public Avtal GetByKallsystemId(string systemId)
-        {
-            return DbContext.Avtal.SingleOrDefault(avtal => avtal.KallsystemId == systemId);
-        }
-
         public void Update()
         {
             _internalGenericRepository.Update();
