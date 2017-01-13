@@ -6,8 +6,6 @@ namespace ODL.ApplicationServices.DTOModel.Load
     {
         public string Personnummer { get; set; }
 
-        public string Namn { get; set; }
-
         public string Fornamn { get; set; }
 
         public string Mellannamn { get; set; }

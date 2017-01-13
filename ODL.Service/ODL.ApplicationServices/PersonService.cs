@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.DTOModel.Query;
 using ODL.ApplicationServices.Validation;
