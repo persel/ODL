@@ -127,7 +127,10 @@ namespace ODL.ApplicationServices
             if (avtal.IsNew)
             {
                 var person = personRepository.GetByPersonnummer(avtalDTO.Personnummer);
-
+                if (person == null)
+                {
+                    throw new ArgumentException($"Avtalet kunde inte sparas - angiven person med personnummer '{avtalDTO.Personnummer}' saknas i ODL.");
+                }
                 if (!IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
                     avtal.AnstalldAvtal = new AnstalldAvtal { Anstalld = person};
                 else
@@ -136,19 +139,26 @@ namespace ODL.ApplicationServices
 
             var kstnrList = avtalDTO.Kostnadsstallen.Select(kst => kst.KostnadsstalleNr);
 
-            var organisationer = organisationRepository.GetOrganisationerByKstnr(kstnrList);
-            foreach (var organisation in organisationer)
+            //var organisationer = organisationRepository.GetOrganisationerByKstnr(kstnrList);
+
+            foreach (var kstnr in kstnrList)
             {
+                var organisation = organisationRepository.GetOrganisationByKstnr(kstnr);
+                if (organisation == null)
+                {
+                    throw new ArgumentException($"Avtalet kunde inte sparas - angiven resultatenhet med KstNr '{kstnr}' saknas i ODL.");
+                }
+
                 var orgAvtal = avtal.OrganisationAvtal.SingleOrDefault(orgAvt => orgAvt.OrganisationFKId == organisation.Id) ?? new OrganisationAvtal();
                 var kstDTO = avtalDTO.Kostnadsstallen.Single(kst => kst.KostnadsstalleNr == organisation.Resultatenhet.KstNr);
                 orgAvtal.OrganisationFKId = organisation.Id; // Bara relevant om den är ny...
                 orgAvtal.Huvudkostnadsstalle = kstDTO.Huvudkostnadsstalle;
                 orgAvtal.ProcentuellFordelning = kstDTO.ProcentuellFordelning;
 
-                if(orgAvtal.IsNew)
+                if (orgAvtal.IsNew)
                     avtal.AddOrganisationAvtal(orgAvtal);
             }
-
+            
             if (avtal.IsNew)
                     avtalRepository.Add(avtal);
                 else
