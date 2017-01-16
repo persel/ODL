@@ -103,8 +103,7 @@ namespace ODL.DataAccess
                 .HasRequired(p => p.Avtal)
                 .WithOptional(p => p.KonsultAvtal);
 
-
-
+            
             modelBuilder.Entity<Avtal>()
                 .HasMany(e => e.OrganisationAvtal)
                 .WithRequired(e => e.Avtal)
@@ -115,6 +114,12 @@ namespace ODL.DataAccess
             modelBuilder.Entity<OrganisationAvtal>()
                 .Property(e => e.ProcentuellFordelning)
                 .HasPrecision(5, 2);
+
+            modelBuilder.Entity<Person>()
+                .HasMany(e => e.PersonVerksamhetsroll)
+                .WithRequired(e => e.Person)
+                .HasForeignKey(e => e.PersonFKId)
+                .WillCascadeOnDelete(false);
 
             // Organisation:
 
@@ -138,27 +143,76 @@ namespace ODL.DataAccess
                 .HasOptional(e => e.Resultatenhet)
                 .WithRequired(e => e.Organisation);
 
+            // Adress: 
+            
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.GatuAdress)
+                .WithRequired(e => e.Adress);
+
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.Mail)
+                .WithRequired(e => e.Adress);
+
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.OrganisationAdress)
+                .WithRequired(e => e.Adress);
+
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.PersonAdress)
+                .WithRequired(e => e.Adress);
+
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.Telefon)
+                .WithRequired(e => e.Adress);
+
+            //modelBuilder.Entity<AdressTyp>()
+            //    .HasMany(e => e.AdressVariant)
+            //    .WithRequired(e => e.AdressTyp)
+            //    .HasForeignKey(e => e.AdressTypFKId)
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<AdressVariant>()
+            //    .HasMany(e => e.Adress)
+            //    .WithRequired(e => e.AdressVariant)
+            //    .HasForeignKey(e => e.AdressVariantFKId)
+            //    .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GatuAdress>()
+                .Property(e => e.Postnummer)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Mail>()
+                .Property(e => e.MailAdress)
+                .IsUnicode(false);
+
             // Behörighet.Systemroll:
+
+            modelBuilder.Entity<Anvandare>()
+                .HasMany(e => e.Systembehorighet)
+                .WithRequired(e => e.Anvandare)
+                .HasForeignKey(e => e.AnvandareFKId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Systemroll.System>()
+                .HasMany(e => e.Behorighetsniva)
+                .WithRequired(e => e.System)
+                .HasForeignKey(e => e.SystemFKId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Systemroll.System>()
+                .HasMany(e => e.Systemanvandargrupp)
+                .WithRequired(e => e.System)
+                .HasForeignKey(e => e.SystemFKId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Behorighetsniva>()
                 .HasMany(e => e.Systemanvandargrupp)
                 .WithRequired(e => e.Behorighetsniva)
-                .HasForeignKey(e => e.BehorighetsnivaId)
+                .HasForeignKey(e => e.BehorighetsnivaFKId)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Systemanvandargrupp>()
-                .HasMany(e => e.Systembehorighet)
-                .WithRequired(e => e.Systemanvandargrupp)
-                .HasForeignKey(e => e.SystemanvandargruppId)
-                .WillCascadeOnDelete(false);
-
+            
             // Behörighet.Verksamhetsroll:
 
-            modelBuilder.Entity<Person>()
-                .HasMany(e => e.Verksamhetsroller)
-                .WithRequired(e => e.Person)
-                .HasForeignKey(e => e.PersonId)
-                .WillCascadeOnDelete(false);
 
             // Behörighet.Systemattribut:
 
@@ -188,6 +242,8 @@ namespace ODL.DataAccess
 
 
             // Behörighet (Kopplingar mellan aggregaten)
+
+            // OBS: Se http://stackoverflow.com/questions/2937856/unidirectional-one-to-many-associations-in-entity-framework-4
 
             // SystembehorighetAttributVarde
 

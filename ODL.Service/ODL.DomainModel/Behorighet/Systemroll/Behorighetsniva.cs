@@ -17,12 +17,13 @@ namespace ODL.DomainModel.Behorighet.Systemroll
 
         public int Id { get; set; }
 
-        [Column("SystemFKId")]
-        public int SystemId { get; set; }
+        public int SystemFKId { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Namn { get; set; }
+
+        public virtual System System { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Systemanvandargrupp> Systemanvandargrupp { get; set; }

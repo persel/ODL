@@ -9,16 +9,14 @@ namespace ODL.DomainModel.Behorighet.Systemroll
     {
         public int Id { get; set; }
 
-        [Column("SystemanvandargruppFKId")]
-        public int SystemanvandargruppId { get; set; }
+        public int SystemanvandargruppFKId { get; set; }
 
-        [Column("AnvandareFKId")]
-        public int AnvandareId { get; set; }
+        public int AnvandareFKId { get; set; }
 
         public DateTime? GallerFran { get; set; }
 
         public DateTime? GallerTill { get; set; }
 
-        public virtual Systemanvandargrupp Systemanvandargrupp { get; set; }
+        public virtual Anvandare Anvandare { get; set; }
     }
 }
