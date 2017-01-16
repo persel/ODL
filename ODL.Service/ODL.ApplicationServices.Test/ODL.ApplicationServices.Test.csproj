@@ -68,7 +68,7 @@
     <Compile Include="AvtalInputValidatorTests.cs" />
     <Compile Include="PersonInputValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RollbackHelper.cs" />
+    <Compile Include="PersonServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

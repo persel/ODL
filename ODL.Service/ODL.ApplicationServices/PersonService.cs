@@ -84,6 +84,17 @@ namespace ODL.ApplicationServices
 
         }
 
+        public PersonDTO GetPersonByPersonnummer(string personnummer)
+        {
+            var person = personRepository.GetByPersonnummer(personnummer);
+            return new PersonDTO
+            {
+                Id = person.Id,
+                Namn = $" {person.Fornamn} {person.Efternamn}",
+                Personnummer = person.Personnummer
+            };
+        }
+
         public void SparaAvtal(AvtalInputDTO avtalDTO)
         {
             var valideringsfel = new AvtalInputValidator().Validate(avtalDTO);
