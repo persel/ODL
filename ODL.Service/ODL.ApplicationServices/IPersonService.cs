@@ -18,5 +18,6 @@ namespace ODL.ApplicationServices
 
         void SparaPerson(PersonInputDTO person);
 
+        PersonDTO GetPersonByPersonnummer(string personnummer);
     }
 }

@@ -82,6 +82,9 @@ namespace ODL.DomainModel.Person
 
         public virtual KonsultAvtal KonsultAvtal { get; set; }
 
+        // TODO: Avtal har en lista av OrganisationAvtal - inte helt optimalt eftersom Organisation har samma lista och 
+        // man därigenom kan uppdatera samma tabeller via två olika aggregat (Avtal och Organisation), vilket kan ge concurrency issues etc.
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; set; }
 
