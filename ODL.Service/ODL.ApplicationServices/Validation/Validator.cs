@@ -102,9 +102,9 @@ namespace ODL.ApplicationServices.Validation
         {
             RuleFor(subject => subject.SystemId).NotNullOrEmpty().WithinMaxLength(25);
 
-            RuleFor(subject => subject.UppdateradDatum).ValidDateFormat();
+            RuleFor(subject => subject.UppdateradDatum).ValidDateTimeFormat();
             RuleFor(subject => subject.UppdateradAv).WithinMaxLength(10);
-            RuleFor(subject => subject.SkapadDatum).NotNullOrEmpty().ValidDateFormat();
+            RuleFor(subject => subject.SkapadDatum).NotNullOrEmpty().ValidDateTimeFormat();
             RuleFor(subject => subject.SkapadAv).NotNullOrEmpty().WithinMaxLength(10);
         }
     }

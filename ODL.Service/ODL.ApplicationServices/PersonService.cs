@@ -118,20 +118,20 @@ namespace ODL.ApplicationServices
             avtal.Aktiv = avtalDTO.Aktiv;
             avtal.Ansvarig = avtalDTO.Ansvarig;
             avtal.Chef = avtalDTO.Chef;
-            avtal.TjledigFran = avtalDTO.TjledigFran.ToDateTime();
-            avtal.TjledigTom = avtalDTO.TjledigTom.ToDateTime();
+            avtal.TjledigFran = avtalDTO.TjledigFran.ToDate();
+            avtal.TjledigTom = avtalDTO.TjledigTom.ToDate();
             avtal.Fproc = avtalDTO.Fproc;
             avtal.DeltidFranvaro = avtalDTO.DeltidFranvaro;
             avtal.FranvaroProcent = avtalDTO.FranvaroProcent;
             avtal.SjukP = avtalDTO.SjukP;
             avtal.GrundArbtidVecka = avtalDTO.GrundArbtidVecka;
             avtal.Lon = avtalDTO.TimLon;
-            avtal.LonDatum = avtalDTO.LonDatum.ToDateTime();
+            avtal.LonDatum = avtalDTO.LonDatum.ToDate();
             avtal.LoneTyp = avtalDTO.LoneTyp;
             avtal.LoneTillagg = avtalDTO.LoneTillagg;
             avtal.TimLon = avtalDTO.TimLon;
-            avtal.Anstallningsdatum = avtalDTO.Anstallningsdatum.ToDateTime();
-            avtal.Avgangsdatum = avtalDTO.Avgangsdatum.ToDateTime();
+            avtal.Anstallningsdatum = avtalDTO.Anstallningsdatum.ToDate();
+            avtal.Avgangsdatum = avtalDTO.Avgangsdatum.ToDate();
             avtal.Metadata = avtalDTO.GetMetadata();
 
             if (avtal.IsNew)

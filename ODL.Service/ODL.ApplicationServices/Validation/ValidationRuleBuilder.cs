@@ -13,6 +13,7 @@ namespace ODL.ApplicationServices.Validation
     public class ValidationRuleBuilder<T> where T : InputDTO
     {
         public const string DateFormat = "yyyy-MM-dd"; // TODO: Flytta denna till konfigurationsfil eller centraliserad plats!
+        public const string DateTimeFormat = "yyyy-MM-dd HH:mm";
 
         private Expression<Func<T, string>> PropertySelector { get; }
         private Validator<T> Validator { get; }
@@ -67,6 +68,14 @@ namespace ODL.ApplicationServices.Validation
             return this;
         }
 
+        internal ValidationRuleBuilder<T> ValidDateTimeFormat()
+        {
+            Func<T, bool> rule = x => DateTimeFormatCheck(PropertySelector.Compile().Invoke(x)?.ToString());
+
+            Validator.AddRule(rule, $"Fältet '{SubjectName}.{PropertyName}' har ej korrekt datumformat ('{DateTimeFormat}').", true);
+            return this;
+        }
+
         private bool MaxCheck(string theString, int maxLength)
         {
             bool result =  theString == null || theString.Length <= maxLength;
@@ -77,7 +86,13 @@ namespace ODL.ApplicationServices.Validation
         private bool DateFormatCheck(string dateString)
         {
             DateTime dateValue;
-            return dateString == null || DateTime.TryParseExact(dateString, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue);
+            return string.IsNullOrEmpty(dateString) || DateTime.TryParseExact(dateString, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue);
+        }
+
+        private bool DateTimeFormatCheck(string dateTimeString)
+        {
+            DateTime dateValue;
+            return string.IsNullOrEmpty(dateTimeString) || DateTime.TryParseExact(dateTimeString, DateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue);
         }
 
 
