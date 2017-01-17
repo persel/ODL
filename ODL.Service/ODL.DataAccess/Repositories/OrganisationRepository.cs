@@ -53,8 +53,7 @@ namespace ODL.DataAccess.Repositories
 
         public List<Organisation> GetOrganisationerByKstnr(IEnumerable<int> kstnrList)
         {
-            if (kstnrList.Count() == 1)
-                return new List<Organisation> {GetOrganisationByKstnr(kstnrList.Single())};
+            // TODO: Om vi bara har ett kstnr borde man inte behöva köra Contains...
             return _internalGenericRepository.Find(org => kstnrList.Contains(org.Resultatenhet.KstNr)).ToList();
         }
     }

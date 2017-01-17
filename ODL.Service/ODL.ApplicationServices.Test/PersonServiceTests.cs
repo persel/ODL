@@ -24,7 +24,7 @@ public class PersonServiceTests
 
 
     [Test]
-    public void SparaPerson_Ok()
+    public void SparaPerson_WhenNew_ThenSaved()
     {
         
         var organisationRepositoryMock = new Mock<IOrganisationRepository>().Object;
