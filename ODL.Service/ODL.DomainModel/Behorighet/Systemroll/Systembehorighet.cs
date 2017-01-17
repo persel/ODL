@@ -7,8 +7,8 @@ namespace ODL.DomainModel.Behorighet.Systemroll
     [Table("Behorighet.Systembehorighet")]
     public partial class Systembehorighet
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         public int SystemanvandargruppFKId { get; set; }
 
         public int AnvandareFKId { get; set; }

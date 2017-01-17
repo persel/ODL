@@ -53,9 +53,10 @@ namespace ODL.DataAccess
         public virtual DbSet<Systemroll.System> System { get; set; }
 
         // Behörighet.Verksamhetsroll:
-        
+
         public virtual DbSet<PersonVerksamhetsroll> PersonVerksamhetsroll { get; set; }
         public virtual DbSet<Verksamhetsroll> Verksamhetsroll { get; set; }
+        public virtual DbSet<Systembegransning> Systembegransning { get; set; }
 
         // Behörighet.Systemattribut:
 
@@ -72,7 +73,6 @@ namespace ODL.DataAccess
         public virtual DbSet<PersonIVerksamhetsrollVerksamhetsdimensionsvarde> PersonIVerksamhetsrollVerksamhetsdimensionvarde { get; set; }
         public virtual DbSet<RelevantVerksamhetsdimension> RelevantVerksamhetsdimension { get; set; }
         public virtual DbSet<SystemattributVerksamhetsdimension> SystemattributVerksamhetsdimension { get; set; }
-        public virtual DbSet<Systembegransning> Systembegransning { get; set; }
         public virtual DbSet<SystembehorighetAttributVarde> SystembehorighetAttributVarde { get; set; }
         public virtual DbSet<VerksamhetsdimensionsvardeSystemattributvarde> VerksamhetsdimensionsvardeSystemattributvarde { get; set; }
         public virtual DbSet<VerksamhetsrollAnvandargrupp> VerksamhetsrollAnvandargrupp { get; set; }
@@ -84,7 +84,7 @@ namespace ODL.DataAccess
             // Person:
 
             modelBuilder.Entity<Person>()
-                .HasMany(e => e.AnstallningsAvtal)
+                .HasMany(e => e.AnstalldAvtal)
                 .WithRequired(e => e.Anstalld).HasForeignKey(k => k.PersonFKId)
                 .WillCascadeOnDelete(false);
 
@@ -115,12 +115,6 @@ namespace ODL.DataAccess
                 .Property(e => e.ProcentuellFordelning)
                 .HasPrecision(5, 2);
 
-            modelBuilder.Entity<Person>()
-                .HasMany(e => e.PersonVerksamhetsroll)
-                .WithRequired(e => e.Person)
-                .HasForeignKey(e => e.PersonFKId)
-                .WillCascadeOnDelete(false);
-
             // Organisation:
 
             modelBuilder.Entity<Organisation>()
@@ -144,7 +138,7 @@ namespace ODL.DataAccess
                 .WithRequired(e => e.Organisation);
 
             // Adress: 
-            
+            /*
             modelBuilder.Entity<Adress>()
                 .HasOptional(e => e.GatuAdress)
                 .WithRequired(e => e.Adress);
@@ -184,7 +178,7 @@ namespace ODL.DataAccess
             modelBuilder.Entity<Mail>()
                 .Property(e => e.MailAdress)
                 .IsUnicode(false);
-
+                */
             // Behörighet.Systemroll:
 
             modelBuilder.Entity<Anvandare>()
@@ -210,9 +204,26 @@ namespace ODL.DataAccess
                 .WithRequired(e => e.Behorighetsniva)
                 .HasForeignKey(e => e.BehorighetsnivaFKId)
                 .WillCascadeOnDelete(false);
-            
+
             // Behörighet.Verksamhetsroll:
 
+            modelBuilder.Entity<PersonVerksamhetsroll>()
+                .HasMany(e => e.Systembegransning)
+                .WithRequired(e => e.PersonVerksamhetsroll)
+                .HasForeignKey(e => e.PersonVerksamhetsrollFKId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PersonVerksamhetsroll>()
+                .HasMany(e => e.PersonIVerksamhetsrollVerksamhetsdimensionsvarde)
+                .WithRequired(e => e.PersonVerksamhetsroll)
+                .HasForeignKey(e => e.PersonVerksamhetsrollFKId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Person>()
+                .HasMany(e => e.PersonVerksamhetsroll)
+                .WithRequired(e => e.Person)
+                .HasForeignKey(e => e.PersonFKId)
+                .WillCascadeOnDelete(false);
 
             // Behörighet.Systemattribut:
 
@@ -269,14 +280,6 @@ namespace ODL.DataAccess
             modelBuilder.Entity<VerksamhetsrollAnvandargrupp>().
             HasRequired(m => m.Systemanvandargrupp).WithMany().HasForeignKey(fk => fk.SystemanvandargruppId).WillCascadeOnDelete(false);
 
-            // Systembegransning
-
-            modelBuilder.Entity<Systembegransning>().
-            HasRequired(m => m.System).WithMany().HasForeignKey(fk => fk.SystemId).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Systembegransning>().
-            HasRequired(m => m.PersonVerksamhetsroll).WithMany().HasForeignKey(fk => fk.PersonIVerksamhetsrollId).WillCascadeOnDelete(false);
-
             // SystemattributVerksamhetsdimension
 
             modelBuilder.Entity<SystemattributVerksamhetsdimension>().
@@ -292,14 +295,6 @@ namespace ODL.DataAccess
 
             modelBuilder.Entity<RelevantVerksamhetsdimension>().
             HasRequired(m => m.Verksamhetsroll).WithMany().HasForeignKey(fk => fk.VerksamhetsrollId).WillCascadeOnDelete(false);
-
-            // PersonIVerksamhetsrollVerksamhetsdimensionsvarde
-
-            modelBuilder.Entity<PersonIVerksamhetsrollVerksamhetsdimensionsvarde>().
-            HasRequired(m => m.PersonVerksamhetsroll).WithMany().HasForeignKey(fk => fk.PersonIVerksamhetsrollId).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<PersonIVerksamhetsrollVerksamhetsdimensionsvarde>().
-            HasRequired(m => m.Verksamhetsdimensionsvarde).WithMany().HasForeignKey(fk => fk.VerksamhetsdimensionsvardeId).WillCascadeOnDelete(false);
 
         }
     }

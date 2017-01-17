@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ODL.DomainModel.Behorighet.Verksamhetsroll
 {
@@ -9,6 +7,7 @@ namespace ODL.DomainModel.Behorighet.Verksamhetsroll
     [Table("Behorighet.Verksamhetsroll")]
     public partial class Verksamhetsroll
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

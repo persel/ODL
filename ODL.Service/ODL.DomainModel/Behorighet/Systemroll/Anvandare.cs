@@ -15,6 +15,7 @@ namespace ODL.DomainModel.Behorighet.Systemroll
             Systembehorighet = new HashSet<Systembehorighet>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int PersonFKId { get; set; }

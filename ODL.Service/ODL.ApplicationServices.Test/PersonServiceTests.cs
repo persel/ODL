@@ -17,6 +17,7 @@ public class PersonServiceTests
     [SetUp]
     public void TransactionTestStart()
     {
+        Database.SetInitializer<ODLDbContext>(null);
         context = new ODLDbContext();
         transaction = context.Database.BeginTransaction();
     }

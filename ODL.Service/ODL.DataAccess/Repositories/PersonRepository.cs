@@ -30,14 +30,14 @@ namespace ODL.DataAccess.Repositories
         public List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn)
         {
             return DbContext.Person.Where(
-                person => person.AnstallningsAvtal.Any(anstallningsavtal => avtalIdn.Contains(anstallningsavtal.AvtalFKId)) ||
+                person => person.AnstalldAvtal.Any(anstallningsavtal => avtalIdn.Contains(anstallningsavtal.AvtalFKId)) ||
                           person.KonsultAvtal.Any(konsultAvtal => avtalIdn.Contains(konsultAvtal.AvtalFKId))).ToList();
         }
         
         public Person GetByPersonnummer(string personnummer)
         {
             return DbContext.Set<Person>()
-                .Include(a => a.AnstallningsAvtal)
+                .Include(a => a.AnstalldAvtal)
                 .Include(k => k.KonsultAvtal).SingleOrDefault(person => person.Personnummer == personnummer);
             //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
         }

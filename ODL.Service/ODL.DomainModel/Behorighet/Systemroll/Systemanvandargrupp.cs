@@ -7,6 +7,7 @@ namespace ODL.DomainModel.Behorighet.Systemroll
     [Table("Behorighet.Systemanvandargrupp")]
     public partial class Systemanvandargrupp
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int SystemFKId { get; set; }
