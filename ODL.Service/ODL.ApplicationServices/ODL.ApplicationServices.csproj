@@ -55,12 +55,26 @@
   <ItemGroup>
     <Compile Include="DTOExtensions.cs" />
     <Compile Include="DTOModel\Load\AvtalInputDTO.cs" />
+    <Compile Include="DTOModel\Load\OrganisationAdressInputDTO.cs" />
+    <Compile Include="DTOModel\Load\AdressInputDTO.cs" />
+    <Compile Include="DTOModel\Load\PersonAdressInputDTO.cs" />
+    <Compile Include="DTOModel\Load\TelefonInputDTO.cs" />
+    <Compile Include="DTOModel\Load\MailInputDTO.cs" />
     <Compile Include="DTOModel\Load\InputDTO.cs" />
     <Compile Include="DTOModel\Load\OrganisationAvtalInputDTO.cs" />
+    <Compile Include="DTOModel\Load\GatuadressInputDTO.cs" />
     <Compile Include="DTOModel\Load\ResultatenhetInputDTO.cs" />
     <Compile Include="DTOModel\Load\PersonInputDTO.cs" />
     <Compile Include="DTOModel\Load\OrganisationtInputDTO.cs" />
+    <Compile Include="IAdressService.cs" />
+    <Compile Include="AdressService.cs" />
+    <Compile Include="Validation\TelefonInputValidator.cs" />
+    <Compile Include="Validation\MailInputValidator.cs" />
+    <Compile Include="Validation\GatuadressInputValidator.cs" />
     <Compile Include="Validation\AvtalInputValidator.cs" />
+    <Compile Include="Validation\AdressInputValidator.cs" />
+    <Compile Include="Validation\OrganisationAdressInputValidator.cs" />
+    <Compile Include="Validation\PersonAdressInputValidator.cs" />
     <Compile Include="Validation\ResultatenhetInputValidator.cs" />
     <Compile Include="Validation\OrganisationInputValidator.cs" />
     <Compile Include="Validation\PersonInputValidator.cs" />

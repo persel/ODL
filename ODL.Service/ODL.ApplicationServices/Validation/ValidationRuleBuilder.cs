@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq.Expressions;
+using System.Net.Mail;
 using ODL.ApplicationServices.DTOModel.Load;
 
 namespace ODL.ApplicationServices.Validation
@@ -49,6 +50,15 @@ namespace ODL.ApplicationServices.Validation
             return this;
         }
 
+        internal ValidationRuleBuilder<T> isValidMailAdress()
+        {
+            //Func<T, bool> rule = x => MaxCheck(PropertySelector.Compile().Invoke(x), maxLength);
+            Func<T, bool> rule = m => IsValidEmailAdress(PropertySelector.Compile().Invoke(m));
+
+            Validator.AddRule(rule, $"Epostadressen '{SubjectName}.{PropertyName}' har fel format.", true);
+            return this;
+        }
+
         internal ValidationRuleBuilder<T> ValidDateFormat()
         {
             Func<T, bool> rule = x => DateFormatCheck(PropertySelector.Compile().Invoke(x)?.ToString());
@@ -68,6 +78,21 @@ namespace ODL.ApplicationServices.Validation
         {
             DateTime dateValue;
             return dateString == null || DateTime.TryParseExact(dateString, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue);
+        }
+
+
+        private bool IsValidEmailAdress(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }
