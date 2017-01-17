@@ -2,6 +2,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations.Model;
 using System.Diagnostics;
 using ODL.DomainModel;
+using ODL.DomainModel.Adress;
 using ODL.DomainModel.Behorighet;
 using ODL.DomainModel.Behorighet.Systemattribut;
 using ODL.DomainModel.Behorighet.Systemroll;
@@ -43,6 +44,17 @@ namespace ODL.DataAccess
 
         public virtual DbSet<Organisation> Organisation { get; set; }
         public virtual DbSet<Resultatenhet> Resultatenhet { get; set; }
+
+        // Adress:
+
+        public virtual DbSet<Adress> Adress { get; set; }
+        //public virtual DbSet<AdressTyp> AdressTyp { get; set; }
+        public virtual DbSet<AdressVariant> AdressVariant { get; set; }
+        public virtual DbSet<GatuAdress> GatuAdress { get; set; }
+        public virtual DbSet<Mail> Mail { get; set; }
+        public virtual DbSet<OrganisationAdress> OrganisationAdress { get; set; }
+        public virtual DbSet<PersonAdress> PersonAdress { get; set; }
+        public virtual DbSet<Telefon> Telefon { get; set; }
 
         // Behörighet.Systemroll:
 
@@ -138,7 +150,49 @@ namespace ODL.DataAccess
                 .HasOptional(e => e.Resultatenhet)
                 .WithRequired(e => e.Organisation);
 
-            // Behörighet.Systemroll:
+            // Adress: 
+            
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.GatuAdress)
+                .WithRequired(e => e.Adress);
+
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.Mail)
+                .WithRequired(e => e.Adress);
+
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.OrganisationAdress)
+                .WithRequired(e => e.Adress);
+
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.PersonAdress)
+                .WithRequired(e => e.Adress);
+
+            modelBuilder.Entity<Adress>()
+                .HasOptional(e => e.Telefon)
+                .WithRequired(e => e.Adress);
+
+            //modelBuilder.Entity<AdressTyp>()
+            //    .HasMany(e => e.AdressVariant)
+            //    .WithRequired(e => e.AdressTyp)
+            //    .HasForeignKey(e => e.AdressTypFKId)
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<AdressVariant>()
+            //    .HasMany(e => e.Adress)
+            //    .WithRequired(e => e.AdressVariant)
+            //    .HasForeignKey(e => e.AdressVariantFKId)
+            //    .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GatuAdress>()
+                .Property(e => e.Postnummer)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Mail>()
+                .Property(e => e.MailAdress)
+                .IsUnicode(false);
+
+                // Behörighet.Systemroll:
 
             modelBuilder.Entity<Behorighetsniva>()
                 .HasMany(e => e.Systemanvandargrupp)

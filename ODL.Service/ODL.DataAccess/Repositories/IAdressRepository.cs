@@ -1,0 +1,12 @@
+﻿using ODL.DomainModel.Adress;
+using ODL.DomainModel.Person;
+
+namespace ODL.DataAccess.Repositories
+{
+    public interface IAdressRepository
+    {
+        void Add(Adress nyAdress);
+
+        void Update();
+    }
+}

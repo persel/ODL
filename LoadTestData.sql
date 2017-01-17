@@ -321,14 +321,14 @@ VALUES('56453549', 'Stina', null, 'Einarsson', '197002201406', @updatedTime, 'DB
 -- # INSERT Adresstyp
 -- #############################################################
 
-INSERT INTO [Adress].[AdressTyp]([Typ], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('GatuAdress',@updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressTyp]([Typ], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('MailAdress',@updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressTyp]([Typ], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Telefon', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressTyp]([Typ], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES('Facebook', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[AdressTyp]([Id], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(1, 'GatuAdress',@updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[AdressTyp]([Id], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(2, 'MailAdress',@updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[AdressTyp]([Id], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(3, 'Telefon', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[AdressTyp]([Id], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+VALUES(4, 'Facebook', @updatedTime, 'DBO', @createdTime, 'DBO')
 
 -- #############################################################
 -- # INSERT Adressvariant

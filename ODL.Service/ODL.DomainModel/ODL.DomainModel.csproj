@@ -51,6 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adress\Adress.cs" />
+    <Compile Include="Adress\AdressTyp.cs" />
+    <Compile Include="Adress\AdressVariant.cs" />
+    <Compile Include="Adress\GatuAdress.cs" />
+    <Compile Include="Adress\Mail.cs" />
+    <Compile Include="Adress\OrganisationAdress.cs" />
+    <Compile Include="Adress\PersonAdress.cs" />
+    <Compile Include="Adress\Telefon.cs" />
     <Compile Include="Behorighet\PersonIVerksamhetsrollVerksamhetsdimensionsvarde.cs" />
     <Compile Include="Behorighet\RelevantVerksamhetsdimension.cs" />
     <Compile Include="Behorighet\SystemattributVerksamhetsdimension.cs" />

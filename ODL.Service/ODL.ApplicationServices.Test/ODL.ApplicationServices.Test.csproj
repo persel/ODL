@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdressServiceTests.cs" />
     <Compile Include="AvtalInputValidatorTests.cs" />
     <Compile Include="PersonInputValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

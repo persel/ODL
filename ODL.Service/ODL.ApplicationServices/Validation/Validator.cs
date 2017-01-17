@@ -25,7 +25,7 @@ namespace ODL.ApplicationServices.Validation
         /// <summary>
         /// Kör alla valideringsregler och returnera en lista med eventuella fel
         /// </summary>
-        public List<ValidationError> Validate(T subject)
+        public virtual List<ValidationError> Validate(T subject)
         {
             var errors = new List<ValidationError>();
             var idText = $" (Id: {subject.SystemId})";
