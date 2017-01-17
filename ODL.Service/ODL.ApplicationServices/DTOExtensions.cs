@@ -10,7 +10,7 @@ namespace ODL.ApplicationServices
     public static class DTOExtensions
     {
         private const string DateTimeFormat = "yyyy-MM-dd HH:mm"; // TODO: Flytta denna till konfigurationsfil eller centraliserad plats!
-        private const string DateFormat = "yyyy-MM-dd HH:mm";
+        private const string DateFormat = "yyyy-MM-dd";
         public static DateTime? ToDateTime(this string dateString)
         {
             if (string.IsNullOrEmpty(dateString))
