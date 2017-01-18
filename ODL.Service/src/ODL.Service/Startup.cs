@@ -44,10 +44,12 @@ namespace ODL.Service
 
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IOrganisationService, OrganisationService>();
+            services.AddScoped<IAdressService, AdressService>();
 
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IAvtalRepository, AvtalRepository>();
             services.AddScoped<IOrganisationRepository, OrganisationRepository>();
+            services.AddScoped<IAdressRepository, AdressRepository>();
 
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);

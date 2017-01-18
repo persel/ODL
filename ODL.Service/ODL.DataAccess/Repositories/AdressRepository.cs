@@ -1,10 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using ODL.DomainModel.Adress;
+using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Repositories
 {
-    class AdressRepository : IAdressRepository
+    public class AdressRepository : IAdressRepository
     {
+        private ODLDbContext DbContext { get; }
+        private readonly Repository<Adress, ODLDbContext> _internalGenericRepository;
+
+
+        public AdressRepository(ODLDbContext dbContext)
+        {
+            //TODO-Marie
+            DbContext = dbContext;
+            _internalGenericRepository = new Repository<Adress, ODLDbContext>(DbContext);
+        }
+
         public void Add(Adress nyAdress)
         {
             throw new NotImplementedException();
@@ -14,5 +27,11 @@ namespace ODL.DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Adress GetByAdressId(int adressId)
+        {
+            return _internalGenericRepository.FindSingle(adress => adress.Id == adressId);
+        }
+
     }
 }

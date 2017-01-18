@@ -8,5 +8,7 @@ namespace ODL.DataAccess.Repositories
         void Add(Adress nyAdress);
 
         void Update();
+
+        Adress GetByAdressId(int adressId);
     }
 }

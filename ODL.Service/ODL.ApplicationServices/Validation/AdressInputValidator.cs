@@ -18,19 +18,22 @@ namespace ODL.ApplicationServices.Validation
 
         public override List<ValidationError> Validate(AdressInputDTO subject)
         {
-            var allErrors = base.Validate(subject);
+
+            //TODO - kolla med Alle
+            //var allErrors = base.Validate(subject);
+            var allErrors = new List<ValidationError>();
 
             var gatuadress = subject.GatuadressInput;
             var epostadress = subject.MailInput;
             var telefon = subject.TelefonInput;
 
-            if (gatuadress != null)
+            if (gatuadress != null && !string.IsNullOrEmpty(gatuadress.AdressRad1))
                 new GatuadressInputValidator().Validate(gatuadress);
 
-            if (epostadress != null)
+            if (epostadress != null && !string.IsNullOrEmpty(epostadress.MailAdress))
                 new MailInputValidator().Validate(epostadress);
 
-            if (telefon != null)
+            if (telefon != null && !string.IsNullOrEmpty(telefon.Telefonnummer))
                 new TelefonInputValidator().Validate(telefon);
 
             return allErrors;

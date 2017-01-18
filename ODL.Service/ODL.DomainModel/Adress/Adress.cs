@@ -30,10 +30,15 @@ namespace ODL.DomainModel.Adress
 
         public virtual Mail Mail { get; set; }
 
+        public virtual Telefon Telefon { get; set; }
+
         public virtual OrganisationAdress OrganisationAdress { get; set; }
 
         public virtual PersonAdress PersonAdress { get; set; }
 
-        public virtual Telefon Telefon { get; set; }
+        
+
+        [NotMapped]
+        public bool IsNew => Id == 0;
     }
 }

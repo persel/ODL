@@ -27,6 +27,13 @@ namespace ODL.DataAccess.Repositories
             return allaAvtalIdn;
         }
 
+        public IEnumerable<int> GetAllaAdressIdnPerPerson(string personnummer)
+        {
+            var person = _internalGenericRepository.FindSingle(p => p.Personnummer == personnummer);
+            var allaAdressIdn = person.AllaAdressIdn();
+            return allaAdressIdn;
+        }
+
         public List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn)
         {
             return DbContext.Person.Where(

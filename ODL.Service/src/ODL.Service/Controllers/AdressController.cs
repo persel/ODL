@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ODL.ApplicationServices;
 using ODL.ApplicationServices.DTOModel;
+using ODL.ApplicationServices.DTOModel.Load;
+using ODL.ApplicationServices.DTOModel.Query;
+using ODL.DomainModel.Adress;
 
 namespace ODL.Service.Controllers
 {
@@ -10,24 +14,16 @@ namespace ODL.Service.Controllers
     {
         private readonly IAdressService _adressService;
 
-        // GET api/adress
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public AdressController(IAdressService adressService)
         {
-            return new string[] { "value1", "value2" };
+            _adressService = adressService;
         }
 
-        // GET api/adress/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/adress/
+        [HttpGet("adress/{adressId}")]
+        public Adress GetAdressByAdressId(int adressId)
         {
-            return "value";
-        }
-
-        // POST api/adress
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
+            return _adressService.GetByAdressId(adressId);
         }
 
         // POST api/adress/personadress
@@ -44,16 +40,5 @@ namespace ODL.Service.Controllers
             _adressService.SparaOrganisationAdress(organisationAdress);
         }
 
-        // PUT api/adress/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/adress/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
