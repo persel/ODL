@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel.Behorighet;
 using ODL.DataAccess.Repositories.Behorighet;
+using ODL.DomainModel.Behorighet.Verksamhetsroll;
 
 namespace ODL.ApplicationServices
 {
@@ -32,37 +33,45 @@ namespace ODL.ApplicationServices
             this.verksamhetsdimensionRepository = verksamhetsdimensionRepository;
             this.logger = logger;
     }
-        public int SparaPersonal(PersonalDTO personal)
+        public int SparaPersonal(PersonalDTO personalDTO)
+        {
+            var personal = personalRepository.GetPersonalByPersonnummer(personalDTO.Personnummer) ?? new Personal();
+            if (personal.IsNew)
+                personal.Personnummer = personalDTO.Personnummer;
+            personal.Fornamn = personalDTO.Fornamn;
+            personal.Efternamn = personalDTO.Efternamn;
+
+            personalRepository.SparaPersonal(personal);
+
+            return personal.Id;
+        }
+
+        public int SparaPersonalVerksamhetsroll(PersonalDTO personalDTO)
         {
             return 0;
         }
 
-        public int SparaPersonalVerksamhetsroll(PersonalDTO personal)
+        public int SparaAnvandare(AnvandareDTO anvandareDTO)
         {
             return 0;
         }
 
-        public int SparaAnvandare(AnvandareDTO anvandare)
+        public int SparaSystem(SystemDTO systemDTO)
         {
             return 0;
         }
 
-        public int SparaSystem(SystemDTO system)
+        public int SparaVerksamhetsroll(VerksamhetsrollDTO verksamhetsrollDTO)
         {
             return 0;
         }
 
-        public int SparaVerksamhetsroll(VerksamhetsrollDTO verksamhetsroll)
+        public int SparaVerksamhetsdimension(VerksamhetsdimensionDTO verksamhetsdimensionDTO)
         {
             return 0;
         }
 
-        public int SparaVerksamhetsdimension(VerksamhetsdimensionDTO verksamhetsdimension)
-        {
-            return 0;
-        }
-
-        public int SparaSystemattribut(SystemattributDTO ystemattribut)
+        public int SparaSystemattribut(SystemattributDTO ystemattributDTO)
         {
             return 0;
         }

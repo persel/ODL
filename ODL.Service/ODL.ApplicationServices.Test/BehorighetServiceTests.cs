@@ -47,6 +47,7 @@ public class BehorighetServiceTests
 
         var sparadPerson = personalRepository.GetPersonalByPersonnummer(personal.Personnummer);
         Assert.That(sparadPerson, Is.Not.Null);
+        Assert.That(sparadPerson.IsNew, Is.False);
     }
 
     [OneTimeTearDown]

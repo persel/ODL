@@ -22,7 +22,7 @@ namespace ODL.DataAccess.Repositories.Behorighet
 
         public Personal GetPersonalByPersonnummer(string personnummer)
         {
-            return new Personal();
+            return _internalGenericRepository.FindSingle(p => p.Personnummer == personnummer);
         }
     }
 }
