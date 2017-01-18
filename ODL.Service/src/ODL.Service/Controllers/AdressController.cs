@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using ODL.ApplicationServices;
+using ODL.ApplicationServices.DTOModel;
 
 namespace ODL.Service.Controllers
 {
     [Route("api/[controller]")]
     public class AdressController : Controller
     {
+        private readonly IAdressService _adressService;
+
         // GET api/adress
         [HttpGet]
         public IEnumerable<string> Get()
@@ -24,6 +28,20 @@ namespace ODL.Service.Controllers
         [HttpPost]
         public void Post([FromBody]string value)
         {
+        }
+
+        // POST api/adress/personadress
+        [HttpPost("personadress")]
+        public void SparaPersonAdress([FromBody]PersonAdressInputDTO personAdress)
+        {
+            _adressService.SparaPersonAdress(personAdress);
+        }
+
+        // POST api/adress/organisationadress
+        [HttpPost("organisationadress")]
+        public void SparaOrganisationAdress([FromBody]OrganisationAdressInputDTO organisationAdress)
+        {
+            _adressService.SparaOrganisationAdress(organisationAdress);
         }
 
         // PUT api/adress/5

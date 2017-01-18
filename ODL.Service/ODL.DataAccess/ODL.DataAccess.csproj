@@ -54,6 +54,7 @@
     <Compile Include="ODLDbContextFactory.cs" />
     <Compile Include="ODLDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdressRepository.cs" />
     <Compile Include="Repositories\AvtalRepository.cs" />
     <Compile Include="Repositories\Behorighet\AnvandareRepository.cs" />
     <Compile Include="Repositories\Behorighet\IAnvandareRepository.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Repositories\Behorighet\ISystemRepository.cs" />
     <Compile Include="Repositories\Behorighet\IVerksamhetsdimensionRepository.cs" />
     <Compile Include="Repositories\Behorighet\IVerksamhetsrollRepository.cs" />
+    <Compile Include="Repositories\IAdressRepository.cs" />
     <Compile Include="Repositories\Behorighet\PersonalRepository.cs" />
     <Compile Include="Repositories\Behorighet\SystemattributRepository.cs" />
     <Compile Include="Repositories\Behorighet\SystemRepository.cs" />

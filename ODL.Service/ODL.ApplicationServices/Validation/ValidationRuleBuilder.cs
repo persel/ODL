@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq.Expressions;
+using System.Net.Mail;
 using ODL.ApplicationServices.DTOModel.Load;
 
 namespace ODL.ApplicationServices.Validation
@@ -12,6 +13,7 @@ namespace ODL.ApplicationServices.Validation
     public class ValidationRuleBuilder<T> where T : InputDTO
     {
         public const string DateFormat = "yyyy-MM-dd"; // TODO: Flytta denna till konfigurationsfil eller centraliserad plats!
+        public const string DateTimeFormat = "yyyy-MM-dd HH:mm";
 
         private Expression<Func<T, string>> PropertySelector { get; }
         private Validator<T> Validator { get; }
@@ -49,11 +51,28 @@ namespace ODL.ApplicationServices.Validation
             return this;
         }
 
+        internal ValidationRuleBuilder<T> isValidMailAdress()
+        {
+            //Func<T, bool> rule = x => MaxCheck(PropertySelector.Compile().Invoke(x), maxLength);
+            Func<T, bool> rule = m => IsValidEmailAdress(PropertySelector.Compile().Invoke(m));
+
+            Validator.AddRule(rule, $"Epostadressen '{SubjectName}.{PropertyName}' har fel format.", true);
+            return this;
+        }
+
         internal ValidationRuleBuilder<T> ValidDateFormat()
         {
             Func<T, bool> rule = x => DateFormatCheck(PropertySelector.Compile().Invoke(x)?.ToString());
 
             Validator.AddRule(rule, $"Fältet '{SubjectName}.{PropertyName}' har ej korrekt datumformat ('{DateFormat}').", true);
+            return this;
+        }
+
+        internal ValidationRuleBuilder<T> ValidDateTimeFormat()
+        {
+            Func<T, bool> rule = x => DateTimeFormatCheck(PropertySelector.Compile().Invoke(x)?.ToString());
+
+            Validator.AddRule(rule, $"Fältet '{SubjectName}.{PropertyName}' har ej korrekt datumformat ('{DateTimeFormat}').", true);
             return this;
         }
 
@@ -67,7 +86,28 @@ namespace ODL.ApplicationServices.Validation
         private bool DateFormatCheck(string dateString)
         {
             DateTime dateValue;
-            return dateString == null || DateTime.TryParseExact(dateString, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue);
+            return string.IsNullOrEmpty(dateString) || DateTime.TryParseExact(dateString, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue);
+        }
+
+        private bool DateTimeFormatCheck(string dateTimeString)
+        {
+            DateTime dateValue;
+            return string.IsNullOrEmpty(dateTimeString) || DateTime.TryParseExact(dateTimeString, DateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue);
+        }
+
+
+        private bool IsValidEmailAdress(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }
