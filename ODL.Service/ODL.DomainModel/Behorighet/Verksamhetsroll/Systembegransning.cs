@@ -8,15 +8,15 @@ namespace ODL.DomainModel.Behorighet.Verksamhetsroll
     public partial class Systembegransning
     {
         [Key]
-        [Column(Order = 0)]
+        [Column("PersonalVerksamhetsrollFKId", Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int PersonVerksamhetsrollFKId { get; set; }
+        public int PersonalVerksamhetsrollId { get; set; }
 
         [Key]
-        [Column(Order = 1)]
+        [Column("SystemFKId", Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int SystemFKId { get; set; }
+        public int SystemId { get; set; }
 
-        public virtual PersonVerksamhetsroll PersonVerksamhetsroll { get; set; }
+        public virtual PersonalVerksamhetsroll PersonalVerksamhetsroll { get; set; }
     }
 }

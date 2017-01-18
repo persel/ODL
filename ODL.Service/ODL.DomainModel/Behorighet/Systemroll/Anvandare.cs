@@ -18,7 +18,8 @@ namespace ODL.DomainModel.Behorighet.Systemroll
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int PersonFKId { get; set; }
+        [Column("PersonalFKId")]
+        public int PersonalId { get; set; }
 
         [Required]
         [StringLength(10)]

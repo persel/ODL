@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ODL.DomainModel.Behorighet.Verksamhetsroll;
 using ODL.DomainModel.Common;
 
 namespace ODL.DomainModel.Person
@@ -17,7 +16,6 @@ namespace ODL.DomainModel.Person
         {
             AnstalldAvtal = new HashSet<AnstalldAvtal>();
             KonsultAvtal = new HashSet<KonsultAvtal>();
-            PersonVerksamhetsroll = new HashSet<PersonVerksamhetsroll>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -55,9 +53,7 @@ namespace ODL.DomainModel.Person
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KonsultAvtal> KonsultAvtal { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonVerksamhetsroll> PersonVerksamhetsroll { get; set; }
+        
 
         [NotMapped]
         public IEnumerable<int> AnstallningsAvtalIdn => AnstalldAvtal.Select(anstallningsAvtal => anstallningsAvtal.Avtal.Id);

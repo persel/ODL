@@ -9,9 +9,12 @@ namespace ODL.DomainModel.Behorighet.Systemroll
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int SystemanvandargruppFKId { get; set; }
 
-        public int AnvandareFKId { get; set; }
+        [Column("SystemanvandargruppFKId")]
+        public int SystemanvandargruppId { get; set; }
+
+        [Column("AnvandareFKId")]
+        public int AnvandareId { get; set; }
 
         public DateTime? GallerFran { get; set; }
 

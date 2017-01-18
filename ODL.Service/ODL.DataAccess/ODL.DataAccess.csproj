@@ -57,10 +57,12 @@
     <Compile Include="Repositories\AvtalRepository.cs" />
     <Compile Include="Repositories\Behorighet\AnvandareRepository.cs" />
     <Compile Include="Repositories\Behorighet\IAnvandareRepository.cs" />
+    <Compile Include="Repositories\Behorighet\IPersonalRepository.cs" />
     <Compile Include="Repositories\Behorighet\ISystemattributRepository.cs" />
     <Compile Include="Repositories\Behorighet\ISystemRepository.cs" />
     <Compile Include="Repositories\Behorighet\IVerksamhetsdimensionRepository.cs" />
     <Compile Include="Repositories\Behorighet\IVerksamhetsrollRepository.cs" />
+    <Compile Include="Repositories\Behorighet\PersonalRepository.cs" />
     <Compile Include="Repositories\Behorighet\SystemattributRepository.cs" />
     <Compile Include="Repositories\Behorighet\SystemRepository.cs" />
     <Compile Include="Repositories\Behorighet\VerksamhetsdimensionRepository.cs" />

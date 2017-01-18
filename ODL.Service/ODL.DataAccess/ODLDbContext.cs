@@ -54,7 +54,7 @@ namespace ODL.DataAccess
 
         // Behörighet.Verksamhetsroll:
 
-        public virtual DbSet<PersonVerksamhetsroll> PersonVerksamhetsroll { get; set; }
+        public virtual DbSet<PersonalVerksamhetsroll> PersonVerksamhetsroll { get; set; }
         public virtual DbSet<Verksamhetsroll> Verksamhetsroll { get; set; }
         public virtual DbSet<Systembegransning> Systembegransning { get; set; }
 
@@ -70,7 +70,7 @@ namespace ODL.DataAccess
 
         // Behörighet (Kopplingar mellan aggregaten)
 
-        public virtual DbSet<PersonIVerksamhetsrollVerksamhetsdimensionsvarde> PersonIVerksamhetsrollVerksamhetsdimensionvarde { get; set; }
+        public virtual DbSet<PersonalIVerksamhetsrollVerksamhetsdimensionsvarde> PersonalIVerksamhetsrollVerksamhetsdimensionvarde { get; set; }
         public virtual DbSet<RelevantVerksamhetsdimension> RelevantVerksamhetsdimension { get; set; }
         public virtual DbSet<SystemattributVerksamhetsdimension> SystemattributVerksamhetsdimension { get; set; }
         public virtual DbSet<SystembehorighetAttributVarde> SystembehorighetAttributVarde { get; set; }
@@ -138,91 +138,53 @@ namespace ODL.DataAccess
                 .WithRequired(e => e.Organisation);
 
             // Adress: 
-            /*
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.GatuAdress)
-                .WithRequired(e => e.Adress);
 
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.Mail)
-                .WithRequired(e => e.Adress);
 
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.OrganisationAdress)
-                .WithRequired(e => e.Adress);
 
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.PersonAdress)
-                .WithRequired(e => e.Adress);
-
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.Telefon)
-                .WithRequired(e => e.Adress);
-
-            //modelBuilder.Entity<AdressTyp>()
-            //    .HasMany(e => e.AdressVariant)
-            //    .WithRequired(e => e.AdressTyp)
-            //    .HasForeignKey(e => e.AdressTypFKId)
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<AdressVariant>()
-            //    .HasMany(e => e.Adress)
-            //    .WithRequired(e => e.AdressVariant)
-            //    .HasForeignKey(e => e.AdressVariantFKId)
-            //    .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<GatuAdress>()
-                .Property(e => e.Postnummer)
-                .HasPrecision(18, 0);
-
-            modelBuilder.Entity<Mail>()
-                .Property(e => e.MailAdress)
-                .IsUnicode(false);
-                */
             // Behörighet.Systemroll:
 
             modelBuilder.Entity<Anvandare>()
                 .HasMany(e => e.Systembehorighet)
                 .WithRequired(e => e.Anvandare)
-                .HasForeignKey(e => e.AnvandareFKId)
+                .HasForeignKey(e => e.AnvandareId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Systemroll.System>()
                 .HasMany(e => e.Behorighetsniva)
                 .WithRequired(e => e.System)
-                .HasForeignKey(e => e.SystemFKId)
+                .HasForeignKey(e => e.SystemId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Systemroll.System>()
                 .HasMany(e => e.Systemanvandargrupp)
                 .WithRequired(e => e.System)
-                .HasForeignKey(e => e.SystemFKId)
+                .HasForeignKey(e => e.SystemId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Behorighetsniva>()
                 .HasMany(e => e.Systemanvandargrupp)
                 .WithRequired(e => e.Behorighetsniva)
-                .HasForeignKey(e => e.BehorighetsnivaFKId)
+                .HasForeignKey(e => e.BehorighetsnivaId)
                 .WillCascadeOnDelete(false);
 
             // Behörighet.Verksamhetsroll:
 
-            modelBuilder.Entity<PersonVerksamhetsroll>()
+            modelBuilder.Entity<PersonalVerksamhetsroll>()
                 .HasMany(e => e.Systembegransning)
-                .WithRequired(e => e.PersonVerksamhetsroll)
-                .HasForeignKey(e => e.PersonVerksamhetsrollFKId)
+                .WithRequired(e => e.PersonalVerksamhetsroll)
+                .HasForeignKey(e => e.PersonalVerksamhetsrollId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<PersonVerksamhetsroll>()
-                .HasMany(e => e.PersonIVerksamhetsrollVerksamhetsdimensionsvarde)
-                .WithRequired(e => e.PersonVerksamhetsroll)
-                .HasForeignKey(e => e.PersonVerksamhetsrollFKId)
+            modelBuilder.Entity<PersonalVerksamhetsroll>()
+                .HasMany(e => e.PersonalIVerksamhetsrollVerksamhetsdimensionsvarde)
+                .WithRequired(e => e.PersonalVerksamhetsroll)
+                .HasForeignKey(e => e.PersonalVerksamhetsrollFKId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Person>()
-                .HasMany(e => e.PersonVerksamhetsroll)
-                .WithRequired(e => e.Person)
-                .HasForeignKey(e => e.PersonFKId)
+            modelBuilder.Entity<Personal>()
+                .HasMany(e => e.PersonalVerksamhetsroll)
+                .WithRequired(e => e.Personal)
+                .HasForeignKey(e => e.PersonalId)
                 .WillCascadeOnDelete(false);
 
             // Behörighet.Systemattribut:

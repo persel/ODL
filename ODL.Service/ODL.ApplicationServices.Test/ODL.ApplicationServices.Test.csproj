@@ -84,6 +84,10 @@
       <Project>{00730b19-2441-42db-9fee-f71edca04682}</Project>
       <Name>ODL.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ODL.DomainModel\ODL.DomainModel.csproj">
+      <Project>{6820EEF2-FC9D-49BC-8E01-B5CECA63A146}</Project>
+      <Name>ODL.DomainModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

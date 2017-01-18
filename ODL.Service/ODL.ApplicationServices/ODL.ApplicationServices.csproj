@@ -53,13 +53,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOModel\Behorighet\AnvandareDTO.cs" />
     <Compile Include="DTOExtensions.cs" />
+    <Compile Include="DTOModel\Behorighet\PersonalVerksamhetsrollDTO.cs" />
     <Compile Include="DTOModel\Load\AvtalInputDTO.cs" />
     <Compile Include="DTOModel\Load\InputDTO.cs" />
     <Compile Include="DTOModel\Load\OrganisationAvtalInputDTO.cs" />
     <Compile Include="DTOModel\Load\ResultatenhetInputDTO.cs" />
     <Compile Include="DTOModel\Load\PersonInputDTO.cs" />
     <Compile Include="DTOModel\Load\OrganisationtInputDTO.cs" />
+    <Compile Include="BehorighetService.cs" />
+    <Compile Include="IBehorighetService.cs" />
+    <Compile Include="DTOModel\Behorighet\PersonalDTO.cs" />
+    <Compile Include="DTOModel\Behorighet\SystemattributDTO.cs" />
+    <Compile Include="DTOModel\Behorighet\SystemDTO.cs" />
     <Compile Include="Validation\AvtalInputValidator.cs" />
     <Compile Include="Validation\ResultatenhetInputValidator.cs" />
     <Compile Include="Validation\OrganisationInputValidator.cs" />
@@ -75,6 +82,8 @@
     <Compile Include="PersonService.cs" />
     <Compile Include="IPersonService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DTOModel\Behorighet\VerksamhetsdimensionDTO.cs" />
+    <Compile Include="DTOModel\Behorighet\VerksamhetsrollDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ODL.DataAccess\ODL.DataAccess.csproj">
@@ -92,6 +101,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

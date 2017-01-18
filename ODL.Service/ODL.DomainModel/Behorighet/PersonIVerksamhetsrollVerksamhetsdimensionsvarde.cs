@@ -6,14 +6,14 @@ using ODL.DomainModel.Behorighet.Verksamhetsdimension;
 namespace ODL.DomainModel.Behorighet
 {
 
-    [Table("Behorighet.PersonVerksamhetsrollVerksamhetsdimensionsvarde")]
-    public partial class PersonIVerksamhetsrollVerksamhetsdimensionsvarde
+    [Table("Behorighet.PersonalVerksamhetsrollVerksamhetsdimensionsvarde")]
+    public partial class PersonalIVerksamhetsrollVerksamhetsdimensionsvarde
     {
 
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int PersonVerksamhetsrollFKId { get; set; }
+        public int PersonalVerksamhetsrollFKId { get; set; }
 
 
         [Key]
@@ -21,7 +21,7 @@ namespace ODL.DomainModel.Behorighet
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int VerksamhetsdimensionsvardeId { get; set; }
 
-        public virtual PersonVerksamhetsroll PersonVerksamhetsroll { get; set; }
+        public virtual PersonalVerksamhetsroll PersonalVerksamhetsroll { get; set; }
 
 
     }

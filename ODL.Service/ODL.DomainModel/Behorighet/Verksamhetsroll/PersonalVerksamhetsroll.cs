@@ -6,22 +6,24 @@ using System.Diagnostics.CodeAnalysis;
 namespace ODL.DomainModel.Behorighet.Verksamhetsroll
 {
 
-    [Table("Behorighet.PersonVerksamhetsroll")]
-    public partial class PersonVerksamhetsroll
+    [Table("Behorighet.PersonalVerksamhetsroll")]
+    public partial class PersonalVerksamhetsroll
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PersonVerksamhetsroll()
+        public PersonalVerksamhetsroll()
         {
             Systembegransning = new HashSet<Systembegransning>();
-            PersonIVerksamhetsrollVerksamhetsdimensionsvarde = new HashSet<PersonIVerksamhetsrollVerksamhetsdimensionsvarde>();
+            PersonalIVerksamhetsrollVerksamhetsdimensionsvarde = new HashSet<PersonalIVerksamhetsrollVerksamhetsdimensionsvarde>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int VerksamhetsrollFKId { get; set; }
+        [Column("VerksamhetsrollFKId")]
+        public int VerksamhetsrollId { get; set; }
 
-        public int PersonFKId { get; set; }
+        [Column("PersonalFKId")]
+        public int PersonalId { get; set; }
 
         public bool PrimarRoll { get; set; }
 
@@ -29,12 +31,12 @@ namespace ODL.DomainModel.Behorighet.Verksamhetsroll
 
         public DateTime? TillfalligGallerTill { get; set; }
 
-        public virtual Person.Person Person { get; set; }
+        public virtual Personal Personal { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Systembegransning> Systembegransning { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonIVerksamhetsrollVerksamhetsdimensionsvarde> PersonIVerksamhetsrollVerksamhetsdimensionsvarde { get; set; }
+        public virtual ICollection<PersonalIVerksamhetsrollVerksamhetsdimensionsvarde> PersonalIVerksamhetsrollVerksamhetsdimensionsvarde { get; set; }
     }
 }
