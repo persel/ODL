@@ -1,4 +1,5 @@
-﻿using ODL.DomainModel.Adress;
+﻿using System.Collections.Generic;
+using ODL.DomainModel.Adress;
 using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Repositories
@@ -10,5 +11,6 @@ namespace ODL.DataAccess.Repositories
         void Update();
 
         Adress GetByAdressId(int adressId);
+        IEnumerable<Adress> GetAdresserPerPersonId(int personId);
     }
 }

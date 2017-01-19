@@ -33,5 +33,9 @@ namespace ODL.DataAccess.Repositories
             return _internalGenericRepository.FindSingle(adress => adress.Id == adressId);
         }
 
+        public IEnumerable<Adress> GetAdresserPerPersonId(int personId)
+        {
+            return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonFKId == personId);
+        }
     }
 }

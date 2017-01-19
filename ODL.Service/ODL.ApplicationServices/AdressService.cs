@@ -53,7 +53,7 @@ namespace ODL.ApplicationServices
             }
 
             //Hämta personens adressIdn
-            var allaAdressIdn = personRepository.GetAllaAdressIdnPerPerson(personAdressInput.Personnummer);
+            var allaAdresser = adressRepository.GetAdresserPerPersonId(person.Id);
 
             //Om inga adresser finns för personen, spara ny. Annars hämta befintliga adresser för ev uppdatering.
             var adress = new Adress();
@@ -67,10 +67,10 @@ namespace ODL.ApplicationServices
                         //kolla om nytt eller befintligt telfonnummer
 
 
-            foreach (var adrId in allaAdressIdn)
-            {
-                adress = adressRepository.GetByAdressId(adrId);
-            }
+            //foreach (var adrId in allaAdressIdn)
+            //{
+            //    adress = adressRepository.GetByAdressId(adrId);
+            //}
 
             
 

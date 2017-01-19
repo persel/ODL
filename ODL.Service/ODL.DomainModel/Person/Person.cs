@@ -51,14 +51,9 @@ namespace ODL.DomainModel.Person
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AnstalldAvtal> AnstallningsAvtal { get; set; }
-
-        public virtual ICollection<PersonAdress> PersonAdress { get; set; }
-
+        
         [NotMapped]
         public IEnumerable<int> AnstallningsAvtalIdn => AnstallningsAvtal.Select(anstallningsAvtal => anstallningsAvtal.Avtal.Id);
-
-        public IEnumerable<int> AdressIdn => PersonAdress.Select(adress => adress.AdressFKId);
-
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KonsultAvtal> KonsultAvtal { get; set; }
@@ -89,11 +84,6 @@ namespace ODL.DomainModel.Person
             return IsAnstalld()
                 ? AnstallningsAvtalIdn
                 : (IsKonsult() ? KonsultAvtalIdn : new List<int>()); // Tar hänsyn till om en person är varken konsult eller anställd...
-        }
-
-        public IEnumerable<int> AllaAdressIdn()
-        {
-            return AdressIdn;
         }
 
         /// <summary>

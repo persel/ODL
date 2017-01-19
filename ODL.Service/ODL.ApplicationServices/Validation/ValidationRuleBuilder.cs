@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 using ODL.ApplicationServices.DTOModel.Load;
 
 namespace ODL.ApplicationServices.Validation
@@ -98,16 +99,18 @@ namespace ODL.ApplicationServices.Validation
 
         private bool IsValidEmailAdress(string emailaddress)
         {
-            try
-            {
-                MailAddress m = new MailAddress(emailaddress);
+            //Fångar felaktiga epostadresser enligt RFC2822s
+            return Regex.IsMatch(emailaddress, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
+            //try
+            //{
+            //    MailAddress m = new MailAddress(emailaddress);
 
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
+            //    return true;
+            //}
+            //catch (FormatException)
+            //{
+            //    return false;
+            //}
         }
     }
 }

@@ -15,9 +15,6 @@ namespace ODL.DataAccess.Repositories
 
         Person GetByPersonnummer(string personnummer);
 
-        IEnumerable<int> GetAllaAdressIdnPerPerson(string personnummer);
-
-
         void Update();
 
         void Add(Person person);
