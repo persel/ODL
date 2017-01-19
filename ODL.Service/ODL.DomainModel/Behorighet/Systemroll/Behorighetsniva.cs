@@ -15,6 +15,7 @@ namespace ODL.DomainModel.Behorighet.Systemroll
             Systemanvandargrupp = new HashSet<Systemanvandargrupp>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Column("SystemFKId")]
@@ -23,6 +24,8 @@ namespace ODL.DomainModel.Behorighet.Systemroll
         [Required]
         [StringLength(50)]
         public string Namn { get; set; }
+
+        public virtual System System { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Systemanvandargrupp> Systemanvandargrupp { get; set; }

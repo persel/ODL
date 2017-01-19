@@ -7,6 +7,7 @@ namespace ODL.DomainModel.Behorighet.Systemroll
     [Table("Behorighet.Systembehorighet")]
     public partial class Systembehorighet
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Column("SystemanvandargruppFKId")]
@@ -19,6 +20,6 @@ namespace ODL.DomainModel.Behorighet.Systemroll
 
         public DateTime? GallerTill { get; set; }
 
-        public virtual Systemanvandargrupp Systemanvandargrupp { get; set; }
+        public virtual Anvandare Anvandare { get; set; }
     }
 }

@@ -3,8 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ODL.DomainModel.Adress;
-using ODL.DomainModel.Behorighet.Verksamhetsroll;
 using ODL.DomainModel.Common;
 
 namespace ODL.DomainModel.Person
@@ -16,7 +14,7 @@ namespace ODL.DomainModel.Person
 
         public Person()
         {
-            AnstallningsAvtal = new HashSet<AnstalldAvtal>();
+            AnstalldAvtal = new HashSet<AnstalldAvtal>();
             KonsultAvtal = new HashSet<KonsultAvtal>();
         }
 
@@ -48,18 +46,17 @@ namespace ODL.DomainModel.Person
         // TODO: Person har listor av konsultavtal och anställningsavtal - Praktiskt men inte helt optimalt eftersom Avtal har samma referenser (genom 1:1-relationer) och 
         // man därigenom kan uppdatera samma tabeller via två olika aggregat (Person och Avtal), vilket kan ge concurrency issues etc. Vore bra om Person inte hade konsultavtal och anställningsavtal,
         // vilket dock ger mer logik i Servicen, utanför modellen.
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AnstalldAvtal> AnstallningsAvtal { get; set; }
         
-        [NotMapped]
-        public IEnumerable<int> AnstallningsAvtalIdn => AnstallningsAvtal.Select(anstallningsAvtal => anstallningsAvtal.Avtal.Id);
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AnstalldAvtal> AnstalldAvtal { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KonsultAvtal> KonsultAvtal { get; set; }
+        
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonVerksamhetsroll> Verksamhetsroller { get; set; }
+        [NotMapped]
+        public IEnumerable<int> AnstallningsAvtalIdn => AnstalldAvtal.Select(anstallningsAvtal => anstallningsAvtal.Avtal.Id);
 
         [NotMapped]
         public IEnumerable<int> KonsultAvtalIdn => KonsultAvtal.Select(konsultAvtal => konsultAvtal.Avtal.Id);
@@ -69,7 +66,7 @@ namespace ODL.DomainModel.Person
 
         public bool IsAnstalld()
         {
-            return AnstallningsAvtal.Any();
+            return AnstalldAvtal.Any();
         }
 
         public bool IsKonsult()

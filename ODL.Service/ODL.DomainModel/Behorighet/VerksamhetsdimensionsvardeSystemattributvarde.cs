@@ -1,13 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ODL.DomainModel.Behorighet.Systemattribut;
 using ODL.DomainModel.Behorighet.Verksamhetsdimension;
 
 namespace ODL.DomainModel.Behorighet
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("Behorighet.VerksamhetsdimensionsvardeSystemattributvarde")]
     public partial class VerksamhetsdimensionsvardeSystemattributvarde

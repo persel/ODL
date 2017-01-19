@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Data.Entity;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -10,14 +9,15 @@ using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
 
 [TestFixture]
-public class RollbackHelper
-{ 
+public class PersonServiceTests
+{
     protected ODLDbContext context;
     protected DbContextTransaction transaction;
 
     [SetUp]
     public void TransactionTestStart()
     {
+        Database.SetInitializer<ODLDbContext>(null);
         context = new ODLDbContext();
         transaction = context.Database.BeginTransaction();
     }

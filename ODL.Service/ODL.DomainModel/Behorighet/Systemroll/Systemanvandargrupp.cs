@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ODL.DomainModel.Behorighet.Systemroll
 {
@@ -9,12 +7,7 @@ namespace ODL.DomainModel.Behorighet.Systemroll
     [Table("Behorighet.Systemanvandargrupp")]
     public partial class Systemanvandargrupp
     {
-        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Systemanvandargrupp()
-        {
-            Systembehorighet = new HashSet<Systembehorighet>();
-        }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Column("SystemFKId")]
@@ -29,7 +22,6 @@ namespace ODL.DomainModel.Behorighet.Systemroll
 
         public virtual Behorighetsniva Behorighetsniva { get; set; }
 
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Systembehorighet> Systembehorighet { get; set; }
+        public virtual System System { get; set; }
     }
 }

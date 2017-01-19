@@ -64,7 +64,6 @@
     <Compile Include="Behorighet\SystemattributVerksamhetsdimension.cs" />
     <Compile Include="Behorighet\Systemattribut\Systemattribut.cs" />
     <Compile Include="Behorighet\Systemattribut\Systemattributvarde.cs" />
-    <Compile Include="Behorighet\Systembegransning.cs" />
     <Compile Include="Behorighet\SystembehorighetAttributVarde.cs" />
     <Compile Include="Behorighet\Systemroll\Anvandare.cs" />
     <Compile Include="Behorighet\Systemroll\Behorighetsniva.cs" />
@@ -75,7 +74,7 @@
     <Compile Include="Behorighet\Verksamhetsdimension\Verksamhetsdimension.cs" />
     <Compile Include="Behorighet\Verksamhetsdimension\Verksamhetsdimensionsvarde.cs" />
     <Compile Include="Behorighet\VerksamhetsrollAnvandargrupp.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\PersonVerksamhetsroll.cs" />
+    <Compile Include="Behorighet\Verksamhetsroll\Personal.cs" />
     <Compile Include="Behorighet\Verksamhetsroll\Verksamhetsroll.cs" />
     <Compile Include="Common\Vardetyp.cs" />
     <Compile Include="Common\Metadata.cs" />
@@ -87,6 +86,8 @@
     <Compile Include="Person\AnstalldAvtal.cs" />
     <Compile Include="Person\Konsultavtal.cs" />
     <Compile Include="Person\Person.cs" />
+    <Compile Include="Behorighet\Verksamhetsroll\PersonalVerksamhetsroll.cs" />
+    <Compile Include="Behorighet\Verksamhetsroll\Systembegransning.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

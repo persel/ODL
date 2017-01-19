@@ -139,35 +139,35 @@ GO
 -- # CREATE Behörighet FK CONSTRAINTS
 -- #############################################################
 
-ALTER TABLE [Behorighet].[Anvandare]  WITH CHECK ADD  CONSTRAINT [FK_Anvandare_Person] FOREIGN KEY([PersonFKId])
-REFERENCES [Person].[Person] ([Id])
+ALTER TABLE [Behorighet].[Anvandare]  WITH CHECK ADD  CONSTRAINT [FK_Anvandare_Personal] FOREIGN KEY([PersonalFKId])
+REFERENCES [Behorighet].[Personal] ([Id])
 GO
-ALTER TABLE [Behorighet].[Anvandare] CHECK CONSTRAINT [FK_Anvandare_Person]
+ALTER TABLE [Behorighet].[Anvandare] CHECK CONSTRAINT [FK_Anvandare_Personal]
 GO
 ALTER TABLE [Behorighet].[Behorighetsniva]  WITH CHECK ADD  CONSTRAINT [FK_Behorighetsniva_System] FOREIGN KEY([SystemFKId])
 REFERENCES [Behorighet].[System] ([Id])
 GO
 ALTER TABLE [Behorighet].[Behorighetsniva] CHECK CONSTRAINT [FK_Behorighetsniva_System]
 GO
-ALTER TABLE [Behorighet].[PersonVerksamhetsroll]  WITH CHECK ADD  CONSTRAINT [FK_PersonVerksamhetsroll_Person] FOREIGN KEY([PersonFKId])
-REFERENCES [Person].[Person] ([Id])
+ALTER TABLE [Behorighet].[PersonalVerksamhetsroll]  WITH CHECK ADD  CONSTRAINT [FK_PersonalVerksamhetsroll_Personal] FOREIGN KEY([PersonalFKId])
+REFERENCES [Behorighet].[Personal] ([Id])
 GO
-ALTER TABLE [Behorighet].[PersonVerksamhetsroll] CHECK CONSTRAINT [FK_PersonVerksamhetsroll_Person]
+ALTER TABLE [Behorighet].[PersonalVerksamhetsroll] CHECK CONSTRAINT [FK_PersonalVerksamhetsroll_Personal]
 GO
-ALTER TABLE [Behorighet].[PersonVerksamhetsroll]  WITH CHECK ADD  CONSTRAINT [FK_PersonVerksamhetsroll_Verksamhetsroll] FOREIGN KEY([VerksamhetsrollFKId])
+ALTER TABLE [Behorighet].[PersonalVerksamhetsroll]  WITH CHECK ADD  CONSTRAINT [FK_PersonalVerksamhetsroll_Verksamhetsroll] FOREIGN KEY([VerksamhetsrollFKId])
 REFERENCES [Behorighet].[Verksamhetsroll] ([Id])
 GO
-ALTER TABLE [Behorighet].[PersonVerksamhetsroll] CHECK CONSTRAINT [FK_PersonVerksamhetsroll_Verksamhetsroll]
+ALTER TABLE [Behorighet].[PersonalVerksamhetsroll] CHECK CONSTRAINT [FK_PersonalVerksamhetsroll_Verksamhetsroll]
 GO
-ALTER TABLE [Behorighet].[PersonVerksamhetsrollVerksamhetsdimensionsvarde]  WITH CHECK ADD  CONSTRAINT [FK_PersonVerksamhetsrollVerksamhetsdimensionsvarde_PersonVerksamhetsroll] FOREIGN KEY([PersonVerksamhetsrollFKId])
-REFERENCES [Behorighet].[PersonVerksamhetsroll] ([Id])
+ALTER TABLE [Behorighet].[PersonalVerksamhetsrollVerksamhetsdimensionsvarde]  WITH CHECK ADD  CONSTRAINT [FK_PersonalVerksamhetsrollVerksamhetsdimensionsvarde_PersonalVerksamhetsroll] FOREIGN KEY([PersonalVerksamhetsrollFKId])
+REFERENCES [Behorighet].[PersonalVerksamhetsroll] ([Id])
 GO
-ALTER TABLE [Behorighet].[PersonVerksamhetsrollVerksamhetsdimensionsvarde] CHECK CONSTRAINT [FK_PersonVerksamhetsrollVerksamhetsdimensionsvarde_PersonVerksamhetsroll]
+ALTER TABLE [Behorighet].[PersonalVerksamhetsrollVerksamhetsdimensionsvarde] CHECK CONSTRAINT [FK_PersonalVerksamhetsrollVerksamhetsdimensionsvarde_PersonalVerksamhetsroll]
 GO
-ALTER TABLE [Behorighet].[PersonVerksamhetsrollVerksamhetsdimensionsvarde]  WITH CHECK ADD  CONSTRAINT [FK_PersonVerksamhetsrollVerksamhetsdimensionsvarde_Verksamhetsdimensionsvarde] FOREIGN KEY([VerksamhetsdimensionsvardeFKId])
+ALTER TABLE [Behorighet].[PersonalVerksamhetsrollVerksamhetsdimensionsvarde]  WITH CHECK ADD  CONSTRAINT [FK_PersonalVerksamhetsrollVerksamhetsdimensionsvarde_Verksamhetsdimensionsvarde] FOREIGN KEY([VerksamhetsdimensionsvardeFKId])
 REFERENCES [Behorighet].[Verksamhetsdimensionsvarde] ([Id])
 GO
-ALTER TABLE [Behorighet].[PersonVerksamhetsrollVerksamhetsdimensionsvarde] CHECK CONSTRAINT [FK_PersonVerksamhetsrollVerksamhetsdimensionsvarde_Verksamhetsdimensionsvarde]
+ALTER TABLE [Behorighet].[PersonalVerksamhetsrollVerksamhetsdimensionsvarde] CHECK CONSTRAINT [FK_PersonalVerksamhetsrollVerksamhetsdimensionsvarde_Verksamhetsdimensionsvarde]
 GO
 ALTER TABLE [Behorighet].[RelevantVerksamhetsdimension]  WITH CHECK ADD  CONSTRAINT [FK_RelevantVerksamhetsdimension_Verksamhetsdimension] FOREIGN KEY([VerksamhetsdimensionFKId])
 REFERENCES [Behorighet].[Verksamhetsdimension] ([Id])
@@ -214,10 +214,10 @@ REFERENCES [Behorighet].[Verksamhetsdimension] ([Id])
 GO
 ALTER TABLE [Behorighet].[SystemattributVerksamhetsdimension] CHECK CONSTRAINT [FK_SystemattributVerksamhetsdimension_Verksamhetsdimension]
 GO
-ALTER TABLE [Behorighet].[Systembegransning]  WITH CHECK ADD  CONSTRAINT [FK_Systembegransning_PersonVerksamhetsroll] FOREIGN KEY([PersonVerksamhetsrollFKId])
-REFERENCES [Behorighet].[PersonVerksamhetsroll] ([Id])
+ALTER TABLE [Behorighet].[Systembegransning]  WITH CHECK ADD  CONSTRAINT [FK_Systembegransning_PersonalVerksamhetsroll] FOREIGN KEY([PersonalVerksamhetsrollFKId])
+REFERENCES [Behorighet].[PersonalVerksamhetsroll] ([Id])
 GO
-ALTER TABLE [Behorighet].[Systembegransning] CHECK CONSTRAINT [FK_Systembegransning_PersonVerksamhetsroll]
+ALTER TABLE [Behorighet].[Systembegransning] CHECK CONSTRAINT [FK_Systembegransning_PersonalVerksamhetsroll]
 GO
 ALTER TABLE [Behorighet].[Systembegransning]  WITH CHECK ADD  CONSTRAINT [FK_Systembegransning_System] FOREIGN KEY([SystemFKId])
 REFERENCES [Behorighet].[System] ([Id])

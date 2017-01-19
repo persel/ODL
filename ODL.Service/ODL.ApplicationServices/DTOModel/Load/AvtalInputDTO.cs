@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ODL.DomainModel.Common;
+﻿using System.Collections.Generic;
 
 namespace ODL.ApplicationServices.DTOModel.Load
 {
