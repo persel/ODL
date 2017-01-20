@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ODL.DomainModel.Adress;
 using ODL.DomainModel.Person;
 
@@ -20,12 +21,12 @@ namespace ODL.DataAccess.Repositories
 
         public void Add(Adress nyAdress)
         {
-            throw new NotImplementedException();
+            _internalGenericRepository.Add(nyAdress);
         }
 
         public void Update()
         {
-            throw new NotImplementedException();
+            _internalGenericRepository.Update();
         }
 
         public Adress GetByAdressId(int adressId)
@@ -37,5 +38,19 @@ namespace ODL.DataAccess.Repositories
         {
             return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonFKId == personId);
         }
+
+        public IEnumerable<Adress> GetAdresserPerPersonummer(string personnummer)
+        {
+            throw new NotImplementedException();
+            //var person = DbContext.Person.Find(p => p.Personnummer == personnummer);
+            //return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonFKId == person.personId);
+        }
+
+        public Adress GetAdressPerPersonIdAndVariantId(int personId, int variantId)
+        {
+            return
+                _internalGenericRepository.FindSingle(a => a.PersonAdress.PersonFKId == personId && a.Id == variantId);
+        }
+
     }
 }

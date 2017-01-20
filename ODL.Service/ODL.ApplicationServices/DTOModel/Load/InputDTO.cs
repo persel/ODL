@@ -2,9 +2,9 @@
 
 namespace ODL.ApplicationServices.DTOModel.Load
 {
-    public abstract class InputDTO
+    public abstract class InputDTO : ValidatableDTO
     {
-        public string SystemId { get; set; }
+        public virtual string SystemId { get; set;}
 
         public string UppdateradDatum { get; set; }
 

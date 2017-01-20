@@ -334,33 +334,33 @@ VALUES(4, 'Facebook', @updatedTime, 'DBO', @createdTime, 'DBO')
 -- # INSERT Adressvariant
 -- #############################################################
 
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Folkbokföringsadress', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Adress Arbete', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'LeveransAdress', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'FaktureringsAdress', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Adressens Adress', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1,'Tomte Adress', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2,'MailAdress Arbete', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2,'Mailadress Privat', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'Mobil Arbete', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'Mobil Privat', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'Telefon Arbete', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(3,'Telefon Privat', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(4,'Facebook Privat', @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Variant], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
+INSERT INTO [Adress].[AdressVariant]([AdressTypFKId], [Namn], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(4,'Facebook Arbete', @updatedTime, 'DBO', @createdTime, 'DBO')
 
 
@@ -371,68 +371,68 @@ VALUES(4,'Facebook Arbete', @updatedTime, 'DBO', @createdTime, 'DBO')
 /*Hem*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(1,'Storvägen 11',84019,'Färila', 'Sverige', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land])
+VALUES(1,'Storvägen 11',84019,'Färila', 'Sverige')
 
 /*Jobb*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(2,'Drottningvägen 23',82240,'Järvsö', 'Sverige', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land])
+VALUES(2,'Drottningvägen 23',82240,'Järvsö', 'Sverige')
 
 /*Mail Arbete*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(7, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[Mail]([AdressFKId], [MailAdress], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(3,'jarvsobacken@ptj.se', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[Mail]([AdressFKId], [MailAdress])
+VALUES(3,'jarvsobacken@ptj.se')
 
 /*Mail Privat*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(8, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[Mail]([AdressFKId], [MailAdress], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(4,'kalle.ove@gmail.com', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[Mail]([AdressFKId], [MailAdress])
+VALUES(4,'kalle.ove@gmail.com')
 
 /*Tele Privat*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(9, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[Telefon]([AdressFKId], [TelefonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(5,'065112345', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[Telefon]([AdressFKId], [TelefonNummer])
+VALUES(5,'065112345')
 
 /*Tele Arbete*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(10, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[Telefon]([AdressFKId], [TelefonNummer], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(6,'070123456', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[Telefon]([AdressFKId], [TelefonNummer])
+VALUES(6,'070123456')
 
 /*Hem*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(1, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(7,'Strandvägen 13',76534,'Alingsås', 'Sverige', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land])
+VALUES(7,'Strandvägen 13',76534,'Alingsås', 'Sverige')
 
 /*Hem*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(8,'Bruksvägen 55',59732,'Uppsala', 'Sverige', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land])
+VALUES(8,'Bruksvägen 55',59732,'Uppsala', 'Sverige')
 
 /*Hem*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(9,'Glimmervägen 7',78563,'Uppsala', 'Sverige', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land])
+VALUES(9,'Glimmervägen 7',78563,'Uppsala', 'Sverige')
 
 /*Hem*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(10,'Falsterbovägen 2',78543,'Falsterbo', 'Sverige', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land])
+VALUES(10,'Falsterbovägen 2',78543,'Falsterbo', 'Sverige')
 
 /*Hem*/
 INSERT INTO [Adress].[Adress]([AdressVariantFKId], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
 VALUES(2, @updatedTime, 'DBO', @createdTime, 'DBO')
-INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land], [UppdateradDatum], [UppdateradAv], [SkapadDatum], [SkapadAv])
-VALUES(11,'Lundavägen 12A',96745,'Malmö', 'Sverige', @updatedTime, 'DBO', @createdTime, 'DBO')
+INSERT INTO [Adress].[GatuAdress]([AdressFKId], [AdressRad1], [Postnummer], [Stad], [Land])
+VALUES(11,'Lundavägen 12A',96745,'Malmö', 'Sverige')
 
 -- #############################################################
 -- # INSERT Personadress

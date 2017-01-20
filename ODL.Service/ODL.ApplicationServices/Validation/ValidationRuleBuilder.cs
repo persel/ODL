@@ -11,7 +11,7 @@ namespace ODL.ApplicationServices.Validation
     /// Används för att lägga till regler i Validator (anges i konstruktorn) för en specifik string-property på T mha ett "fluent api" enligt Builder pattern.
     /// </summary>
 
-    public class ValidationRuleBuilder<T> where T : InputDTO
+    public class ValidationRuleBuilder<T> where T : ValidatableDTO
     {
         public const string DateFormat = "yyyy-MM-dd"; // TODO: Flytta denna till konfigurationsfil eller centraliserad plats!
         public const string DateTimeFormat = "yyyy-MM-dd HH:mm";

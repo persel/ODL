@@ -2,9 +2,8 @@
 
 namespace ODL.ApplicationServices.DTOModel
 {
-    public class GatuadressInputDTO : InputDTO
+    public class GatuadressInputDTO : ValidatableDTO
     {
-        public int AdressVariantId { get; set; }
         public string AdressRad1 { get; set; }
         public string AdressRad2 { get; set; }
         public string AdressRad3 { get; set; }

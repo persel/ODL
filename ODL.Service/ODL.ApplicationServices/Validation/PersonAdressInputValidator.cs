@@ -11,7 +11,7 @@ namespace ODL.ApplicationServices.Validation
         public PersonAdressInputValidator()
         {
             RuleFor(person => person.Personnummer).NotNullOrEmpty().WithinMaxLength(12);
-            //AddStandardRules();
+            //RequireMetadata();
         }
     }
 }

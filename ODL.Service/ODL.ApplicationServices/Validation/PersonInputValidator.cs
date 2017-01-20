@@ -16,7 +16,7 @@ namespace ODL.ApplicationServices.Validation
             RuleFor(person => person.Mellannamn).WithinMaxLength(255);
             RuleFor(person => person.Efternamn).NotNullOrEmpty().WithinMaxLength(255);
             RuleFor(person => person.Personnummer).NotNullOrEmpty().WithinMaxLength(12);
-            AddStandardRules();
+            RequireMetadata();
         }
     }
 }

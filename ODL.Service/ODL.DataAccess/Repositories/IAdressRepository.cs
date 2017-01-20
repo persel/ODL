@@ -12,5 +12,7 @@ namespace ODL.DataAccess.Repositories
 
         Adress GetByAdressId(int adressId);
         IEnumerable<Adress> GetAdresserPerPersonId(int personId);
+
+        Adress GetAdressPerPersonIdAndVariantId(int personId, int variantId);
     }
 }

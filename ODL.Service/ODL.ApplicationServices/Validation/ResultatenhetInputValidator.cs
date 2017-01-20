@@ -13,7 +13,7 @@ namespace ODL.ApplicationServices.Validation
             RuleFor(resEnhet => resEnhet.Namn).NotNullOrEmpty().WithinMaxLength(255);
             AboveZero(resEnhet => resEnhet.KostnadsstalleNr);
             RuleFor(resEnhet => resEnhet.Typ).NotNullOrEmpty().WithinMaxLength(5);
-            AddStandardRules();
+            RequireMetadata();
         }
     }
 }

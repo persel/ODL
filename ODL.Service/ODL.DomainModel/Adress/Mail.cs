@@ -1,3 +1,5 @@
+using ODL.DomainModel.Common;
+
 namespace ODL.DomainModel.Adress
 {
     using System;
@@ -17,17 +19,7 @@ namespace ODL.DomainModel.Adress
         [StringLength(255)]
         public string MailAdress { get; set; }
 
-        public DateTime? UppdateradDatum { get; set; }
-
-        [StringLength(10)]
-        public string UppdateradAv { get; set; }
-
-        public DateTime SkapadDatum { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string SkapadAv { get; set; }
-
+        
         public virtual Adress Adress { get; set; }
     }
 }

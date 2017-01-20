@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Query;
@@ -16,12 +17,14 @@ namespace ODL.ApplicationServices
     {
         private readonly IPersonRepository personRepository;
         private readonly IAdressRepository adressRepository;
-        private readonly ILogger<OrganisationService> logger;
+        private readonly IAdressVariantRepository adressVariantRepository;
+        private readonly ILogger<AdressService> logger;
 
-        public AdressService(IPersonRepository personRepository, IAdressRepository adressRepository, ILogger<OrganisationService> logger)
+        public AdressService(IAdressRepository adressRepository, IPersonRepository personRepository, IAdressVariantRepository adressVariantRepository, ILogger<AdressService> logger)
         {
             this.personRepository = personRepository;
             this.adressRepository = adressRepository;
+            this.adressVariantRepository = adressVariantRepository;
             this.logger = logger;
         }
 
@@ -32,6 +35,10 @@ namespace ODL.ApplicationServices
 
         public void SparaPersonAdress(PersonAdressInputDTO personAdressInput)
         {
+            var gatuadress = personAdressInput.GatuadressInput;
+            var epostadress = personAdressInput.MailInput;
+            var telefon = personAdressInput.TelefonInput;
+
             var valideringsfel = new PersonAdressInputValidator().Validate(personAdressInput);
             new AdressInputValidator().Validate(personAdressInput, valideringsfel);
 
@@ -43,41 +50,48 @@ namespace ODL.ApplicationServices
             }
 
             //Hämta PersonId
-            var person = personRepository.GetByPersonnummer(personAdressInput.Personnummer) ?? new Person();
+            var person = personRepository.GetByPersonnummer(personAdressInput.Personnummer);
+
+            //Hämta variant
+            var variant = adressVariantRepository.GetVariantByVariantName(personAdressInput.AdressVariant);
 
             //Om personen inte finns ska man ej kunna spara adressen
-            if (person.IsNew)
+            if (person == null)
             {
                 logger.LogError("Kan ej spara adress för person med personummer: " + personAdressInput.Personnummer + ". Personen sakans i databasen.");
                 throw new ApplicationException($"Kan ej spara adress för person med personummer: {personAdressInput.Personnummer}. Personen sakans i databasen.");
             }
 
-            //Hämta personens adressIdn
-            var allaAdresser = adressRepository.GetAdresserPerPersonId(person.Id);
-
             //Om inga adresser finns för personen, spara ny. Annars hämta befintliga adresser för ev uppdatering.
-            var adress = new Adress();
+
+            var adress = adressRepository.GetAdressPerPersonIdAndVariantId(person.Id, variant.Id);
 
             //Jämför input med befintligt data
-            if (!string.IsNullOrEmpty(personAdressInput.GatuadressInput.AdressRad1))
+            if (gatuadress != null)
+            {
                 //kolla om ny eller befintlig gatuadress
-            if (!string.IsNullOrEmpty(personAdressInput.MailInput.MailAdress))
-                //kolla om ny eller befintlig epostadress
-            if (!string.IsNullOrEmpty(personAdressInput.TelefonInput.Telefonnummer))
-                        //kolla om nytt eller befintligt telfonnummer
+            }
+            else if (epostadress != null)
+            {
+                if(adress == null)
+                    adress = Adress.NewEpostAdress(person);
+                adress.Mail.MailAdress = personAdressInput.MailInput.MailAdress;
+            }
+           else if (telefon != null)
+            {
+                //kolla om nytt eller befintligt telefonnummer
+            }
 
-
-            //foreach (var adrId in allaAdressIdn)
-            //{
-            //    adress = adressRepository.GetByAdressId(adrId);
-            //}
-
-            
+            adress.Metadata = personAdressInput.GetMetadata();
 
             if (adress.IsNew)
+            {
+                adress.SetVariant(variant);
                 adressRepository.Add(adress);
+            }
             else
                 adressRepository.Update();
+
         }
 
 
