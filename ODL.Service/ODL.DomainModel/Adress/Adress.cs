@@ -34,9 +34,23 @@ namespace ODL.DomainModel.Adress
         [NotMapped]
         public bool IsNew => Id == 0;
 
+        public static Adress NewGatuAdress(Person.Person person)
+        {
+            var adress = new Adress { GatuAdress = new GatuAdress() };
+            adress.PersonAdress = new PersonAdress { PersonFKId = person.Id };
+            return adress;
+        }
+
         public static Adress NewEpostAdress(Person.Person person)
         {
             var adress = new Adress{Mail = new Mail()};
+            adress.PersonAdress = new PersonAdress { PersonFKId = person.Id };
+            return adress;
+        }
+
+        public static Adress NewTelefonAdress(Person.Person person)
+        {
+            var adress = new Adress { Telefon = new Telefon() };
             adress.PersonAdress = new PersonAdress { PersonFKId = person.Id };
             return adress;
         }

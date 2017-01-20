@@ -49,7 +49,7 @@ namespace ODL.DataAccess.Repositories
         public Adress GetAdressPerPersonIdAndVariantId(int personId, int variantId)
         {
             return
-                _internalGenericRepository.FindSingle(a => a.PersonAdress.PersonFKId == personId && a.Id == variantId);
+                _internalGenericRepository.FindSingle(a => a.PersonAdress.PersonFKId == personId && a.AdressVariantFKId == variantId);
         }
 
     }

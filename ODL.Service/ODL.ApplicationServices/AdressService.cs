@@ -62,14 +62,21 @@ namespace ODL.ApplicationServices
                 throw new ApplicationException($"Kan ej spara adress för person med personummer: {personAdressInput.Personnummer}. Personen sakans i databasen.");
             }
 
-            //Om inga adresser finns för personen, spara ny. Annars hämta befintliga adresser för ev uppdatering.
-
             var adress = adressRepository.GetAdressPerPersonIdAndVariantId(person.Id, variant.Id);
 
-            //Jämför input med befintligt data
             if (gatuadress != null)
             {
-                //kolla om ny eller befintlig gatuadress
+                if (adress == null)
+                    adress = Adress.NewGatuAdress(person);
+                adress.GatuAdress.AdressRad1 = personAdressInput.GatuadressInput.AdressRad1;
+                adress.GatuAdress.AdressRad2 = personAdressInput.GatuadressInput.AdressRad2;
+                adress.GatuAdress.AdressRad3 = personAdressInput.GatuadressInput.AdressRad3;
+                adress.GatuAdress.AdressRad4 = personAdressInput.GatuadressInput.AdressRad4;
+                adress.GatuAdress.AdressRad5 = personAdressInput.GatuadressInput.AdressRad5;
+                adress.GatuAdress.Postnummer = personAdressInput.GatuadressInput.Postnummer;
+                adress.GatuAdress.Stad = personAdressInput.GatuadressInput.Stad;
+                adress.GatuAdress.Land = personAdressInput.GatuadressInput.Land;
+
             }
             else if (epostadress != null)
             {
@@ -79,7 +86,9 @@ namespace ODL.ApplicationServices
             }
            else if (telefon != null)
             {
-                //kolla om nytt eller befintligt telefonnummer
+                if (adress == null)
+                    adress = Adress.NewTelefonAdress(person);
+                adress.Telefon.Telefonnummer = personAdressInput.TelefonInput.Telefonnummer;
             }
 
             adress.Metadata = personAdressInput.GetMetadata();
