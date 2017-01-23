@@ -16,13 +16,15 @@ namespace ODL.ApplicationServices
     public class AdressService : IAdressService
     {
         private readonly IPersonRepository personRepository;
+        private readonly IOrganisationRepository organisationRepository;
         private readonly IAdressRepository adressRepository;
         private readonly IAdressVariantRepository adressVariantRepository;
         private readonly ILogger<AdressService> logger;
 
-        public AdressService(IAdressRepository adressRepository, IPersonRepository personRepository, IAdressVariantRepository adressVariantRepository, ILogger<AdressService> logger)
+        public AdressService(IAdressRepository adressRepository, IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAdressVariantRepository adressVariantRepository, ILogger<AdressService> logger)
         {
             this.personRepository = personRepository;
+            this.organisationRepository = organisationRepository;
             this.adressRepository = adressRepository;
             this.adressVariantRepository = adressVariantRepository;
             this.logger = logger;
@@ -49,7 +51,7 @@ namespace ODL.ApplicationServices
                 throw new ApplicationException($"Valideringsfel inträffade vid validering av adress för person med Id: {personAdressInput.Personnummer}.");
             }
 
-            //Hämta PersonId
+            //Hämta Person
             var person = personRepository.GetByPersonnummer(personAdressInput.Personnummer);
 
             //Hämta variant
@@ -58,8 +60,8 @@ namespace ODL.ApplicationServices
             //Om personen inte finns ska man ej kunna spara adressen
             if (person == null)
             {
-                logger.LogError("Kan ej spara adress för person med personummer: " + personAdressInput.Personnummer + ". Personen sakans i databasen.");
-                throw new ApplicationException($"Kan ej spara adress för person med personummer: {personAdressInput.Personnummer}. Personen sakans i databasen.");
+                logger.LogError("Kan ej spara adress för person med personummer: " + personAdressInput.Personnummer + ". Personen saknas i databasen.");
+                throw new ApplicationException($"Kan ej spara adress för person med personummer: {personAdressInput.Personnummer}. Personen saknas i databasen.");
             }
 
             var adress = adressRepository.GetAdressPerPersonIdAndVariantId(person.Id, variant.Id);
@@ -106,9 +108,73 @@ namespace ODL.ApplicationServices
 
     
 
-        public void SparaOrganisationAdress(OrganisationAdressInputDTO organisationAdress)
+        public void SparaOrganisationAdress(OrganisationAdressInputDTO organisationAdressInput)
         {
-            throw new NotImplementedException();
+            var gatuadress = organisationAdressInput.GatuadressInput;
+            var epostadress = organisationAdressInput.MailInput;
+            var telefon = organisationAdressInput.TelefonInput;
+
+            var valideringsfel = new OrganisationAdressInputValidator().Validate(organisationAdressInput);
+            new AdressInputValidator().Validate(organisationAdressInput, valideringsfel);
+
+            if (valideringsfel.Any())
+            {
+                foreach (var fel in valideringsfel)
+                    logger.LogError(fel.Message);
+                throw new ApplicationException($"Valideringsfel inträffade vid validering av adress för organisation med Id: {organisationAdressInput.KostnadsstalleNr}.");
+            }
+
+            //Hämta Organisation
+            var organisation = organisationRepository.GetOrganisationByKstnr(organisationAdressInput.KostnadsstalleNr);
+
+            //Hämta variant
+            var variant = adressVariantRepository.GetVariantByVariantName(organisationAdressInput.AdressVariant);
+
+            //Om organisationen inte finns ska man ej kunna spara adressen
+            if (organisation == null)
+            {
+                logger.LogError("Kan ej spara adress för organisation med kostnadsställenummer: " + organisationAdressInput.KostnadsstalleNr + ". Organisationen saknas i databasen.");
+                throw new ApplicationException($"Kan ej spara adress för organisation med kostnadsställenummer: {organisationAdressInput.KostnadsstalleNr}. Organisationen saknas i databasen.");
+            }
+
+            var adress = adressRepository.GetAdressPerOrganisationsIdAndVariantId(organisation.Id, variant.Id);
+
+            if (gatuadress != null)
+            {
+                if (adress == null)
+                    adress = Adress.NewGatuAdress(organisation);
+                adress.GatuAdress.AdressRad1 = organisationAdressInput.GatuadressInput.AdressRad1;
+                adress.GatuAdress.AdressRad2 = organisationAdressInput.GatuadressInput.AdressRad2;
+                adress.GatuAdress.AdressRad3 = organisationAdressInput.GatuadressInput.AdressRad3;
+                adress.GatuAdress.AdressRad4 = organisationAdressInput.GatuadressInput.AdressRad4;
+                adress.GatuAdress.AdressRad5 = organisationAdressInput.GatuadressInput.AdressRad5;
+                adress.GatuAdress.Postnummer = organisationAdressInput.GatuadressInput.Postnummer;
+                adress.GatuAdress.Stad = organisationAdressInput.GatuadressInput.Stad;
+                adress.GatuAdress.Land = organisationAdressInput.GatuadressInput.Land;
+
+            }
+            else if (epostadress != null)
+            {
+                if (adress == null)
+                    adress = Adress.NewEpostAdress(organisation);
+                adress.Mail.MailAdress = organisationAdressInput.MailInput.MailAdress;
+            }
+            else if (telefon != null)
+            {
+                if (adress == null)
+                    adress = Adress.NewTelefonAdress(organisation);
+                adress.Telefon.Telefonnummer = organisationAdressInput.TelefonInput.Telefonnummer;
+            }
+
+            adress.Metadata = organisationAdressInput.GetMetadata();
+
+            if (adress.IsNew)
+            {
+                adress.SetVariant(variant);
+                adressRepository.Add(adress);
+            }
+            else
+                adressRepository.Update();
         }
     }
 }

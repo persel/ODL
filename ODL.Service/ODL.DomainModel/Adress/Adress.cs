@@ -55,6 +55,27 @@ namespace ODL.DomainModel.Adress
             return adress;
         }
 
+        public static Adress NewGatuAdress(Organisation.Organisation organisation)
+        {
+            var adress = new Adress { GatuAdress = new GatuAdress() };
+            adress.OrganisationAdress = new OrganisationAdress { OrganisationFKId = organisation.Id };
+            return adress;
+        }
+
+        public static Adress NewEpostAdress(Organisation.Organisation organisation)
+        {
+            var adress = new Adress { Mail = new Mail() };
+            adress.OrganisationAdress = new OrganisationAdress { OrganisationFKId = organisation.Id };
+            return adress;
+        }
+
+        public static Adress NewTelefonAdress(Organisation.Organisation organisation)
+        {
+            var adress = new Adress { Telefon = new Telefon() };
+            adress.OrganisationAdress = new OrganisationAdress { OrganisationFKId = organisation.Id };
+            return adress;
+        }
+
         public void SetVariant(AdressVariant variant)
         {
             AdressVariantFKId = variant.Id;

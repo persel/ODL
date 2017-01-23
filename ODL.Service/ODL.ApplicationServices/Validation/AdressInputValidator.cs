@@ -11,8 +11,6 @@ namespace ODL.ApplicationServices.Validation
 
         public AdressInputValidator()
         {
-            //RuleFor(adress => adress.MailInput.MailAdress).NotNullOrEmpty().isValidMailAdress();
-
             RequireMetadata();
         }
 
@@ -20,7 +18,6 @@ namespace ODL.ApplicationServices.Validation
         {
 
             var allErrors = base.Validate(subject);
-            //var allErrors = new List<ValidationError>();
 
             var gatuadress = subject.GatuadressInput;
             var epostadress = subject.MailInput;
