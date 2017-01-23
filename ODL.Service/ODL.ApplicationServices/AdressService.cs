@@ -35,6 +35,35 @@ namespace ODL.ApplicationServices
            return adressRepository.GetByAdressId(adressId);
         }
 
+        public IEnumerable<AdressDTO> GetAdresserPerKostnadsstalleNr(int kstnr)
+        {
+            var organisation = organisationRepository.GetOrganisationByKstnr(kstnr);
+            var adresser = adressRepository.GetAdresserPerOrganisationsId(organisation.Id);
+
+            return adresser.Select(enhet => new AdressDTO()
+            {
+                Id = enhet.AdressVariantFKId,
+                GatuAdress = GatuAdressDTO.FromGatuadress(enhet.GatuAdress),
+                Mail = MailDTO.FromMail(enhet.Mail),
+                Telefon = TelefonDTO.Fromtelefon(enhet.Telefon)
+            });
+        }
+
+        public IEnumerable<AdressDTO> GetAdresserPerPersonnummer(string personnummer)
+        {
+            var person = personRepository.GetByPersonnummer(personnummer);
+            var adresser =  adressRepository.GetAdresserPerPersonId(person.Id);
+
+            return adresser.Select(enhet =>
+                 new AdressDTO()
+                 {
+                     Id = enhet.AdressVariantFKId,
+                     GatuAdress = GatuAdressDTO.FromGatuadress(enhet.GatuAdress),
+                     Mail = MailDTO.FromMail(enhet.Mail),
+                     Telefon = TelefonDTO.Fromtelefon(enhet.Telefon)
+                 });
+        }
+
         public void SparaPersonAdress(PersonAdressInputDTO personAdressInput)
         {
             var gatuadress = personAdressInput.GatuadressInput;

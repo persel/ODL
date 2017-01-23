@@ -7,9 +7,9 @@ namespace ODL.ApplicationServices.DTOModel.Query
     {
         public int Id { get; set; }
         public int AdressVariantFKId { get; set; }
-        public virtual GatuAdress GatuAdress { get; set; }
-        public virtual Mail Mail { get; set; }
-        public virtual Telefon Telefon { get; set; }
+        public virtual GatuAdressDTO GatuAdress { get; set; }
+        public virtual MailDTO Mail { get; set; }
+        public virtual TelefonDTO Telefon { get; set; }
 
     }
     

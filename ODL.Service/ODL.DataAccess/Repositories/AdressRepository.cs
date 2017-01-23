@@ -41,9 +41,14 @@ namespace ODL.DataAccess.Repositories
 
         public IEnumerable<Adress> GetAdresserPerPersonummer(string personnummer)
         {
-            throw new NotImplementedException();
-            //var person = DbContext.Person.Find(p => p.Personnummer == personnummer);
-            //return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonFKId == person.personId);
+            var person = DbContext.Person.Single(p => p.Personnummer == personnummer);
+            return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonFKId == person.Id);
+        }
+
+        public IEnumerable<Adress> GetAdresserPerOrganisationsId(int organisationsId)
+        {
+            return
+                _internalGenericRepository.Find(adress => adress.OrganisationAdress.OrganisationFKId == organisationsId);
         }
 
         public Adress GetAdressPerPersonIdAndVariantId(int personId, int variantId)

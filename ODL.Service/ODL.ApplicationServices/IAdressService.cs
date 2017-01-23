@@ -10,9 +10,9 @@ namespace ODL.ApplicationServices
     public interface IAdressService
     {
         Adress GetByAdressId(int adressId);
-
+        IEnumerable<AdressDTO> GetAdresserPerKostnadsstalleNr(int kstnr);
+        IEnumerable<AdressDTO> GetAdresserPerPersonnummer(string personnummer);
         void SparaPersonAdress(PersonAdressInputDTO personAdress);
-
         void SparaOrganisationAdress(OrganisationAdressInputDTO organisationAdress);
     }
 }

@@ -13,6 +13,10 @@ namespace ODL.DataAccess.Repositories
         Adress GetByAdressId(int adressId);
         IEnumerable<Adress> GetAdresserPerPersonId(int personId);
 
+        IEnumerable<Adress> GetAdresserPerOrganisationsId(int organisationsId);
+
+        IEnumerable<Adress> GetAdresserPerPersonummer(string personnummer);
+
         Adress GetAdressPerPersonIdAndVariantId(int personId, int variantId);
 
         Adress GetAdressPerOrganisationsIdAndVariantId(int organisationsId, int variantId);

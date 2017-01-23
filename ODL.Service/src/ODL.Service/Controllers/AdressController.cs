@@ -20,10 +20,22 @@ namespace ODL.Service.Controllers
         }
 
         // GET api/adress/
-        [HttpGet("adress/{adressId}")]
+        [HttpGet("/{adressId}")]
         public Adress GetAdressByAdressId(int adressId)
         {
             return _adressService.GetByAdressId(adressId);
+        }
+
+        [HttpGet("personnummer/{personnummer}")]
+        public IEnumerable<AdressDTO> GetAdresserPerPersonnummer(string personnummer)
+        {
+            return _adressService.GetAdresserPerPersonnummer(personnummer);
+        }
+
+        [HttpGet("kstnr/{kstnr}")]
+        public IEnumerable<AdressDTO> GetAdresserPerKostnadsstalleNr(int kstnr)
+        {
+            return _adressService.GetAdresserPerKostnadsstalleNr(kstnr);
         }
 
         // POST api/adress/personadress
