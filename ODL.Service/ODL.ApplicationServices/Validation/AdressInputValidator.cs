@@ -11,27 +11,26 @@ namespace ODL.ApplicationServices.Validation
 
         public AdressInputValidator()
         {
-            //RuleFor(adress => adress.MailInput.MailAdress).NotNullOrEmpty().isValidMailAdress();
-
-            AddStandardRules();
+            RequireMetadata();
         }
 
         public override List<ValidationError> Validate(AdressInputDTO subject)
         {
+
             var allErrors = base.Validate(subject);
 
             var gatuadress = subject.GatuadressInput;
             var epostadress = subject.MailInput;
             var telefon = subject.TelefonInput;
 
-            if (gatuadress != null)
-                new GatuadressInputValidator().Validate(gatuadress);
+            if (!string.IsNullOrEmpty(gatuadress?.AdressRad1))
+                new GatuadressInputValidator().Validate(gatuadress, allErrors);
 
-            if (epostadress != null)
-                new MailInputValidator().Validate(epostadress);
+            if (!string.IsNullOrEmpty(epostadress?.MailAdress))
+                new MailInputValidator().Validate(epostadress, allErrors);
 
-            if (telefon != null)
-                new TelefonInputValidator().Validate(telefon);
+            if (!string.IsNullOrEmpty(telefon?.Telefonnummer))
+                new TelefonInputValidator().Validate(telefon, allErrors);
 
             return allErrors;
         }

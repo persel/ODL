@@ -30,7 +30,7 @@ namespace ODL.ApplicationServices.Validation
             AddRule(avtal => string.IsNullOrEmpty(avtal.AnstalldPersonnummer) || string.IsNullOrEmpty(avtal.KonsultPersonnummer), "Avtalet kan ej tillhöra både anställd och konsult.");
             AddRule(avtal => avtal.Kostnadsstallen.Any(), "Avtalet måste ange minst ett kostnadsställenummer.");
 
-            AddStandardRules();
+            RequireMetadata();
         }
     }
 }

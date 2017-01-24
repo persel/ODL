@@ -3,7 +3,7 @@ using ODL.ApplicationServices.DTOModel.Load;
 
 namespace ODL.ApplicationServices.Validation
 {
-    public class ValidationRule<T> where T : InputDTO
+    public class ValidationRule<T> where T : ValidatableDTO
     {
 
         public string Message { get; private set; }

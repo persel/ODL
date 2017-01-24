@@ -14,7 +14,7 @@ namespace ODL.DataAccess.Repositories
         List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn);
 
         Person GetByPersonnummer(string personnummer);
-        
+
         void Update();
 
         void Add(Person person);

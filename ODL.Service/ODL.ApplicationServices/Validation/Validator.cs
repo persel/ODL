@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using ODL.ApplicationServices.DTOModel.Load;
+using static System.String;
 
 namespace ODL.ApplicationServices.Validation
 {
-    public abstract class Validator<T> where T : InputDTO
+    public abstract class Validator<T> where T : ValidatableDTO
     {
         
         public List<ValidationRule<T>> Rules { get; internal set; }
@@ -28,14 +29,19 @@ namespace ODL.ApplicationServices.Validation
         public virtual List<ValidationError> Validate(T subject)
         {
             var errors = new List<ValidationError>();
-            var idText = $" (Id: {subject.SystemId})";
+
+            string idText = Empty;
+            var inputDto = subject as InputDTO;
+
+            if (inputDto?.SystemId != null)
+                idText = $" (Id: {inputDto.SystemId})";
 
             foreach (var rule in Rules)
             {
                 var result = rule.Evaluate(subject);
 
                 if (result) continue;
-                var message = rule.Message + (rule.AddIdToMessage ? idText : String.Empty);
+                var message = rule.Message + (rule.AddIdToMessage ? idText : Empty);
                 errors.Add(new ValidationError(message));
             }
 
@@ -96,16 +102,28 @@ namespace ODL.ApplicationServices.Validation
         }
 
         /// <summary>
-        /// Lägger till regler för systemId och metadata
+        /// Lägger till regler för metadata
         /// </summary>
-        public void AddStandardRules()
+        public void RequireMetadata()
         {
-            RuleFor(subject => subject.SystemId).NotNullOrEmpty().WithinMaxLength(25);
+            if (!typeof(T).IsSubclassOf(typeof(InputDTO)))
+                return;
 
-            RuleFor(subject => subject.UppdateradDatum).ValidDateTimeFormat();
-            RuleFor(subject => subject.UppdateradAv).WithinMaxLength(10);
-            RuleFor(subject => subject.SkapadDatum).NotNullOrEmpty().ValidDateTimeFormat();
-            RuleFor(subject => subject.SkapadAv).NotNullOrEmpty().WithinMaxLength(10);
+            RuleFor(subject => (subject as InputDTO).UppdateradDatum).ValidDateTimeFormat();
+            RuleFor(subject => (subject as InputDTO).UppdateradAv).WithinMaxLength(10);
+            RuleFor(subject => (subject as InputDTO).SkapadDatum).NotNullOrEmpty().ValidDateTimeFormat();
+            RuleFor(subject => (subject as InputDTO).SkapadAv).NotNullOrEmpty().WithinMaxLength(10);
+        }
+
+        /// <summary>
+        /// Lägger till regler för systemId
+        /// </summary>
+        public void RequireSystemId()
+        {
+            if (!typeof(T).IsSubclassOf(typeof(InputDTO)))
+                return;
+
+            RuleFor(subject => (subject as InputDTO).SystemId).NotNullOrEmpty().WithinMaxLength(25);
         }
     }
 }

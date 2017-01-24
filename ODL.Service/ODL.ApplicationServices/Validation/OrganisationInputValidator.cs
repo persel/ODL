@@ -12,7 +12,7 @@ namespace ODL.ApplicationServices.Validation
         {
             RuleFor(organisation => organisation.Namn).NotNullOrEmpty().WithinMaxLength(255);
             //RuleFor(organisation => organisation.OrgId).NotNull().WithinMaxLength(50);
-            AddStandardRules();
+            RequireMetadata();
         }
     }
 }

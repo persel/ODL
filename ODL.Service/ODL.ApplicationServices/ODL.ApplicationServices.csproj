@@ -64,6 +64,11 @@
     <Compile Include="DTOModel\Load\ResultatenhetInputDTO.cs" />
     <Compile Include="DTOModel\Load\PersonInputDTO.cs" />
     <Compile Include="DTOModel\Load\OrganisationtInputDTO.cs" />
+    <Compile Include="DTOModel\Load\ValidatableDTO.cs" />
+    <Compile Include="DTOModel\Query\AdressDTO.cs" />
+    <Compile Include="DTOModel\Query\GatuAdressDTO.cs" />
+    <Compile Include="DTOModel\Query\TelefonDTO.cs" />
+    <Compile Include="DTOModel\Query\MailDTO.cs" />
     <Compile Include="IAdressService.cs" />
     <Compile Include="AdressService.cs" />
     <Compile Include="Validation\TelefonInputValidator.cs" />

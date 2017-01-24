@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 using ODL.ApplicationServices.DTOModel.Load;
 
 namespace ODL.ApplicationServices.Validation
@@ -10,7 +11,7 @@ namespace ODL.ApplicationServices.Validation
     /// Används för att lägga till regler i Validator (anges i konstruktorn) för en specifik string-property på T mha ett "fluent api" enligt Builder pattern.
     /// </summary>
 
-    public class ValidationRuleBuilder<T> where T : InputDTO
+    public class ValidationRuleBuilder<T> where T : ValidatableDTO
     {
         public const string DateFormat = "yyyy-MM-dd"; // TODO: Flytta denna till konfigurationsfil eller centraliserad plats!
         public const string DateTimeFormat = "yyyy-MM-dd HH:mm";
@@ -98,16 +99,18 @@ namespace ODL.ApplicationServices.Validation
 
         private bool IsValidEmailAdress(string emailaddress)
         {
-            try
-            {
-                MailAddress m = new MailAddress(emailaddress);
+            //Fångar felaktiga epostadresser enligt RFC2822s
+            return Regex.IsMatch(emailaddress, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
+            //try
+            //{
+            //    MailAddress m = new MailAddress(emailaddress);
 
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
+            //    return true;
+            //}
+            //catch (FormatException)
+            //{
+            //    return false;
+            //}
         }
     }
 }

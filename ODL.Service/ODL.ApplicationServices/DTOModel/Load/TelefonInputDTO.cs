@@ -2,9 +2,8 @@
 
 namespace ODL.ApplicationServices.DTOModel
 {
-    public class TelefonInputDTO : InputDTO
+    public class TelefonInputDTO : ValidatableDTO
     {
-        public int AdressVariantId { get; set; }
         public string Telefonnummer { get; set; }
     }
 }

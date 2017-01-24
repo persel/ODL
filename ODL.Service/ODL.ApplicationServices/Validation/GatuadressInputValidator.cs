@@ -15,7 +15,6 @@ namespace ODL.ApplicationServices.Validation
             AboveZero(adress => adress.Postnummer);
             RuleFor(adress => adress.Stad).WithinMaxLength(255);
             RuleFor(adress => adress.Land).WithinMaxLength(255);
-            AddStandardRules();
         }
     }
 }
