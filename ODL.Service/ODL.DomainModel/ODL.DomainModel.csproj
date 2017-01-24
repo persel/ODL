@@ -76,8 +76,10 @@
     <Compile Include="Behorighet\VerksamhetsrollAnvandargrupp.cs" />
     <Compile Include="Behorighet\Verksamhetsroll\Personal.cs" />
     <Compile Include="Behorighet\Verksamhetsroll\Verksamhetsroll.cs" />
+    <Compile Include="Common\EnumExtensions.cs" />
     <Compile Include="Common\Vardetyp.cs" />
     <Compile Include="Common\Metadata.cs" />
+    <Compile Include="Common\VisningstextAttribute.cs" />
     <Compile Include="Person\OrganisationAvtal.cs" />
     <Compile Include="Organisation\OrganisationExtensions.cs" />
     <Compile Include="Person\Avtal.cs" />
