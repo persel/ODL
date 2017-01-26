@@ -31,11 +31,10 @@ namespace ODL.ApplicationServices.Test
 
             var brokenRules =  validator.Validate(person);
 
-            Assert.That(brokenRules.Count, Is.EqualTo(5));
+            Assert.That(brokenRules.Count, Is.EqualTo(4));
 
             Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Efternamn' saknar värde. (Id: 123456)")));
             Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Personnummer' får innehålla max 12 tecken. (Id: 123456)")));
-            Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.Alias' saknar värde. (Id: 123456)")));
             Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.SkapadAv' saknar värde. (Id: 123456)")));
             Assert.That(brokenRules.Any(ve => ve.Message.Equals("Fältet 'PersonInputDTO.SkapadDatum' saknar värde. (Id: 123456)")));
         }

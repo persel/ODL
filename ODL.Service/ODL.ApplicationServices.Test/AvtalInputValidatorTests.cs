@@ -47,7 +47,7 @@ namespace ODL.ApplicationServices.Test
                 TimLon = 100,
                 Anstallningsdatum = "2015-01-01",
                 Avgangsdatum = null,
-                SkapadDatum = "2016-09-21",
+                SkapadDatum = "2016-09-21 12:00",
                 SkapadAv = "SNA01"
             };
 
