@@ -78,7 +78,6 @@
     <Compile Include="Repositories\PersonRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\OrganisationRepository.cs" />
-    <Compile Include="RepositoryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
