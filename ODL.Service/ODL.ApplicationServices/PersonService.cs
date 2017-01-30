@@ -9,7 +9,6 @@ using ODL.DataAccess.Repositories;
 using ODL.DomainModel;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
-using static System.String;
 
 namespace ODL.ApplicationServices
 {
@@ -141,7 +140,7 @@ namespace ODL.ApplicationServices
                 {
                     throw new ArgumentException($"Avtalet kunde inte sparas - angiven person med personnummer '{avtalDTO.Personnummer}' saknas i ODL.");
                 }
-                if (!IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
+                if (!string.IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
                     avtal.AnstalldAvtal = new AnstalldAvtal { Anstalld = person};
                 else
                     avtal.KonsultAvtal = new KonsultAvtal { Konsult = person};
