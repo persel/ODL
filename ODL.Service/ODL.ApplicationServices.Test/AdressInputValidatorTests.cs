@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.Validation;
@@ -11,9 +12,9 @@ namespace ODL.ApplicationServices.Test
     public class AdressInputValidatorTests
     {
         [Test]
-        public void TestValidatePersonAdressTelefon()
+        public void TestValidatePersonAdressGatuAdress()
         {
-            var personAdress = CreatePersonAdress();
+            var personAdress = CreatePersonAdress(new GatuadressInputDTO(), null, null);
 
             var brokenRules = new PersonAdressInputValidator().Validate(personAdress);
             new AdressInputValidator().Validate(personAdress, brokenRules);
@@ -33,18 +34,71 @@ namespace ODL.ApplicationServices.Test
         }
 
         [Test]
-        public void TestValidateOrganisationAdress()
+        public void TestValidatePersonAdressMail()
+        {
+            var personAdress = CreatePersonAdress(null, new MailInputDTO(), null);
+
+            var brokenRules = new PersonAdressInputValidator().Validate(personAdress);
+            new AdressInputValidator().Validate(personAdress, brokenRules);
+
+            Assert.That(brokenRules.Count, Is.EqualTo(3));
+
+            Assert.That(
+                brokenRules.Any(
+                    ve =>
+                        ve.Message.Equals(
+                            "Fältet 'AdressInputDTO.SkapadDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+            Assert.That(
+                brokenRules.Any(
+                    ve =>
+                        ve.Message.Equals(
+                            "Fältet 'AdressInputDTO.UppdateradDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+        }
+
+        [Test]
+        public void TestValidatePersonAdressTelefon()
+        {
+            var personAdress = CreatePersonAdress(null,null, new TelefonInputDTO());
+
+            var brokenRules = new PersonAdressInputValidator().Validate(personAdress);
+            new AdressInputValidator().Validate(personAdress, brokenRules);
+
+            Assert.That(brokenRules.Count, Is.EqualTo(3));
+
+            Assert.That(
+                brokenRules.Any(
+                    ve =>
+                        ve.Message.Equals(
+                            "Fältet 'AdressInputDTO.SkapadDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+            Assert.That(
+                brokenRules.Any(
+                    ve =>
+                        ve.Message.Equals(
+                            "Fältet 'AdressInputDTO.UppdateradDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+        }
+
+        [Test]
+        public void TestValidateOrganisationAdressGatuAdress()
         {
 
-            var organisationAdress = CreateOrganisationAdress();
+            var organisationAdress = CreateOrganisationAdress(new GatuadressInputDTO(), null, null);
 
             var brokenRules = new OrganisationAdressInputValidator().Validate(organisationAdress);
             new AdressInputValidator().Validate(organisationAdress, brokenRules);
 
             Assert.That(brokenRules.Count, Is.EqualTo(3));
 
-            //Assert.That(brokenRules.Any(ve =>ve.Message.Equals("Fältet 'AdressInputDTO.SkapadDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
-            //Assert.That(brokenRules.Any(ve =>ve.Message.Equals("Fältet 'AdressInputDTO.UppdateradDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+
+            Assert.That(
+                brokenRules.Any(
+                    ve =>
+                        ve.Message.Equals(
+                            "Fältet 'AdressInputDTO.SkapadDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+            Assert.That(
+                brokenRules.Any(
+                    ve =>
+                        ve.Message.Equals(
+                            "Fältet 'AdressInputDTO.UppdateradDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
         }
 
         private PersonAdressInputDTO CreatePersonAdress(GatuadressInputDTO gatuadressInput, MailInputDTO mailInput, TelefonInputDTO telefonInput)
@@ -55,10 +109,20 @@ namespace ODL.ApplicationServices.Test
                 var personGatuadress = new PersonAdressInputDTO
                 {
                     Personnummer = "123456-7788",
-                    AdressVariant = "Mobil Arbete",
-                    GatuadressInput = null,
+                    AdressVariant = "LeveransAdress",
+                    GatuadressInput = new GatuadressInputDTO
+                    {
+                      AdressRad1  = "Gatan 2",
+                      AdressRad2 = "",
+                      AdressRad3 = "",
+                      AdressRad4 = "",
+                      AdressRad5 = "",
+                      Postnummer = 0,
+                      Stad = "Knivsta",
+                      Land = "USA"
+                    },
                     MailInput = null,
-                    TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
+                    TelefonInput = null,
                     SystemId = null,
                     UppdateradDatum = "2017-01-20",
                     UppdateradAv = "MAH",
@@ -72,10 +136,10 @@ namespace ODL.ApplicationServices.Test
                 var personEpostadress = new PersonAdressInputDTO
                 {
                     Personnummer = "123456-7788",
-                    AdressVariant = "Mobil Arbete",
+                    AdressVariant = "MailAdress Privat",
                     GatuadressInput = null,
-                    MailInput = null,
-                    TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
+                    MailInput = new MailInputDTO { MailAdress = "eva.ek@home..se"},
+                    TelefonInput = null,
                     SystemId = null,
                     UppdateradDatum = "2017-01-20",
                     UppdateradAv = "MAH",
@@ -104,9 +168,71 @@ namespace ODL.ApplicationServices.Test
             return personAdress;
         }
 
-        private OrganisationAdressInputDTO CreateOrganisationAdress()
+        private OrganisationAdressInputDTO CreateOrganisationAdress(GatuadressInputDTO gatuadressInput, MailInputDTO mailInput, TelefonInputDTO telefonInput)
         {
-            throw new System.NotImplementedException();
+            var organisationAdress = new OrganisationAdressInputDTO();
+            if (gatuadressInput != null)
+            {
+                var organisationGatuadress = new OrganisationAdressInputDTO
+                {
+                    KostnadsstalleNr = 338111,
+                    AdressVariant = "FaktureringsAdress",
+                    GatuadressInput = new GatuadressInputDTO
+                    {
+                        AdressRad1 = "Gatan 2",
+                        AdressRad2 = "",
+                        AdressRad3 = "",
+                        AdressRad4 = "",
+                        AdressRad5 = "",
+                        Postnummer = 0,
+                        Stad = "Knivsta",
+                        Land = "USA"
+                    },
+                    MailInput = null,
+                    TelefonInput = null,
+                    SystemId = null,
+                    UppdateradDatum = "2017-01-20",
+                    UppdateradAv = "MAH",
+                    SkapadDatum = "2017 - 01 - 20 12:00",
+                    SkapadAv = "MAH"
+                };
+                organisationAdress = organisationGatuadress;
+            }
+            if (mailInput != null)
+            {
+                var organisationEpostadress = new OrganisationAdressInputDTO
+                {
+                    KostnadsstalleNr = 338111,
+                    AdressVariant = "MailAdress Arbete",
+                    GatuadressInput = null,
+                    MailInput = new MailInputDTO { MailAdress = "tandis@home..se" },
+                    TelefonInput = null,
+                    SystemId = null,
+                    UppdateradDatum = "2017-01-20",
+                    UppdateradAv = "MAH",
+                    SkapadDatum = "2017 - 01 - 20 12:00",
+                    SkapadAv = "MAH"
+                };
+                organisationAdress = organisationEpostadress;
+            }
+            if (telefonInput != null)
+            {
+                var organisationTelefon = new OrganisationAdressInputDTO
+                {
+                    KostnadsstalleNr = 338111,
+                    AdressVariant = "Mobil Arbete",
+                    GatuadressInput = null,
+                    MailInput = null,
+                    TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
+                    SystemId = null,
+                    UppdateradDatum = "2017-01-20",
+                    UppdateradAv = "MAH",
+                    SkapadDatum = "2017 - 01 - 20 12:00",
+                    SkapadAv = "MAH"
+                };
+                organisationAdress = organisationTelefon;
+            }
+            return organisationAdress;
         }
     }
 }
