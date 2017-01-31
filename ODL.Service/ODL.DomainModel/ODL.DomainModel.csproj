@@ -81,7 +81,6 @@
     <Compile Include="Common\Metadata.cs" />
     <Compile Include="Common\VisningstextAttribute.cs" />
     <Compile Include="Person\OrganisationAvtal.cs" />
-    <Compile Include="Organisation\OrganisationExtensions.cs" />
     <Compile Include="Person\Avtal.cs" />
     <Compile Include="Organisation\Organisation.cs" />
     <Compile Include="Organisation\Resultatenhet.cs" />

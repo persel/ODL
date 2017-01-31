@@ -52,5 +52,27 @@ namespace ODL.DomainModel.Organisation
         public virtual Resultatenhet Resultatenhet { get; set; }
 
         public bool IsNew => Id == default(int);
+
+        public IList<Organisation> AllaRelaterade()
+        {
+            return Root().Flatten().ToList();
+        }
+        public Organisation Root()
+        {
+            var organisation = this;
+
+            while (organisation.Overordnad != null)
+                organisation = organisation.Overordnad;
+
+            return organisation;
+        }
+        public IEnumerable<Organisation> Flatten()
+        {
+            var organisation = this;
+            
+            yield return organisation;
+            foreach (var node in organisation.Underliggande.SelectMany(n => n.Flatten()))
+                yield return node;
+        }
     }
 }
