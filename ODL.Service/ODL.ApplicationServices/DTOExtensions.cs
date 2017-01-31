@@ -4,9 +4,6 @@ using System.Globalization;
 namespace ODL.ApplicationServices
 {
 
-    // Extension methods används för implementation av logik i domain model, så att ev. omskapande av modellen via "EF database first" inte 
-    // skriver över egenskriven kod i modellklasserna. Kan flyttas till resp. klass när vi inte längre genererar från databasen.
-
     public static class DTOExtensions
     {
         private const string DateTimeFormat = "yyyy-MM-dd HH:mm"; // TODO: Flytta denna till konfigurationsfil eller centraliserad plats!
