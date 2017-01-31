@@ -14,6 +14,8 @@ namespace ODL.DataAccess.Repositories
         /// </summary>
         IList<Organisation> GetByAvtalIdn(IEnumerable<int> avtalIdn);
 
+        IList<Organisation> GetWhereAnsvarigByAvtalIdn(IEnumerable<int> avtalIdn);
+
         IList<Organisation> GetAll();
 
         void Update();

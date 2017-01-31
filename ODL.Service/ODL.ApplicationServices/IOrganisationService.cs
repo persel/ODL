@@ -13,6 +13,8 @@ namespace ODL.ApplicationServices
         
         IEnumerable<ResultatenhetDTO> GetResultatenheter();
 
+        IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer);
+
         void SparaResultatenhet(ResultatenhetInputDTO resEnhet);
 
     }

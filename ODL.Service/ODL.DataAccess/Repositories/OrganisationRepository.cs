@@ -24,10 +24,16 @@ namespace ODL.DataAccess.Repositories
             return obj;
         }
 
-         public IList<Organisation> GetByAvtalIdn(IEnumerable<int> avtalIdn)
+        public IList<Organisation> GetByAvtalIdn(IEnumerable<int> avtalIdn)
         {
             return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
                     avtal => avtalIdn.Contains(avtal.AvtalFKId))).ToList();
+        }
+
+        public IList<Organisation> GetWhereAnsvarigByAvtalIdn(IEnumerable<int> avtalIdn)
+        {
+            return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
+                    avtal => avtal.Avtal.Ansvarig.Value && avtalIdn.Contains(avtal.AvtalFKId))).ToList();
         }
 
         public IList<Organisation> GetAll()
