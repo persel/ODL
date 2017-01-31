@@ -32,8 +32,12 @@ namespace ODL.DataAccess.Repositories
 
         public IList<Organisation> GetWhereAnsvarigByAvtalIdn(IEnumerable<int> avtalIdn)
         {
+            var avtalAnsvarig = DbContext.Avtal.Where(a => a.Ansvarig == true && avtalIdn.Contains(a.Id));
+
+            var avtalAnsvarigIdn = avtalAnsvarig.Select(avtal => avtal.Id);
+
             return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
-                    avtal => avtal.Avtal.Ansvarig.Value && avtalIdn.Contains(avtal.AvtalFKId))).ToList();
+                    avtal => avtalAnsvarigIdn.Contains(avtal.AvtalFKId))).ToList();
         }
 
         public IList<Organisation> GetAll()
