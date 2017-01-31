@@ -39,9 +39,9 @@ public class PersonServiceTests
             Efternamn = "Nilsson",
             Personnummer = "198002254543",
             SkapadAv = "MEH",
-            SkapadDatum = "2005-01-02",
+            SkapadDatum = "2005-01-02 12:00",
             UppdateradAv = "MEH",
-            UppdateradDatum = "2017-02-01"
+            UppdateradDatum = "2017-02-01 12:00"
         };
         service.SparaPerson(person);
 

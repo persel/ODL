@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdressServiceTests.cs" />
+    <Compile Include="AdressInputValidatorTests.cs" />
     <Compile Include="AvtalInputValidatorTests.cs" />
     <Compile Include="BehorighetServiceTests.cs" />
     <Compile Include="PersonInputValidatorTests.cs" />

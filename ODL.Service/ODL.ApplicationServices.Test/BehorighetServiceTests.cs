@@ -15,7 +15,7 @@ public class BehorighetServiceTests
     private DbContextTransaction transaction;
     private BehorighetService behorighetService;
 
-    [OneTimeSetUp]
+    [SetUp]
     public void TransactionTestStart()
     {
         Database.SetInitializer<ODLDbContext>(null);

@@ -23,13 +23,19 @@ namespace ODL.ApplicationServices.Validation
             var epostadress = subject.MailInput;
             var telefon = subject.TelefonInput;
 
-            if (!string.IsNullOrEmpty(gatuadress?.AdressRad1))
+            var endastEnAngiven = ((gatuadress != null) ^ (epostadress != null) ^ (telefon != null));
+            if (!endastEnAngiven)
+                allErrors.Add(new ValidationError("Endast en av gatuadress, epostadress eller telefon får anges!"));
+
+                //if (!((gatuadress != null) ^ (epostadress != null) ^ (telefon != null)))
+            //    allErrors.Add(new ValidationError("Endast en av gatuadress, epostadress eller telefon får anges!"));
+            else if (gatuadress != null)
                 new GatuadressInputValidator().Validate(gatuadress, allErrors);
 
-            if (!string.IsNullOrEmpty(epostadress?.MailAdress))
+            else if (epostadress != null)
                 new MailInputValidator().Validate(epostadress, allErrors);
 
-            if (!string.IsNullOrEmpty(telefon?.Telefonnummer))
+            else if (telefon != null)
                 new TelefonInputValidator().Validate(telefon, allErrors);
 
             return allErrors;
