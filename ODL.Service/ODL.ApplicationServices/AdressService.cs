@@ -82,15 +82,20 @@ namespace ODL.ApplicationServices
 
             //Hämta Person
             var person = personRepository.GetByPersonnummer(personAdressInput.Personnummer);
-
-            //Hämta variant
-            var variant = adressVariantRepository.GetVariantByVariantName(personAdressInput.AdressVariant);
+            
 
             //Om personen inte finns ska man ej kunna spara adressen
             if (person == null)
             {
-                logger.LogError("Kan ej spara adress för person med personummer: " + personAdressInput.Personnummer + ". Personen saknas i databasen.");
-                throw new ApplicationException($"Kan ej spara adress för person med personummer: {personAdressInput.Personnummer}. Personen saknas i databasen.");
+                throw new ArgumentException($"Kan ej spara adress för person med personummer: {personAdressInput.Personnummer}. Personen saknas i databasen.");
+            }
+
+            //Hämta variant
+            var variant = adressVariantRepository.GetVariantByVariantName(personAdressInput.AdressVariant);
+
+            if (variant == null)
+            {
+                throw new ArgumentException($"Hittade ej Adressvarianten med namn: '{personAdressInput.AdressVariant}' i databasen.");
             }
 
             var adress = adressRepository.GetAdressPerPersonIdAndVariantId(person.Id, variant.Id);
@@ -111,14 +116,12 @@ namespace ODL.ApplicationServices
             }
             else if (epostadress != null)
             {
-                if(adress == null)
-                    adress = Adress.NewEpostAdress(person);
+                if (adress == null) adress = Adress.NewEpostAdress(person);
                 adress.Mail.MailAdress = personAdressInput.MailInput.MailAdress;
             }
-           else if (telefon != null)
+            else if (telefon != null)
             {
-                if (adress == null)
-                    adress = Adress.NewTelefonAdress(person);
+                if (adress == null) adress = Adress.NewTelefonAdress(person);
                 adress.Telefon.Telefonnummer = personAdressInput.TelefonInput.Telefonnummer;
             }
 
