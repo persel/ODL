@@ -11,6 +11,9 @@ namespace ODL.ApplicationServices
         /// </summary>
         IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer);
         IEnumerable<ResultatenhetDTO> GetResultatenheter();
+
+        IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer);
+
         IEnumerable<ResultatenhetDTO> GetResultatenheterByKstNr(List<int> kostnadsstalleNr);
         void SparaResultatenhet(ResultatenhetInputDTO resEnhet);
     }

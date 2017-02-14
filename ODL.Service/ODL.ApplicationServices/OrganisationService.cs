@@ -42,6 +42,24 @@ namespace ODL.ApplicationServices
                 });
         }
 
+
+        public IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer)
+        {
+            var person = personRepository.GetByPersonnummer(personnummer);
+
+            var organisationer = organisationRepository.GetWhereAnsvarigByAvtalIdn(person.AllaAvtalIdn());
+            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+
+            return resultatenheter.Select(enhet =>
+                new ResultatenhetDTO
+                {
+                    Id = enhet.OrganisationFKId,
+                    KostnadsstalleNr = enhet.KstNr,
+                    Typ = enhet.Typ,
+                    Namn = enhet.Organisation.Namn
+                });
+        }
+
         public IEnumerable<ResultatenhetDTO> GetResultatenheter()
         {
             var organisationer = organisationRepository.GetAll();

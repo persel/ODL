@@ -13,6 +13,9 @@ namespace ODL.DataAccess.Repositories
         /// Hämta alla Organisationer på dessa avtal.
         /// </summary>
         IList<Organisation> GetByAvtalIdn(IEnumerable<int> avtalIdn);
+
+        IList<Organisation> GetWhereAnsvarigByAvtalIdn(IEnumerable<int> avtalIdn);
+
         IList<Organisation> GetByKstNr(List<int> kostnadsstalleNr);
         IList<Organisation> GetAll();
         void Update();

@@ -37,7 +37,14 @@ namespace ODL.Service.Controllers
         {
             return _organisationService.GetResultatenhetByPersonnummer(personnummer);
         }
-        
+
+        // GET api/organisation/resultatenhet/
+        [HttpGet("kstAnsvarig/{personnummer}")]
+        public IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer)
+        {
+            return _organisationService.GetResultatenhetWhereAnsvarig(personnummer);
+        }
+
         // POST api/resultatenhet/
         [HttpPost("resultatenhet")]
         public void SparaResultatenhet([FromBody]ResultatenhetInputDTO resultatenhet)
