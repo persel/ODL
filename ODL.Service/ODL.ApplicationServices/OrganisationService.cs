@@ -54,7 +54,7 @@ namespace ODL.ApplicationServices
                 new ResultatenhetDTO
                 {
                     Id = enhet.OrganisationFKId,
-                    KostnadsstalleNr = enhet.KstNr,
+                    KostnadsstalleNr = enhet.KstNr.ToString(),
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
                 });
