@@ -10,7 +10,7 @@ namespace ODL.ApplicationServices.Validation
 
         public OrganisationInputValidator()
         {
-            RuleFor(organisation => organisation.Namn).NotNullOrEmpty().WithinMaxLength(255);
+            RuleFor(organisation => organisation.Namn).NotNullOrWhiteSpace().WithinMaxLength(255);
             //RuleFor(organisation => organisation.OrgId).NotNull().WithinMaxLength(50);
             RequireMetadata();
         }

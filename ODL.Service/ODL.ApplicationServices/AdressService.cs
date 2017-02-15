@@ -66,6 +66,8 @@ namespace ODL.ApplicationServices
 
         public void SparaPersonAdress(PersonAdressInputDTO personAdressInput)
         {
+            if (personAdressInput == null) throw new ApplicationException("personAdressInput är null, felaktig indata ");
+
             var gatuadress = personAdressInput.GatuadressInput;
             var epostadress = personAdressInput.MailInput;
             var telefon = personAdressInput.TelefonInput;
@@ -142,6 +144,8 @@ namespace ODL.ApplicationServices
 
         public void SparaOrganisationAdress(OrganisationAdressInputDTO organisationAdressInput)
         {
+            if (organisationAdressInput == null) throw new ApplicationException("organisationAdressInput är null, felaktig indata ");
+
             var gatuadress = organisationAdressInput.GatuadressInput;
             var epostadress = organisationAdressInput.MailInput;
             var telefon = organisationAdressInput.TelefonInput;
@@ -165,8 +169,7 @@ namespace ODL.ApplicationServices
             //Om organisationen inte finns ska man ej kunna spara adressen
             if (organisation == null)
             {
-                logger.LogError("Kan ej spara adress för organisation med kostnadsställenummer: " + organisationAdressInput.KostnadsstalleNr + ". Organisationen saknas i databasen.");
-                throw new ApplicationException($"Kan ej spara adress för organisation med kostnadsställenummer: {organisationAdressInput.KostnadsstalleNr}. Organisationen saknas i databasen.");
+                throw new ArgumentException($"Kan ej spara adress för organisation med kostnadsställenummer: {organisationAdressInput.KostnadsstalleNr}. Organisationen saknas i databasen.");
             }
 
             var adress = adressRepository.GetAdressPerOrganisationsIdAndVariantId(organisation.Id, variant.Id);

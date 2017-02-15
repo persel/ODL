@@ -36,9 +36,9 @@ namespace ODL.ApplicationServices.Validation
             return this;
         }
 
-        internal ValidationRuleBuilder<T> NotNullOrEmpty()
+        internal ValidationRuleBuilder<T> NotNullOrWhiteSpace()
         {
-            Func<T, bool> rule = x => !string.IsNullOrEmpty(PropertySelector.Compile().Invoke(x));
+            Func<T, bool> rule = x => !string.IsNullOrWhiteSpace(PropertySelector.Compile().Invoke(x));
 
             Validator.AddRule(rule, $"Fältet '{SubjectName}.{PropertyName}' saknar värde.", true);
             return this;

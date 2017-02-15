@@ -7,7 +7,7 @@ namespace ODL.ApplicationServices.Validation
     {
         public GatuadressInputValidator()
         {
-            RuleFor(adress => adress.AdressRad1).NotNullOrEmpty().WithinMaxLength(255);
+            RuleFor(adress => adress.AdressRad1).NotNullOrWhiteSpace().WithinMaxLength(255);
             RuleFor(adress => adress.AdressRad2).WithinMaxLength(255);
             RuleFor(adress => adress.AdressRad3).WithinMaxLength(255);
             RuleFor(adress => adress.AdressRad4).WithinMaxLength(255);

@@ -111,8 +111,8 @@ namespace ODL.ApplicationServices.Validation
 
             RuleFor(subject => (subject as InputDTO).UppdateradDatum).ValidDateTimeFormat();
             RuleFor(subject => (subject as InputDTO).UppdateradAv).WithinMaxLength(10);
-            RuleFor(subject => (subject as InputDTO).SkapadDatum).NotNullOrEmpty().ValidDateTimeFormat();
-            RuleFor(subject => (subject as InputDTO).SkapadAv).NotNullOrEmpty().WithinMaxLength(10);
+            RuleFor(subject => (subject as InputDTO).SkapadDatum).NotNullOrWhiteSpace().ValidDateTimeFormat();
+            RuleFor(subject => (subject as InputDTO).SkapadAv).NotNullOrWhiteSpace().WithinMaxLength(10);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace ODL.ApplicationServices.Validation
             if (!typeof(T).IsSubclassOf(typeof(InputDTO)))
                 return;
 
-            RuleFor(subject => (subject as InputDTO).SystemId).NotNullOrEmpty().WithinMaxLength(25);
+            RuleFor(subject => (subject as InputDTO).SystemId).NotNullOrWhiteSpace().WithinMaxLength(25);
         }
     }
 }

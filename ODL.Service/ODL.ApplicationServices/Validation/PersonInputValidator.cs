@@ -12,10 +12,10 @@ namespace ODL.ApplicationServices.Validation
             //AddRule(person => !string.IsNullOrEmpty(person.Fornamn), "Förnamn saknas.");
             //NotNull(person => person.Efternamn);
 
-            RuleFor(person => person.Fornamn).NotNullOrEmpty().WithinMaxLength(255);
+            RuleFor(person => person.Fornamn).NotNullOrWhiteSpace().WithinMaxLength(255);
             RuleFor(person => person.Mellannamn).WithinMaxLength(255);
-            RuleFor(person => person.Efternamn).NotNullOrEmpty().WithinMaxLength(255);
-            RuleFor(person => person.Personnummer).NotNullOrEmpty().WithinMaxLength(12);
+            RuleFor(person => person.Efternamn).NotNullOrWhiteSpace().WithinMaxLength(255);
+            RuleFor(person => person.Personnummer).NotNullOrWhiteSpace().WithinMaxLength(12);
             RequireMetadata();
         }
     }

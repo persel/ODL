@@ -7,7 +7,7 @@ namespace ODL.ApplicationServices.Validation
     {
         public TelefonInputValidator()
         {
-            RuleFor(adress => adress.Telefonnummer).NotNullOrEmpty().WithinMaxLength(255);
+            RuleFor(adress => adress.Telefonnummer).NotNullOrWhiteSpace().WithinMaxLength(255);
         }
     }
 }
