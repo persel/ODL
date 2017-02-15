@@ -52,6 +52,20 @@ namespace ODL.Service
             services.AddScoped<IAdressRepository, AdressRepository>();
             services.AddScoped<IAdressVariantRepository, AdressVariantRepository>();
 
+            // Lägg till service och skapa Policy med options
+            // Se: Se: https://weblog.west-wind.com/posts/2016/Sep/26/ASPNET-Core-and-CORS-Gotchas
+            // https://elanderson.net/2016/11/cross-origin-resource-sharing-cors-in-asp-net-core/
+            // (Hanterar CORS - se också app.UseCors i Configure)
+            // TODO: Se till att peka ut bara den specifika domänen och HTTP Verb 'Options'
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMvc(config =>
@@ -66,7 +80,11 @@ namespace ODL.Service
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {           
+        {
+
+            // TODO: Applicera specifikt på Controllers mha [EnableCors("CorsPolicy")]
+            // Se även anropet till services.AddCors i ConfigureServices
+            app.UseCors("CorsPolicy");
 
             app.UseMvc();
 

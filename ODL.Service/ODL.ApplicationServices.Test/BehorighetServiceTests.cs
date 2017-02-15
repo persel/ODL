@@ -13,7 +13,6 @@ public class BehorighetServiceTests
 {
     private ODLDbContext context;
     private DbContextTransaction transaction;
-    private BehorighetService behorighetService;
 
     [SetUp]
     public void TransactionTestStart()

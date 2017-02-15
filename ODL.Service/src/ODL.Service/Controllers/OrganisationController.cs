@@ -18,22 +18,29 @@ namespace ODL.Service.Controllers
 
 
         // GET api/organisation/resultatenhet
-        [HttpGet("resultatenhet/")]
+        [HttpGet("resultatenhet/")] // TODO: Plural-namn?
         public IEnumerable<ResultatenhetDTO> Get()
         {
             return _organisationService.GetResultatenheter();
         }
 
+        // GET api/organisation/resultatenheter
+        [HttpGet("resultatenheter/")]
+        public IEnumerable<ResultatenhetDTO> GetResultatenhet([FromQuery]List<int> kostnadsstalleNr) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
+        {
+            return _organisationService.GetResultatenheterByKstNr(kostnadsstalleNr);
+        }
+
         // GET api/organisation/resultatenhet/197501011405
         [HttpGet("resultatenhet/{personnummer}")]
-        public IEnumerable<ResultatenhetDTO> GetResultatenhet(string personnummer) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
+        public IEnumerable<ResultatenhetDTO> GetResultatenhet(string personnummer)
         {
             return _organisationService.GetResultatenhetByPersonnummer(personnummer);
         }
 
         // GET api/organisation/resultatenhet/
         [HttpGet("kstAnsvarig/{personnummer}")]
-        public IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
+        public IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer)
         {
             return _organisationService.GetResultatenhetWhereAnsvarig(personnummer);
         }

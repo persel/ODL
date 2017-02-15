@@ -16,14 +16,12 @@ namespace ODL.DataAccess.Repositories
 
         IList<Organisation> GetWhereAnsvarigByAvtalIdn(IEnumerable<int> avtalIdn);
 
+        IList<Organisation> GetByKstNr(List<int> kostnadsstalleNr);
         IList<Organisation> GetAll();
-
         void Update();
-
         void Add(Organisation organisation);
-
         Organisation GetOrganisationByKstnr(int i);
-
        List<Organisation> GetOrganisationerByKstnr(IEnumerable<int> kstnrList);
+        
     }
 }

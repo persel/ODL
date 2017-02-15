@@ -40,6 +40,11 @@ namespace ODL.DataAccess.Repositories
                     avtal => avtalAnsvarigIdn.Contains(avtal.AvtalFKId))).ToList();
         }
 
+        public IList<Organisation> GetByKstNr(List<int> kostnadsstalleNr)
+        {
+            return DbContext.Organisation.Where(organisation => kostnadsstalleNr.Contains(organisation.Resultatenhet.KstNr)).ToList();
+        }
+
         public IList<Organisation> GetAll()
         {
             return DbContext.Set<Organisation>().ToList();

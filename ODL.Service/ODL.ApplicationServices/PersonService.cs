@@ -48,7 +48,7 @@ namespace ODL.ApplicationServices
                 foreach (var organisation in allaOrganisationer)
                 {
                     if(person.KoppladTill(organisation)) 
-                        personDTO.Resultatenheter.Add(new ResultatenhetDTO {Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr, Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ});
+                        personDTO.Resultatenheter.Add(new ResultatenhetDTO {Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr.ToString(), Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ});
                 }
                 personDtos.Add(personDTO);
             }

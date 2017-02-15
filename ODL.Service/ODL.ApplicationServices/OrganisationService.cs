@@ -36,7 +36,7 @@ namespace ODL.ApplicationServices
                 new ResultatenhetDTO
                 {
                     Id = enhet.OrganisationFKId,
-                    KostnadsstalleNr = enhet.KstNr,
+                    KostnadsstalleNr = enhet.KstNr.ToString(),
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
                 });
@@ -54,7 +54,7 @@ namespace ODL.ApplicationServices
                 new ResultatenhetDTO
                 {
                     Id = enhet.OrganisationFKId,
-                    KostnadsstalleNr = enhet.KstNr,
+                    KostnadsstalleNr = enhet.KstNr.ToString(),
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
                 });
@@ -69,7 +69,22 @@ namespace ODL.ApplicationServices
                 new ResultatenhetDTO
                 {
                     Id = enhet.OrganisationFKId,
-                    KostnadsstalleNr = enhet.KstNr,
+                    KostnadsstalleNr = enhet.KstNr.ToString(),
+                    Typ = enhet.Typ,
+                    Namn = enhet.Organisation.Namn
+                });
+        }
+
+        public IEnumerable<ResultatenhetDTO> GetResultatenheterByKstNr(List<int> kostnadsstalleNr)
+        {
+            var organisationer = organisationRepository.GetByKstNr(kostnadsstalleNr);
+            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+
+            return resultatenheter.Select(enhet =>
+                new ResultatenhetDTO
+                {
+                    Id = enhet.OrganisationFKId,
+                    KostnadsstalleNr = enhet.KstNr.ToString(),
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
                 });
@@ -103,6 +118,7 @@ namespace ODL.ApplicationServices
             else
                 organisationRepository.Update();
         }
+
 
     }
 }
