@@ -64,5 +64,13 @@ namespace ODL.DataAccess.Repositories
                     a => a.OrganisationAdress.OrganisationFKId == orgId && a.AdressVariantFKId == variantId);
         }
 
+
+        public IEnumerable<Adress> GetAdressPerOrganisationsIdAndVariantIdList(int orgId, int variantId)
+        {
+            return
+                _internalGenericRepository.Find(
+                    a => a.OrganisationAdress.OrganisationFKId == orgId && a.AdressVariantFKId == variantId).ToList();
+        }
+
     }
 }
