@@ -4645,15 +4645,15 @@
     },
     "ODL.ApplicationServices/1.0.0": {
       "type": "project",
-      "msbuildProject": "../../ODL.ApplicationServices/ODL.ApplicationServices.csproj"
+      "msbuildProject": "../ODL.ApplicationServices/ODL.ApplicationServices.csproj"
     },
     "ODL.DataAccess/1.0.0": {
       "type": "project",
-      "msbuildProject": "../../ODL.DataAccess/ODL.DataAccess.csproj"
+      "msbuildProject": "../ODL.DataAccess/ODL.DataAccess.csproj"
     },
     "ODL.DomainModel/1.0.0": {
       "type": "project",
-      "msbuildProject": "../../ODL.DomainModel/ODL.DomainModel.csproj"
+      "msbuildProject": "../ODL.DomainModel/ODL.DomainModel.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4681,7 +4681,7 @@
     ],
     ".NETFramework,Version=v4.5.2": [
       "ODL.ApplicationServices",
-      "ODL.DataAccess"
+      "ODL.DomainModel"
     ]
   },
   "tools": {

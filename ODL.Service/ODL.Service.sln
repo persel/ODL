@@ -12,22 +12,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ODL.Service", "src\ODL.Service\ODL.Service.xproj", "{C40CC3FB-F5B4-4855-BEBA-71E770AB8B3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.ApplicationServices", "ODL.ApplicationServices\ODL.ApplicationServices.csproj", "{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.ApplicationServices", "src\ODL.ApplicationServices\ODL.ApplicationServices.csproj", "{BF34AA84-2FA4-4258-8099-A39D3AEB0ACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DataAccess", "ODL.DataAccess\ODL.DataAccess.csproj", "{00730B19-2441-42DB-9FEE-F71EDCA04682}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DataAccess", "src\ODL.DataAccess\ODL.DataAccess.csproj", "{00730B19-2441-42DB-9FEE-F71EDCA04682}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.InfrastructureServices", "ODL.InfrastructureServices\ODL.InfrastructureServices.csproj", "{79955D1C-0A3D-40AF-8435-1B950358F745}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.InfrastructureServices", "src\ODL.InfrastructureServices\ODL.InfrastructureServices.csproj", "{79955D1C-0A3D-40AF-8435-1B950358F745}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{92F7ECD1-723D-4398-867A-3E7AB3D8FE4E}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.txt = Readme.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DomainModel", "ODL.DomainModel\ODL.DomainModel.csproj", "{6820EEF2-FC9D-49BC-8E01-B5CECA63A146}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DomainModel", "src\ODL.DomainModel\ODL.DomainModel.csproj", "{6820EEF2-FC9D-49BC-8E01-B5CECA63A146}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.ApplicationServices.Test", "ODL.ApplicationServices.Test\ODL.ApplicationServices.Test.csproj", "{CC5D2B7E-F0A2-4039-97B1-CC83058416F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.ApplicationServices.Test", "test\ODL.ApplicationServices.Test\ODL.ApplicationServices.Test.csproj", "{CC5D2B7E-F0A2-4039-97B1-CC83058416F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DomainModel.Test", "ODL.DomainModel.Test\ODL.DomainModel.Test.csproj", "{44CE4A54-025B-49BB-AFEB-A5F7AEF56906}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DomainModel.Test", "test\ODL.DomainModel.Test\ODL.DomainModel.Test.csproj", "{44CE4A54-025B-49BB-AFEB-A5F7AEF56906}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

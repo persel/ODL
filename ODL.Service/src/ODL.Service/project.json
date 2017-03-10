@@ -32,7 +32,7 @@
         "ODL.ApplicationServices": {
           "target": "project"
         },
-        "ODL.DataAccess": {
+        "ODL.DomainModel": {
           "target": "project"
         }
       }

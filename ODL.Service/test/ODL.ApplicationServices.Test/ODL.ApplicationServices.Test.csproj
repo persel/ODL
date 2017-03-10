@@ -78,16 +78,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ODL.ApplicationServices\ODL.ApplicationServices.csproj">
+    <ProjectReference Include="..\..\src\ODL.ApplicationServices\ODL.ApplicationServices.csproj">
       <Project>{bf34aa84-2fa4-4258-8099-a39d3aeb0acc}</Project>
       <Name>ODL.ApplicationServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ODL.DataAccess\ODL.DataAccess.csproj">
+    <ProjectReference Include="..\..\src\ODL.DataAccess\ODL.DataAccess.csproj">
       <Project>{00730b19-2441-42db-9fee-f71edca04682}</Project>
       <Name>ODL.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ODL.DomainModel\ODL.DomainModel.csproj">
-      <Project>{6820EEF2-FC9D-49BC-8E01-B5CECA63A146}</Project>
+    <ProjectReference Include="..\..\src\ODL.DomainModel\ODL.DomainModel.csproj">
+      <Project>{6820eef2-fc9d-49bc-8e01-b5ceca63a146}</Project>
       <Name>ODL.DomainModel</Name>
     </ProjectReference>
   </ItemGroup>
