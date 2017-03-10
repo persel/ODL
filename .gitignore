@@ -257,3 +257,4 @@ ModelManifest.xml
 /ODL.Service/.vs/config/applicationhost.config
 /ODL.Service/src/ODL.Service/appsettings.json
 /ODL.Service/src/ODL.Service/logs/*.*
+/ODL.Service/src/ODL.WebApi/logs
