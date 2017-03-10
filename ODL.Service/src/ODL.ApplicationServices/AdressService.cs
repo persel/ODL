@@ -66,6 +66,8 @@ namespace ODL.ApplicationServices
 
         public void SparaPersonAdress(PersonAdressInputDTO personAdressInput)
         {
+            if (personAdressInput == null) throw new ApplicationException("personAdressInput är null, felaktig indata ");
+
             var gatuadress = personAdressInput.GatuadressInput;
             var epostadress = personAdressInput.MailInput;
             var telefon = personAdressInput.TelefonInput;
@@ -142,6 +144,8 @@ namespace ODL.ApplicationServices
 
         public void SparaOrganisationAdress(OrganisationAdressInputDTO organisationAdressInput)
         {
+            if (organisationAdressInput == null) throw new ArgumentException("organisationAdressInput är null, felaktig indata ");
+
             var gatuadress = organisationAdressInput.GatuadressInput;
             var epostadress = organisationAdressInput.MailInput;
             var telefon = organisationAdressInput.TelefonInput;
@@ -153,28 +157,32 @@ namespace ODL.ApplicationServices
             {
                 foreach (var fel in valideringsfel)
                     logger.LogError(fel.Message);
-                throw new ApplicationException($"Valideringsfel inträffade vid validering av adress för organisation med Id: {organisationAdressInput.KostnadsstalleNr}.");
+                throw new ArgumentException($"Valideringsfel inträffade vid validering av adress för organisation med Id: {organisationAdressInput.KostnadsstalleNr}.");
             }
 
-            //Hämta Organisation
+            
             var organisation = organisationRepository.GetOrganisationByKstnr(organisationAdressInput.KostnadsstalleNr);
 
-            //Hämta variant
+           
             var variant = adressVariantRepository.GetVariantByVariantName(organisationAdressInput.AdressVariant);
 
-            //Om organisationen inte finns ska man ej kunna spara adressen
+            
             if (organisation == null)
             {
-                logger.LogError("Kan ej spara adress för organisation med kostnadsställenummer: " + organisationAdressInput.KostnadsstalleNr + ". Organisationen saknas i databasen.");
-                throw new ApplicationException($"Kan ej spara adress för organisation med kostnadsställenummer: {organisationAdressInput.KostnadsstalleNr}. Organisationen saknas i databasen.");
+                throw new ArgumentException($"Kan ej spara adress för organisation med kostnadsställenummer: {organisationAdressInput.KostnadsstalleNr}. Organisationen saknas i databasen.");
             }
 
+            //ToDO bugg here kan lägga till flera smäller när det blir 2 lika...
             var adress = adressRepository.GetAdressPerOrganisationsIdAndVariantId(organisation.Id, variant.Id);
-
+            //ToDO titta på det verkar vara det enda som den från att skapa flera lika nya adresser?? adress.IsNew funkar ej..
+            var adressList = adressRepository.GetAdressPerOrganisationsIdAndVariantIdList(organisation.Id, variant.Id);
+           
+            
             if (gatuadress != null)
             {
-                if (adress == null)
-                    adress = Adress.NewGatuAdress(organisation);
+                if (adress == null) adress = Adress.NewGatuAdress(organisation);
+                
+
                 adress.GatuAdress.AdressRad1 = organisationAdressInput.GatuadressInput.AdressRad1;
                 adress.GatuAdress.AdressRad2 = organisationAdressInput.GatuadressInput.AdressRad2;
                 adress.GatuAdress.AdressRad3 = organisationAdressInput.GatuadressInput.AdressRad3;
@@ -200,7 +208,7 @@ namespace ODL.ApplicationServices
 
             adress.Metadata = organisationAdressInput.GetMetadata();
 
-            if (adress.IsNew)
+            if (adressList == null)//adress.IsNew)
             {
                 adress.SetVariant(variant);
                 adressRepository.Add(adress);

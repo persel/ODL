@@ -8,7 +8,7 @@ namespace ODL.ApplicationServices.Validation
 
         public MailInputValidator()
         {
-            RuleFor(adress => adress.MailAdress).NotNullOrEmpty().isValidMailAdress();
+            RuleFor(adress => adress.MailAdress).NotNullOrWhiteSpace().isValidMailAdress();
         }
     }
 }

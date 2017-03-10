@@ -10,9 +10,9 @@ namespace ODL.ApplicationServices.Validation
 
         public ResultatenhetInputValidator()
         {
-            RuleFor(resEnhet => resEnhet.Namn).NotNullOrEmpty().WithinMaxLength(255);
+            RuleFor(resEnhet => resEnhet.Namn).NotNullOrWhiteSpace().WithinMaxLength(255);
             AboveZero(resEnhet => resEnhet.KostnadsstalleNr);
-            RuleFor(resEnhet => resEnhet.Typ).NotNullOrEmpty().WithinMaxLength(5);
+            RuleFor(resEnhet => resEnhet.Typ).NotNullOrWhiteSpace().WithinMaxLength(5);
             RequireMetadata();
         }
     }
