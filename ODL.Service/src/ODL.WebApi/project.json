@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "EntityFramework": "6.1.3",
     "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
     "Microsoft.AspNetCore.Routing": "1.0.1",
@@ -30,9 +29,6 @@
     "net452": {
       "dependencies": {
         "ODL.ApplicationServices": {
-          "target": "project"
-        },
-        "ODL.DomainModel": {
           "target": "project"
         }
       }

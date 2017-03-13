@@ -74,8 +74,6 @@
     <Compile Include="Validation\TelefonInputValidator.cs" />
     <Compile Include="Validation\MailInputValidator.cs" />
     <Compile Include="Validation\GatuadressInputValidator.cs" />
-    <Compile Include="BehorighetService.cs" />
-    <Compile Include="IBehorighetService.cs" />
     <Compile Include="DTOModel\Behorighet\PersonalDTO.cs" />
     <Compile Include="DTOModel\Behorighet\SystemattributDTO.cs" />
     <Compile Include="DTOModel\Behorighet\SystemDTO.cs" />
