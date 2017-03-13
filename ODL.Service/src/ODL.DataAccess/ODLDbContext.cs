@@ -3,12 +3,6 @@ using System.Data.Entity.Migrations.Model;
 using System.Diagnostics;
 using ODL.DomainModel;
 using ODL.DomainModel.Adress;
-using ODL.DomainModel.Behorighet;
-using ODL.DomainModel.Behorighet.Systemattribut;
-using ODL.DomainModel.Behorighet.Systemroll;
-using Systemroll = ODL.DomainModel.Behorighet.Systemroll;
-using ODL.DomainModel.Behorighet.Verksamhetsdimension;
-using ODL.DomainModel.Behorighet.Verksamhetsroll;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
 
@@ -56,38 +50,6 @@ namespace ODL.DataAccess
         public virtual DbSet<PersonAdress> PersonAdress { get; set; }
         public virtual DbSet<Telefon> Telefon { get; set; }
 
-        // Behörighet.Systemroll:
-
-        public virtual DbSet<Anvandare> Anvandare { get; set; }
-        public virtual DbSet<Behorighetsniva> Behorighetsniva { get; set; }
-        public virtual DbSet<Systemanvandargrupp> Systemanvandargrupp { get; set; }
-        public virtual DbSet<Systembehorighet> Systembehorighet { get; set; }
-        public virtual DbSet<Systemroll.System> System { get; set; }
-
-        // Behörighet.Verksamhetsroll:
-
-        public virtual DbSet<PersonalVerksamhetsroll> PersonVerksamhetsroll { get; set; }
-        public virtual DbSet<Verksamhetsroll> Verksamhetsroll { get; set; }
-        public virtual DbSet<Systembegransning> Systembegransning { get; set; }
-
-        // Behörighet.Systemattribut:
-
-        public virtual DbSet<Systemattribut> Systemattribut { get; set; }
-        public virtual DbSet<Systemattributvarde> Systemattributvarde { get; set; }
-
-        // Behörighet.Verksamhetsdimension:
-
-        public virtual DbSet<Verksamhetsdimension> Verksamhetsdimension { get; set; }
-        public virtual DbSet<Verksamhetsdimensionsvarde> Verksamhetsdimensionvarde { get; set; }
-
-        // Behörighet (Kopplingar mellan aggregaten)
-
-        public virtual DbSet<PersonalIVerksamhetsrollVerksamhetsdimensionsvarde> PersonalIVerksamhetsrollVerksamhetsdimensionvarde { get; set; }
-        public virtual DbSet<RelevantVerksamhetsdimension> RelevantVerksamhetsdimension { get; set; }
-        public virtual DbSet<SystemattributVerksamhetsdimension> SystemattributVerksamhetsdimension { get; set; }
-        public virtual DbSet<SystembehorighetAttributVarde> SystembehorighetAttributVarde { get; set; }
-        public virtual DbSet<VerksamhetsdimensionsvardeSystemattributvarde> VerksamhetsdimensionsvardeSystemattributvarde { get; set; }
-        public virtual DbSet<VerksamhetsrollAnvandargrupp> VerksamhetsrollAnvandargrupp { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -191,122 +153,6 @@ namespace ODL.DataAccess
                 .Property(e => e.MailAdress)
                 .IsUnicode(false);
 
-                // Behörighet.Systemroll:
-
-            modelBuilder.Entity<Anvandare>()
-                .HasMany(e => e.Systembehorighet)
-                .WithRequired(e => e.Anvandare)
-                .HasForeignKey(e => e.AnvandareId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Systemroll.System>()
-                .HasMany(e => e.Behorighetsniva)
-                .WithRequired(e => e.System)
-                .HasForeignKey(e => e.SystemId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Systemroll.System>()
-                .HasMany(e => e.Systemanvandargrupp)
-                .WithRequired(e => e.System)
-                .HasForeignKey(e => e.SystemId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Behorighetsniva>()
-                .HasMany(e => e.Systemanvandargrupp)
-                .WithRequired(e => e.Behorighetsniva)
-                .HasForeignKey(e => e.BehorighetsnivaId)
-                .WillCascadeOnDelete(false);
-
-            // Behörighet.Verksamhetsroll:
-
-            modelBuilder.Entity<PersonalVerksamhetsroll>()
-                .HasMany(e => e.Systembegransning)
-                .WithRequired(e => e.PersonalVerksamhetsroll)
-                .HasForeignKey(e => e.PersonalVerksamhetsrollId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<PersonalVerksamhetsroll>()
-                .HasMany(e => e.PersonalIVerksamhetsrollVerksamhetsdimensionsvarde)
-                .WithRequired(e => e.PersonalVerksamhetsroll)
-                .HasForeignKey(e => e.PersonalVerksamhetsrollFKId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Personal>()
-                .HasMany(e => e.PersonalVerksamhetsroll)
-                .WithRequired(e => e.Personal)
-                .HasForeignKey(e => e.PersonalId)
-                .WillCascadeOnDelete(false);
-
-            // Behörighet.Systemattribut:
-
-            modelBuilder.Entity<Systemattribut>()
-                .HasMany(e => e.Systemattributvarden)
-                .WithRequired(e => e.Systemattribut)
-                .HasForeignKey(e => e.SystemattributId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Systemattributvarde>()
-                .HasMany(e => e.Underliggande)
-                .WithOptional(e => e.Overordnad)
-                .HasForeignKey(e => e.SystemattributvardeId);
-
-            // Behörighet.Verksamhetsdimension:
-
-            modelBuilder.Entity<Verksamhetsdimension>()
-                .HasMany(e => e.Verksamhetsdimensionvarde)
-                .WithRequired(e => e.Verksamhetsdimension)
-                .HasForeignKey(e => e.VerksamhetsdimensionId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Verksamhetsdimensionsvarde>()
-                .HasMany(e => e.Underliggande)
-                .WithOptional(e => e.Overordnad)
-                .HasForeignKey(e => e.VerksamhetsdimensionvardeId);
-
-
-            // Behörighet (Kopplingar mellan aggregaten)
-
-            // OBS: Se http://stackoverflow.com/questions/2937856/unidirectional-one-to-many-associations-in-entity-framework-4
-
-            // SystembehorighetAttributVarde
-
-            modelBuilder.Entity<SystembehorighetAttributVarde>().
-            HasRequired(m => m.Systembehorighet).WithMany().HasForeignKey(fk => fk.SystembehorighetId).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SystembehorighetAttributVarde>().
-            HasRequired(m => m.Systemattributvarde).WithMany().HasForeignKey(fk => fk.SystemattributvardeFKId).WillCascadeOnDelete(false);
-
-            // VerksamhetsdimensionsvardeSystemattributvarde
-
-            modelBuilder.Entity<VerksamhetsdimensionsvardeSystemattributvarde>().
-            HasRequired(m => m.Verksamhetsdimensionsvarde).WithMany().HasForeignKey(fk => fk.VerksamhetsdimensionvardeId).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<VerksamhetsdimensionsvardeSystemattributvarde>().
-            HasRequired(m => m.Systemattributvarde).WithMany().HasForeignKey(fk => fk.SystemattributvardeId).WillCascadeOnDelete(false);
-
-            // VerksamhetsrollAnvandargrupp
-
-            modelBuilder.Entity<VerksamhetsrollAnvandargrupp>().
-            HasRequired(m => m.Verksamhetsroll).WithMany().HasForeignKey(fk => fk.VerksamhetsrollId).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<VerksamhetsrollAnvandargrupp>().
-            HasRequired(m => m.Systemanvandargrupp).WithMany().HasForeignKey(fk => fk.SystemanvandargruppId).WillCascadeOnDelete(false);
-
-            // SystemattributVerksamhetsdimension
-
-            modelBuilder.Entity<SystemattributVerksamhetsdimension>().
-            HasRequired(m => m.Systemattribut).WithMany().HasForeignKey(fk => fk.SystemattributId).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SystemattributVerksamhetsdimension>().
-            HasRequired(m => m.Verksamhetsdimension).WithMany().HasForeignKey(fk => fk.VerksamhetsdimensionId).WillCascadeOnDelete(false);
-
-            // RelevantVerksamhetsdimension
-
-            modelBuilder.Entity<RelevantVerksamhetsdimension>().
-            HasRequired(m => m.Verksamhetsdimension).WithMany().HasForeignKey(fk => fk.VerksamhetsdimensionId).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<RelevantVerksamhetsdimension>().
-            HasRequired(m => m.Verksamhetsroll).WithMany().HasForeignKey(fk => fk.VerksamhetsrollId).WillCascadeOnDelete(false);
 
         }
     }

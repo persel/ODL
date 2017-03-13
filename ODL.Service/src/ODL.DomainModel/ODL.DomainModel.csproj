@@ -30,14 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -59,23 +51,6 @@
     <Compile Include="Adress\OrganisationAdress.cs" />
     <Compile Include="Adress\PersonAdress.cs" />
     <Compile Include="Adress\Telefon.cs" />
-    <Compile Include="Behorighet\PersonIVerksamhetsrollVerksamhetsdimensionsvarde.cs" />
-    <Compile Include="Behorighet\RelevantVerksamhetsdimension.cs" />
-    <Compile Include="Behorighet\SystemattributVerksamhetsdimension.cs" />
-    <Compile Include="Behorighet\Systemattribut\Systemattribut.cs" />
-    <Compile Include="Behorighet\Systemattribut\Systemattributvarde.cs" />
-    <Compile Include="Behorighet\SystembehorighetAttributVarde.cs" />
-    <Compile Include="Behorighet\Systemroll\Anvandare.cs" />
-    <Compile Include="Behorighet\Systemroll\Behorighetsniva.cs" />
-    <Compile Include="Behorighet\Systemroll\System.cs" />
-    <Compile Include="Behorighet\Systemroll\Systemanvandargrupp.cs" />
-    <Compile Include="Behorighet\Systemroll\Systembehorighet.cs" />
-    <Compile Include="Behorighet\VerksamhetsdimensionsvardeSystemattributvarde.cs" />
-    <Compile Include="Behorighet\Verksamhetsdimension\Verksamhetsdimension.cs" />
-    <Compile Include="Behorighet\Verksamhetsdimension\Verksamhetsdimensionsvarde.cs" />
-    <Compile Include="Behorighet\VerksamhetsrollAnvandargrupp.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\Personal.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\Verksamhetsroll.cs" />
     <Compile Include="Common\EnumExtensions.cs" />
     <Compile Include="Common\Vardetyp.cs" />
     <Compile Include="Common\Metadata.cs" />
@@ -87,8 +62,6 @@
     <Compile Include="Person\AnstalldAvtal.cs" />
     <Compile Include="Person\Konsultavtal.cs" />
     <Compile Include="Person\Person.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\PersonalVerksamhetsroll.cs" />
-    <Compile Include="Behorighet\Verksamhetsroll\Systembegransning.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
