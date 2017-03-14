@@ -114,7 +114,7 @@ namespace ODL.DataAccess
             // Adress: 
             
             modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.GatuAdress)
+                .HasOptional(e => e.Gatuadress)
                 .WithRequired(e => e.Adress);
 
             modelBuilder.Entity<Adress>()

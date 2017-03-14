@@ -51,6 +51,7 @@
     <Compile Include="Adress\OrganisationAdress.cs" />
     <Compile Include="Adress\PersonAdress.cs" />
     <Compile Include="Adress\Telefon.cs" />
+    <Compile Include="BusinessLogicException.cs" />
     <Compile Include="Common\EnumExtensions.cs" />
     <Compile Include="Common\Vardetyp.cs" />
     <Compile Include="Common\Metadata.cs" />

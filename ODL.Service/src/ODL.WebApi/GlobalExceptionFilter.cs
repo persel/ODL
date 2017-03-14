@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using ODL.DomainModel;
 
 namespace ODL.Service
 {
@@ -22,19 +23,22 @@ namespace ODL.Service
 
             var status = HttpStatusCode.InternalServerError;
             string clientMessage;
-            var timeStamp = DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString();
+            
             var exception = context.Exception;
 
             var exceptionType = exception.GetType();
 
-            if (exceptionType == typeof(ApplicationException)) // Visa felmeddelandet (skapat av oss - användarvänligt meddelande!)
+            if (exceptionType == typeof(BusinessLogicException)) // Visa felmeddelandet (skapat av oss - användarvänligt meddelande!)
             {
-                clientMessage = " Server fel. LogId: " + timeStamp + " " + context.Exception.Message;
+                clientMessage = context.Exception.Message;
             }
             else
             {
-                clientMessage = " Server fel. LogId: " + timeStamp + " se logfil."; 
-                logger.LogError(timeStamp + " Ett fel hanterades i GlobalExceptionFilter: '{message}'", exception.ToString());
+                var timeStamp = DateTime.Now.Ticks;
+                clientMessage = $"Ett serverfel har inträffat. LogId: {timeStamp}";
+
+                // Vi använder serilog message tamplates: https://github.com/serilog/serilog/wiki/Writing-Log-Events
+                logger.LogError("Ett fel hanterades i GlobalExceptionFilter (LogId: {LogId}): '{Message}'.\nStacktrace: {StackTrace}", timeStamp, exception.Message, exception.StackTrace);
             }
 
             var response = context.HttpContext.Response;

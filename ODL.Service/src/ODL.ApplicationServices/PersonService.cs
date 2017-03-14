@@ -64,7 +64,7 @@ namespace ODL.ApplicationServices
             {
                 foreach (var fel in valideringsfel)
                     logger.LogError(fel.Message); 
-                throw new ApplicationException($"Valideringsfel inträffade vid validering av Person med Id: {personInputDTO.Personnummer}.");
+                throw new BusinessLogicException($"Valideringsfel inträffade vid validering av Person med Id: {personInputDTO.Personnummer}.");
             }
 
             var person = personRepository.GetByPersonnummer(personInputDTO.Personnummer) ?? new Person();
@@ -102,7 +102,7 @@ namespace ODL.ApplicationServices
             {
                 foreach (var fel in valideringsfel)
                     logger.LogError(fel.Message); // Hmm, borde vi logga detta med Info? 
-                throw new ApplicationException(
+                throw new BusinessLogicException(
                     $"Valideringsfel inträffade vid validering av Avtal med Id: {avtalDTO.SystemId}.");
             }
 

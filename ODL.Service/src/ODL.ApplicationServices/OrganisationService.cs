@@ -7,6 +7,7 @@ using ODL.ApplicationServices.DTOModel.Query;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel.Person;
 using ODL.ApplicationServices.Validation;
+using ODL.DomainModel;
 using ODL.DomainModel.Organisation;
 
 namespace ODL.ApplicationServices
@@ -98,7 +99,7 @@ namespace ODL.ApplicationServices
             {
                 foreach (var fel in valideringsfel)
                     logger.LogError(fel.Message);
-                throw new ApplicationException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resEnhetInputDTO.KostnadsstalleNr}.");
+                throw new BusinessLogicException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resEnhetInputDTO.KostnadsstalleNr}.");
             }
 
             //var organisation = organisationRepository.GetOrganisationByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? new Organisation();

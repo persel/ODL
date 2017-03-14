@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Query;
 using ODL.DataAccess.Repositories;
-using ODL.DomainModel.Person;
 using ODL.ApplicationServices.Validation;
+using ODL.DomainModel;
 using ODL.DomainModel.Adress;
-using ODL.DomainModel.Organisation;
 
 namespace ODL.ApplicationServices
 {
@@ -43,7 +41,7 @@ namespace ODL.ApplicationServices
             return adresser.Select(enhet => new AdressDTO()
             {
                 Id = enhet.AdressVariantFKId,
-                GatuAdress = GatuAdressDTO.FromGatuadress(enhet.GatuAdress),
+                GatuAdress = GatuAdressDTO.FromGatuadress(enhet.Gatuadress),
                 Mail = MailDTO.FromMail(enhet.Mail),
                 Telefon = TelefonDTO.Fromtelefon(enhet.Telefon)
             });
@@ -58,7 +56,7 @@ namespace ODL.ApplicationServices
                  new AdressDTO()
                  {
                      Id = enhet.AdressVariantFKId,
-                     GatuAdress = GatuAdressDTO.FromGatuadress(enhet.GatuAdress),
+                     GatuAdress = GatuAdressDTO.FromGatuadress(enhet.Gatuadress),
                      Mail = MailDTO.FromMail(enhet.Mail),
                      Telefon = TelefonDTO.Fromtelefon(enhet.Telefon)
                  });
@@ -66,7 +64,6 @@ namespace ODL.ApplicationServices
 
         public void SparaPersonAdress(PersonAdressInputDTO personAdressInput)
         {
-            if (personAdressInput == null) throw new ApplicationException("personAdressInput är null, felaktig indata ");
 
             var gatuadress = personAdressInput.GatuadressInput;
             var epostadress = personAdressInput.MailInput;
@@ -79,7 +76,7 @@ namespace ODL.ApplicationServices
             {
                 foreach (var fel in valideringsfel)
                     logger.LogError(fel.Message);
-                throw new ApplicationException($"Valideringsfel inträffade vid validering av adress för person med Id: {personAdressInput.Personnummer}.");
+                throw new BusinessLogicException($"Valideringsfel inträffade vid validering av adress för person med Id: {personAdressInput.Personnummer}.");
             }
 
             //Hämta Person
@@ -105,15 +102,15 @@ namespace ODL.ApplicationServices
             if (gatuadress != null)
             {
                 if (adress == null)
-                    adress = Adress.NewGatuAdress(person);
-                adress.GatuAdress.AdressRad1 = personAdressInput.GatuadressInput.AdressRad1;
-                adress.GatuAdress.AdressRad2 = personAdressInput.GatuadressInput.AdressRad2;
-                adress.GatuAdress.AdressRad3 = personAdressInput.GatuadressInput.AdressRad3;
-                adress.GatuAdress.AdressRad4 = personAdressInput.GatuadressInput.AdressRad4;
-                adress.GatuAdress.AdressRad5 = personAdressInput.GatuadressInput.AdressRad5;
-                adress.GatuAdress.Postnummer = personAdressInput.GatuadressInput.Postnummer;
-                adress.GatuAdress.Stad = personAdressInput.GatuadressInput.Stad;
-                adress.GatuAdress.Land = personAdressInput.GatuadressInput.Land;
+                    adress = Adress.NewGatuadress(person);
+                adress.Gatuadress.AdressRad1 = personAdressInput.GatuadressInput.AdressRad1;
+                adress.Gatuadress.AdressRad2 = personAdressInput.GatuadressInput.AdressRad2;
+                adress.Gatuadress.AdressRad3 = personAdressInput.GatuadressInput.AdressRad3;
+                adress.Gatuadress.AdressRad4 = personAdressInput.GatuadressInput.AdressRad4;
+                adress.Gatuadress.AdressRad5 = personAdressInput.GatuadressInput.AdressRad5;
+                adress.Gatuadress.Postnummer = personAdressInput.GatuadressInput.Postnummer;
+                adress.Gatuadress.Stad = personAdressInput.GatuadressInput.Stad;
+                adress.Gatuadress.Land = personAdressInput.GatuadressInput.Land;
 
             }
             else if (epostadress != null)
@@ -180,17 +177,17 @@ namespace ODL.ApplicationServices
             
             if (gatuadress != null)
             {
-                if (adress == null) adress = Adress.NewGatuAdress(organisation);
+                if (adress == null) adress = Adress.NewGatuadress(organisation);
                 
 
-                adress.GatuAdress.AdressRad1 = organisationAdressInput.GatuadressInput.AdressRad1;
-                adress.GatuAdress.AdressRad2 = organisationAdressInput.GatuadressInput.AdressRad2;
-                adress.GatuAdress.AdressRad3 = organisationAdressInput.GatuadressInput.AdressRad3;
-                adress.GatuAdress.AdressRad4 = organisationAdressInput.GatuadressInput.AdressRad4;
-                adress.GatuAdress.AdressRad5 = organisationAdressInput.GatuadressInput.AdressRad5;
-                adress.GatuAdress.Postnummer = organisationAdressInput.GatuadressInput.Postnummer;
-                adress.GatuAdress.Stad = organisationAdressInput.GatuadressInput.Stad;
-                adress.GatuAdress.Land = organisationAdressInput.GatuadressInput.Land;
+                adress.Gatuadress.AdressRad1 = organisationAdressInput.GatuadressInput.AdressRad1;
+                adress.Gatuadress.AdressRad2 = organisationAdressInput.GatuadressInput.AdressRad2;
+                adress.Gatuadress.AdressRad3 = organisationAdressInput.GatuadressInput.AdressRad3;
+                adress.Gatuadress.AdressRad4 = organisationAdressInput.GatuadressInput.AdressRad4;
+                adress.Gatuadress.AdressRad5 = organisationAdressInput.GatuadressInput.AdressRad5;
+                adress.Gatuadress.Postnummer = organisationAdressInput.GatuadressInput.Postnummer;
+                adress.Gatuadress.Stad = organisationAdressInput.GatuadressInput.Stad;
+                adress.Gatuadress.Land = organisationAdressInput.GatuadressInput.Land;
 
             }
             else if (epostadress != null)
