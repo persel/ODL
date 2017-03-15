@@ -24,7 +24,7 @@ namespace ODL.Service
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             //if (env.IsEnvironment("Development"))
-            //{
+            ///{
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
                 //builder.AddApplicationInsightsSettings(developerMode: true);
             //}
