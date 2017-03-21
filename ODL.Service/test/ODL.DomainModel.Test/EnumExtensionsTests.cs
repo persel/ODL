@@ -2,7 +2,7 @@
 using ODL.DomainModel.Common;
 using NUnit.Framework;
 
-namespace ODL.ApplicationServices.Test
+namespace ODL.DomainModel.Test
 {
     
 
