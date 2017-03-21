@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.ApplicationServices.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.DomainModel.Test", "test\ODL.DomainModel.Test\ODL.DomainModel.Test.csproj", "{44CE4A54-025B-49BB-AFEB-A5F7AEF56906}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODL.ApplicationServices.Test2", "ODL.ApplicationServices.Test2\ODL.ApplicationServices.Test2.csproj", "{801B60BB-C440-47E8-AB5D-1DCB25D3E698}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{44CE4A54-025B-49BB-AFEB-A5F7AEF56906}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44CE4A54-025B-49BB-AFEB-A5F7AEF56906}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44CE4A54-025B-49BB-AFEB-A5F7AEF56906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801B60BB-C440-47E8-AB5D-1DCB25D3E698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801B60BB-C440-47E8-AB5D-1DCB25D3E698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801B60BB-C440-47E8-AB5D-1DCB25D3E698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801B60BB-C440-47E8-AB5D-1DCB25D3E698}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,5 +80,6 @@ Global
 		{6820EEF2-FC9D-49BC-8E01-B5CECA63A146} = {ECD8DBB9-21AF-4C06-9E81-5CD44A417E10}
 		{CC5D2B7E-F0A2-4039-97B1-CC83058416F4} = {92F7ECD1-723D-4398-867A-3E7AB3D8FE4E}
 		{44CE4A54-025B-49BB-AFEB-A5F7AEF56906} = {92F7ECD1-723D-4398-867A-3E7AB3D8FE4E}
+		{801B60BB-C440-47E8-AB5D-1DCB25D3E698} = {92F7ECD1-723D-4398-867A-3E7AB3D8FE4E}
 	EndGlobalSection
 EndGlobal
