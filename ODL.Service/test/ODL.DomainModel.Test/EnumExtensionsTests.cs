@@ -1,9 +1,10 @@
 ﻿using ODL.DomainModel.Adress;
 using ODL.DomainModel.Common;
+using NUnit.Framework;
 
 namespace ODL.ApplicationServices.Test
 {
-    using NUnit.Framework;
+    
 
     [TestFixture]
     public class EnumExtensionsTests
