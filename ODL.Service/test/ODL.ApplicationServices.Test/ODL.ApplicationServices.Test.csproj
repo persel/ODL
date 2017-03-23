@@ -72,6 +72,7 @@
     <Compile Include="AdressInputValidatorTests.cs" />
     <Compile Include="AvtalInputValidatorTests.cs" />
     <Compile Include="PersonInputValidatorTests.cs" />
+    <Compile Include="PersonServiceMockTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PersonServiceTests.cs" />
   </ItemGroup>
