@@ -9,11 +9,13 @@ namespace ODL.DomainModel.Adress
     {
         public int Id { get; set; }
 
+       
         public int AdressVariantFKId { get; set; }
 
         public Metadata Metadata { get; set; }
 
-        //public virtual AdressVariant AdressVariant { get; set; }
+   
+        public virtual AdressVariant AdressVariant { get; set; }
 
         public virtual GatuAdress Gatuadress { get; set; }
 

@@ -18,8 +18,22 @@ namespace ODL.DataAccess.Migrations
                         SkapadDatum = c.DateTime(nullable: false),
                         SkapadAv = c.String(nullable: false, maxLength: 10),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("Adress.AdressVariant", t => t.AdressVariantFKId)
+                .Index(t => t.AdressVariantFKId);
             
+            CreateTable(
+                "Adress.AdressVariant",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Namn = c.String(nullable: false, maxLength: 255),
+                        AdressTypFKId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+
+            
+
             CreateTable(
                 "Adress.GatuAdress",
                 c => new
@@ -81,20 +95,6 @@ namespace ODL.DataAccess.Migrations
                 .PrimaryKey(t => t.AdressFKId)
                 .ForeignKey("Adress.Adress", t => t.AdressFKId)
                 .Index(t => t.AdressFKId);
-            
-            CreateTable(
-                "Adress.AdressVariant",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Namn = c.String(nullable: false, maxLength: 255),
-                        UppdateradDatum = c.DateTime(),
-                        UppdateradAv = c.String(maxLength: 10),
-                        SkapadDatum = c.DateTime(nullable: false),
-                        SkapadAv = c.String(nullable: false, maxLength: 10),
-                        AdressTypFKId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "Person.AnstalldAvtal",
@@ -222,7 +222,19 @@ namespace ODL.DataAccess.Migrations
                 .PrimaryKey(t => t.OrganisationFKId)
                 .ForeignKey("Organisation.Organisation", t => t.OrganisationFKId)
                 .Index(t => t.OrganisationFKId);
-            
+
+
+
+            //Egna tabeller
+            CreateTable(
+                "Adress.AdressTyp",
+                c => new
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    Namn = c.String(nullable: false, maxLength: 255)
+                })
+                .PrimaryKey(t => t.Id);
+
         }
         
         public override void Down()
@@ -240,6 +252,7 @@ namespace ODL.DataAccess.Migrations
             DropForeignKey("Adress.OrganisationAdress", "AdressFKId", "Adress.Adress");
             DropForeignKey("Adress.Mail", "AdressFKId", "Adress.Adress");
             DropForeignKey("Adress.GatuAdress", "AdressFKId", "Adress.Adress");
+            DropForeignKey("Adress.Adress", "AdressVariantFKId", "Adress.AdressVariant");
             DropIndex("Organisation.Resultatenhet", new[] { "OrganisationFKId" });
             DropIndex("Organisation.Organisation", new[] { "IngarIOrganisationFKId" });
             DropIndex("Person.OrganisationAvtal", new[] { "OrganisationFKId" });
@@ -253,6 +266,7 @@ namespace ODL.DataAccess.Migrations
             DropIndex("Adress.OrganisationAdress", new[] { "AdressFKId" });
             DropIndex("Adress.Mail", new[] { "AdressFKId" });
             DropIndex("Adress.GatuAdress", new[] { "AdressFKId" });
+            DropIndex("Adress.Adress", new[] { "AdressVariantFKId" });
             DropTable("Organisation.Resultatenhet");
             DropTable("Organisation.Organisation");
             DropTable("Person.OrganisationAvtal");
@@ -260,12 +274,12 @@ namespace ODL.DataAccess.Migrations
             DropTable("Person.KonsultAvtal");
             DropTable("Person.Person");
             DropTable("Person.AnstalldAvtal");
-            DropTable("Adress.AdressVariant");
             DropTable("Adress.Telefon");
             DropTable("Adress.PersonAdress");
             DropTable("Adress.OrganisationAdress");
             DropTable("Adress.Mail");
             DropTable("Adress.GatuAdress");
+            DropTable("Adress.AdressVariant");
             DropTable("Adress.Adress");
         }
     }
