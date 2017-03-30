@@ -38,6 +38,7 @@ namespace ODL.ApplicationServices.Test
 
 
         [Test]
+        [Category("LongRunning")]
         public void SparaPerson_WhenNew_ThenSaved()
         {
 
