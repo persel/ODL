@@ -6,6 +6,25 @@ using ODL.DomainModel.Adress;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
 
+
+/*
+    Code-First används i detta projekt (utan automatic migrations). Vi har satt upp processen på följande sätt:
+    PM> enable-migrations  -StartUpProjectName ODL.DataAccess 
+    PM> Add-Migration Initial -StartUpProjectName ODL.DataAccess (OBS: "Initial" är bara namnet vi väljer att ge första migreringen)
+    PM> update-database -StartUpProjectName ODL.DataAccess -Verbose 
+
+    SQL
+    PM> update-database -StartUpProjectName ODL.DataAccess -Script
+
+    Sql script initial DB
+    PM>update-Database -Script -SourceMigration: $InitialDatabase
+
+    Se:
+    https://msdn.microsoft.com/en-us/library/jj591621(v=vs.113).aspx 
+    https://msdn.microsoft.com/en-us/library/dn481501(v=vs.113).aspx
+    http://www.itworld.com/article/2700195/development/3-reasons-to-use-code-first-design-with-entity-framework.html
+
+*/
 namespace ODL.DataAccess
 {
 
@@ -56,6 +75,9 @@ namespace ODL.DataAccess
         {
 
             // Person:
+
+
+            modelBuilder.Entity<Person>().Property(p => p.Fornamn).IsRequired().HasMaxLength(255);
 
             modelBuilder.Entity<Person>()
                 .HasMany(e => e.AnstalldAvtal)
@@ -133,9 +155,14 @@ namespace ODL.DataAccess
                 .HasOptional(e => e.Telefon)
                 .WithRequired(e => e.Adress);
 
+            modelBuilder.Entity<AdressVariant>()
+              .HasMany(e => e.Adress)
+              .WithRequired(e => e.AdressVariant).HasForeignKey(k => k.AdressVariantFKId)
+              .WillCascadeOnDelete(false);
+
             //modelBuilder.Entity<AdressTyp>()
             //    .HasMany(e => e.AdressVariant)
-            //    .WithRequired(e => e.AdressTyp)
+            //    .WithRequired(e => e.AdressTypL)
             //    .HasForeignKey(e => e.AdressTypFKId)
             //    .WillCascadeOnDelete(false);
 
