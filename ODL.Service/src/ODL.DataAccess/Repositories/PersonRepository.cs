@@ -36,7 +36,7 @@ namespace ODL.DataAccess.Repositories
         
         public Person GetByPersonnummer(string personnummer)
         {
-            return DbContext.Set<Person>()
+            return DbContext.Person
                 .Include(a => a.AnstalldAvtal)
                 .Include(k => k.KonsultAvtal).SingleOrDefault(person => person.Personnummer == personnummer);
             //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
