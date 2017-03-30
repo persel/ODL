@@ -25,9 +25,8 @@ namespace ODL.DomainModel.Person
         [StringLength(25)]
         public string KallsystemId { get; set; }
 
-        [Required]
-        [StringLength(255)]
         public string Fornamn { get; set; }
+
 
         [StringLength(255)]
         public string Mellannamn { get; set; }
