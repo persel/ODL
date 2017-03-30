@@ -1,8 +1,7 @@
 ﻿//using System.Configuration;
 
-using System.Configuration;
+
 using System.Data.Entity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
