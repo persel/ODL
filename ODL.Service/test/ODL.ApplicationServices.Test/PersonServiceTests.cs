@@ -1,4 +1,8 @@
-﻿using System.Data.Entity;
+﻿//using System.Configuration;
+
+using System.Configuration;
+using System.Data.Entity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
@@ -18,7 +22,17 @@ namespace ODL.ApplicationServices.Test
         public void TransactionTestStart()
         {
             Database.SetInitializer<ODLDbContext>(null);
-            context = new ODLDbContext();
+
+            var testConnection =
+                "Server = ds1ptjsql03; " +
+                "Database = ODL_CI_Test_Only; " +
+                "Trusted_Connection = False; " +
+                "MultipleActiveResultSets = true; " +
+                "Integrated Security = false; " +
+                "User ID = svcUser;" +
+                " Password = abcd1234";
+
+            context = new ODLDbContext(testConnection);
             transaction = context.Database.BeginTransaction();
         }
 
