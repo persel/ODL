@@ -13,7 +13,7 @@ namespace ODL.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201704041011552_Initial"; }
+            get { return "201704041352159_Initial"; }
         }
         
         string IMigrationMetadata.Source

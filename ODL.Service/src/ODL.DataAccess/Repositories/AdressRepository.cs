@@ -36,32 +36,32 @@ namespace ODL.DataAccess.Repositories
 
         public IEnumerable<Adress> GetAdresserPerPersonId(int personId)
         {
-            return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonFKId == personId);
+            return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonId == personId);
         }
 
         public IEnumerable<Adress> GetAdresserPerPersonummer(string personnummer)
         {
             var person = DbContext.Person.Single(p => p.Personnummer == personnummer);
-            return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonFKId == person.Id);
+            return _internalGenericRepository.Find(adress => adress.PersonAdress.PersonId == person.Id);
         }
 
         public IEnumerable<Adress> GetAdresserPerOrganisationsId(int organisationsId)
         {
             return
-                _internalGenericRepository.Find(adress => adress.OrganisationAdress.OrganisationFKId == organisationsId);
+                _internalGenericRepository.Find(adress => adress.OrganisationAdress.OrganisationId == organisationsId);
         }
 
         public Adress GetAdressPerPersonIdAndVariantId(int personId, int variantId)
         {
             return
-                _internalGenericRepository.FindSingle(a => a.PersonAdress.PersonFKId == personId && a.AdressVariantFKId == variantId);
+                _internalGenericRepository.FindSingle(a => a.PersonAdress.PersonId == personId && a.AdressVariantFKId == variantId);
         }
 
         public Adress GetAdressPerOrganisationsIdAndVariantId(int orgId, int variantId)
         {
             return
                 _internalGenericRepository.FindSingle(
-                    a => a.OrganisationAdress.OrganisationFKId == orgId && a.AdressVariantFKId == variantId);
+                    a => a.OrganisationAdress.OrganisationId == orgId && a.AdressVariantFKId == variantId);
         }
 
 
@@ -69,7 +69,7 @@ namespace ODL.DataAccess.Repositories
         {
             return
                 _internalGenericRepository.Find(
-                    a => a.OrganisationAdress.OrganisationFKId == orgId && a.AdressVariantFKId == variantId).ToList();
+                    a => a.OrganisationAdress.OrganisationId == orgId && a.AdressVariantFKId == variantId).ToList();
         }
 
     }

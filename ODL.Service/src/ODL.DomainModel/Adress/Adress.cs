@@ -1,10 +1,10 @@
 using ODL.DomainModel.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ODL.DomainModel.Adress
 {
-    using System.ComponentModel.DataAnnotations.Schema;
+   
 
-    [Table("Adress.Adress")]
     public partial class Adress
     {
         public int Id { get; set; }
@@ -35,42 +35,42 @@ namespace ODL.DomainModel.Adress
         public static Adress NewGatuadress(Person.Person person)
         {
             var adress = new Adress { Gatuadress = new GatuAdress() };
-            adress.PersonAdress = new PersonAdress { PersonFKId = person.Id };
+            adress.PersonAdress = new PersonAdress { PersonId = person.Id };
             return adress;
         }
 
         public static Adress NewEpostAdress(Person.Person person)
         {
             var adress = new Adress{Mail = new Mail()};
-            adress.PersonAdress = new PersonAdress { PersonFKId = person.Id };
+            adress.PersonAdress = new PersonAdress { PersonId = person.Id };
             return adress;
         }
 
         public static Adress NewTelefonAdress(Person.Person person)
         {
             var adress = new Adress { Telefon = new Telefon() };
-            adress.PersonAdress = new PersonAdress { PersonFKId = person.Id };
+            adress.PersonAdress = new PersonAdress { PersonId = person.Id };
             return adress;
         }
 
         public static Adress NewGatuadress(Organisation.Organisation organisation)
         {
             var adress = new Adress { Gatuadress = new GatuAdress() };
-            adress.OrganisationAdress = new OrganisationAdress { OrganisationFKId = organisation.Id };
+            adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
             return adress;
         }
 
         public static Adress NewEpostAdress(Organisation.Organisation organisation)
         {
             var adress = new Adress { Mail = new Mail() };
-            adress.OrganisationAdress = new OrganisationAdress { OrganisationFKId = organisation.Id };
+            adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
             return adress;
         }
 
         public static Adress NewTelefonAdress(Organisation.Organisation organisation)
         {
             var adress = new Adress { Telefon = new Telefon() };
-            adress.OrganisationAdress = new OrganisationAdress { OrganisationFKId = organisation.Id };
+            adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
             return adress;
         }
 

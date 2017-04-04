@@ -36,7 +36,7 @@ namespace ODL.ApplicationServices
             return resultatenheter.Select(enhet =>
                 new ResultatenhetDTO
                 {
-                    Id = enhet.OrganisationFKId,
+                    Id = enhet.OrganisationId,
                     KostnadsstalleNr = enhet.KstNr.ToString(),
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
@@ -54,7 +54,7 @@ namespace ODL.ApplicationServices
             return resultatenheter.Select(enhet =>
                 new ResultatenhetDTO
                 {
-                    Id = enhet.OrganisationFKId,
+                    Id = enhet.OrganisationId,
                     KostnadsstalleNr = enhet.KstNr.ToString(),
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
@@ -69,7 +69,7 @@ namespace ODL.ApplicationServices
             return resultatenheter.Select(enhet =>
                 new ResultatenhetDTO
                 {
-                    Id = enhet.OrganisationFKId,
+                    Id = enhet.OrganisationId,
                     KostnadsstalleNr = enhet.KstNr.ToString(),
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn
@@ -84,7 +84,7 @@ namespace ODL.ApplicationServices
             return resultatenheter.Select(enhet =>
                 new ResultatenhetDTO
                 {
-                    Id = enhet.OrganisationFKId,
+                    Id = enhet.OrganisationId,
                     KostnadsstalleNr = enhet.KstNr.ToString(),
                     Typ = enhet.Typ,
                     Namn = enhet.Organisation.Namn

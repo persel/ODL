@@ -88,21 +88,6 @@ namespace ODL.DataAccess
                 .Property(e => e.ProcentuellFordelning)
                 .HasPrecision(5, 2);
 
-            // Organisation:
-
-            modelBuilder.Entity<Organisation>()
-                .Property(e => e.OrganisationsId)
-                .IsUnicode(false);
-
-          
-            modelBuilder.Entity<GatuAdress>()
-                .Property(e => e.Postnummer)
-                .HasPrecision(18, 0);
-
-            modelBuilder.Entity<Mail>()
-                .Property(e => e.MailAdress)
-                .IsUnicode(false);
-
             MapRelationsobjekt(modelBuilder);
 
 
@@ -112,12 +97,12 @@ namespace ODL.DataAccess
         {
             modelBuilder.Entity<Person>()
                 .HasMany(e => e.AnstalldAvtal)
-                .WithRequired(e => e.Anstalld).HasForeignKey(k => k.PersonFKId)
+                .WithRequired(e => e.Anstalld).HasForeignKey(k => k.PersonId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Person>()
                 .HasMany(e => e.KonsultAvtal)
-                .WithRequired(e => e.Konsult).HasForeignKey(k => k.PersonFKId)
+                .WithRequired(e => e.Konsult).HasForeignKey(k => k.PersonId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder
@@ -141,7 +126,7 @@ namespace ODL.DataAccess
             modelBuilder.Entity<Organisation>()
                .HasMany(e => e.Underliggande)
                .WithOptional(e => e.Overordnad)
-               .HasForeignKey(e => e.IngarIOrganisationFKId);
+               .HasForeignKey(e => e.IngarIOrganisationId);
 
             modelBuilder.Entity<Organisation>()
                 .HasMany(e => e.OrganisationsAvtal)
@@ -155,14 +140,14 @@ namespace ODL.DataAccess
                 .WithRequired(e => e.Organisation);
 
             modelBuilder.Entity<GatuAdress>()
-                .HasKey(t => t.AdressFKId);
+                .HasKey(t => t.AdressId);
 
             modelBuilder.Entity<Adress>()
                 .HasRequired(t => t.Gatuadress)
                 .WithRequiredPrincipal(e => e.Adress);
 
             modelBuilder.Entity<Mail>()
-                .HasKey(t => t.AdressFKId);
+                .HasKey(t => t.AdressId);
 
             modelBuilder.Entity<Adress>()
                 .HasRequired(t => t.Mail)
@@ -170,10 +155,10 @@ namespace ODL.DataAccess
 
 
             modelBuilder.Entity<OrganisationAdress>()
-              .HasKey(t => t.AdressFKId);
+              .HasKey(t => t.AdressId);
 
             modelBuilder.Entity<OrganisationAdress>()
-             .HasKey(t => t.OrganisationFKId);
+             .HasKey(t => t.OrganisationId);
 
             modelBuilder.Entity<Adress>()
                 .HasRequired(t => t.OrganisationAdress)
@@ -184,7 +169,7 @@ namespace ODL.DataAccess
 
 
             //modelBuilder.Entity<PersonAdress>()
-            //    .HasKey(t => t.AdressFKId);
+            //    .HasKey(t => t.AdressId);
 
 
             modelBuilder.Entity<Adress>()
@@ -193,7 +178,7 @@ namespace ODL.DataAccess
 
 
             modelBuilder.Entity<Telefon>()
-            .HasKey(t => t.AdressFKId);
+            .HasKey(t => t.AdressId);
 
             modelBuilder.Entity<Adress>()
                 .HasRequired(t => t.Telefon)
@@ -202,8 +187,6 @@ namespace ODL.DataAccess
          
             modelBuilder.Entity<Adress>()
                 .HasKey(t => t.AdressVariantFKId);
-
-
 
 
         }

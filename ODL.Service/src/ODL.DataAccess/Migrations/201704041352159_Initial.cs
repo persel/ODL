@@ -11,8 +11,8 @@ namespace ODL.DataAccess.Migrations
                 "Adress.Adress",
                 c => new
                     {
-                        AdressVariantFKId = c.Int(nullable: false, identity: true),
-                        Id = c.Int(nullable: false),
+                        AdressVariantFKId = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         UppdateradDatum = c.DateTime(),
                         UppdateradAv = c.String(maxLength: 10),
                         SkapadDatum = c.DateTime(nullable: false),
@@ -77,7 +77,7 @@ namespace ODL.DataAccess.Migrations
                 c => new
                     {
                         AdressFKId = c.Int(nullable: false),
-                        PersonFKId = c.Int(nullable: false),
+                        PersonIdFKId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.AdressFKId)
                 .ForeignKey("Adress.Adress", t => t.AdressFKId)

@@ -30,8 +30,8 @@ namespace ODL.DataAccess.Repositories
         public List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn)
         {
             return DbContext.Person.Where(
-                person => person.AnstalldAvtal.Any(anstallningsavtal => avtalIdn.Contains(anstallningsavtal.AvtalFKId)) ||
-                          person.KonsultAvtal.Any(konsultAvtal => avtalIdn.Contains(konsultAvtal.AvtalFKId))).ToList();
+                person => person.AnstalldAvtal.Any(anstallningsavtal => avtalIdn.Contains(anstallningsavtal.AvtalId)) ||
+                          person.KonsultAvtal.Any(konsultAvtal => avtalIdn.Contains(konsultAvtal.AvtalId))).ToList();
         }
         
         public Person GetByPersonnummer(string personnummer)
