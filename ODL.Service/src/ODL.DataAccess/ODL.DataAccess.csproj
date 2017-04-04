@@ -50,9 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201703270951498_Initial.cs" />
-    <Compile Include="Migrations\201703270951498_Initial.Designer.cs">
-      <DependentUpon>201703270951498_Initial.cs</DependentUpon>
+    <Compile Include="Mappningar\Mappningar.cs" />
+    <Compile Include="Migrations\201704041011552_Initial.cs" />
+    <Compile Include="Migrations\201704041011552_Initial.Designer.cs">
+      <DependentUpon>201704041011552_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ODLDbContextFactory.cs" />
@@ -84,8 +85,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703270951498_Initial.resx">
-      <DependentUpon>201703270951498_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704041011552_Initial.resx">
+      <DependentUpon>201704041011552_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

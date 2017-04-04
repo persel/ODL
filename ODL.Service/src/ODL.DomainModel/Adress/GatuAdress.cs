@@ -7,7 +7,7 @@ namespace ODL.DomainModel.Adress
     public partial class GatuAdress
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] 
         public int AdressFKId { get; set; }
 
         [StringLength(255)]

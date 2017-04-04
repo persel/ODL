@@ -21,22 +21,15 @@ namespace ODL.DomainModel.Person
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(25)]
+        
         public string KallsystemId { get; set; }
 
         public string Fornamn { get; set; }
 
-
-        [StringLength(255)]
         public string Mellannamn { get; set; }
 
-        [Required]
-        [StringLength(255)]
         public string Efternamn { get; set; }
 
-        [Required]
-        [StringLength(12)]
         public string Personnummer { get; set; }
 
         public Metadata Metadata { get; set; }
