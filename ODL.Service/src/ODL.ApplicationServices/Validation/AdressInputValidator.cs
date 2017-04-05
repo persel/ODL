@@ -23,7 +23,7 @@ namespace ODL.ApplicationServices.Validation
             var epostadress = subject.MailInput;
             var telefon = subject.TelefonInput;
 
-            var endastEnAngiven = ((gatuadress != null) ^ (epostadress != null) ^ (telefon != null));
+            var endastEnAngiven = (gatuadress != null) ^ (epostadress != null) ^ (telefon != null);
             if (!endastEnAngiven)
                 allErrors.Add(new ValidationError("Endast en av gatuadress, epostadress eller telefon får anges!"));
 

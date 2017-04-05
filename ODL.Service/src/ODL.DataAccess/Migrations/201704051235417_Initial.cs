@@ -11,16 +11,16 @@ namespace ODL.DataAccess.Migrations
                 "Adress.Adress",
                 c => new
                     {
-                        AdressVariantFKId = c.Int(nullable: false),
                         Id = c.Int(nullable: false, identity: true),
+                        AdressVariantFKId = c.Int(nullable: false),
                         UppdateradDatum = c.DateTime(),
                         UppdateradAv = c.String(maxLength: 10),
                         SkapadDatum = c.DateTime(nullable: false),
                         SkapadAv = c.String(nullable: false, maxLength: 10),
                     })
-                .PrimaryKey(t => t.AdressVariantFKId)
-                .ForeignKey("Adress.AdressVariant", t => t.Id)
-                .Index(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("Adress.AdressVariant", t => t.AdressVariantFKId)
+                .Index(t => t.AdressVariantFKId);
             
             CreateTable(
                 "Adress.AdressVariant",
@@ -37,12 +37,12 @@ namespace ODL.DataAccess.Migrations
                 c => new
                     {
                         AdressFKId = c.Int(nullable: false),
-                        AdressRad1 = c.String(maxLength: 255),
+                        AdressRad1 = c.String(nullable: false, maxLength: 255),
                         AdressRad2 = c.String(maxLength: 255),
                         AdressRad3 = c.String(maxLength: 255),
                         AdressRad4 = c.String(maxLength: 255),
                         AdressRad5 = c.String(maxLength: 255),
-                        Postnummer = c.Decimal(nullable: false, precision: 18, scale: 0, storeType: "numeric"),
+                        Postnummer = c.String(nullable: false, maxLength: 5, fixedLength: true),
                         Stad = c.String(nullable: false, maxLength: 255),
                         Land = c.String(maxLength: 255),
                     })
@@ -65,12 +65,12 @@ namespace ODL.DataAccess.Migrations
                 "Adress.OrganisationAdress",
                 c => new
                     {
-                        OrganisationFKId = c.Int(nullable: false),
                         AdressFKId = c.Int(nullable: false),
+                        OrganisationFKId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.OrganisationFKId)
-                .ForeignKey("Adress.Adress", t => t.OrganisationFKId)
-                .Index(t => t.OrganisationFKId);
+                .PrimaryKey(t => t.AdressFKId)
+                .ForeignKey("Adress.Adress", t => t.AdressFKId)
+                .Index(t => t.AdressFKId);
             
             CreateTable(
                 "Adress.PersonAdress",
@@ -98,13 +98,13 @@ namespace ODL.DataAccess.Migrations
                 "Person.AnstalldAvtal",
                 c => new
                     {
-                        AvtalFKId = c.Int(nullable: false),
+                        AvtalId = c.Int(nullable: false),
                         PersonFKId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.AvtalFKId)
+                .PrimaryKey(t => t.AvtalId)
                 .ForeignKey("Person.Person", t => t.PersonFKId)
-                .ForeignKey("Person.Avtal", t => t.AvtalFKId)
-                .Index(t => t.AvtalFKId)
+                .ForeignKey("Person.Avtal", t => t.AvtalId)
+                .Index(t => t.AvtalId)
                 .Index(t => t.PersonFKId);
             
             CreateTable(
@@ -128,13 +128,13 @@ namespace ODL.DataAccess.Migrations
                 "Person.KonsultAvtal",
                 c => new
                     {
-                        AvtalFKId = c.Int(nullable: false),
+                        AvtalId = c.Int(nullable: false),
                         PersonFKId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.AvtalFKId)
-                .ForeignKey("Person.Avtal", t => t.AvtalFKId)
+                .PrimaryKey(t => t.AvtalId)
+                .ForeignKey("Person.Avtal", t => t.AvtalId)
                 .ForeignKey("Person.Person", t => t.PersonFKId)
-                .Index(t => t.AvtalFKId)
+                .Index(t => t.AvtalId)
                 .Index(t => t.PersonFKId);
             
             CreateTable(
@@ -220,24 +220,14 @@ namespace ODL.DataAccess.Migrations
                 .PrimaryKey(t => t.OrganisationFKId)
                 .ForeignKey("Organisation.Organisation", t => t.OrganisationFKId)
                 .Index(t => t.OrganisationFKId);
-
-            //Egna tabeller
-            CreateTable(
-                "Adress.AdressTyp",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Namn = c.String(nullable: false, maxLength: 255)
-                })
-                .PrimaryKey(t => t.Id);
-
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("Person.AnstalldAvtal", "AvtalFKId", "Person.Avtal");
+            DropForeignKey("Person.AnstalldAvtal", "AvtalId", "Person.Avtal");
             DropForeignKey("Person.KonsultAvtal", "PersonFKId", "Person.Person");
-            DropForeignKey("Person.KonsultAvtal", "AvtalFKId", "Person.Avtal");
+            DropForeignKey("Person.KonsultAvtal", "AvtalId", "Person.Avtal");
             DropForeignKey("Person.OrganisationAvtal", "AvtalFKId", "Person.Avtal");
             DropForeignKey("Organisation.Organisation", "IngarIOrganisationFKId", "Organisation.Organisation");
             DropForeignKey("Organisation.Resultatenhet", "OrganisationFKId", "Organisation.Organisation");
@@ -245,24 +235,24 @@ namespace ODL.DataAccess.Migrations
             DropForeignKey("Person.AnstalldAvtal", "PersonFKId", "Person.Person");
             DropForeignKey("Adress.Telefon", "AdressFKId", "Adress.Adress");
             DropForeignKey("Adress.PersonAdress", "AdressFKId", "Adress.Adress");
-            DropForeignKey("Adress.OrganisationAdress", "OrganisationFKId", "Adress.Adress");
+            DropForeignKey("Adress.OrganisationAdress", "AdressFKId", "Adress.Adress");
             DropForeignKey("Adress.Mail", "AdressFKId", "Adress.Adress");
             DropForeignKey("Adress.GatuAdress", "AdressFKId", "Adress.Adress");
-            DropForeignKey("Adress.Adress", "Id", "Adress.AdressVariant");
+            DropForeignKey("Adress.Adress", "AdressVariantFKId", "Adress.AdressVariant");
             DropIndex("Organisation.Resultatenhet", new[] { "OrganisationFKId" });
             DropIndex("Organisation.Organisation", new[] { "IngarIOrganisationFKId" });
             DropIndex("Person.OrganisationAvtal", new[] { "OrganisationFKId" });
             DropIndex("Person.OrganisationAvtal", new[] { "AvtalFKId" });
             DropIndex("Person.KonsultAvtal", new[] { "PersonFKId" });
-            DropIndex("Person.KonsultAvtal", new[] { "AvtalFKId" });
+            DropIndex("Person.KonsultAvtal", new[] { "AvtalId" });
             DropIndex("Person.AnstalldAvtal", new[] { "PersonFKId" });
-            DropIndex("Person.AnstalldAvtal", new[] { "AvtalFKId" });
+            DropIndex("Person.AnstalldAvtal", new[] { "AvtalId" });
             DropIndex("Adress.Telefon", new[] { "AdressFKId" });
             DropIndex("Adress.PersonAdress", new[] { "AdressFKId" });
-            DropIndex("Adress.OrganisationAdress", new[] { "OrganisationFKId" });
+            DropIndex("Adress.OrganisationAdress", new[] { "AdressFKId" });
             DropIndex("Adress.Mail", new[] { "AdressFKId" });
             DropIndex("Adress.GatuAdress", new[] { "AdressFKId" });
-            DropIndex("Adress.Adress", new[] { "Id" });
+            DropIndex("Adress.Adress", new[] { "AdressVariantFKId" });
             DropTable("Organisation.Resultatenhet");
             DropTable("Organisation.Organisation");
             DropTable("Person.OrganisationAvtal");

@@ -35,7 +35,7 @@ namespace ODL.ApplicationServices
 
             var allaAvtal = allaOrganisationer.SelectMany(org => org.OrganisationsAvtal);
 
-            var allaAvtalId = allaAvtal.Select(avtal => avtal.AvtalFKId).ToArray();
+            var allaAvtalId = allaAvtal.Select(avtal => avtal.AvtalId).ToArray();
             
             var allaPersoner = personRepository.GetByAvtalIdn(allaAvtalId);
 
@@ -158,9 +158,9 @@ namespace ODL.ApplicationServices
                     throw new ArgumentException($"Avtalet kunde inte sparas - angiven resultatenhet med KstNr '{kstnr}' saknas i ODL.");
                 }
 
-                var orgAvtal = avtal.OrganisationAvtal.SingleOrDefault(orgAvt => orgAvt.OrganisationFKId == organisation.Id) ?? new OrganisationAvtal();
+                var orgAvtal = avtal.OrganisationAvtal.SingleOrDefault(orgAvt => orgAvt.OrganisationId == organisation.Id) ?? new OrganisationAvtal();
                 var kstDTO = avtalDTO.Kostnadsstallen.Single(kst => kst.KostnadsstalleNr == organisation.Resultatenhet.KstNr);
-                orgAvtal.OrganisationFKId = organisation.Id; // Bara relevant om den är ny...
+                orgAvtal.OrganisationId = organisation.Id; // Bara relevant om den är ny...
                 orgAvtal.Huvudkostnadsstalle = kstDTO.Huvudkostnadsstalle;
                 orgAvtal.ProcentuellFordelning = kstDTO.ProcentuellFordelning;
 

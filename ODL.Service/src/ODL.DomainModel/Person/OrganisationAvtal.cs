@@ -11,12 +11,12 @@ namespace ODL.DomainModel
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int AvtalFKId { get; set; }
+        public int AvtalId { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int OrganisationFKId { get; set; }
+        public int OrganisationId { get; set; }
 
         public decimal? ProcentuellFordelning { get; set; }
 
@@ -25,6 +25,6 @@ namespace ODL.DomainModel
         public virtual Avtal Avtal { get; set; }
         
         public virtual Organisation.Organisation Organisation { get; set; }
-        public bool IsNew => AvtalFKId == 0;
+        public bool IsNew => AvtalId == 0;
     }
 }

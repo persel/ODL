@@ -10,7 +10,7 @@ namespace ODL.DataAccess.Mappningar
         {
             ToTable("Person.KonsultAvtal");
             HasKey(m => m.AvtalId)
-                .Property(m => m.AvtalId).HasColumnName("AvtalFKId")
+                .Property(m => m.AvtalId).HasColumnName("AvtalId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(m => m.PersonId).HasColumnName("PersonFKId");

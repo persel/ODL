@@ -46,15 +46,23 @@ namespace ODL.ApplicationServices.Validation
 
         internal ValidationRuleBuilder<T> WithinMaxLength(int maxLength)
         {
-            Func<T, bool> rule = x => MaxCheck(PropertySelector.Compile().Invoke(x), maxLength);
+            Func<T, bool> rule = x => MaxLengthCheck(PropertySelector.Compile().Invoke(x), maxLength);
             
             Validator.AddRule(rule, $"Fältet '{SubjectName}.{PropertyName}' får innehålla max {maxLength} tecken.", true);
             return this;
         }
 
+        internal ValidationRuleBuilder<T> ExactLength(int length)
+        {
+            Func<T, bool> rule = x => MaxLengthCheck(PropertySelector.Compile().Invoke(x), length);
+
+            Validator.AddRule(rule, $"Fältet '{SubjectName}.{PropertyName}' måste innehålla exakt {length} tecken.", true);
+            return this;
+        }
+
         internal ValidationRuleBuilder<T> isValidMailAdress()
         {
-            //Func<T, bool> rule = x => MaxCheck(PropertySelector.Compile().Invoke(x), maxLength);
+            //Func<T, bool> rule = x => MaxLengthCheck(PropertySelector.Compile().Invoke(x), maxLength);
             Func<T, bool> rule = m => IsValidEmailAdress(PropertySelector.Compile().Invoke(m));
 
             Validator.AddRule(rule, $"Epostadressen '{SubjectName}.{PropertyName}' har fel format.", true);
@@ -77,9 +85,16 @@ namespace ODL.ApplicationServices.Validation
             return this;
         }
 
-        private bool MaxCheck(string theString, int maxLength)
+        private bool MaxLengthCheck(string theString, int maxLength)
         {
             bool result =  theString == null || theString.Length <= maxLength;
+
+            return result;
+        }
+
+        private bool ExactLengthCheck(string theString, int length)
+        {
+            bool result = theString == null || theString.Length == length;
 
             return result;
         }
@@ -112,5 +127,6 @@ namespace ODL.ApplicationServices.Validation
             //    return false;
             //}
         }
+
     }
 }

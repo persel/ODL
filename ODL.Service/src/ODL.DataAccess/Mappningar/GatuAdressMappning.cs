@@ -15,7 +15,7 @@ namespace ODL.DataAccess.Mappningar
                 .HasColumnName("AdressFKId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(m => m.AdressRad1).HasMaxLength(255);
+            Property(m => m.AdressRad1).IsRequired().HasMaxLength(255);
             Property(m => m.AdressRad2).HasMaxLength(255);
             Property(m => m.AdressRad3).HasMaxLength(255);
             Property(m => m.AdressRad4).HasMaxLength(255);
@@ -23,9 +23,8 @@ namespace ODL.DataAccess.Mappningar
             Property(m => m.Stad).IsRequired().HasMaxLength(255);
             Property(m => m.Land).HasMaxLength(255);
 
-            Property(m => m.Postnummer).HasColumnType("numeric").HasPrecision(18, 0);
-
-          
+            Property(m => m.Postnummer).IsRequired().HasMaxLength(5).IsFixedLength();
+            
         }
     }
 }

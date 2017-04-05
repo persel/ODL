@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ODL.DomainModel.Common
 {
-    [ComplexType]
+    //[ComplexType]
     public class Metadata
     {
         public Metadata(){}

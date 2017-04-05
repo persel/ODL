@@ -1,26 +1,18 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Data.Entity.Migrations.Model;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
 using ODL.DomainModel;
 using ODL.DomainModel.Adress;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
-using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Conventions;
 
 /*
     Code-First används i detta projekt (utan automatic migrations). Vi har satt upp processen på följande sätt:
     PM> enable-migrations  -StartUpProjectName ODL.DataAccess 
     PM> Add-Migration Initial -StartUpProjectName ODL.DataAccess (OBS: "Initial" är bara namnet vi väljer att ge första migreringen)
-    PM> update-database -StartUpProjectName ODL.DataAccess -Verbose 
+    PM> update-database -StartUpProjectName ODL.DataAccess -Verbose (-Script kan anges om man vill ha ut ett script istället)
 
-    SQL
-    PM> update-database -StartUpProjectName ODL.DataAccess -Script
-
-    Sql script initial DB
-    PM>update-Database -Script -SourceMigration: $InitialDatabase
-
+    -SourceMigration: $InitialDatabase anges om man vill generera script från initial db till senaste migreringen.
     Se:
     https://msdn.microsoft.com/en-us/library/jj591621(v=vs.113).aspx 
     https://msdn.microsoft.com/en-us/library/dn481501(v=vs.113).aspx
@@ -35,16 +27,16 @@ namespace ODL.DataAccess
 
         public ODLDbContext() : base("name=ODLDbContext")
         {
-            #if DEBUG
+#if DEBUG
             Database.Log = s => Debug.WriteLine(s);
-            #endif
+#endif
         }
 
         public ODLDbContext(string connString) : base(connString)
         {
-            #if DEBUG
+#if DEBUG
             Database.Log = s => Debug.WriteLine(s);
-            #endif
+#endif
         }
 
         // Person:
@@ -76,25 +68,18 @@ namespace ODL.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-           // modelBuilder.Conventions.Add(new DataTypePropertyAttributeConvention());
+            // modelBuilder.Conventions.Add(new DataTypePropertyAttributeConvention());
 
             modelBuilder.Configurations.AddFromAssembly(typeof(ODLDbContext).Assembly); // Peka ut valfri klass i assembly där mappningarna finns! OBS att denna ska köras före 'strukturella' mappningarna nedan.
 
-  
-
-            modelBuilder.Entity<OrganisationAvtal>()
-                .Property(e => e.ProcentuellFordelning)
-                .HasPrecision(5, 2);
-
-            MapRelationsobjekt(modelBuilder);
+            
 
 
-        }
+            // Person:
 
-        private static void MapRelationsobjekt(DbModelBuilder modelBuilder)
-        {
             modelBuilder.Entity<Person>()
                 .HasMany(e => e.AnstalldAvtal)
                 .WithRequired(e => e.Anstalld).HasForeignKey(k => k.PersonId)
@@ -106,9 +91,9 @@ namespace ODL.DataAccess
                 .WillCascadeOnDelete(false);
 
             modelBuilder
-               .Entity<AnstalldAvtal>()
-               .HasRequired(p => p.Avtal)
-               .WithOptional(p => p.AnstalldAvtal);
+                .Entity<AnstalldAvtal>()
+                .HasRequired(p => p.Avtal)
+                .WithOptional(p => p.AnstalldAvtal);
 
             modelBuilder
                 .Entity<KonsultAvtal>()
@@ -119,19 +104,29 @@ namespace ODL.DataAccess
             modelBuilder.Entity<Avtal>()
                 .HasMany(e => e.OrganisationAvtal)
                 .WithRequired(e => e.Avtal)
-                .HasForeignKey(e => e.AvtalFKId)
+                .HasForeignKey(e => e.AvtalId)
                 .WillCascadeOnDelete(false);
 
 
+            modelBuilder.Entity<OrganisationAvtal>()
+                .Property(e => e.ProcentuellFordelning)
+                .HasPrecision(5, 2);
+
+            // Organisation:
+
             modelBuilder.Entity<Organisation>()
-               .HasMany(e => e.Underliggande)
-               .WithOptional(e => e.Overordnad)
-               .HasForeignKey(e => e.IngarIOrganisationId);
+                .Property(e => e.OrganisationsId)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Organisation>()
+                .HasMany(e => e.Underliggande)
+                .WithOptional(e => e.Overordnad)
+                .HasForeignKey(e => e.IngarIOrganisationId);
 
             modelBuilder.Entity<Organisation>()
                 .HasMany(e => e.OrganisationsAvtal)
                 .WithRequired(e => e.Organisation)// Ta bort denna nav prop!
-                .HasForeignKey(e => e.OrganisationFKId)
+                .HasForeignKey(e => e.OrganisationId)
                 .WillCascadeOnDelete(false);
 
 
@@ -139,54 +134,39 @@ namespace ODL.DataAccess
                 .HasOptional(e => e.Resultatenhet)
                 .WithRequired(e => e.Organisation);
 
-            modelBuilder.Entity<GatuAdress>()
-                .HasKey(t => t.AdressId);
+            // Adress: 
 
             modelBuilder.Entity<Adress>()
-                .HasRequired(t => t.Gatuadress)
-                .WithRequiredPrincipal(e => e.Adress);
-
-            modelBuilder.Entity<Mail>()
-                .HasKey(t => t.AdressId);
+                .HasOptional(e => e.Gatuadress)
+                .WithRequired(e => e.Adress);
 
             modelBuilder.Entity<Adress>()
-                .HasRequired(t => t.Mail)
-                .WithRequiredPrincipal(e => e.Adress);
-
-
-            modelBuilder.Entity<OrganisationAdress>()
-              .HasKey(t => t.AdressId);
-
-            modelBuilder.Entity<OrganisationAdress>()
-             .HasKey(t => t.OrganisationId);
+                .HasOptional(e => e.Mail)
+                .WithRequired(e => e.Adress);
 
             modelBuilder.Entity<Adress>()
-                .HasRequired(t => t.OrganisationAdress)
-                .WithRequiredPrincipal(e => e.Adress);
-
-            //modelBuilder.Entity<Organisation>()
-            //    .HasRequired(t => t.OrganisationsId);
-
-
-            //modelBuilder.Entity<PersonAdress>()
-            //    .HasKey(t => t.AdressId);
-
+                .HasOptional(e => e.OrganisationAdress)
+                .WithRequired(e => e.Adress);
 
             modelBuilder.Entity<Adress>()
-                .HasRequired(t => t.PersonAdress)
-                .WithRequiredPrincipal(e => e.Adress);
-
-
-            modelBuilder.Entity<Telefon>()
-            .HasKey(t => t.AdressId);
+                .HasOptional(e => e.PersonAdress)
+                .WithRequired(e => e.Adress);
 
             modelBuilder.Entity<Adress>()
-                .HasRequired(t => t.Telefon)
-                .WithRequiredPrincipal(e => e.Adress);
+                .HasOptional(e => e.Telefon)
+                .WithRequired(e => e.Adress);
 
-         
-            modelBuilder.Entity<Adress>()
-                .HasKey(t => t.AdressVariantFKId);
+            //modelBuilder.Entity<AdressTyp>()
+            //    .HasMany(e => e.AdressVariant)
+            //    .WithRequired(e => e.AdressTyp)
+            //    .HasForeignKey(e => e.AdressTypFKId)
+            //    .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<AdressVariant>()
+                .HasMany(e => e.Adress)
+                .WithRequired(e => e.AdressVariant)
+                .HasForeignKey(e => e.AdressVariantFKId)
+                .WillCascadeOnDelete(false);
 
 
         }

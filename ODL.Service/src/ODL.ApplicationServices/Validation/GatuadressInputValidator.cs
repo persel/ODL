@@ -12,8 +12,8 @@ namespace ODL.ApplicationServices.Validation
             RuleFor(adress => adress.AdressRad3).WithinMaxLength(255);
             RuleFor(adress => adress.AdressRad4).WithinMaxLength(255);
             RuleFor(adress => adress.AdressRad5).WithinMaxLength(255);
-            AboveZero(adress => adress.Postnummer);
-            RuleFor(adress => adress.Stad).WithinMaxLength(255);
+            RuleFor(adress => adress.Postnummer).NotNullOrWhiteSpace().ExactLength(5);
+            RuleFor(adress => adress.Stad).NotNullOrWhiteSpace().WithinMaxLength(255);
             RuleFor(adress => adress.Land).WithinMaxLength(255);
         }
     }

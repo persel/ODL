@@ -102,7 +102,7 @@ namespace ODL.ApplicationServices
             if (gatuadress != null)
             {
                 if (adress == null)
-                    adress = Adress.NewGatuadress(person);
+                    adress = Adress.NyGatuadress(person);
                 adress.Gatuadress.AdressRad1 = personAdressInput.GatuadressInput.AdressRad1;
                 adress.Gatuadress.AdressRad2 = personAdressInput.GatuadressInput.AdressRad2;
                 adress.Gatuadress.AdressRad3 = personAdressInput.GatuadressInput.AdressRad3;
@@ -115,12 +115,12 @@ namespace ODL.ApplicationServices
             }
             else if (epostadress != null)
             {
-                if (adress == null) adress = Adress.NewEpostAdress(person);
+                if (adress == null) adress = Adress.NyEpostAdress(person);
                 adress.Mail.MailAdress = personAdressInput.MailInput.MailAdress;
             }
             else if (telefon != null)
             {
-                if (adress == null) adress = Adress.NewTelefonAdress(person);
+                if (adress == null) adress = Adress.NyTelefonAdress(person);
                 adress.Telefon.Telefonnummer = personAdressInput.TelefonInput.Telefonnummer;
             }
 
@@ -177,7 +177,7 @@ namespace ODL.ApplicationServices
             
             if (gatuadress != null)
             {
-                if (adress == null) adress = Adress.NewGatuadress(organisation);
+                if (adress == null) adress = Adress.NyGatuadress(organisation);
                 
 
                 adress.Gatuadress.AdressRad1 = organisationAdressInput.GatuadressInput.AdressRad1;
@@ -193,13 +193,13 @@ namespace ODL.ApplicationServices
             else if (epostadress != null)
             {
                 if (adress == null)
-                    adress = Adress.NewEpostAdress(organisation);
+                    adress = Adress.NyEpostAdress(organisation);
                 adress.Mail.MailAdress = organisationAdressInput.MailInput.MailAdress;
             }
             else if (telefon != null)
             {
                 if (adress == null)
-                    adress = Adress.NewTelefonAdress(organisation);
+                    adress = Adress.NyTelefonAdress(organisation);
                 adress.Telefon.Telefonnummer = organisationAdressInput.TelefonInput.Telefonnummer;
             }
 

@@ -1,11 +1,9 @@
 namespace ODL.DomainModel.Adress
 {
-    public partial class PersonAdress
+    public class PersonAdress
     {     
         public int AdressId { get; set; }
-
         public int PersonId { get; set; }
-
         public virtual Adress Adress { get; set; }
     }
 }

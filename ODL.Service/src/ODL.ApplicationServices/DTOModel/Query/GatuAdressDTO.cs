@@ -33,7 +33,7 @@ namespace ODL.ApplicationServices.DTOModel.Query
 
         public string AdressRad5 { get; set; }
 
-        public decimal Postnummer { get; set; }
+        public string Postnummer { get; set; }
 
         public string Stad { get; set; }
 

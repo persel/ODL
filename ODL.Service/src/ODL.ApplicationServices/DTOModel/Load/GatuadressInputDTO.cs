@@ -9,7 +9,7 @@ namespace ODL.ApplicationServices.DTOModel
         public string AdressRad3 { get; set; }
         public string AdressRad4 { get; set; }
         public string AdressRad5 { get; set; }
-        public int Postnummer { get; set; }
+        public string Postnummer { get; set; }
         public string Stad { get; set; }
         public string Land { get; set; }
     }

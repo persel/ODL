@@ -41,7 +41,7 @@ namespace ODL.DomainModel.Organisation
         public virtual ICollection<OrganisationAvtal> OrganisationsAvtal { get; set; }
 
         [NotMapped]
-        public IEnumerable<int> AllaAvtalIdn => OrganisationsAvtal.Select(orgAvtal => orgAvtal.AvtalFKId);
+        public IEnumerable<int> AllaAvtalIdn => OrganisationsAvtal.Select(orgAvtal => orgAvtal.AvtalId);
 
         public virtual Resultatenhet Resultatenhet { get; set; }
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using System.Linq;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.Validation;
 
@@ -113,21 +111,12 @@ namespace ODL.ApplicationServices.Test
                     GatuadressInput = new GatuadressInputDTO
                     {
                       AdressRad1  = "Gatan 2",
-                      AdressRad2 = "",
-                      AdressRad3 = "",
-                      AdressRad4 = "",
-                      AdressRad5 = "",
-                      Postnummer = 0,
                       Stad = "Knivsta",
                       Land = "USA"
                     },
                     MailInput = null,
                     TelefonInput = null,
-                    SystemId = null,
-                    UppdateradDatum = "2017-01-20",
-                    UppdateradAv = "MAH",
-                    SkapadDatum = "2017 - 01 - 20 12:00",
-                    SkapadAv = "MAH"
+                    SystemId = null
                 };
                 personAdress = personGatuadress;
             }
@@ -140,11 +129,7 @@ namespace ODL.ApplicationServices.Test
                     GatuadressInput = null,
                     MailInput = new MailInputDTO { MailAdress = "eva.ek@home..se"},
                     TelefonInput = null,
-                    SystemId = null,
-                    UppdateradDatum = "2017-01-20",
-                    UppdateradAv = "MAH",
-                    SkapadDatum = "2017 - 01 - 20 12:00",
-                    SkapadAv = "MAH"
+                    SystemId = null
                 };
                 personAdress = personEpostadress;
             }
@@ -157,11 +142,7 @@ namespace ODL.ApplicationServices.Test
                     GatuadressInput = null,
                     MailInput = null,
                     TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
-                    SystemId = null,
-                    UppdateradDatum = "2017-01-20",
-                    UppdateradAv = "MAH",
-                    SkapadDatum = "2017 - 01 - 20 12:00",
-                    SkapadAv = "MAH"
+                    SystemId = null
                 };
                 personAdress =  personTelefon;
             }
@@ -180,21 +161,12 @@ namespace ODL.ApplicationServices.Test
                     GatuadressInput = new GatuadressInputDTO
                     {
                         AdressRad1 = "Gatan 2",
-                        AdressRad2 = "",
-                        AdressRad3 = "",
-                        AdressRad4 = "",
-                        AdressRad5 = "",
-                        Postnummer = 0,
                         Stad = "Knivsta",
                         Land = "USA"
                     },
                     MailInput = null,
                     TelefonInput = null,
-                    SystemId = null,
-                    UppdateradDatum = "2017-01-20",
-                    UppdateradAv = "MAH",
-                    SkapadDatum = "2017 - 01 - 20 12:00",
-                    SkapadAv = "MAH"
+                    SystemId = null
                 };
                 organisationAdress = organisationGatuadress;
             }
@@ -207,11 +179,7 @@ namespace ODL.ApplicationServices.Test
                     GatuadressInput = null,
                     MailInput = new MailInputDTO { MailAdress = "tandis@home..se" },
                     TelefonInput = null,
-                    SystemId = null,
-                    UppdateradDatum = "2017-01-20",
-                    UppdateradAv = "MAH",
-                    SkapadDatum = "2017 - 01 - 20 12:00",
-                    SkapadAv = "MAH"
+                    SystemId = null
                 };
                 organisationAdress = organisationEpostadress;
             }
@@ -224,11 +192,7 @@ namespace ODL.ApplicationServices.Test
                     GatuadressInput = null,
                     MailInput = null,
                     TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
-                    SystemId = null,
-                    UppdateradDatum = "2017-01-20",
-                    UppdateradAv = "MAH",
-                    SkapadDatum = "2017 - 01 - 20 12:00",
-                    SkapadAv = "MAH"
+                    SystemId = null
                 };
                 organisationAdress = organisationTelefon;
             }

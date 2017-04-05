@@ -32,42 +32,42 @@ namespace ODL.DomainModel.Adress
         [NotMapped]
         public bool IsNew => Id == 0;
 
-        public static Adress NewGatuadress(Person.Person person)
+        public static Adress NyGatuadress(Person.Person person)
         {
             var adress = new Adress { Gatuadress = new GatuAdress() };
             adress.PersonAdress = new PersonAdress { PersonId = person.Id };
             return adress;
         }
 
-        public static Adress NewEpostAdress(Person.Person person)
+        public static Adress NyEpostAdress(Person.Person person)
         {
             var adress = new Adress{Mail = new Mail()};
             adress.PersonAdress = new PersonAdress { PersonId = person.Id };
             return adress;
         }
 
-        public static Adress NewTelefonAdress(Person.Person person)
+        public static Adress NyTelefonAdress(Person.Person person)
         {
             var adress = new Adress { Telefon = new Telefon() };
             adress.PersonAdress = new PersonAdress { PersonId = person.Id };
             return adress;
         }
 
-        public static Adress NewGatuadress(Organisation.Organisation organisation)
+        public static Adress NyGatuadress(Organisation.Organisation organisation)
         {
             var adress = new Adress { Gatuadress = new GatuAdress() };
             adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
             return adress;
         }
 
-        public static Adress NewEpostAdress(Organisation.Organisation organisation)
+        public static Adress NyEpostAdress(Organisation.Organisation organisation)
         {
             var adress = new Adress { Mail = new Mail() };
             adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
             return adress;
         }
 
-        public static Adress NewTelefonAdress(Organisation.Organisation organisation)
+        public static Adress NyTelefonAdress(Organisation.Organisation organisation)
         {
             var adress = new Adress { Telefon = new Telefon() };
             adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
