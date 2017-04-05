@@ -20,31 +20,8 @@ namespace ODL.ApplicationServices.Test.Mock
         private Mock<ILogger<PersonService>> loggerMock;
         private PersonService service;
 
-        [SetUp]
-        public void Initiera()
-        {
-            person = new PersonInputDTO
-            {
-                SystemId = "435345",
-                Fornamn = "Anna",
-                Efternamn = "Nilsson",
-                Personnummer = "198002254543",
-                SkapadAv = "MEH",
-                SkapadDatum = "2005-01-02 12:00",
-                UppdateradAv = "MEH",
-                UppdateradDatum = "2017-02-01 12:00"
-            };
-
-            personRepositoryMock = new Mock<IPersonRepository>();
-            organisationRepositoryMock = new Mock<IOrganisationRepository>();
-            avtalRepositoryMock = new Mock<IAvtalRepository>();
-            loggerMock = new Mock<ILogger<PersonService>>();
-            service = new PersonService(personRepositoryMock.Object, organisationRepositoryMock.Object, avtalRepositoryMock.Object, loggerMock.Object);
-    }
-
-
         [Test]
-        public void SparaPerson_WhenNew_ThenSaved()
+        public void SparaPerson_WhenNew_ThenAdded()
         {
             service.SparaPerson(person);
             personRepositoryMock.Verify(m => m.Add(It.IsAny<Person>()));
@@ -54,7 +31,7 @@ namespace ODL.ApplicationServices.Test.Mock
         [Test]
         public void SparaPerson_WhenExisting_ThenUpdated()
         {
-            personRepositoryMock.Setup(m => m.GetByPersonnummer(It.IsAny<string>())).Returns(new Person {Id = 1});
+            personRepositoryMock.Setup(m => m.GetByPersonnummer(It.IsAny<string>())).Returns(new Person {Id = 1}); // Mocka en existerande person, så fi får Update istället för Add.
             
             service.SparaPerson(person);
             personRepositoryMock.Verify(m => m.Update());
@@ -95,6 +72,27 @@ namespace ODL.ApplicationServices.Test.Mock
             
         }
 
+        [SetUp]
+        public void Initiera()
+        {
+            person = new PersonInputDTO
+            {
+                SystemId = "435345",
+                Fornamn = "Anna",
+                Efternamn = "Nilsson",
+                Personnummer = "198002254543",
+                SkapadAv = "MEH",
+                SkapadDatum = "2005-01-02 12:00",
+                UppdateradAv = "MEH",
+                UppdateradDatum = "2017-02-01 12:00"
+            };
+
+            personRepositoryMock = new Mock<IPersonRepository>();
+            organisationRepositoryMock = new Mock<IOrganisationRepository>();
+            avtalRepositoryMock = new Mock<IAvtalRepository>();
+            loggerMock = new Mock<ILogger<PersonService>>();
+            service = new PersonService(personRepositoryMock.Object, organisationRepositoryMock.Object, avtalRepositoryMock.Object, loggerMock.Object);
+        }
 
         /// <summary>
         ///     En liten hjälpmetod för att hjälpa till att verifiera fel och felmeddelanden.
