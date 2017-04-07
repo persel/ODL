@@ -19,8 +19,8 @@ namespace ODL.ApplicationServices.Test
                 SystemId = "123456",
                 Kostnadsstallen = new List<OrganisationAvtalInputDTO>
                 {
-                    new OrganisationAvtalInputDTO {Huvudkostnadsstalle = true, KostnadsstalleNr = 2424, ProcentuellFordelning = 50},
-                    new OrganisationAvtalInputDTO {Huvudkostnadsstalle = false, KostnadsstalleNr = 2454, ProcentuellFordelning = 50}
+                    new OrganisationAvtalInputDTO {Huvudkostnadsstalle = true, KostnadsstalleNr = "2424", ProcentuellFordelning = 50},
+                    new OrganisationAvtalInputDTO {Huvudkostnadsstalle = false, KostnadsstalleNr = "2454", ProcentuellFordelning = 50}
                 },
                 AnstalldPersonnummer = "32452",
                 KonsultPersonnummer = "98563", // Ska ej kunna tillhöra både en konsult och en anställd!

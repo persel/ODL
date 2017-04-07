@@ -8,7 +8,7 @@ namespace ODL.ApplicationServices.Validation
 
         public OrganisationAdressInputValidator()
         {
-            AboveZero(resEnhet => resEnhet.KostnadsstalleNr);
+            RuleFor(resEnhet => resEnhet.KostnadsstalleNr).NotNullOrWhiteSpace();
 
         }
     }

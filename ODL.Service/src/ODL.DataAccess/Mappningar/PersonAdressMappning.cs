@@ -14,7 +14,7 @@ namespace ODL.DataAccess.Mappningar
                 .HasColumnName("AdressFKId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(m => m.PersonId).HasColumnName("PersonIdFKId");
+            Property(m => m.PersonId).HasColumnName("PersonFKId");
         }
     }
 }

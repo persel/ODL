@@ -3,6 +3,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
 using ODL.DomainModel;
 using ODL.DomainModel.Adress;
+using ODL.DomainModel.Common;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
 
@@ -42,132 +43,30 @@ namespace ODL.DataAccess
         // Person:
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Avtal> Avtal { get; set; }
-        public virtual DbSet<AnstalldAvtal> AnstallningsAvtal { get; set; }
-        public virtual DbSet<KonsultAvtal> KonsultAvtal { get; set; }
-        public virtual DbSet<OrganisationAvtal> OrganisationAvtal { get; set; }
-
-
-        // Organisation:
-
+        //public virtual DbSet<AnstalldAvtal> AnstallningsAvtal { get; set; }
+        //public virtual DbSet<KonsultAvtal> KonsultAvtal { get; set; }
+        //public virtual DbSet<OrganisationAvtal> OrganisationAvtal { get; set; }
+        
         public virtual DbSet<Organisation> Organisation { get; set; }
-        public virtual DbSet<Resultatenhet> Resultatenhet { get; set; }
-
-        // Adress:
-
+        //public virtual DbSet<Resultatenhet> Resultatenhet { get; set; }
+        
         public virtual DbSet<Adress> Adress { get; set; }
-        //public virtual DbSet<AdressTyp> AdressTyp { get; set; }
         public virtual DbSet<AdressVariant> AdressVariant { get; set; }
-        public virtual DbSet<GatuAdress> GatuAdress { get; set; }
-        public virtual DbSet<Mail> Mail { get; set; }
-        public virtual DbSet<OrganisationAdress> OrganisationAdress { get; set; }
-        public virtual DbSet<PersonAdress> PersonAdress { get; set; }
-        public virtual DbSet<Telefon> Telefon { get; set; }
+        //public virtual DbSet<GatuAdress> GatuAdress { get; set; }
+        //public virtual DbSet<Mail> Mail { get; set; }
+        //public virtual DbSet<OrganisationAdress> OrganisationAdress { get; set; }
+        //public virtual DbSet<PersonAdress> PersonAdress { get; set; }
+        //public virtual DbSet<Telefon> Telefon { get; set; }
 
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
-
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             // modelBuilder.Conventions.Add(new DataTypePropertyAttributeConvention());
 
             modelBuilder.Configurations.AddFromAssembly(typeof(ODLDbContext).Assembly); // Peka ut valfri klass i assembly där mappningarna finns! OBS att denna ska köras före 'strukturella' mappningarna nedan.
-
-            
-
-
-            // Person:
-
-            modelBuilder.Entity<Person>()
-                .HasMany(e => e.AnstalldAvtal)
-                .WithRequired(e => e.Anstalld).HasForeignKey(k => k.PersonId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Person>()
-                .HasMany(e => e.KonsultAvtal)
-                .WithRequired(e => e.Konsult).HasForeignKey(k => k.PersonId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder
-                .Entity<AnstalldAvtal>()
-                .HasRequired(p => p.Avtal)
-                .WithOptional(p => p.AnstalldAvtal);
-
-            modelBuilder
-                .Entity<KonsultAvtal>()
-                .HasRequired(p => p.Avtal)
-                .WithOptional(p => p.KonsultAvtal);
-
-
-            modelBuilder.Entity<Avtal>()
-                .HasMany(e => e.OrganisationAvtal)
-                .WithRequired(e => e.Avtal)
-                .HasForeignKey(e => e.AvtalId)
-                .WillCascadeOnDelete(false);
-
-
-            modelBuilder.Entity<OrganisationAvtal>()
-                .Property(e => e.ProcentuellFordelning)
-                .HasPrecision(5, 2);
-
-            // Organisation:
-
-            modelBuilder.Entity<Organisation>()
-                .Property(e => e.OrganisationsId)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Organisation>()
-                .HasMany(e => e.Underliggande)
-                .WithOptional(e => e.Overordnad)
-                .HasForeignKey(e => e.IngarIOrganisationId);
-
-            modelBuilder.Entity<Organisation>()
-                .HasMany(e => e.OrganisationsAvtal)
-                .WithRequired(e => e.Organisation)// Ta bort denna nav prop!
-                .HasForeignKey(e => e.OrganisationId)
-                .WillCascadeOnDelete(false);
-
-
-            modelBuilder.Entity<Organisation>()
-                .HasOptional(e => e.Resultatenhet)
-                .WithRequired(e => e.Organisation);
-
-            // Adress: 
-
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.Gatuadress)
-                .WithRequired(e => e.Adress);
-
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.Mail)
-                .WithRequired(e => e.Adress);
-
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.OrganisationAdress)
-                .WithRequired(e => e.Adress);
-
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.PersonAdress)
-                .WithRequired(e => e.Adress);
-
-            modelBuilder.Entity<Adress>()
-                .HasOptional(e => e.Telefon)
-                .WithRequired(e => e.Adress);
-
-            //modelBuilder.Entity<AdressTyp>()
-            //    .HasMany(e => e.AdressVariant)
-            //    .WithRequired(e => e.AdressTyp)
-            //    .HasForeignKey(e => e.AdressTypFKId)
-            //    .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<AdressVariant>()
-                .HasMany(e => e.Adress)
-                .WithRequired(e => e.AdressVariant)
-                .HasForeignKey(e => e.AdressVariantFKId)
-                .WillCascadeOnDelete(false);
-
 
         }
     }

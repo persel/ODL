@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using ODL.DomainModel.Common;
 
 namespace ODL.DomainModel.Person
 {
-    public partial class Avtal
+    public class Avtal
     {
         
         public Avtal()
@@ -73,9 +69,6 @@ namespace ODL.DomainModel.Person
         public virtual AnstalldAvtal AnstalldAvtal { get; set; }
 
         public virtual KonsultAvtal KonsultAvtal { get; set; }
-
-        // TODO: Avtal har en lista av OrganisationAvtal - inte helt optimalt eftersom Organisation har samma lista och 
-        // man därigenom kan uppdatera samma tabeller via två olika aggregat (Avtal och Organisation), vilket kan ge concurrency issues etc.
 
         public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; set; }
 

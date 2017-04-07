@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using ODL.DomainModel.Organisation;
@@ -26,23 +27,28 @@ namespace ODL.DataAccess.Repositories
 
         public IList<Organisation> GetByAvtalIdn(IEnumerable<int> avtalIdn)
         {
-            return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
-                    avtal => avtalIdn.Contains(avtal.AvtalId))).ToList();
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
+
+            //return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
+            //        avtal => avtalIdn.Contains(avtal.AvtalId))).ToList();
         }
 
         public IList<Organisation> GetWhereAnsvarigByAvtalIdn(IEnumerable<int> avtalIdn)
         {
-            var avtalAnsvarig = DbContext.Avtal.Where(a => a.Ansvarig == true && avtalIdn.Contains(a.Id));
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
 
-            var avtalAnsvarigIdn = avtalAnsvarig.Select(avtal => avtal.Id);
+            //var avtalAnsvarig = DbContext.Avtal.Where(a => a.Ansvarig == true && avtalIdn.Contains(a.Id));
 
-            return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
-                    avtal => avtalAnsvarigIdn.Contains(avtal.AvtalId))).ToList();
+            //var avtalAnsvarigIdn = avtalAnsvarig.Select(avtal => avtal.Id);
+
+            //return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
+            //        avtal => avtalAnsvarigIdn.Contains(avtal.AvtalId))).ToList();
         }
 
-        public IList<Organisation> GetByKstNr(List<int> kostnadsstalleNr)
+        public IList<Organisation> GetByKstNr(List<string> kstNrList)
         {
-            return DbContext.Organisation.Where(organisation => kostnadsstalleNr.Contains(organisation.Resultatenhet.KstNr)).ToList();
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
+            //return DbContext.Organisation.Where(organisation => kostnadsstalleNr.Contains(organisation.Resultatenhet.KstNr)).ToList();
         }
 
         public IList<Organisation> GetAll()
@@ -61,15 +67,15 @@ namespace ODL.DataAccess.Repositories
             _internalGenericRepository.Add(nyOrganisation);
         }
 
-        public Organisation GetOrganisationByKstnr(int kstnr)
+        public Organisation GetOrganisationByKstnr(string kstnr)
         {
             return _internalGenericRepository.FindSingle(org => org.Resultatenhet.KstNr == kstnr);
         }
 
-        public List<Organisation> GetOrganisationerByKstnr(IEnumerable<int> kstnrList)
+        public List<Organisation> GetOrganisationerByKstnr(IEnumerable<string> kstNrList)
         {
             // TODO: Om vi bara har ett kstnr borde man inte behöva köra Contains...
-            return _internalGenericRepository.Find(org => kstnrList.Contains(org.Resultatenhet.KstNr)).ToList();
+            return _internalGenericRepository.Find(org => kstNrList.Contains(org.Resultatenhet.KstNr)).ToList();
         }
     }
 }

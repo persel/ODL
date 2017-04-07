@@ -12,9 +12,9 @@ namespace ODL.DataAccess.Mappningar
             HasKey(m => m.OrganisationId)
                 .Property(m => m.OrganisationId).HasColumnName("OrganisationFKId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
             
-            Property(m => m.Typ).HasMaxLength(10);
+            Property(m => m.KstNr).HasMaxLength(6).IsUnicode(false);
+            Property(m => m.Typ).HasMaxLength(10).IsUnicode(false);
 
         }
     }

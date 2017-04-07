@@ -14,7 +14,7 @@ namespace ODL.DataAccess.Mappningar
                 .HasColumnName("AdressFKId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(m => m.Telefonnummer).IsRequired().HasMaxLength(25);
+            Property(m => m.Telefonnummer).IsRequired().HasMaxLength(25).IsUnicode(false);
         }
     }
 }

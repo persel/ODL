@@ -16,7 +16,7 @@ namespace ODL.ApplicationServices.DTOModel.Load
         
         public Metadata GetMetadata()
         {
-            return new Metadata(UppdateradDatum.ToDateTime(), UppdateradAv, SkapadDatum.ToDateTime().Value, SkapadAv); // TODO: Överväg att bara använda nullable DateTime.
+            return new Metadata(UppdateradDatum.ToDateTime(), UppdateradAv, SkapadDatum.ToDateTime(), SkapadAv);
         }
     }
 }

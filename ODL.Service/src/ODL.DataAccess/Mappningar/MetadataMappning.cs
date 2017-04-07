@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using ODL.DomainModel.Adress;
 using ODL.DomainModel.Common;
 
 namespace ODL.DataAccess.Mappningar
@@ -9,31 +7,10 @@ namespace ODL.DataAccess.Mappningar
     {
         public MetadataMappning()
         {
+            Property(m => m.UppdateradDatum).HasColumnName("UppdateradDatum");
+            Property(m => m.UppdateradAv).HasMaxLength(10).HasColumnName("UppdateradAv").IsUnicode(false);
+            Property(m => m.SkapadDatum).IsRequired().HasColumnName("SkapadDatum");
+            Property(m => m.SkapadAv).IsRequired().HasMaxLength(10).HasColumnName("SkapadAv").IsUnicode(false);
         }
-
-
-
-
-        // [ComplexType]
-
-        /*
-                 [Column("UppdateradDatum")]
-        public DateTime? UppdateradDatum { get; set; }
-        
-        [StringLength(10)]
-        [Column("UppdateradAv")]
-        public string UppdateradAv { get; set; }
-
-        [Column("SkapadDatum")]
-        public DateTime SkapadDatum { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        [Column("SkapadAv")]
-        public string SkapadAv { get; set; }*/
-
-
-
-
     }
 }

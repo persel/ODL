@@ -21,9 +21,9 @@ namespace ODL.DataAccess.Mappningar
             Property(m => m.AdressRad4).HasMaxLength(255);
             Property(m => m.AdressRad5).HasMaxLength(255);
             Property(m => m.Stad).IsRequired().HasMaxLength(255);
-            Property(m => m.Land).HasMaxLength(255);
+            Property(m => m.Land).HasMaxLength(255).IsUnicode(false);
 
-            Property(m => m.Postnummer).IsRequired().HasMaxLength(5).IsFixedLength();
+            Property(m => m.Postnummer).IsRequired().HasMaxLength(5).IsFixedLength().IsUnicode(false);
             
         }
     }

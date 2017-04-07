@@ -33,14 +33,14 @@ namespace ODL.ApplicationServices
            return adressRepository.GetByAdressId(adressId);
         }
 
-        public IEnumerable<AdressDTO> GetAdresserPerKostnadsstalleNr(int kstnr)
+        public IEnumerable<AdressDTO> GetAdresserPerKostnadsstalleNr(string kstNr)
         {
-            var organisation = organisationRepository.GetOrganisationByKstnr(kstnr);
+            var organisation = organisationRepository.GetOrganisationByKstnr(kstNr);
             var adresser = adressRepository.GetAdresserPerOrganisationsId(organisation.Id);
 
-            return adresser.Select(enhet => new AdressDTO()
+            return adresser.Select(enhet => new AdressDTO
             {
-                Id = enhet.AdressVariantFKId,
+                Id = enhet.AdressVariant.Id,
                 GatuAdress = GatuAdressDTO.FromGatuadress(enhet.Gatuadress),
                 Mail = MailDTO.FromMail(enhet.Mail),
                 Telefon = TelefonDTO.Fromtelefon(enhet.Telefon)
@@ -55,7 +55,7 @@ namespace ODL.ApplicationServices
             return adresser.Select(enhet =>
                  new AdressDTO()
                  {
-                     Id = enhet.AdressVariantFKId,
+                     Id = enhet.AdressVariant.Id,
                      GatuAdress = GatuAdressDTO.FromGatuadress(enhet.Gatuadress),
                      Mail = MailDTO.FromMail(enhet.Mail),
                      Telefon = TelefonDTO.Fromtelefon(enhet.Telefon)
@@ -133,11 +133,7 @@ namespace ODL.ApplicationServices
             }
             else
                 adressRepository.Update();
-
         }
-
-
-    
 
         public void SparaOrganisationAdress(OrganisationAdressInputDTO organisationAdressInput)
         {
@@ -156,13 +152,10 @@ namespace ODL.ApplicationServices
                     logger.LogError(fel.Message);
                 throw new ArgumentException($"Valideringsfel inträffade vid validering av adress för organisation med Id: {organisationAdressInput.KostnadsstalleNr}.");
             }
-
             
             var organisation = organisationRepository.GetOrganisationByKstnr(organisationAdressInput.KostnadsstalleNr);
-
-           
+            
             var variant = adressVariantRepository.GetVariantByVariantName(organisationAdressInput.AdressVariant);
-
             
             if (organisation == null)
             {

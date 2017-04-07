@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using ODL.DomainModel.Person;
@@ -22,24 +23,25 @@ namespace ODL.DataAccess.Repositories
 
         public IEnumerable<int> GetAllaAvtalIdnPerPerson(string personnummer)
         {
-            var person = _internalGenericRepository.FindSingle(p => p.Personnummer == personnummer);
-            var allaAvtalIdn = person.AllaAvtalIdn();
-            return allaAvtalIdn;
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
+
+            //var person = _internalGenericRepository.FindSingle(p => p.Personnummer == personnummer);
+            //var allaAvtalIdn = person.AllaAvtalIdn();
+            //return allaAvtalIdn;
         }
 
         public List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn)
         {
-            return DbContext.Person.Where(
-                person => person.AnstalldAvtal.Any(anstallningsavtal => avtalIdn.Contains(anstallningsavtal.AvtalId)) ||
-                          person.KonsultAvtal.Any(konsultAvtal => avtalIdn.Contains(konsultAvtal.AvtalId))).ToList();
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
+
+            //return DbContext.Person.Where(
+            //    person => person.AnstalldAvtal.Any(anstallningsavtal => avtalIdn.Contains(anstallningsavtal.AvtalId)) ||
+            //              person.KonsultAvtal.Any(konsultAvtal => avtalIdn.Contains(konsultAvtal.AvtalId))).ToList();
         }
         
         public Person GetByPersonnummer(string personnummer)
         {
-            return DbContext.Person
-                .Include(a => a.AnstalldAvtal)
-                .Include(k => k.KonsultAvtal).SingleOrDefault(person => person.Personnummer == personnummer);
-            //return _internalGenericRepository.FindSingle(person => person.Personnummer == personnummer);
+            return DbContext.Person.SingleOrDefault(person => person.Personnummer == personnummer);
         }
 
         public void Update()

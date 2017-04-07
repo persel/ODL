@@ -28,37 +28,41 @@ namespace ODL.ApplicationServices
 
         public IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer)
         {
-            var person = personRepository.GetByPersonnummer(personnummer);
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
 
-            var organisationer = organisationRepository.GetByAvtalIdn(person.AllaAvtalIdn());
-            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+            //var person = personRepository.GetByPersonnummer(personnummer);
 
-            return resultatenheter.Select(enhet =>
-                new ResultatenhetDTO
-                {
-                    Id = enhet.OrganisationId,
-                    KostnadsstalleNr = enhet.KstNr.ToString(),
-                    Typ = enhet.Typ,
-                    Namn = enhet.Organisation.Namn
-                });
+            //var organisationer = organisationRepository.GetByAvtalIdn(person.AllaAvtalIdn());
+            //var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+
+            //return resultatenheter.Select(enhet =>
+            //    new ResultatenhetDTO
+            //    {
+            //        Id = enhet.OrganisationId,
+            //        KostnadsstalleNr = enhet.KstNr.ToString(),
+            //        Typ = enhet.Typ,
+            //        Namn = enhet.Organisation.Namn
+            //    });
         }
 
 
         public IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer)
         {
-            var person = personRepository.GetByPersonnummer(personnummer);
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
 
-            var organisationer = organisationRepository.GetWhereAnsvarigByAvtalIdn(person.AllaAvtalIdn());
-            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+            //var person = personRepository.GetByPersonnummer(personnummer);
 
-            return resultatenheter.Select(enhet =>
-                new ResultatenhetDTO
-                {
-                    Id = enhet.OrganisationId,
-                    KostnadsstalleNr = enhet.KstNr.ToString(),
-                    Typ = enhet.Typ,
-                    Namn = enhet.Organisation.Namn
-                });
+            //var organisationer = organisationRepository.GetWhereAnsvarigByAvtalIdn(person.AllaAvtalIdn());
+            //var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+
+            //return resultatenheter.Select(enhet =>
+            //    new ResultatenhetDTO
+            //    {
+            //        Id = enhet.OrganisationId,
+            //        KostnadsstalleNr = enhet.KstNr.ToString(),
+            //        Typ = enhet.Typ,
+            //        Namn = enhet.Organisation.Namn
+            //    });
         }
 
         public IEnumerable<ResultatenhetDTO> GetResultatenheter()
@@ -78,17 +82,19 @@ namespace ODL.ApplicationServices
 
         public IEnumerable<ResultatenhetDTO> GetResultatenheterByKstNr(List<int> kostnadsstalleNr)
         {
-            var organisationer = organisationRepository.GetByKstNr(kostnadsstalleNr);
-            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
 
-            return resultatenheter.Select(enhet =>
-                new ResultatenhetDTO
-                {
-                    Id = enhet.OrganisationId,
-                    KostnadsstalleNr = enhet.KstNr.ToString(),
-                    Typ = enhet.Typ,
-                    Namn = enhet.Organisation.Namn
-                });
+            //var organisationer = organisationRepository.GetByKstNr(kostnadsstalleNr);
+            //var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+
+            //return resultatenheter.Select(enhet =>
+            //    new ResultatenhetDTO
+            //    {
+            //        Id = enhet.OrganisationId,
+            //        KostnadsstalleNr = enhet.KstNr.ToString(),
+            //        Typ = enhet.Typ,
+            //        Namn = enhet.Organisation.Namn
+            //    });
         }
 
         public void SparaResultatenhet(ResultatenhetInputDTO resEnhetInputDTO)
@@ -112,7 +118,6 @@ namespace ODL.ApplicationServices
             var resultatenhet = organisation.Resultatenhet;
             resultatenhet.Typ = resEnhetInputDTO.Typ;
             resultatenhet.KstNr = resEnhetInputDTO.KostnadsstalleNr;
-            resultatenhet.Metadata = resEnhetInputDTO.GetMetadata();
 
             if (resultatenhet.IsNew)
                 organisationRepository.Add(organisation);

@@ -1,20 +1,14 @@
 using ODL.DomainModel.Common;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ODL.DomainModel.Adress
 {
-   
-
-    public partial class Adress
+    public class Adress
     {
         public int Id { get; set; }
 
-       
-        public int AdressVariantFKId { get; set; }
 
         public Metadata Metadata { get; set; }
-
-   
+        
         public virtual AdressVariant AdressVariant { get; set; }
 
         public virtual GatuAdress Gatuadress { get; set; }
@@ -27,9 +21,6 @@ namespace ODL.DomainModel.Adress
 
         public virtual PersonAdress PersonAdress { get; set; }
 
-        
-
-        [NotMapped]
         public bool IsNew => Id == 0;
 
         public static Adress NyGatuadress(Person.Person person)
@@ -76,7 +67,7 @@ namespace ODL.DomainModel.Adress
 
         public void SetVariant(AdressVariant variant)
         {
-            AdressVariantFKId = variant.Id;
+            AdressVariant = variant;
         }
     }
 }

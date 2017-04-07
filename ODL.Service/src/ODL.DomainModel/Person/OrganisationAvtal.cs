@@ -6,7 +6,7 @@ namespace ODL.DomainModel
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Person.OrganisationAvtal")]
-    public partial class OrganisationAvtal
+    public class OrganisationAvtal
     {
         [Key]
         [Column(Order = 0)]
@@ -24,7 +24,6 @@ namespace ODL.DomainModel
 
         public virtual Avtal Avtal { get; set; }
         
-        public virtual Organisation.Organisation Organisation { get; set; }
         public bool IsNew => AvtalId == 0;
     }
 }

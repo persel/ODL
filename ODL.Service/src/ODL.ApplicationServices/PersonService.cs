@@ -29,31 +29,33 @@ namespace ODL.ApplicationServices
 
         public List<PersonDTO> GetByResultatenhetId(int id)
         {
-            var resultatenhet = organisationRepository.GetOrganisationByKstnr(id).Resultatenhet;
+            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
 
-            var allaOrganisationer = resultatenhet.Organisation.AllaRelaterade();
+            //var resultatenhet = organisationRepository.GetOrganisationByKstnr(id).Resultatenhet;
 
-            var allaAvtal = allaOrganisationer.SelectMany(org => org.OrganisationsAvtal);
+            //var allaOrganisationer = resultatenhet.Organisation.AllaRelaterade();
 
-            var allaAvtalId = allaAvtal.Select(avtal => avtal.AvtalId).ToArray();
-            
-            var allaPersoner = personRepository.GetByAvtalIdn(allaAvtalId);
+            //var allaAvtal = allaOrganisationer.SelectMany(org => org.OrganisationsAvtal);
 
-            var personDtos = new List<PersonDTO>();
+            //var allaAvtalId = allaAvtal.Select(avtal => avtal.AvtalId).ToArray();
 
-            foreach (var person in allaPersoner)
-            {
-                var personDTO = new PersonDTO { Id = person.Id, Namn = $" {person.Fornamn} {person.Efternamn}", Personnummer = person.Personnummer, Resultatenheter = new List<ResultatenhetDTO>()};
+            //var allaPersoner = personRepository.GetByAvtalIdn(allaAvtalId);
 
-                foreach (var organisation in allaOrganisationer)
-                {
-                    if(person.KoppladTill(organisation)) 
-                        personDTO.Resultatenheter.Add(new ResultatenhetDTO {Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr.ToString(), Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ});
-                }
-                personDtos.Add(personDTO);
-            }
+            //var personDtos = new List<PersonDTO>();
 
-            return personDtos;
+            //foreach (var person in allaPersoner)
+            //{
+            //    var personDTO = new PersonDTO { Id = person.Id, Namn = $" {person.Fornamn} {person.Efternamn}", Personnummer = person.Personnummer, Resultatenheter = new List<ResultatenhetDTO>() };
+
+            //    foreach (var organisation in allaOrganisationer)
+            //    {
+            //        if (person.KoppladTill(organisation))
+            //            personDTO.Resultatenheter.Add(new ResultatenhetDTO { Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr.ToString(), Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ });
+            //    }
+            //    personDtos.Add(personDTO);
+            //}
+
+            //return personDtos;
         }
 
         public void SparaPerson(PersonInputDTO personInputDTO)
@@ -141,21 +143,21 @@ namespace ODL.ApplicationServices
                     throw new ArgumentException($"Avtalet kunde inte sparas - angiven person med personnummer '{avtalDTO.Personnummer}' saknas i ODL.");
                 }
                 if (!string.IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
-                    avtal.AnstalldAvtal = new AnstalldAvtal { Anstalld = person};
+                    avtal.AnstalldAvtal = new AnstalldAvtal { PersonId = person.Id};
                 else
-                    avtal.KonsultAvtal = new KonsultAvtal { Konsult = person};
+                    avtal.KonsultAvtal = new KonsultAvtal { PersonId = person.Id};
             }
 
             var kstnrList = avtalDTO.Kostnadsstallen.Select(kst => kst.KostnadsstalleNr);
 
             //var organisationer = organisationRepository.GetOrganisationerByKstnr(kstnrList);
 
-            foreach (var kstnr in kstnrList)
+            foreach (string kstNr in kstnrList)
             {
-                var organisation = organisationRepository.GetOrganisationByKstnr(kstnr);
+                var organisation = organisationRepository.GetOrganisationByKstnr(kstNr);
                 if (organisation == null)
                 {
-                    throw new ArgumentException($"Avtalet kunde inte sparas - angiven resultatenhet med KstNr '{kstnr}' saknas i ODL.");
+                    throw new ArgumentException($"Avtalet kunde inte sparas - angiven resultatenhet med kostnadsställe '{kstNr}' saknas i ODL.");
                 }
 
                 var orgAvtal = avtal.OrganisationAvtal.SingleOrDefault(orgAvt => orgAvt.OrganisationId == organisation.Id) ?? new OrganisationAvtal();

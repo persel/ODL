@@ -156,7 +156,7 @@ namespace ODL.ApplicationServices.Test
             {
                 var organisationGatuadress = new OrganisationAdressInputDTO
                 {
-                    KostnadsstalleNr = 338111,
+                    KostnadsstalleNr = "338111",
                     AdressVariant = "FaktureringsAdress",
                     GatuadressInput = new GatuadressInputDTO
                     {
@@ -174,7 +174,7 @@ namespace ODL.ApplicationServices.Test
             {
                 var organisationEpostadress = new OrganisationAdressInputDTO
                 {
-                    KostnadsstalleNr = 338111,
+                    KostnadsstalleNr = "338111",
                     AdressVariant = "MailAdress Arbete",
                     GatuadressInput = null,
                     MailInput = new MailInputDTO { MailAdress = "tandis@home..se" },
@@ -187,7 +187,7 @@ namespace ODL.ApplicationServices.Test
             {
                 var organisationTelefon = new OrganisationAdressInputDTO
                 {
-                    KostnadsstalleNr = 338111,
+                    KostnadsstalleNr = "338111",
                     AdressVariant = "Mobil Arbete",
                     GatuadressInput = null,
                     MailInput = null,

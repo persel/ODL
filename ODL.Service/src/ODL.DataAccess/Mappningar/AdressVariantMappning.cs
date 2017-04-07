@@ -10,7 +10,7 @@ namespace ODL.DataAccess.Mappningar
         {
             ToTable("Adress.AdressVariant");
             HasKey(m => m.Id).Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(m => m.Namn).IsRequired().HasMaxLength(255);
+            Property(m => m.Namn).IsRequired().HasMaxLength(255).IsUnicode(false);
 
             Property(m => m.AdressTyp).HasColumnName("AdressTypFKId");
         }

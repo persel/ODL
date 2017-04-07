@@ -1,26 +1,21 @@
 
 using ODL.DomainModel.Common;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace ODL.DomainModel.Organisation
 {
-  
-
-    public partial class Organisation
+    public class Organisation
     {
        
         protected Organisation()
         {
             Underliggande = new HashSet<Organisation>();
-            OrganisationsAvtal = new HashSet<OrganisationAvtal>();
         }
 
         public static Organisation SkapaNyResultatenhet()
         {
-            var org = new Organisation();
-            org.Resultatenhet = new Resultatenhet();
+            var org = new Organisation {Resultatenhet = new Resultatenhet()};
             return org;
         }
 
@@ -37,12 +32,7 @@ namespace ODL.DomainModel.Organisation
         public virtual ICollection<Organisation> Underliggande { get; set; }
 
         public virtual Organisation Overordnad { get; set; }
-
-        public virtual ICollection<OrganisationAvtal> OrganisationsAvtal { get; set; }
-
-        [NotMapped]
-        public IEnumerable<int> AllaAvtalIdn => OrganisationsAvtal.Select(orgAvtal => orgAvtal.AvtalId);
-
+        
         public virtual Resultatenhet Resultatenhet { get; set; }
 
         public bool IsNew => Id == default(int);

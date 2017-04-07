@@ -33,9 +33,9 @@ namespace ODL.Service.Controllers
         }
 
         [HttpGet("kstnr/{kstnr}")]
-        public IEnumerable<AdressDTO> GetAdresserPerKostnadsstalleNr(int kstnr)
+        public IEnumerable<AdressDTO> GetAdresserPerKostnadsstalleNr(string kstNr)
         {
-            return _adressService.GetAdresserPerKostnadsstalleNr(kstnr);
+            return _adressService.GetAdresserPerKostnadsstalleNr(kstNr);
         }
 
         // POST api/adress/personadress

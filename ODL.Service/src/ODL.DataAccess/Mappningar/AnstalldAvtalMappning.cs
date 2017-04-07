@@ -8,12 +8,15 @@ namespace ODL.DataAccess.Mappningar
     {
         public AnstalldAvtalMappning()
         {
-            ToTable("Person.AnstalldAvtal");
+            ToTable("Avtal.AnstalldAvtal");
             HasKey(m => m.AvtalId)
                 .Property(m => m.AvtalId).HasColumnName("AvtalId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(m => m.PersonId).HasColumnName("PersonFKId");
+
+            HasRequired(p => p.Avtal)
+                .WithOptional(p => p.AnstalldAvtal);
         }
     }
 }

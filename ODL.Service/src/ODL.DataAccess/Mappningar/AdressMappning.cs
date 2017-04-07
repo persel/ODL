@@ -9,7 +9,25 @@ namespace ODL.DataAccess.Mappningar
         public AdressMappning()
         {
             ToTable("Adress.Adress");
-            HasKey(m => m.Id).Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            HasKey(a => a.Id).Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Ignore(a => a.IsNew);
+
+            HasRequired(m => m.AdressVariant).WithMany().Map(m => m.MapKey("AdressVariantFKId")).WillCascadeOnDelete(false);
+
+            HasOptional(e => e.Gatuadress)
+                .WithRequired(e => e.Adress);
+
+            HasOptional(e => e.Mail)
+                .WithRequired(e => e.Adress);
+
+            HasOptional(e => e.OrganisationAdress)
+                .WithRequired(e => e.Adress);
+
+            HasOptional(e => e.PersonAdress)
+                .WithRequired(e => e.Adress);
+
+            HasOptional(e => e.Telefon)
+                .WithRequired(e => e.Adress);
         }
     }
 }

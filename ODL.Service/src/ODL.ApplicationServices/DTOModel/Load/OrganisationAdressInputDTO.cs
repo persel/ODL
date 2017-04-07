@@ -4,6 +4,6 @@ namespace ODL.ApplicationServices.DTOModel
 {
     public class OrganisationAdressInputDTO : AdressInputDTO
     {
-        public int KostnadsstalleNr { get; set; }
+        public string KostnadsstalleNr { get; set; }
     }
 }
