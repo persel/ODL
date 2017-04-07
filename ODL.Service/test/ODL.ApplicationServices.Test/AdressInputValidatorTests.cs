@@ -23,57 +23,14 @@ namespace ODL.ApplicationServices.Test
                 brokenRules.Any(
                     ve =>
                         ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.SkapadDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+                            "Fältet 'GatuadressInputDTO.Postnummer' saknar värde.")));
             Assert.That(
                 brokenRules.Any(
                     ve =>
                         ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.UppdateradDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+                            "Fältet 'AdressInputDTO.SkapadAv' saknar värde.")));
         }
 
-        [Test]
-        public void TestValidatePersonAdressMail()
-        {
-            var personAdress = CreatePersonAdress(null, new MailInputDTO(), null);
-
-            var brokenRules = new PersonAdressInputValidator().Validate(personAdress);
-            new AdressInputValidator().Validate(personAdress, brokenRules);
-
-            Assert.That(brokenRules.Count, Is.EqualTo(3));
-
-            Assert.That(
-                brokenRules.Any(
-                    ve =>
-                        ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.SkapadDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
-            Assert.That(
-                brokenRules.Any(
-                    ve =>
-                        ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.UppdateradDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
-        }
-
-        [Test]
-        public void TestValidatePersonAdressTelefon()
-        {
-            var personAdress = CreatePersonAdress(null,null, new TelefonInputDTO());
-
-            var brokenRules = new PersonAdressInputValidator().Validate(personAdress);
-            new AdressInputValidator().Validate(personAdress, brokenRules);
-
-            Assert.That(brokenRules.Count, Is.EqualTo(3));
-
-            Assert.That(
-                brokenRules.Any(
-                    ve =>
-                        ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.SkapadDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
-            Assert.That(
-                brokenRules.Any(
-                    ve =>
-                        ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.UppdateradDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
-        }
 
         [Test]
         public void TestValidateOrganisationAdressGatuAdress()
@@ -91,12 +48,12 @@ namespace ODL.ApplicationServices.Test
                 brokenRules.Any(
                     ve =>
                         ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.SkapadDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+                            "Fältet 'GatuadressInputDTO.Postnummer' saknar värde.")));
             Assert.That(
                 brokenRules.Any(
                     ve =>
                         ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.UppdateradDatum' har ej korrekt datumformat ('yyyy-MM-dd HH:mm').")));
+                            "Fältet 'AdressInputDTO.SkapadAv' saknar värde.")));
         }
 
         private PersonAdressInputDTO CreatePersonAdress(GatuadressInputDTO gatuadressInput, MailInputDTO mailInput, TelefonInputDTO telefonInput)

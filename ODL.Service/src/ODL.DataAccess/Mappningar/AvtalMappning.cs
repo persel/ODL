@@ -10,7 +10,7 @@ namespace ODL.DataAccess.Mappningar
         {
             ToTable("Avtal.Avtal");
             HasKey(m => m.Id).Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(m => m.KallsystemId).IsRequired().HasMaxLength(25);
+            Property(m => m.KallsystemId).IsRequired().HasMaxLength(50);
             Property(m => m.Avtalskod).HasMaxLength(50).IsUnicode(false);
             Property(m => m.Avtalstext).HasMaxLength(50);
             Property(m => m.BefText).HasMaxLength(50);

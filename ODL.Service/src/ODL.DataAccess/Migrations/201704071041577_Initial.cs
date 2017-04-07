@@ -99,7 +99,7 @@ namespace ODL.DataAccess.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        KallsystemId = c.String(nullable: false, maxLength: 25),
+                        KallsystemId = c.String(nullable: false, maxLength: 50),
                         Avtalskod = c.String(maxLength: 50, unicode: false),
                         Avtalstext = c.String(maxLength: 50),
                         ArbetstidVecka = c.Int(),
@@ -199,9 +199,9 @@ namespace ODL.DataAccess.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        KallsystemId = c.String(nullable: false, maxLength: 25),
+                        KallsystemId = c.String(nullable: false, maxLength: 50),
                         Fornamn = c.String(nullable: false, maxLength: 255),
-                        Mellannamn = c.String(nullable: false, maxLength: 255),
+                        Mellannamn = c.String(maxLength: 255),
                         Efternamn = c.String(nullable: false, maxLength: 255),
                         Personnummer = c.String(nullable: false, maxLength: 12),
                         UppdateradDatum = c.DateTime(),
@@ -219,7 +219,7 @@ namespace ODL.DataAccess.Migrations
         {
             DropForeignKeysWithoutNavigationPropertyRelations();
             DropNonMappedTables();
-
+            
             DropForeignKey("Organisation.Organisation", "IngarIOrganisationFKId", "Organisation.Organisation");
             DropForeignKey("Organisation.Resultatenhet", "OrganisationFKId", "Organisation.Organisation");
             DropForeignKey("Avtal.OrganisationAvtal", "AvtalFKId", "Avtal.Avtal");

@@ -66,9 +66,9 @@
     <Compile Include="Mappningar\PersonMappning.cs" />
     <Compile Include="Mappningar\ResultatenhetMappning.cs" />
     <Compile Include="Mappningar\TelefonMappning.cs" />
-    <Compile Include="Migrations\201704070745399_Initial.cs" />
-    <Compile Include="Migrations\201704070745399_Initial.Designer.cs">
-      <DependentUpon>201704070745399_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201704071041577_Initial.cs" />
+    <Compile Include="Migrations\201704071041577_Initial.Designer.cs">
+      <DependentUpon>201704071041577_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Custom\CustomMigrations.cs" />
@@ -101,8 +101,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704070745399_Initial.resx">
-      <DependentUpon>201704070745399_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704071041577_Initial.resx">
+      <DependentUpon>201704071041577_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
