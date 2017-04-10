@@ -26,7 +26,7 @@ namespace ODL.Service.Controllers
 
         // GET api/organisation/resultatenheter
         [HttpGet("resultatenheter/")]
-        public IEnumerable<ResultatenhetDTO> GetResultatenhet([FromQuery]List<int> kostnadsstalleNr) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
+        public IEnumerable<ResultatenhetDTO> GetResultatenhet([FromQuery]List<string> kostnadsstalleNr) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
         {
             return _organisationService.GetResultatenheterByKstNr(kostnadsstalleNr);
         }

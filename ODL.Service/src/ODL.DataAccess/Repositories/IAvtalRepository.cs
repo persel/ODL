@@ -1,4 +1,5 @@
-﻿using ODL.DomainModel.Person;
+﻿using System.Collections.Generic;
+using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Repositories
 {
@@ -8,5 +9,6 @@ namespace ODL.DataAccess.Repositories
         void Add(Avtal nyttAvtal);
 
         void Update();
+        IEnumerable<int> GetAvtalIdnByPersonId(int personId);
     }
 }

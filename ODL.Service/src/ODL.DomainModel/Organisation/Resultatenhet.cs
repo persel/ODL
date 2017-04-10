@@ -1,6 +1,4 @@
 
-using ODL.DomainModel.Common;
-
 namespace ODL.DomainModel.Organisation
 {
         

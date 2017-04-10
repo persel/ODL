@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Query;
 using ODL.DataAccess.Repositories;
-using ODL.DomainModel.Person;
 using ODL.ApplicationServices.Validation;
 using ODL.DomainModel;
 using ODL.DomainModel.Organisation;
@@ -17,32 +16,32 @@ namespace ODL.ApplicationServices
 
         private readonly IOrganisationRepository organisationRepository;
         private readonly IPersonRepository personRepository;
+        private readonly IAvtalRepository avtalRepository;
         private readonly ILogger<OrganisationService> logger;
 
-        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, ILogger<OrganisationService> logger)
+        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, ILogger<OrganisationService> logger)
         {
             this.personRepository = personRepository;
             this.organisationRepository = organisationRepository;
+            this.avtalRepository = avtalRepository;
             this.logger = logger;
         }
 
         public IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer)
         {
-            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
+            var person = personRepository.GetByPersonnummer(personnummer);
 
-            //var person = personRepository.GetByPersonnummer(personnummer);
-
-            //var organisationer = organisationRepository.GetByAvtalIdn(person.AllaAvtalIdn());
-            //var resultatenheter = organisationer.Select(org => org.Resultatenhet);
-
-            //return resultatenheter.Select(enhet =>
-            //    new ResultatenhetDTO
-            //    {
-            //        Id = enhet.OrganisationId,
-            //        KostnadsstalleNr = enhet.KstNr.ToString(),
-            //        Typ = enhet.Typ,
-            //        Namn = enhet.Organisation.Namn
-            //    });
+            var avtalIdn = avtalRepository.GetAvtalIdnByPersonId(person.Id);
+            var resultatenheter = organisationRepository.GetByAvtalIdn(avtalIdn).Select(org => org.Resultatenhet);
+            
+            return resultatenheter.Select(enhet =>
+                new ResultatenhetDTO
+                {
+                    Id = enhet.OrganisationId,
+                    KostnadsstalleNr = enhet.KstNr.ToString(),
+                    Typ = enhet.Typ,
+                    Namn = enhet.Organisation.Namn
+                });
         }
 
 
@@ -80,21 +79,20 @@ namespace ODL.ApplicationServices
                 });
         }
 
-        public IEnumerable<ResultatenhetDTO> GetResultatenheterByKstNr(List<int> kostnadsstalleNr)
+        public IEnumerable<ResultatenhetDTO> GetResultatenheterByKstNr(List<string> kostnadsstalleNr)
         {
-            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
+            
+            var organisationer = organisationRepository.GetByKstNr(kostnadsstalleNr);
+            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
 
-            //var organisationer = organisationRepository.GetByKstNr(kostnadsstalleNr);
-            //var resultatenheter = organisationer.Select(org => org.Resultatenhet);
-
-            //return resultatenheter.Select(enhet =>
-            //    new ResultatenhetDTO
-            //    {
-            //        Id = enhet.OrganisationId,
-            //        KostnadsstalleNr = enhet.KstNr.ToString(),
-            //        Typ = enhet.Typ,
-            //        Namn = enhet.Organisation.Namn
-            //    });
+            return resultatenheter.Select(enhet =>
+                new ResultatenhetDTO
+                {
+                    Id = enhet.OrganisationId,
+                    KostnadsstalleNr = enhet.KstNr.ToString(),
+                    Typ = enhet.Typ,
+                    Namn = enhet.Organisation.Namn
+                });
         }
 
         public void SparaResultatenhet(ResultatenhetInputDTO resEnhetInputDTO)
@@ -108,7 +106,6 @@ namespace ODL.ApplicationServices
                 throw new BusinessLogicException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resEnhetInputDTO.KostnadsstalleNr}.");
             }
 
-            //var organisation = organisationRepository.GetOrganisationByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? new Organisation();
             var organisation = organisationRepository.GetOrganisationByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet();
 
             organisation.OrganisationsId = resEnhetInputDTO.OrganisationsId;

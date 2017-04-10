@@ -7,7 +7,6 @@ using ODL.ApplicationServices.DTOModel.Query;
 using ODL.ApplicationServices.Validation;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel;
-using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices
@@ -50,7 +49,7 @@ namespace ODL.ApplicationServices
             //    foreach (var organisation in allaOrganisationer)
             //    {
             //        if (person.KoppladTill(organisation))
-            //            personDTO.Resultatenheter.Add(new ResultatenhetDTO { Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr.ToString(), Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ });
+            //            personDTO.Resultatenheter.Add(new ResultatenhetDTO { Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr, Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ });
             //    }
             //    personDtos.Add(personDTO);
             //}

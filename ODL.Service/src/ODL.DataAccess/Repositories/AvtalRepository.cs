@@ -1,4 +1,6 @@
-﻿using ODL.DomainModel.Person;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Repositories
 {
@@ -28,6 +30,11 @@ namespace ODL.DataAccess.Repositories
         public void Update()
         {
             _internalGenericRepository.Update();
+        }
+
+        public IEnumerable<int> GetAvtalIdnByPersonId(int personId)
+        {
+            return _internalGenericRepository.Find(a => a.AnstalldAvtal.PersonId == personId || a.KonsultAvtal.PersonId == personId).Select(a => a.Id);
         }
     }
 }
