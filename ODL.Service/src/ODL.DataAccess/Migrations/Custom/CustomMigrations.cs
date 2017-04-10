@@ -4,8 +4,6 @@ namespace ODL.DataAccess.Migrations.Custom
 {
     public abstract class CustomMigrations : DbMigration
     {
-        public abstract override void Up();
-
         protected void AddForeignKeysWithoutNavigationPropertyRelations()
         {
             AddForeignKey("Avtal.KonsultAvtal", "PersonFKId", "Person.Person", "Id");
