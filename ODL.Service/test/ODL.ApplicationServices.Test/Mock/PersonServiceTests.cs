@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using ODL.ApplicationServices.DTOModel.Load;
+using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel;
 using ODL.DomainModel.Person;
@@ -17,6 +18,7 @@ namespace ODL.ApplicationServices.Test.Mock
         private Mock<IPersonRepository> personRepositoryMock;
         private Mock<IOrganisationRepository> organisationRepositoryMock;
         private Mock<IAvtalRepository> avtalRepositoryMock;
+        private Mock<IContext> dbContextMock;
         private Mock<ILogger<PersonService>> loggerMock;
         private PersonService service;
 
@@ -90,8 +92,9 @@ namespace ODL.ApplicationServices.Test.Mock
             personRepositoryMock = new Mock<IPersonRepository>();
             organisationRepositoryMock = new Mock<IOrganisationRepository>();
             avtalRepositoryMock = new Mock<IAvtalRepository>();
+            dbContextMock = new Mock<IContext>();
             loggerMock = new Mock<ILogger<PersonService>>();
-            service = new PersonService(personRepositoryMock.Object, organisationRepositoryMock.Object, avtalRepositoryMock.Object, loggerMock.Object);
+            service = new PersonService(personRepositoryMock.Object, organisationRepositoryMock.Object, avtalRepositoryMock.Object, dbContextMock.Object, loggerMock.Object);
         }
 
         /// <summary>

@@ -41,9 +41,10 @@ namespace ODL.ApplicationServices.Test
 
             var organisationRepositoryMock = new Mock<IOrganisationRepository>().Object;
             var avtalRepositoryMock = new Mock<IAvtalRepository>().Object;
+            var dbContextMock = new Mock<IContext>().Object;
             var loggerMock = new Mock<ILogger<PersonService>>().Object;
 
-            var service = new PersonService(new PersonRepository(context), organisationRepositoryMock, avtalRepositoryMock, loggerMock);
+            var service = new PersonService(new PersonRepository(context), organisationRepositoryMock, avtalRepositoryMock, dbContextMock, loggerMock);
             var person = new PersonInputDTO
             {
                 SystemId = "435345",

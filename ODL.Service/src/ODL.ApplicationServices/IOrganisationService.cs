@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Query;
 
@@ -11,8 +12,6 @@ namespace ODL.ApplicationServices
         /// </summary>
         IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer);
         IEnumerable<ResultatenhetDTO> GetResultatenheter();
-
-        IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer);
 
         IEnumerable<ResultatenhetDTO> GetResultatenheterByKstNr(List<string> kostnadsstalleNr);
         void SparaResultatenhet(ResultatenhetInputDTO resEnhet);

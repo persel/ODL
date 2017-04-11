@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IContext.cs" />
     <Compile Include="Mappningar\MetadataMappning.cs" />
     <Compile Include="Mappningar\AdressMappning.cs" />
     <Compile Include="Mappningar\AdressVariantMappning.cs" />

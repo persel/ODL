@@ -4,7 +4,9 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.DTOModel.Query;
+using ODL.ApplicationServices.Queries;
 using ODL.ApplicationServices.Validation;
+using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel;
 using ODL.DomainModel.Person;
@@ -16,13 +18,15 @@ namespace ODL.ApplicationServices
         private readonly IPersonRepository personRepository;
         private readonly IOrganisationRepository organisationRepository;
         private readonly IAvtalRepository avtalRepository;
+        private readonly IContext context;
         private readonly ILogger<PersonService> logger;
 
-        public PersonService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, ILogger<PersonService> logger)
+        public PersonService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, IContext context, ILogger<PersonService> logger)
         {
             this.personRepository = personRepository;
             this.organisationRepository = organisationRepository;
             this.avtalRepository = avtalRepository;
+            this.context = context;
             this.logger = logger;
     }
 
@@ -95,6 +99,14 @@ namespace ODL.ApplicationServices
             };
         }
 
+
+        public List<PostombudDTO> GetResultatenhetansvarigaPostombud()
+        {
+            var resultatenhetansvarigaPostombud = new ResultatenhetsansvarigaPostombudQuery(context).Execute();
+            return resultatenhetansvarigaPostombud;
+        }
+
+
         public void SparaAvtal(AvtalInputDTO avtalDTO)
         {
             var valideringsfel = new AvtalInputValidator().Validate(avtalDTO);
@@ -118,20 +130,20 @@ namespace ODL.ApplicationServices
             avtal.Aktiv = avtalDTO.Aktiv;
             avtal.Ansvarig = avtalDTO.Ansvarig;
             avtal.Chef = avtalDTO.Chef;
-            avtal.TjledigFran = avtalDTO.TjledigFran.ToDate();
-            avtal.TjledigTom = avtalDTO.TjledigTom.ToDate();
+            avtal.TjledigFran = avtalDTO.TjledigFran.TillDatum();
+            avtal.TjledigTom = avtalDTO.TjledigTom.TillDatum();
             avtal.Fproc = avtalDTO.Fproc;
             avtal.DeltidFranvaro = avtalDTO.DeltidFranvaro;
             avtal.FranvaroProcent = avtalDTO.FranvaroProcent;
             avtal.SjukP = avtalDTO.SjukP;
             avtal.GrundArbtidVecka = avtalDTO.GrundArbtidVecka;
             avtal.Lon = avtalDTO.TimLon;
-            avtal.LonDatum = avtalDTO.LonDatum.ToDate();
+            avtal.LonDatum = avtalDTO.LonDatum.TillDatum();
             avtal.LoneTyp = avtalDTO.LoneTyp;
             avtal.LoneTillagg = avtalDTO.LoneTillagg;
             avtal.TimLon = avtalDTO.TimLon;
-            avtal.Anstallningsdatum = avtalDTO.Anstallningsdatum.ToDate();
-            avtal.Avgangsdatum = avtalDTO.Avgangsdatum.ToDate();
+            avtal.Anstallningsdatum = avtalDTO.Anstallningsdatum.TillDatum();
+            avtal.Avgangsdatum = avtalDTO.Avgangsdatum.TillDatum();
             avtal.Metadata = avtalDTO.GetMetadata();
 
             if (avtal.IsNew)

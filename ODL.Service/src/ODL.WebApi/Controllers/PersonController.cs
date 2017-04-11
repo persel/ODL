@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ODL.ApplicationServices;
-using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.DTOModel.Query;
 
@@ -22,6 +21,13 @@ namespace ODL.Service.Controllers
         public IEnumerable<PersonDTO> GetPersonByResultatenhetId(int resultatenhetId) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
         {
             return _personService.GetByResultatenhetId(resultatenhetId);
+        }
+
+        // GET api/person/resultatenhetansvarigapostombud
+        [HttpGet("resultatenhetansvarigapostombud")]
+        public IEnumerable<PostombudDTO> GetResultatenhetansvarigaPostombud()
+        {
+            return _personService.GetResultatenhetansvarigaPostombud();
         }
 
         // POST api/person/avtal/

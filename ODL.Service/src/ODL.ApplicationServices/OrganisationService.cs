@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
@@ -44,25 +45,6 @@ namespace ODL.ApplicationServices
                 });
         }
 
-
-        public IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer)
-        {
-            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
-
-            //var person = personRepository.GetByPersonnummer(personnummer);
-
-            //var organisationer = organisationRepository.GetWhereAnsvarigByAvtalIdn(person.AllaAvtalIdn());
-            //var resultatenheter = organisationer.Select(org => org.Resultatenhet);
-
-            //return resultatenheter.Select(enhet =>
-            //    new ResultatenhetDTO
-            //    {
-            //        Id = enhet.OrganisationId,
-            //        KostnadsstalleNr = enhet.KstNr.ToString(),
-            //        Typ = enhet.Typ,
-            //        Namn = enhet.Organisation.Namn
-            //    });
-        }
 
         public IEnumerable<ResultatenhetDTO> GetResultatenheter()
         {

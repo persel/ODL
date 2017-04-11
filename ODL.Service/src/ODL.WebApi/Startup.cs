@@ -52,6 +52,8 @@ namespace ODL.Service
             services.AddScoped<IAdressRepository, AdressRepository>();
             services.AddScoped<IAdressVariantRepository, AdressVariantRepository>();
 
+            services.AddScoped(contextFactory);
+
             // Lägg till service och skapa Policy med options
             // Se: Se: https://weblog.west-wind.com/posts/2016/Sep/26/ASPNET-Core-and-CORS-Gotchas
             // https://elanderson.net/2016/11/cross-origin-resource-sharing-cors-in-asp-net-core/
@@ -102,5 +104,12 @@ namespace ODL.Service
             loggerFactory.AddSerilog();
 
         }
+
+        private readonly Func<IServiceProvider, IContext> contextFactory = x =>
+        {
+            //Getting our context out of the container.
+            var context = x.GetService<ODLDbContext>();
+            return context;
+        };
     }
 }

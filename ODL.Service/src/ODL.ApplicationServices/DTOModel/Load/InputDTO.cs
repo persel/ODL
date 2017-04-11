@@ -16,7 +16,7 @@ namespace ODL.ApplicationServices.DTOModel.Load
         
         public Metadata GetMetadata()
         {
-            return new Metadata(UppdateradDatum.ToDateTime(), UppdateradAv, SkapadDatum.ToDateTime(), SkapadAv);
+            return new Metadata(UppdateradDatum.TillDatumOchTid(), UppdateradAv, SkapadDatum.TillDatumOchTid(), SkapadAv);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.DTOModel.Query;
-using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices
 {
@@ -19,5 +17,6 @@ namespace ODL.ApplicationServices
         void SparaPerson(PersonInputDTO person);
 
         PersonDTO GetPersonByPersonnummer(string personnummer);
+        List<PostombudDTO> GetResultatenhetansvarigaPostombud();
     }
 }

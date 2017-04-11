@@ -23,7 +23,7 @@ using ODL.DomainModel.Person;
 namespace ODL.DataAccess
 {
 
-    public partial class ODLDbContext : DbContext
+    public partial class ODLDbContext : DbContext, IContext
     {
 
         public ODLDbContext() : base("name=ODLDbContext")
@@ -68,6 +68,11 @@ namespace ODL.DataAccess
 
             modelBuilder.Configurations.AddFromAssembly(typeof(ODLDbContext).Assembly); // Peka ut valfri klass i assembly där mappningarna finns! OBS att denna ska köras före 'strukturella' mappningarna nedan.
 
+        }
+
+        public DbSet<T> DbSet<T>() where T : class
+        {
+            return Set<T>();
         }
     }
 }

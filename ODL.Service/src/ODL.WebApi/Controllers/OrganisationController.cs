@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ODL.ApplicationServices;
 using ODL.ApplicationServices.DTOModel;
@@ -15,7 +16,6 @@ namespace ODL.Service.Controllers
         {
             _organisationService = organisationService;
         }
-
 
         // GET api/organisation/resultatenhet
         [HttpGet("resultatenhet/")] // TODO: Plural-namn?
@@ -36,13 +36,6 @@ namespace ODL.Service.Controllers
         public IEnumerable<ResultatenhetDTO> GetResultatenhet(string personnummer)
         {
             return _organisationService.GetResultatenhetByPersonnummer(personnummer);
-        }
-
-        // GET api/organisation/resultatenhet/
-        [HttpGet("kstAnsvarig/{personnummer}")]
-        public IEnumerable<ResultatenhetDTO> GetResultatenhetWhereAnsvarig(string personnummer)
-        {
-            return _organisationService.GetResultatenhetWhereAnsvarig(personnummer);
         }
 
         // POST api/resultatenhet/
