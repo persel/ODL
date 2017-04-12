@@ -100,10 +100,9 @@ namespace ODL.ApplicationServices
         }
 
 
-        public List<PostombudDTO> GetResultatenhetansvarigaPostombud()
+        public List<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress()
         {
-            var resultatenhetansvarigaPostombud = new ResultatenhetsansvarigaPostombudQuery(context).Execute();
-            return resultatenhetansvarigaPostombud;
+            return new ResultatenhetsansvarigaMedLeveransadressQuery(context).Execute();
         }
 
 

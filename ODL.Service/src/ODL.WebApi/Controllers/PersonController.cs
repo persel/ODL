@@ -23,11 +23,11 @@ namespace ODL.Service.Controllers
             return _personService.GetByResultatenhetId(resultatenhetId);
         }
 
-        // GET api/person/resultatenhetansvarigapostombud
-        [HttpGet("resultatenhetansvarigapostombud")]
-        public IEnumerable<PostombudDTO> GetResultatenhetansvarigaPostombud()
+        // GET api/person/resultatenhetansvarigamedleveransadress
+        [HttpGet("resultatenhetansvarigamedleveransadress")]
+        public IEnumerable<ResultatenhetansvarigDTO> GetGetResultatenhetsansvarigaMedLeveransadress()
         {
-            return _personService.GetResultatenhetansvarigaPostombud();
+            return _personService.GetResultatenhetsansvarigaMedLeveransadress();
         }
 
         // POST api/person/avtal/
