@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices;
 using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
+using ODL.WebApi;
 using Serilog;
 using Swashbuckle.Swagger;
 using Swashbuckle.Swagger.Model;
@@ -67,6 +69,21 @@ namespace ODL.Service
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
+
+            //Ser till så att man har lagt till Alias/AnvandarNamn i headern innan man anropar en tjänst
+            //Ingen mer kontroll för tillfället 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ValidUserName",
+                    policy => policy.Requirements.Add(
+                        new MinimumRequirement(
+                            anvandarNamn: "",
+                            applikation: "PostOmbud",
+                            namn: "")
+                    ));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, MinimumRequirementHandler>();
 
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);

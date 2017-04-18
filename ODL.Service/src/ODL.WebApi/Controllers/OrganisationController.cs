@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using ODL.ApplicationServices;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Query;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ODL.Service.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Policy = "ValidUserName")]
     public class OrganisationController : Controller
     {
         private readonly IOrganisationService _organisationService;
