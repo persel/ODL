@@ -10,11 +10,11 @@ using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices.Queries
 {
-    internal class AnstalldaPerKostnadsstalleQuery
+    internal class PersonerPerResultatenhetQuery
     {
         public IContext DbContext { get; set; }
 
-        public AnstalldaPerKostnadsstalleQuery(IContext dbContext)
+        public PersonerPerResultatenhetQuery(IContext dbContext)
         {
             DbContext = dbContext;
         }
@@ -26,11 +26,8 @@ namespace ODL.ApplicationServices.Queries
             var allaKonsultAvtal = DbContext.DbSet<KonsultAvtal>();
             var personer = DbContext.DbSet<Person>();
             var organisationer = DbContext.DbSet<Organisation>();
-            var adresser = DbContext.DbSet<Adress>();
             var allaOrganisationsAvtal = DbContext.DbSet<OrganisationAvtal>();
-            var allaOrganisationsAdresser = DbContext.DbSet<OrganisationAdress>();// Denna kan utelämnas och joinas mha navigation property, men det komplicerar det genrerade SQL-scriptet
             
-
             var projektion = from person in personer
 
                 from anstalldAvtal in allaAnstalldAvtal

@@ -76,7 +76,7 @@
     <Compile Include="DTOModel\Query\MailDTO.cs" />
     <Compile Include="IAdressService.cs" />
     <Compile Include="AdressService.cs" />
-    <Compile Include="Queries\AnstalldaPerKostnadsstalleQuery.cs" />
+    <Compile Include="Queries\PersonerPerResultatenhetQuery.cs" />
     <Compile Include="Queries\ResultatenhetsansvarigaMedLeveransadressQuery.cs" />
     <Compile Include="Validation\TelefonInputValidator.cs" />
     <Compile Include="Validation\MailInputValidator.cs" />
