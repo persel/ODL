@@ -32,7 +32,7 @@ namespace ODL.Service.Controllers
 
         // GET api/person/resultatenhetansvarigamedleveransadress
         [HttpGet("personerperresultatenhet")]
-        public IEnumerable<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet(string kstNr)
+        public IEnumerable<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet([FromQuery]string kstNr)
         {
             return _personService.GetPersonerPerResultatenhet(kstNr);
         }

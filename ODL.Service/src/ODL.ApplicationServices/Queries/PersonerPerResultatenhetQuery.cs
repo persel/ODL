@@ -29,19 +29,22 @@ namespace ODL.ApplicationServices.Queries
                 join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
                 join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
                 where organisation.Resultatenhet.KstNr == kstNr
-                select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = $"{person.Fornamn} {person.Efternamn}", Resultatenhetansvarig = avtal.Ansvarig};
+                select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = person.Fornamn + " " + person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig};
 
             var projektionKonsulter = from person in personer
-                join avtal in allaAvtal on person.Id equals avtal.KonsultAvtal.PersonId
-                join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
-                join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
-                where organisation.Resultatenhet.KstNr == kstNr
-                select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = $"{person.Fornamn} {person.Efternamn}", Resultatenhetansvarig = avtal.Ansvarig };
+                                      join avtal in allaAvtal on person.Id equals avtal.KonsultAvtal.PersonId
+                                      join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
+                                      join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
+                                      where organisation.Resultatenhet.KstNr == kstNr
+                                      select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = person.Fornamn + " " + person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig };
 
 
-            projektionAnstallda.ToList().AddRange(projektionKonsulter.ToList()); 
+            var a = projektionAnstallda.ToList();
+            var b = projektionKonsulter.ToList();
+            
 
-            return projektionAnstallda.ToList(); // TODO: Ta bort dubletter, ansvarig = true om både true/false finns
+            a.AddRange(b); // TODO: Ta bort dubletter, ansvarig = true om både true/false finns
+            return a;
 
         }
     }
