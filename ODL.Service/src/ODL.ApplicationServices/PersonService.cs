@@ -100,7 +100,7 @@ namespace ODL.ApplicationServices
         }
 
         
-        public List<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet(string kstNr)
+        public IEnumerable<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet(string kstNr)
         {
             return new PersonerPerResultatenhetQuery(context).Execute(kstNr);
         }

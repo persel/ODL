@@ -17,7 +17,7 @@ namespace ODL.ApplicationServices
         void SparaPerson(PersonInputDTO person);
 
         PersonDTO GetPersonByPersonnummer(string personnummer);
-        List<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet(string kstNr);
+        IEnumerable<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet(string kstNr);
         List<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress();
     }
 }
