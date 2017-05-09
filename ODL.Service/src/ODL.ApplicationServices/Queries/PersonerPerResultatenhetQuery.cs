@@ -48,7 +48,7 @@ namespace ODL.ApplicationServices.Queries
             anstallda.AddRange(konsulter); // TODO: Ta bort dubletter, ansvarig = true om både true/false finns
 
             var personPerResultatenhet = anstallda.GroupBy(a => a.Personnummer)
-                .Select(g => g.OrderByDescending(p => p.Resultatenhetansvarig).First()); // OrderBy bool: false (0) först, därefter true (1)
+                .Select(g => g.OrderByDescending(p => p.Resultatenhetansvarig).First()); // OrderByDescending bool: true (1) först, därefter false (0)
 
             return personPerResultatenhet;
 
