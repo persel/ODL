@@ -23,7 +23,7 @@ namespace ODL.ApplicationServices.DTOModel.Load
 
         public bool? Aktiv { get; set; }
 
-        public bool? Ansvarig { get; set; }
+        public bool Ansvarig { get; set; }
 
         public bool? Chef { get; set; }
 

@@ -57,7 +57,7 @@
     <Compile Include="Mappningar\AdressVariantMappning.cs" />
     <Compile Include="Mappningar\AnstalldAvtalMappning.cs" />
     <Compile Include="Mappningar\AvtalMappning.cs" />
-    <Compile Include="Mappningar\GatuAdressMappning.cs" />
+    <Compile Include="Mappningar\GatuadressMappning.cs" />
     <Compile Include="Mappningar\KonsultAvtalMappning.cs" />
     <Compile Include="Mappningar\MailMappning.cs" />
     <Compile Include="Mappningar\OrganisationAdressMappning.cs" />
@@ -70,6 +70,14 @@
     <Compile Include="Migrations\201704071041577_Initial.cs" />
     <Compile Include="Migrations\201704071041577_Initial.Designer.cs">
       <DependentUpon>201704071041577_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705091026267_Avtal_Ansvarig_NotNull.cs" />
+    <Compile Include="Migrations\201705091026267_Avtal_Ansvarig_NotNull.Designer.cs">
+      <DependentUpon>201705091026267_Avtal_Ansvarig_NotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705091043185_GatuAdress_till_Gatuadress.cs" />
+    <Compile Include="Migrations\201705091043185_GatuAdress_till_Gatuadress.Designer.cs">
+      <DependentUpon>201705091043185_GatuAdress_till_Gatuadress.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Custom\CustomMigrations.cs" />
@@ -104,6 +112,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704071041577_Initial.resx">
       <DependentUpon>201704071041577_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705091026267_Avtal_Ansvarig_NotNull.resx">
+      <DependentUpon>201705091026267_Avtal_Ansvarig_NotNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705091043185_GatuAdress_till_Gatuadress.resx">
+      <DependentUpon>201705091043185_GatuAdress_till_Gatuadress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

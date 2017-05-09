@@ -28,7 +28,7 @@ namespace ODL.DomainModel.Person
 
         public bool? Aktiv { get; set; }
 
-        public bool? Ansvarig { get; set; }
+        public bool Ansvarig { get; set; }
 
         public bool? Chef { get; set; }
 

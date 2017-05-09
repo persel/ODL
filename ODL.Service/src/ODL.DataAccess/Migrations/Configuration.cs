@@ -60,10 +60,10 @@ namespace ODL.DataAccess.Migrations
 
             //AdressVariant
             context.AdressVariant.AddOrUpdate(
-                new AdressVariant("Folkbokföringsadress", AdressTyp.GatuAdress),
-                new AdressVariant("Adress arbete", AdressTyp.GatuAdress),
-                new AdressVariant("Leveransadress", AdressTyp.GatuAdress),
-                new AdressVariant("Faktureringsadress", AdressTyp.GatuAdress),
+                new AdressVariant("Folkbokföringsadress", AdressTyp.Gatuadress),
+                new AdressVariant("Adress arbete", AdressTyp.Gatuadress),
+                new AdressVariant("Leveransadress", AdressTyp.Gatuadress),
+                new AdressVariant("Faktureringsadress", AdressTyp.Gatuadress),
                 new AdressVariant("Mailadress arbete", AdressTyp.MailAdress),
                 new AdressVariant("Mailadress privat", AdressTyp.MailAdress),
                 new AdressVariant("Mobil arbete", AdressTyp.Telefon),

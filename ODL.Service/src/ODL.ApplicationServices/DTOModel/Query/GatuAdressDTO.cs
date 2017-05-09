@@ -2,22 +2,22 @@
 
 namespace ODL.ApplicationServices.DTOModel.Query
 {
-    public class GatuAdressDTO
+    public class GatuadressDTO
     {
-        public static GatuAdressDTO FromGatuadress(GatuAdress gatuAdress)
+        public static GatuadressDTO FromGatuadress(Gatuadress gatuadress)
         {
-            if (gatuAdress == null)
+            if (gatuadress == null)
                 return null;
 
-            var gatuAdressDTO = new GatuAdressDTO();
-            gatuAdressDTO.AdressRad1 = gatuAdress.AdressRad1;
-            gatuAdressDTO.AdressRad2 = gatuAdress.AdressRad2;
-            gatuAdressDTO.AdressRad3 = gatuAdress.AdressRad3;
-            gatuAdressDTO.AdressRad4 = gatuAdress.AdressRad4;
-            gatuAdressDTO.AdressRad5 = gatuAdress.AdressRad5;
-            gatuAdressDTO.Postnummer = gatuAdress.Postnummer;
-            gatuAdressDTO.Stad = gatuAdress.Stad;
-            gatuAdressDTO.Land = gatuAdress.Land;
+            var gatuAdressDTO = new GatuadressDTO();
+            gatuAdressDTO.AdressRad1 = gatuadress.AdressRad1;
+            gatuAdressDTO.AdressRad2 = gatuadress.AdressRad2;
+            gatuAdressDTO.AdressRad3 = gatuadress.AdressRad3;
+            gatuAdressDTO.AdressRad4 = gatuadress.AdressRad4;
+            gatuAdressDTO.AdressRad5 = gatuadress.AdressRad5;
+            gatuAdressDTO.Postnummer = gatuadress.Postnummer;
+            gatuAdressDTO.Stad = gatuadress.Stad;
+            gatuAdressDTO.Land = gatuadress.Land;
 
             return gatuAdressDTO;
         }

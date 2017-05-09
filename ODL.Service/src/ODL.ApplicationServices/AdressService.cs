@@ -41,7 +41,7 @@ namespace ODL.ApplicationServices
             return adresser.Select(enhet => new AdressDTO
             {
                 Id = enhet.AdressVariant.Id,
-                GatuAdress = GatuAdressDTO.FromGatuadress(enhet.Gatuadress),
+                Gatuadress = GatuadressDTO.FromGatuadress(enhet.Gatuadress),
                 Mail = MailDTO.FromMail(enhet.Mail),
                 Telefon = TelefonDTO.Fromtelefon(enhet.Telefon)
             });
@@ -56,7 +56,7 @@ namespace ODL.ApplicationServices
                  new AdressDTO()
                  {
                      Id = enhet.AdressVariant.Id,
-                     GatuAdress = GatuAdressDTO.FromGatuadress(enhet.Gatuadress),
+                     Gatuadress = GatuadressDTO.FromGatuadress(enhet.Gatuadress),
                      Mail = MailDTO.FromMail(enhet.Mail),
                      Telefon = TelefonDTO.Fromtelefon(enhet.Telefon)
                  });

@@ -10,7 +10,7 @@ namespace ODL.ApplicationServices.Test
     public class AdressInputValidatorTests
     {
         [Test]
-        public void TestValidatePersonAdressGatuAdress()
+        public void TestValidatePersonAdressGatuadress()
         {
             var personAdress = CreatePersonAdress(new GatuadressInputDTO(), null, null);
 
@@ -33,7 +33,7 @@ namespace ODL.ApplicationServices.Test
 
 
         [Test]
-        public void TestValidateOrganisationAdressGatuAdress()
+        public void TestValidateOrganisationAdressGatuadress()
         {
 
             var organisationAdress = CreateOrganisationAdress(new GatuadressInputDTO(), null, null);

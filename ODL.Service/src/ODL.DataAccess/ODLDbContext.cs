@@ -52,7 +52,7 @@ namespace ODL.DataAccess
         
         public virtual DbSet<Adress> Adress { get; set; }
         public virtual DbSet<AdressVariant> AdressVariant { get; set; }
-        //public virtual DbSet<GatuAdress> GatuAdress { get; set; }
+        //public virtual DbSet<Gatuadress> Gatuadress { get; set; }
         //public virtual DbSet<Mail> Mail { get; set; }
         //public virtual DbSet<OrganisationAdress> OrganisationAdress { get; set; }
         //public virtual DbSet<PersonAdress> PersonAdress { get; set; }

@@ -16,13 +16,6 @@ namespace ODL.Service.Controllers
             _personService = personService;
         }
 
-        // GET api/person/resultatenhet/5
-        [HttpGet("resultatenhet/{resultatenhetId}")]
-        public IEnumerable<PersonDTO> GetPersonByResultatenhetId(int resultatenhetId) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
-        {
-            return _personService.GetByResultatenhetId(resultatenhetId);
-        }
-
         // GET api/person/resultatenhetansvarigamedleveransadress
         [HttpGet("resultatenhetansvarigamedleveransadress")]
         public IEnumerable<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress()

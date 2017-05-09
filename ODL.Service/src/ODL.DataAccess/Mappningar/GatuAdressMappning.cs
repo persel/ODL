@@ -4,12 +4,12 @@ using ODL.DomainModel.Adress;
 
 namespace ODL.DataAccess.Mappningar
 {
-    public class GatuAdressMappning : EntityTypeConfiguration<GatuAdress>
+    public class GatuadressMappning : EntityTypeConfiguration<Gatuadress>
     {
-        public GatuAdressMappning()
+        public GatuadressMappning()
         {
 
-            ToTable("Adress.GatuAdress");
+            ToTable("Adress.Gatuadressf");
             HasKey(m => m.AdressId)
                 .Property(m => m.AdressId)
                 .HasColumnName("AdressFKId")

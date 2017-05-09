@@ -5,7 +5,7 @@ namespace ODL.DomainModel.Adress
     public enum AdressTyp
     {
         [Visningstext("Gatuadress")]
-        GatuAdress = 1,
+        Gatuadress = 1,
 
         [Visningstext("Epost-adress")]
         MailAdress = 2,

@@ -1,6 +1,6 @@
 namespace ODL.DomainModel.Adress
 {
-    public class GatuAdress
+    public class Gatuadress
     {       
         public int AdressId { get; set; }
         public string AdressRad1 { get; set; }

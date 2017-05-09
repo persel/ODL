@@ -11,7 +11,7 @@ namespace ODL.DomainModel.Adress
         
         public virtual AdressVariant AdressVariant { get; set; }
 
-        public virtual GatuAdress Gatuadress { get; set; }
+        public virtual Gatuadress Gatuadress { get; set; }
 
         public virtual Mail Mail { get; set; }
 
@@ -25,7 +25,7 @@ namespace ODL.DomainModel.Adress
 
         public static Adress NyGatuadress(Person.Person person)
         {
-            var adress = new Adress { Gatuadress = new GatuAdress() };
+            var adress = new Adress { Gatuadress = new Gatuadress() };
             adress.PersonAdress = new PersonAdress { PersonId = person.Id };
             return adress;
         }
@@ -46,7 +46,7 @@ namespace ODL.DomainModel.Adress
 
         public static Adress NyGatuadress(Organisation.Organisation organisation)
         {
-            var adress = new Adress { Gatuadress = new GatuAdress() };
+            var adress = new Adress { Gatuadress = new Gatuadress() };
             adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
             return adress;
         }
