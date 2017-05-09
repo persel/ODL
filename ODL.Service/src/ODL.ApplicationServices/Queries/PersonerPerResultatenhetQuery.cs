@@ -17,12 +17,14 @@ namespace ODL.ApplicationServices.Queries
             DbContext = dbContext;
         }
 
-        public List<PersonPerResultatenhetDTO> Execute(string kstNr)
+        public IEnumerable<PersonPerResultatenhetDTO> Execute(string kstNr)
         {
             var allaAvtal = DbContext.DbSet<Avtal>();
             var personer = DbContext.DbSet<Person>();
             var organisationer = DbContext.DbSet<Organisation>();
             var allaOrganisationsAvtal = DbContext.DbSet<OrganisationAvtal>();
+
+            // Vi delar upp frågan i två separata delar för enkelhets skull:
 
             var projektionAnstallda = from person in personer
                 join avtal in allaAvtal on person.Id equals avtal.AnstalldAvtal.PersonId
@@ -39,12 +41,17 @@ namespace ODL.ApplicationServices.Queries
                                       select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = person.Fornamn + " " + person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig };
 
 
-            var a = projektionAnstallda.ToList();
-            var b = projektionKonsulter.ToList();
-            
+            var anstallda = projektionAnstallda.ToList();
+            var konsulter = projektionKonsulter.ToList();
 
-            a.AddRange(b); // TODO: Ta bort dubletter, ansvarig = true om både true/false finns
-            return a;
+
+            anstallda.AddRange(konsulter); // TODO: Ta bort dubletter, ansvarig = true om både true/false finns
+
+            var personPerResultatenhet = anstallda.GroupBy(a => a.Personnummer)
+                .Select(g => g.OrderByDescending(p => p.Resultatenhetansvarig).First()); // OrderBy bool: false (0) först, därefter true (1)
+
+            return personPerResultatenhet;
+
 
         }
     }
