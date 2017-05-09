@@ -19,7 +19,7 @@ namespace ODL.ApplicationServices.Queries
             DbContext = dbContext;
         }
 
-        public List<ResultatenhetansvarigDTO> Execute()
+        public IEnumerable<ResultatenhetansvarigDTO> Execute()
         {
             var allaAvtal = DbContext.DbSet<Avtal>();
             var allaAnstalldAvtal = DbContext.DbSet<AnstalldAvtal>(); // Denna kan utelämnas och joinas mha navigation property, men det komplicerar det genrerade SQL-scriptet
@@ -57,7 +57,7 @@ namespace ODL.ApplicationServices.Queries
                     AnstalldFranDatum = rad.FranDatum.FormatteraSomDatum(),
                     AnstalldTillDatum = rad.TillDatum.FormatteraSomDatum() ?? datumOmFemAr});
 
-            return verksamhetsansvariga.Distinct().ToList(); // Ta bort dubletter
+            return verksamhetsansvariga.Distinct(); // Ta bort dubletter
 
         }
     }

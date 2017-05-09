@@ -10,14 +10,13 @@ namespace ODL.ApplicationServices
         /// Hämtar alla Personer som har avtal med angiven resultatenhet eller andra resultatenheter i samma
         /// organisationshierarki
         /// </summary>
-        List<PersonDTO> GetByResultatenhetId(int resultatenhetId);
-        
+
         void SparaAvtal(AvtalInputDTO avtal);
 
         void SparaPerson(PersonInputDTO person);
 
         PersonDTO GetPersonByPersonnummer(string personnummer);
         IEnumerable<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet(string kstNr);
-        List<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress();
+        IEnumerable<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress();
     }
 }

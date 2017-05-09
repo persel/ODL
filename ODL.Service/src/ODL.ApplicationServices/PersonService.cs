@@ -30,37 +30,6 @@ namespace ODL.ApplicationServices
             this.logger = logger;
     }
 
-        public List<PersonDTO> GetByResultatenhetId(int id)
-        {
-            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
-
-            //var resultatenhet = organisationRepository.GetOrganisationByKstnr(id).Resultatenhet;
-
-            //var allaOrganisationer = resultatenhet.Organisation.AllaRelaterade();
-
-            //var allaAvtal = allaOrganisationer.SelectMany(org => org.OrganisationsAvtal);
-
-            //var allaAvtalId = allaAvtal.Select(avtal => avtal.AvtalId).ToArray();
-
-            //var allaPersoner = personRepository.GetByAvtalIdn(allaAvtalId);
-
-            //var personDtos = new List<PersonDTO>();
-
-            //foreach (var person in allaPersoner)
-            //{
-            //    var personDTO = new PersonDTO { Id = person.Id, Namn = $" {person.Fornamn} {person.Efternamn}", Personnummer = person.Personnummer, Resultatenheter = new List<ResultatenhetDTO>() };
-
-            //    foreach (var organisation in allaOrganisationer)
-            //    {
-            //        if (person.KoppladTill(organisation))
-            //            personDTO.Resultatenheter.Add(new ResultatenhetDTO { Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr, Namn = organisation.Namn, Typ = organisation.Resultatenhet.Typ });
-            //    }
-            //    personDtos.Add(personDTO);
-            //}
-
-            //return personDtos;
-        }
-
         public void SparaPerson(PersonInputDTO personInputDTO)
         {
             var valideringsfel = new PersonInputValidator().Validate(personInputDTO);
@@ -106,7 +75,7 @@ namespace ODL.ApplicationServices
         }
 
 
-        public List<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress()
+        public IEnumerable<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress()
         {
             return new ResultatenhetsansvarigaMedLeveransadressQuery(context).Execute();
         }
