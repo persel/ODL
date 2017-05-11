@@ -5,8 +5,10 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Query;
+using ODL.ApplicationServices.Queries;
 using ODL.DataAccess.Repositories;
 using ODL.ApplicationServices.Validation;
+using ODL.DataAccess;
 using ODL.DomainModel;
 using ODL.DomainModel.Organisation;
 
@@ -17,18 +19,18 @@ namespace ODL.ApplicationServices
 
         private readonly IOrganisationRepository organisationRepository;
         private readonly IPersonRepository personRepository;
-        private readonly IAvtalRepository avtalRepository;
         private readonly IAdressRepository adressRepository;
         private readonly IAdressVariantRepository adressVariantRepository;
+        private readonly IContext context;
         private readonly ILogger<OrganisationService> logger;
 
-        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, IAdressRepository adressRepository, IAdressVariantRepository adressVariantRepository, ILogger<OrganisationService> logger)
+        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAdressRepository adressRepository, IAdressVariantRepository adressVariantRepository, IContext context, ILogger<OrganisationService> logger)
         {
             this.personRepository = personRepository;
             this.organisationRepository = organisationRepository;
-            this.avtalRepository = avtalRepository;
             this.adressRepository = adressRepository;
             this.adressVariantRepository = adressVariantRepository;
+            this.context = context;
             this.logger = logger;
         }
 
@@ -36,20 +38,11 @@ namespace ODL.ApplicationServices
         {
             var person = personRepository.GetByPersonnummer(personnummer);
 
-            var avtalIdn = avtalRepository.GetAvtalIdnByPersonId(person.Id);
-            var resultatenheter = organisationRepository.GetByAvtalIdn(avtalIdn).Select(org => org.Resultatenhet);
-            
-            return resultatenheter.Select(enhet =>
-                new ResultatenhetDTO
-                {
-                    Id = enhet.OrganisationId,
-                    KostnadsstalleNr = enhet.KstNr.ToString(),
-                    Typ = enhet.Typ,
-                    Namn = enhet.Organisation.Namn
-                });
+            var query = new ResultatenhetPerPersonQuery(context);
+
+            return query.Execute(person.Id);
+
         }
-
-
         public IEnumerable<ResultatenhetDTO> GetResultatenheter()
         {
             var organisationer = organisationRepository.GetAll();
@@ -70,8 +63,7 @@ namespace ODL.ApplicationServices
             var organisation = organisationRepository.GetOrganisationByKstnr(kostnadsstalleNr);
             var resultatenhet = organisation.Resultatenhet;
             
-            // TODO : Använd Value Object för AdressVariant!
-            var variant = adressVariantRepository.GetVariantByVariantName("Leveransadress");
+            var variant = adressVariantRepository.GetVariantByVariantName("Leveransadress"); // TODO : Använd Value Object för AdressVariant!
 
             var leveransAdress = adressRepository.GetAdressPerOrganisationsIdAndVariantId(organisation.Id, variant.Id)?.Gatuadress;
 

@@ -8,11 +8,7 @@ namespace ODL.DataAccess.Repositories
 
     public interface IPersonRepository
     {
-        /// <summary>
-        /// Hämta alla personer på dessa avtal.
-        /// </summary>
-        List<Person> GetByAvtalIdn(IEnumerable<int> avtalIdn);
-
+        
         Person GetByPersonnummer(string personnummer);
 
         void Update();

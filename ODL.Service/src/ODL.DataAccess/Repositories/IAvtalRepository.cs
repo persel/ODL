@@ -7,8 +7,6 @@ namespace ODL.DataAccess.Repositories
     {
         Avtal GetByKallsystemId(string systemId);
         void Add(Avtal nyttAvtal);
-
         void Update();
-        IEnumerable<int> GetAvtalIdnByPersonId(int personId);
     }
 }
