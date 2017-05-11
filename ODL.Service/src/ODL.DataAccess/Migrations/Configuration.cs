@@ -22,11 +22,11 @@ namespace ODL.DataAccess.Migrations
 
         protected override void Seed(ODLDbContext context)
         {
-            insertTestdata = bool.TryParse(ConfigurationManager.AppSettings["insert-testdata"], out insertTestdata);
+            bool.TryParse(ConfigurationManager.AppSettings["insert-testdata"], out insertTestdata);
 
             if (context.AdressVariant.ToList().Count == 0)
             {
-               AddAdressTypVarianter(ref context);
+               AddAdressTypVarianter(context);
             }
 
             
@@ -34,25 +34,25 @@ namespace ODL.DataAccess.Migrations
             {
                 if (context.Person.ToList().Count == 0)
                 {     
-                    AddPerson(ref context);
+                    AddPerson(context);
                     context.SaveChanges();
 
-                    AddAdress(ref context);
+                    AddAdress(context);
                     
                 }
 
 
                 if (context.Organisation.ToList().Count == 0)
                 {
-                    AddOrganisation(ref context);
+                    AddOrganisation(context);
                     context.SaveChanges();
-                    AddAvtal(ref context);
+                    AddAvtal(context);
                 }
                 
             }
         }
 
-        private static void AddAdressTypVarianter(ref ODLDbContext context)
+        private static void AddAdressTypVarianter(ODLDbContext context)
         {
             //AdressTyp
             foreach (var enumValue in Enum.GetValues(typeof(AdressTyp)))
@@ -76,7 +76,7 @@ namespace ODL.DataAccess.Migrations
 
         }
 
-        private static void AddPerson( ref ODLDbContext context)
+        private static void AddPerson(ODLDbContext context)
         {
             var metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
             context.Person.AddOrUpdate(
@@ -104,7 +104,7 @@ namespace ODL.DataAccess.Migrations
             );
         }
 
-        private static void AddAdress(ref ODLDbContext context)
+        private static void AddAdress(ODLDbContext context)
         {
             var metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
 
@@ -175,7 +175,7 @@ namespace ODL.DataAccess.Migrations
 
         }
 
-        private static void AddOrganisation(ref ODLDbContext context)
+        private static void AddOrganisation(ODLDbContext context)
         {
             var metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
             var org1 = Organisation.SkapaNyResultatenhet();
@@ -223,47 +223,73 @@ namespace ODL.DataAccess.Migrations
 
         }
 
-        private void AddAvtal(ref ODLDbContext context)
+        private void AddAvtal(ODLDbContext context)
         {
             var metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
-            var avtal = new Avtal
+
+            var person = context.Person.ToList().Single(p => p.Personnummer == "197012123456");
+            var organisation = context.Organisation.ToList().Find(p => p.OrganisationsId == "12345678");
+
+            var avtal1 = new Avtal
             {
                 KallsystemId = "334567349534",
                 Avtalskod = "K01",
                 Avtalstext = "Anställningsavtal X",
-                ArbetstidVecka = 40,
+                ArbetstidVecka = 24,
                 Befkod = 1,
                 BefText = "Tandläkare",
                 Aktiv = true,
                 Ansvarig = true,
                 Chef = true,
                 GrundArbtidVecka = 40,
-                Lon = 40000,
+                Lon = 38400,
                 TimLon = 400,
                 Anstallningsdatum = DateTime.Now,
                 Metadata = metadata,
-                AnstalldAvtal = new AnstalldAvtal
-                {
-                    PersonId = context.Person.ToList().Single(p => p.Fornamn == "Kalle" && p.Mellannamn == "Ove").Id
-                }
             };
 
-
-
-            var orgAvtal = new OrganisationAvtal
+            var orgAvtal1 = new OrganisationAvtal
             {
-                OrganisationId = context.Organisation.ToList()
-                    .Find(p => p.Namn == "Järvsö vård och ved")
-                    .Id,
+                OrganisationId = organisation.Id,
                 Huvudkostnadsstalle = true,
                 ProcentuellFordelning = 100
             };
 
+            avtal1.LaggTillAnstalld(person);
+            avtal1.LaggTillOrganisationAvtal(orgAvtal1);
+            
 
-            avtal.AddOrganisationAvtal(orgAvtal);
-            context.Avtal.AddOrUpdate(avtal);
+            var avtal2 = new Avtal
+            {
+                KallsystemId = "349534334567",
+                Avtalskod = "K02",
+                Avtalstext = "Anställningsavtal Y",
+                ArbetstidVecka = 16,
+                Befkod = 1,
+                BefText = "Odontologkonsult",
+                Aktiv = true,
+                Ansvarig = false,
+                Chef = true,
+                GrundArbtidVecka = 40,
+                Lon = 25600,
+                TimLon = 400,
+                Anstallningsdatum = DateTime.Now,
+                Metadata = metadata,
+            };
 
+            var orgAvtal2 = new OrganisationAvtal
+            {
+                OrganisationId = organisation.Id,
+                Huvudkostnadsstalle = true,
+                ProcentuellFordelning = 100
+            };
+
+            avtal2.LaggTillKonsult(person);
+            avtal2.LaggTillOrganisationAvtal(orgAvtal2);
+            
+            context.Avtal.AddOrUpdate(avtal1);
+            context.Avtal.AddOrUpdate(avtal2);
+            
         }
-
     }
 }

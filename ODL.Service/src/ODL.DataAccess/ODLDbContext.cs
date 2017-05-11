@@ -43,31 +43,15 @@ namespace ODL.DataAccess
         // Person:
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Avtal> Avtal { get; set; }
-        //public virtual DbSet<AnstalldAvtal> AnstallningsAvtal { get; set; }
-        //public virtual DbSet<KonsultAvtal> KonsultAvtal { get; set; }
-        //public virtual DbSet<OrganisationAvtal> OrganisationAvtal { get; set; }
-        
         public virtual DbSet<Organisation> Organisation { get; set; }
-        //public virtual DbSet<Resultatenhet> Resultatenhet { get; set; }
-        
         public virtual DbSet<Adress> Adress { get; set; }
         public virtual DbSet<AdressVariant> AdressVariant { get; set; }
-        //public virtual DbSet<Gatuadress> Gatuadress { get; set; }
-        //public virtual DbSet<Mail> Mail { get; set; }
-        //public virtual DbSet<OrganisationAdress> OrganisationAdress { get; set; }
-        //public virtual DbSet<PersonAdress> PersonAdress { get; set; }
-        //public virtual DbSet<Telefon> Telefon { get; set; }
-
-
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            // modelBuilder.Conventions.Add(new DataTypePropertyAttributeConvention());
-
             modelBuilder.Configurations.AddFromAssembly(typeof(ODLDbContext).Assembly); // Peka ut valfri klass i assembly där mappningarna finns! OBS att denna ska köras före 'strukturella' mappningarna nedan.
-
         }
 
         public DbSet<T> DbSet<T>() where T : class

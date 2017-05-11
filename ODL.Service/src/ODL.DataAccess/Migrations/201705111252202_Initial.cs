@@ -2,6 +2,8 @@ using ODL.DataAccess.Migrations.Custom;
 
 namespace ODL.DataAccess.Migrations
 {
+    using System;
+    using System.Data.Entity.Migrations;
     
     public partial class Initial : CustomMigrations
     {
@@ -33,7 +35,7 @@ namespace ODL.DataAccess.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "Adress.GatuAdress",
+                "Adress.Gatuadress",
                 c => new
                     {
                         AdressFKId = c.Int(nullable: false),
@@ -106,7 +108,7 @@ namespace ODL.DataAccess.Migrations
                         Befkod = c.Int(),
                         BefText = c.String(maxLength: 50),
                         Aktiv = c.Boolean(),
-                        Ansvarig = c.Boolean(),
+                        Ansvarig = c.Boolean(nullable: false),
                         Chef = c.Boolean(),
                         TjledigFran = c.DateTime(),
                         TjledigTom = c.DateTime(),
@@ -211,6 +213,7 @@ namespace ODL.DataAccess.Migrations
                     })
                 .PrimaryKey(t => t.Id);
 
+
             AddForeignKeysWithoutNavigationPropertyRelations();
             AddNonMappedTables();
         }
@@ -219,7 +222,6 @@ namespace ODL.DataAccess.Migrations
         {
             DropForeignKeysWithoutNavigationPropertyRelations();
             DropNonMappedTables();
-            
             DropForeignKey("Organisation.Organisation", "IngarIOrganisationFKId", "Organisation.Organisation");
             DropForeignKey("Organisation.Resultatenhet", "OrganisationFKId", "Organisation.Organisation");
             DropForeignKey("Avtal.OrganisationAvtal", "AvtalFKId", "Avtal.Avtal");
@@ -229,7 +231,7 @@ namespace ODL.DataAccess.Migrations
             DropForeignKey("Adress.PersonAdress", "AdressFKId", "Adress.Adress");
             DropForeignKey("Adress.OrganisationAdress", "AdressFKId", "Adress.Adress");
             DropForeignKey("Adress.Mail", "AdressFKId", "Adress.Adress");
-            DropForeignKey("Adress.GatuAdress", "AdressFKId", "Adress.Adress");
+            DropForeignKey("Adress.Gatuadress", "AdressFKId", "Adress.Adress");
             DropForeignKey("Adress.Adress", "AdressVariantFKId", "Adress.AdressVariant");
             DropIndex("Organisation.Resultatenhet", new[] { "OrganisationFKId" });
             DropIndex("Organisation.Organisation", new[] { "IngarIOrganisationFKId" });
@@ -240,7 +242,7 @@ namespace ODL.DataAccess.Migrations
             DropIndex("Adress.PersonAdress", new[] { "AdressFKId" });
             DropIndex("Adress.OrganisationAdress", new[] { "AdressFKId" });
             DropIndex("Adress.Mail", new[] { "AdressFKId" });
-            DropIndex("Adress.GatuAdress", new[] { "AdressFKId" });
+            DropIndex("Adress.Gatuadress", new[] { "AdressFKId" });
             DropIndex("Adress.Adress", new[] { "AdressVariantFKId" });
             DropTable("Person.Person");
             DropTable("Organisation.Resultatenhet");
@@ -253,7 +255,7 @@ namespace ODL.DataAccess.Migrations
             DropTable("Adress.PersonAdress");
             DropTable("Adress.OrganisationAdress");
             DropTable("Adress.Mail");
-            DropTable("Adress.GatuAdress");
+            DropTable("Adress.Gatuadress");
             DropTable("Adress.AdressVariant");
             DropTable("Adress.Adress");
         }

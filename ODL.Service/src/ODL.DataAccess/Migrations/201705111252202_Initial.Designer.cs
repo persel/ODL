@@ -7,13 +7,13 @@ namespace ODL.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Avtal_Ansvarig_NotNull : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Avtal_Ansvarig_NotNull));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705091026267_Avtal_Ansvarig_NotNull"; }
+            get { return "201705111252202_Initial"; }
         }
         
         string IMigrationMetadata.Source

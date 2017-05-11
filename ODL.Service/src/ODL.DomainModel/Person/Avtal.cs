@@ -66,13 +66,23 @@ namespace ODL.DomainModel.Person
 
         public bool IsNew => Id == default(int);
 
-        public virtual AnstalldAvtal AnstalldAvtal { get; set; }
+        public virtual AnstalldAvtal AnstalldAvtal { get; private set; }
 
-        public virtual KonsultAvtal KonsultAvtal { get; set; }
+        public virtual KonsultAvtal KonsultAvtal { get; private set; }
 
-        public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; set; }
+        public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; }
 
-        public void AddOrganisationAvtal(OrganisationAvtal orgAvtal)
+        public void LaggTillKonsult(Person konsult)
+        {
+            KonsultAvtal = new KonsultAvtal{PersonId = konsult.Id};
+        }
+
+        public void LaggTillAnstalld(Person anstalld)
+        {
+            AnstalldAvtal = new AnstalldAvtal { PersonId = anstalld.Id };
+        }
+
+        public void LaggTillOrganisationAvtal(OrganisationAvtal orgAvtal)
         {
             OrganisationAvtal.Add(orgAvtal);
         }

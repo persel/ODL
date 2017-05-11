@@ -29,7 +29,7 @@ namespace ODL.ApplicationServices.Queries
                 where avtal.KonsultAvtal.PersonId == personId || avtal.AnstalldAvtal.PersonId == personId
                 select new ResultatenhetDTO { Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr, Typ = organisation.Resultatenhet.Typ, Namn = organisation.Namn};
 
-            return projektionResultatenheter;
+            return projektionResultatenheter.Distinct();
 
         }
     }

@@ -128,9 +128,9 @@ namespace ODL.ApplicationServices
                     throw new ArgumentException($"Avtalet kunde inte sparas - angiven person med personnummer '{avtalDTO.Personnummer}' saknas i ODL.");
                 }
                 if (!string.IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
-                    avtal.AnstalldAvtal = new AnstalldAvtal { PersonId = person.Id};
+                    avtal.LaggTillAnstalld(person);
                 else
-                    avtal.KonsultAvtal = new KonsultAvtal { PersonId = person.Id};
+                    avtal.LaggTillKonsult(person);
             }
 
             var kstnrList = avtalDTO.Kostnadsstallen.Select(kst => kst.KostnadsstalleNr);
@@ -152,7 +152,7 @@ namespace ODL.ApplicationServices
                 orgAvtal.ProcentuellFordelning = kstDTO.ProcentuellFordelning;
 
                 if (orgAvtal.IsNew)
-                    avtal.AddOrganisationAvtal(orgAvtal);
+                    avtal.LaggTillOrganisationAvtal(orgAvtal);
             }
             
             if (avtal.IsNew)

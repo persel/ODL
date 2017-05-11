@@ -67,17 +67,9 @@
     <Compile Include="Mappningar\PersonMappning.cs" />
     <Compile Include="Mappningar\ResultatenhetMappning.cs" />
     <Compile Include="Mappningar\TelefonMappning.cs" />
-    <Compile Include="Migrations\201704071041577_Initial.cs" />
-    <Compile Include="Migrations\201704071041577_Initial.Designer.cs">
-      <DependentUpon>201704071041577_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705091026267_Avtal_Ansvarig_NotNull.cs" />
-    <Compile Include="Migrations\201705091026267_Avtal_Ansvarig_NotNull.Designer.cs">
-      <DependentUpon>201705091026267_Avtal_Ansvarig_NotNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705091043185_GatuAdress_till_Gatuadress.cs" />
-    <Compile Include="Migrations\201705091043185_GatuAdress_till_Gatuadress.Designer.cs">
-      <DependentUpon>201705091043185_GatuAdress_till_Gatuadress.cs</DependentUpon>
+    <Compile Include="Migrations\201705111252202_Initial.cs" />
+    <Compile Include="Migrations\201705111252202_Initial.Designer.cs">
+      <DependentUpon>201705111252202_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Custom\CustomMigrations.cs" />
@@ -110,14 +102,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704071041577_Initial.resx">
-      <DependentUpon>201704071041577_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705091026267_Avtal_Ansvarig_NotNull.resx">
-      <DependentUpon>201705091026267_Avtal_Ansvarig_NotNull.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705091043185_GatuAdress_till_Gatuadress.resx">
-      <DependentUpon>201705091043185_GatuAdress_till_Gatuadress.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705111252202_Initial.resx">
+      <DependentUpon>201705111252202_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
