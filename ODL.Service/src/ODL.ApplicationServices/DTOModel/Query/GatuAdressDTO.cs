@@ -9,17 +9,17 @@ namespace ODL.ApplicationServices.DTOModel.Query
             if (gatuadress == null)
                 return null;
 
-            var gatuAdressDTO = new GatuadressDTO();
-            gatuAdressDTO.AdressRad1 = gatuadress.AdressRad1;
-            gatuAdressDTO.AdressRad2 = gatuadress.AdressRad2;
-            gatuAdressDTO.AdressRad3 = gatuadress.AdressRad3;
-            gatuAdressDTO.AdressRad4 = gatuadress.AdressRad4;
-            gatuAdressDTO.AdressRad5 = gatuadress.AdressRad5;
-            gatuAdressDTO.Postnummer = gatuadress.Postnummer;
-            gatuAdressDTO.Stad = gatuadress.Stad;
-            gatuAdressDTO.Land = gatuadress.Land;
+            var gatuadressDTO = new GatuadressDTO();
+            gatuadressDTO.AdressRad1 = gatuadress.AdressRad1;
+            gatuadressDTO.AdressRad2 = gatuadress.AdressRad2;
+            gatuadressDTO.AdressRad3 = gatuadress.AdressRad3;
+            gatuadressDTO.AdressRad4 = gatuadress.AdressRad4;
+            gatuadressDTO.AdressRad5 = gatuadress.AdressRad5;
+            gatuadressDTO.Postnummer = gatuadress.Postnummer;
+            gatuadressDTO.Stad = gatuadress.Stad;
+            gatuadressDTO.Land = gatuadress.Land;
 
-            return gatuAdressDTO;
+            return gatuadressDTO;
         }
 
 

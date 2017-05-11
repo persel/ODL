@@ -18,17 +18,21 @@ namespace ODL.ApplicationServices
         private readonly IOrganisationRepository organisationRepository;
         private readonly IPersonRepository personRepository;
         private readonly IAvtalRepository avtalRepository;
+        private readonly IAdressRepository adressRepository;
+        private readonly IAdressVariantRepository adressVariantRepository;
         private readonly ILogger<OrganisationService> logger;
 
-        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, ILogger<OrganisationService> logger)
+        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, IAdressRepository adressRepository, IAdressVariantRepository adressVariantRepository, ILogger<OrganisationService> logger)
         {
             this.personRepository = personRepository;
             this.organisationRepository = organisationRepository;
             this.avtalRepository = avtalRepository;
+            this.adressRepository = adressRepository;
+            this.adressVariantRepository = adressVariantRepository;
             this.logger = logger;
         }
 
-        public IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer)
+        public IEnumerable<ResultatenhetDTO> GetResultatenheterForPersonnummer(string personnummer)
         {
             var person = personRepository.GetByPersonnummer(personnummer);
 
@@ -61,44 +65,53 @@ namespace ODL.ApplicationServices
                 });
         }
 
-        public IEnumerable<ResultatenhetDTO> GetResultatenheterByKstNr(List<string> kostnadsstalleNr)
+        public ResultatenhetDTO GetResultatenhetForKstNr(string kostnadsstalleNr)
         {
+            var organisation = organisationRepository.GetOrganisationByKstnr(kostnadsstalleNr);
+            var resultatenhet = organisation.Resultatenhet;
             
-            var organisationer = organisationRepository.GetByKstNr(kostnadsstalleNr);
-            var resultatenheter = organisationer.Select(org => org.Resultatenhet);
+            // TODO : Använd Value Object för AdressVariant!
+            var variant = adressVariantRepository.GetVariantByVariantName("Leveransadress");
 
-            return resultatenheter.Select(enhet =>
+            var leveransAdress = adressRepository.GetAdressPerOrganisationsIdAndVariantId(organisation.Id, variant.Id)?.Gatuadress;
+
+            var resultatenhetDTO = 
                 new ResultatenhetDTO
                 {
-                    Id = enhet.OrganisationId,
-                    KostnadsstalleNr = enhet.KstNr.ToString(),
-                    Typ = enhet.Typ,
-                    Namn = enhet.Organisation.Namn
-                });
+                    Id = resultatenhet.OrganisationId,
+                    KostnadsstalleNr = resultatenhet.KstNr,
+                    Typ = resultatenhet.Typ,
+                    Namn = organisation.Namn,
+                    LeveransAdress = leveransAdress?.AdressRad1,
+                    Postadress = leveransAdress?.Stad,
+                    Postnummer = leveransAdress?.Postnummer
+                };
+
+            return resultatenhetDTO;
         }
 
-        public void SparaResultatenhet(ResultatenhetInputDTO resEnhetInputDTO)
+        public void SparaResultatenhet(ResultatenhetInputDTO resultatenhet)
         {
-            var valideringsfel = new ResultatenhetInputValidator().Validate(resEnhetInputDTO);
+            var valideringsfel = new ResultatenhetInputValidator().Validate(resultatenhet);
 
             if (valideringsfel.Any())
             {
                 foreach (var fel in valideringsfel)
                     logger.LogError(fel.Message);
-                throw new BusinessLogicException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resEnhetInputDTO.KostnadsstalleNr}.");
+                throw new BusinessLogicException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resultatenhet.KostnadsstalleNr}.");
             }
 
-            var organisation = organisationRepository.GetOrganisationByKstnr(resEnhetInputDTO.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet();
+            var organisation = organisationRepository.GetOrganisationByKstnr(resultatenhet.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet();
 
-            organisation.OrganisationsId = resEnhetInputDTO.OrganisationsId;
-            organisation.Namn = resEnhetInputDTO.Namn;
-            organisation.Metadata = resEnhetInputDTO.GetMetadata();
+            organisation.OrganisationsId = resultatenhet.OrganisationsId;
+            organisation.Namn = resultatenhet.Namn;
+            organisation.Metadata = resultatenhet.GetMetadata();
 
-            var resultatenhet = organisation.Resultatenhet;
-            resultatenhet.Typ = resEnhetInputDTO.Typ;
-            resultatenhet.KstNr = resEnhetInputDTO.KostnadsstalleNr;
+            var resultatenhetAttSpara = organisation.Resultatenhet;
+            resultatenhetAttSpara.Typ = resultatenhet.Typ;
+            resultatenhetAttSpara.KstNr = resultatenhet.KostnadsstalleNr;
 
-            if (resultatenhet.IsNew)
+            if (resultatenhetAttSpara.IsNew)
                 organisationRepository.Add(organisation);
             else
                 organisationRepository.Update();

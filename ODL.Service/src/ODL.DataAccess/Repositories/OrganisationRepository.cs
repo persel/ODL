@@ -25,32 +25,6 @@ namespace ODL.DataAccess.Repositories
             return obj;
         }
 
-        public IList<Organisation> GetByAvtalIdn(IEnumerable<int> avtalIdn)
-        {
-            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
-
-            //return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
-            //        avtal => avtalIdn.Contains(avtal.AvtalId))).ToList();
-        }
-
-        public IList<Organisation> GetWhereAnsvarigByAvtalIdn(IEnumerable<int> avtalIdn)
-        {
-            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
-
-            //var avtalAnsvarig = DbContext.Avtal.Where(a => a.Ansvarig == true && avtalIdn.Contains(a.Id));
-
-            //var avtalAnsvarigIdn = avtalAnsvarig.Select(avtal => avtal.Id);
-
-            //return DbContext.Organisation.Where(organisation => organisation.OrganisationsAvtal.Any(
-            //        avtal => avtalAnsvarigIdn.Contains(avtal.AvtalId))).ToList();
-        }
-
-        public IList<Organisation> GetByKstNr(List<string> kstNrList)
-        {
-            throw new NotImplementedException("Metoden ej anpassad efter ändrad domänmodell - skriv om alt. ta bort.");
-            //return DbContext.Organisation.Where(organisation => kostnadsstalleNr.Contains(organisation.Resultatenhet.KstNr)).ToList();
-        }
-
         public IList<Organisation> GetAll()
         {
             return DbContext.Set<Organisation>().ToList();

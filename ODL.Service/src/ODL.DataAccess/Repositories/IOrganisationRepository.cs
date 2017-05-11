@@ -9,14 +9,6 @@ namespace ODL.DataAccess.Repositories
     {
         Organisation GetByOrgId(string orgId);
 
-        /// <summary>
-        /// Hämta alla Organisationer på dessa avtal.
-        /// </summary>
-        IList<Organisation> GetByAvtalIdn(IEnumerable<int> avtalIdn);
-
-        IList<Organisation> GetWhereAnsvarigByAvtalIdn(IEnumerable<int> avtalIdn);
-
-        IList<Organisation> GetByKstNr(List<string> kstNrList);
         IList<Organisation> GetAll();
         void Update();
         void Add(Organisation organisation);

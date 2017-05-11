@@ -10,10 +10,10 @@ namespace ODL.ApplicationServices
         /// <summary>
         /// Hämtar alla resultatenheter med vilka angiven person har ett avtal.
         /// </summary>
-        IEnumerable<ResultatenhetDTO> GetResultatenhetByPersonnummer(string personnummer);
+        IEnumerable<ResultatenhetDTO> GetResultatenheterForPersonnummer(string personnummer);
         IEnumerable<ResultatenhetDTO> GetResultatenheter();
 
-        IEnumerable<ResultatenhetDTO> GetResultatenheterByKstNr(List<string> kostnadsstalleNr);
-        void SparaResultatenhet(ResultatenhetInputDTO resEnhet);
+        ResultatenhetDTO GetResultatenhetForKstNr(string kostnadsstalleNr);
+        void SparaResultatenhet(ResultatenhetInputDTO resultatenhet);
     }
 }

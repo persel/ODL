@@ -26,18 +26,18 @@ namespace ODL.Service.Controllers
             return _organisationService.GetResultatenheter();
         }
 
-        // GET api/organisation/resultatenheter
-        [HttpGet("resultatenheter/")]
-        public IEnumerable<ResultatenhetDTO> GetResultatenhet([FromQuery]List<string> kostnadsstalleNr) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
+        // GET api/organisation/resultatenhet/1234
+        [HttpGet("resultatenhet/{kstNr}")]
+        public ResultatenhetDTO GetResultatenhet(string kostnadsstalleNr) // TODO: Set appropriate authorization on this method and/or pick personnummer from credentials/auth. ticket
         {
-            return _organisationService.GetResultatenheterByKstNr(kostnadsstalleNr);
+            return _organisationService.GetResultatenhetForKstNr(kostnadsstalleNr);
         }
 
-        // GET api/organisation/resultatenhet/197501011405
-        [HttpGet("resultatenhet/{personnummer}")]
-        public IEnumerable<ResultatenhetDTO> GetResultatenhet(string personnummer)
+        // GET api/organisation/resultatenheter/personnummer/197501011405
+        [HttpGet("resultatenheter/personnummer/{personnummer}")]
+        public IEnumerable<ResultatenhetDTO> GetResultatenheterForPersonnummer(string personnummer)
         {
-            return _organisationService.GetResultatenhetByPersonnummer(personnummer);
+            return _organisationService.GetResultatenheterForPersonnummer(personnummer);
         }
 
         // POST api/resultatenhet/

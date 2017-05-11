@@ -9,6 +9,8 @@ namespace ODL.ApplicationServices.DTOModel.Query
         public string Namn { get; set; }
         public string KostnadsstalleNr { get; set; }
         public bool? Resultatenhetansvarig { get; set; }
+        public string Anstallningsdatum { get; set; }
+        public string Avgangsdatum { get; set; }
     }
     
 }
