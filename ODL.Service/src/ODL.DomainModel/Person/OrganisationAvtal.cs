@@ -24,6 +24,6 @@ namespace ODL.DomainModel
 
         public virtual Avtal Avtal { get; set; }
         
-        public bool IsNew => AvtalId == 0;
+        public bool Ny => AvtalId == 0;
     }
 }

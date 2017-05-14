@@ -10,6 +10,7 @@ using ODL.DataAccess.Repositories;
 using ODL.ApplicationServices.Validation;
 using ODL.DataAccess;
 using ODL.DomainModel;
+using ODL.DomainModel.Adress;
 using ODL.DomainModel.Organisation;
 
 namespace ODL.ApplicationServices
@@ -20,16 +21,14 @@ namespace ODL.ApplicationServices
         private readonly IOrganisationRepository organisationRepository;
         private readonly IPersonRepository personRepository;
         private readonly IAdressRepository adressRepository;
-        private readonly IAdressVariantRepository adressVariantRepository;
         private readonly IContext context;
         private readonly ILogger<OrganisationService> logger;
 
-        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAdressRepository adressRepository, IAdressVariantRepository adressVariantRepository, IContext context, ILogger<OrganisationService> logger)
+        public OrganisationService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAdressRepository adressRepository, IContext context, ILogger<OrganisationService> logger)
         {
             this.personRepository = personRepository;
             this.organisationRepository = organisationRepository;
             this.adressRepository = adressRepository;
-            this.adressVariantRepository = adressVariantRepository;
             this.context = context;
             this.logger = logger;
         }
@@ -63,9 +62,8 @@ namespace ODL.ApplicationServices
             var organisation = organisationRepository.GetOrganisationByKstnr(kostnadsstalleNr);
             var resultatenhet = organisation.Resultatenhet;
             
-            var variant = adressVariantRepository.GetVariantByVariantName("Leveransadress"); // TODO : Använd Value Object för AdressVariant!
-
-            var leveransAdress = adressRepository.GetAdressPerOrganisationsIdAndVariantId(organisation.Id, variant.Id)?.Gatuadress;
+            
+            var leveransAdress = adressRepository.GetAdressPerOrganisationsIdAndAdressvariant(organisation.Id, Adressvariant.Leveransadress)?.Gatuadress;
 
             var resultatenhetDTO = 
                 new ResultatenhetDTO

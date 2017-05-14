@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ODL.DomainModel.Adress;
-using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Repositories
 {
@@ -17,9 +16,8 @@ namespace ODL.DataAccess.Repositories
 
         IEnumerable<Adress> GetAdresserPerPersonummer(string personnummer);
 
-        Adress GetAdressPerPersonIdAndVariantId(int personId, int variantId);
-
-        Adress GetAdressPerOrganisationsIdAndVariantId(int organisationsId, int variantId);
-        IEnumerable<Adress> GetAdressPerOrganisationsIdAndVariantIdList(int id1, int id2);
+        Adress GetAdressPerPersonIdAndAdressvariant(int personId, Adressvariant variant);
+        
+        Adress GetAdressPerOrganisationsIdAndAdressvariant(int organisationsId, Adressvariant variant);
     }
 }

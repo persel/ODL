@@ -52,7 +52,6 @@ namespace ODL.Service
             services.AddScoped<IAvtalRepository, AvtalRepository>();
             services.AddScoped<IOrganisationRepository, OrganisationRepository>();
             services.AddScoped<IAdressRepository, AdressRepository>();
-            services.AddScoped<IAdressVariantRepository, AdressVariantRepository>();
 
             services.AddScoped(contextFactory);
 

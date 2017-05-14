@@ -45,7 +45,6 @@ namespace ODL.DataAccess
         public virtual DbSet<Avtal> Avtal { get; set; }
         public virtual DbSet<Organisation> Organisation { get; set; }
         public virtual DbSet<Adress> Adress { get; set; }
-        public virtual DbSet<AdressVariant> AdressVariant { get; set; }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

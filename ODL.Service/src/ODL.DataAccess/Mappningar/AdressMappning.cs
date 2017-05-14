@@ -10,9 +10,9 @@ namespace ODL.DataAccess.Mappningar
         {
             ToTable("Adress.Adress");
             HasKey(a => a.Id).Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Ignore(a => a.IsNew);
+            Ignore(a => a.Ny);
 
-            HasRequired(m => m.AdressVariant).WithMany().Map(m => m.MapKey("AdressVariantFKId")).WillCascadeOnDelete(false);
+            Property(m => m.Adressvariant).HasColumnName("AdressvariantFKId");
 
             HasOptional(e => e.Gatuadress)
                 .WithRequired(e => e.Adress);

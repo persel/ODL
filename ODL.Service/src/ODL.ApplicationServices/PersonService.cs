@@ -128,9 +128,9 @@ namespace ODL.ApplicationServices
                     throw new ArgumentException($"Avtalet kunde inte sparas - angiven person med personnummer '{avtalDTO.Personnummer}' saknas i ODL.");
                 }
                 if (!string.IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
-                    avtal.LaggTillAnstalld(person);
+                    avtal.KopplaTillAnstalld(person);
                 else
-                    avtal.LaggTillKonsult(person);
+                    avtal.KopplaTillKonsult(person);
             }
 
             var kstnrList = avtalDTO.Kostnadsstallen.Select(kst => kst.KostnadsstalleNr);
@@ -140,19 +140,14 @@ namespace ODL.ApplicationServices
             foreach (string kstNr in kstnrList)
             {
                 var organisation = organisationRepository.GetOrganisationByKstnr(kstNr);
+
                 if (organisation == null)
-                {
                     throw new ArgumentException($"Avtalet kunde inte sparas - angiven resultatenhet med kostnadsställe '{kstNr}' saknas i ODL.");
-                }
+                
 
-                var orgAvtal = avtal.OrganisationAvtal.SingleOrDefault(orgAvt => orgAvt.OrganisationId == organisation.Id) ?? new OrganisationAvtal();
                 var kstDTO = avtalDTO.Kostnadsstallen.Single(kst => kst.KostnadsstalleNr == organisation.Resultatenhet.KstNr);
-                orgAvtal.OrganisationId = organisation.Id; // Bara relevant om den är ny...
-                orgAvtal.Huvudkostnadsstalle = kstDTO.Huvudkostnadsstalle;
-                orgAvtal.ProcentuellFordelning = kstDTO.ProcentuellFordelning;
 
-                if (orgAvtal.IsNew)
-                    avtal.LaggTillOrganisationAvtal(orgAvtal);
+                avtal.LaggTillOrganisation(organisation, kstDTO.Huvudkostnadsstalle, kstDTO.ProcentuellFordelning);
             }
             
             if (avtal.IsNew)

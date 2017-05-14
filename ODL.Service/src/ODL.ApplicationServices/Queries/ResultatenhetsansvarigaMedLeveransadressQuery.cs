@@ -39,7 +39,7 @@ namespace ODL.ApplicationServices.Queries
                              join organisationsAdress in allaOrganisationsAdresser on organisation.Id equals organisationsAdress.OrganisationId
                              join adress in adresser on organisationsAdress.AdressId equals adress.Id
                              where avtal.Ansvarig == true &&
-                             adress.AdressVariant.Namn == "Leveransadress" // TODO: Peka ut på annat sätt!
+                             adress.Adressvariant == Adressvariant.Leveransadress
                              select new {Fornamn = person.Fornamn, Efternamn = person.Efternamn, Personnummer = person.Personnummer, Arbetsstalle = organisation.Namn, Leveransadress = adress.Gatuadress, FranDatum = avtal.Anstallningsdatum, TillDatum = avtal.Avgangsdatum};
 
             // Här hade vi gärna skapat ResultatenhetansvarigDTO:er direkt i frågan ovan, men null propagating operator (?.) får inte användas i en expression tree lambda, därav användning av anonymous type som mellansteg.

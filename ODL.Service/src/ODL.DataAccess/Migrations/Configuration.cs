@@ -3,7 +3,6 @@ using System.Data.Entity.Migrations;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using ODL.DomainModel;
 using ODL.DomainModel.Adress;
 using ODL.DomainModel.Common;
 using ODL.DomainModel.Organisation;
@@ -15,6 +14,8 @@ namespace ODL.DataAccess.Migrations
     internal sealed class Configuration : DbMigrationsConfiguration<ODLDbContext>
     {
         private bool insertTestdata;
+        private static readonly Metadata Metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
@@ -23,273 +24,137 @@ namespace ODL.DataAccess.Migrations
         protected override void Seed(ODLDbContext context)
         {
             bool.TryParse(ConfigurationManager.AppSettings["insert-testdata"], out insertTestdata);
-
-            if (context.AdressVariant.ToList().Count == 0)
-            {
-               AddAdressTypVarianter(context);
-            }
-
             
             if (insertTestdata)
             {
+                Person person1 = null;
                 if (context.Person.ToList().Count == 0)
                 {     
-                    AddPerson(context);
-                    context.SaveChanges();
-
-                    AddAdress(context);
+                    person1 = SparaNyPerson(new Person { KallsystemId = "93574395", Fornamn = "Kalle", Mellannamn = "Ove", Efternamn = "Nilsson", Personnummer = "197012123456", Metadata = Metadata }, context);
+                    SparaNyPerson(new Person { KallsystemId = "39487983", Fornamn = "Marie", Mellannamn = "Eva", Efternamn = "Persson", Personnummer = "196212303456", Metadata = Metadata }, context);
+                    SparaNyPerson(new Person { KallsystemId = "48795842", Fornamn = "Anders", Mellannamn = "Ola", Efternamn = "Svensson", Personnummer = "197505223456", Metadata = Metadata }, context);
+                    SparaNyPerson(new Person { KallsystemId = "93285742", Fornamn = "Per", Mellannamn = "Sven", Efternamn = "Andersson", Personnummer = "198512123456", Metadata = Metadata }, context);
+                    SparaNyPerson(new Person { KallsystemId = "93285742", Fornamn = "Stina", Mellannamn = "Lisa", Efternamn = "Einarsson", Personnummer = "198512123456", Metadata = Metadata }, context);
                     
-                }
-
-
-                if (context.Organisation.ToList().Count == 0)
-                {
-                    AddOrganisation(context);
-                    context.SaveChanges();
-                    AddAvtal(context);
+                    SparaAdresser(context);
                 }
                 
+                if (context.Organisation.ToList().Count == 0)
+                {
+                    var organisation1 = SparaNyOrganisation("12345", "H", "1234567", "Södra ortopedmottagningen", context);
+                    SparaNyOrganisation("23456", "H", "2345678", "Norra ortopedmottagningen", context);
+                    SparaNyOrganisation("34567", "G", "3456789", "Tandläkarna i Väst, Gemensamma", context);
+                    SparaNyOrganisation("45678", "H", "4567890", "Järvsö vård och ved", context);
+
+                    SparaNyttAnstalldAvtal(new Avtal
+                    {
+                        KallsystemId = "334567349534",
+                        Avtalskod = "K01",
+                        Avtalstext = "Anställningsavtal X",
+                        ArbetstidVecka = 24,
+                        Befkod = 1,
+                        BefText = "Tandläkare",
+                        Aktiv = true,
+                        Ansvarig = true,
+                        Chef = true,
+                        GrundArbtidVecka = 40,
+                        Lon = 38400,
+                        TimLon = 400,
+                        Anstallningsdatum = DateTime.Now,
+                        Metadata = Metadata
+                    }, person1, organisation1, true, 100m, context);
+
+                    SparaNyttKonsultAvtal(new Avtal
+                    {
+                        KallsystemId = "349534334567",
+                        Avtalskod = "K02",
+                        Avtalstext = "Anställningsavtal Y",
+                        ArbetstidVecka = 16,
+                        Befkod = 1,
+                        BefText = "Odontologkonsult",
+                        Aktiv = true,
+                        Ansvarig = false,
+                        Chef = true,
+                        GrundArbtidVecka = 40,
+                        Lon = 25600,
+                        TimLon = 400,
+                        Anstallningsdatum = DateTime.Now,
+                        Metadata = Metadata
+                    }, person1, organisation1, true, 100m, context);
+                    
+                }
             }
         }
 
-        private static void AddAdressTypVarianter(ODLDbContext context)
+        private static void SparaAdressvarianter(ODLDbContext context)
         {
-            //AdressTyp
-            foreach (var enumValue in Enum.GetValues(typeof(AdressTyp)))
-                context.Database.ExecuteSqlCommand("INSERT INTO Adress.AdressTyp VALUES(@Id, @Namn)", new SqlParameter("Id", (int)(AdressTyp)enumValue), new SqlParameter("Namn", ((AdressTyp)enumValue).Visningstext()));
+            //Adresstyp
+            foreach (var enumValue in Enum.GetValues(typeof(Adresstyp)))
+                context.Database.ExecuteSqlCommand("INSERT INTO Adress.Adresstyp VALUES(@Id, @Namn)", new SqlParameter("Id", (int)(Adresstyp)enumValue), new SqlParameter("Namn", ((Adresstyp)enumValue).Visningstext()));
 
-            //AdressVariant
-            context.AdressVariant.AddOrUpdate(
-                new AdressVariant("Folkbokföringsadress", AdressTyp.Gatuadress),
-                new AdressVariant("Adress arbete", AdressTyp.Gatuadress),
-                new AdressVariant("Leveransadress", AdressTyp.Gatuadress),
-                new AdressVariant("Faktureringsadress", AdressTyp.Gatuadress),
-                new AdressVariant("Mailadress arbete", AdressTyp.MailAdress),
-                new AdressVariant("Mailadress privat", AdressTyp.MailAdress),
-                new AdressVariant("Mobil arbete", AdressTyp.Telefon),
-                new AdressVariant("Mobil privat", AdressTyp.Telefon),
-                new AdressVariant("Telefon arbete", AdressTyp.Telefon),
-                new AdressVariant("Telefon privat", AdressTyp.Telefon),
-                new AdressVariant("Facebook arbete", AdressTyp.Facebook));
+            //Adressvariant
+            foreach (var enumValue in Enum.GetValues(typeof(Adressvariant)))
+                context.Database.ExecuteSqlCommand("INSERT INTO Adress.Adressvariant VALUES(@Id, @Namn, @AdresstypFKId)", 
+                    new SqlParameter("Id", (int)(Adressvariant)enumValue), 
+                    new SqlParameter("Namn", ((Adressvariant)enumValue).Visningstext()), 
+                    new SqlParameter("AdresstypFKId", (int)((Adressvariant)enumValue).Adresstyp()));
 
             context.SaveChanges();
 
         }
 
-        private static void AddPerson(ODLDbContext context)
+        private Person SparaNyPerson(Person person, ODLDbContext context)
         {
-            var metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
-            context.Person.AddOrUpdate(
-                new Person
-                {
-                    KallsystemId = "93574395",
-                    Fornamn = "Kalle",
-                    Mellannamn = "Ove",
-                    Efternamn = "Nilsson",
-                    Personnummer = "197012123456",
-                    Metadata = metadata
-                },
-                new Person
-                {
-                    KallsystemId = "39487983",
-                    Fornamn = "Marie",
-                    Mellannamn = "Eva",
-                    Efternamn = "Persson",
-                    Personnummer = "196212303456",
-                    Metadata = metadata
-                },
-                new Person { KallsystemId = "48795842", Fornamn = "Anders", Mellannamn = "Ola", Efternamn = "Svensson", Personnummer = "197505223456", Metadata = metadata },
-                new Person { KallsystemId = "93285742", Fornamn = "Per", Mellannamn = "Sven", Efternamn = "Andersson", Personnummer = "198512123456", Metadata = metadata },
-                new Person { KallsystemId = "93285742", Fornamn = "Stina", Mellannamn = "Lisa", Efternamn = "Einarsson", Personnummer = "198512123456", Metadata = metadata }
-            );
+            context.Person.AddOrUpdate(person);
+            return person;
         }
 
-        private static void AddAdress(ODLDbContext context)
+        private void SparaAdresser(ODLDbContext context)
         {
-            var metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
-
-            var variantFolkbokforingsadress = context.AdressVariant.ToList().Find(a => a.Namn == "Folkbokföringsadress");
-            var variantAdressArbete = context.AdressVariant.ToList().Find(a => a.Namn == "Adress arbete");
-            var variantMailadressPrivat = context.AdressVariant.ToList().Find(a => a.Namn == "Mailadress privat");
-            var variantMailadressArbete = context.AdressVariant.ToList().Find(a => a.Namn == "Mailadress arbete");
-            var variantTelArbete = context.AdressVariant.ToList().Find(a => a.Namn == "Telefon arbete");
-            var variantTelPrivate = context.AdressVariant.ToList().Find(a => a.Namn == "Telefon privat");
-
-            var p1 = context.Person.ToList().Single(p => p.Fornamn == "Kalle" && p.Mellannamn == "Ove");
-
-            var adress1Hem = Adress.NyGatuadress(p1);
-            adress1Hem.Gatuadress.AdressRad1 = "Hemmavägen 11";
-            adress1Hem.Gatuadress.Postnummer = "84019";
-            adress1Hem.Gatuadress.Stad = "Färila";
-            adress1Hem.Gatuadress.Land = "Sverige";
-            adress1Hem.Metadata = metadata;
-            adress1Hem.SetVariant(variantFolkbokforingsadress);
-
-            var adress1Arbete = Adress.NyGatuadress(p1);
-            adress1Arbete.Gatuadress.AdressRad1 = "Arbetarvägen 23";
-            adress1Arbete.Gatuadress.Postnummer = "82240";
-            adress1Arbete.Gatuadress.Stad = "Järvsö";
-            adress1Arbete.Gatuadress.Land = "Sverige";
-            adress1Arbete.Metadata = metadata;
-            adress1Arbete.SetVariant(variantAdressArbete);
-
-            var adress1MailPrivate = Adress.NyEpostAdress(p1);
-            adress1MailPrivate.Mail.MailAdress = "kalle.ove@gmail.com";
-            adress1MailPrivate.SetVariant(variantMailadressPrivat);
-            adress1MailPrivate.Metadata = metadata;
-
-            var adress1MailArbete = Adress.NyEpostAdress(p1);
-            adress1MailArbete.Mail.MailAdress = "jobb.jarvsobacken@ptj.se";
-            adress1MailArbete.SetVariant(variantMailadressArbete);
-            adress1MailArbete.Metadata = metadata;
-
-            var adress1TelArbete = Adress.NyTelefonAdress(p1);
-            adress1TelArbete.Telefon.Telefonnummer = "070771567";
-            adress1TelArbete.SetVariant(variantTelArbete);
-            adress1TelArbete.Metadata = metadata;
-
-            var adress1TelPrivate = Adress.NyTelefonAdress(p1);
-            adress1TelPrivate.Telefon.Telefonnummer = "065161243";
-            adress1TelPrivate.SetVariant(variantTelPrivate);
-            adress1TelPrivate.Metadata = metadata;
-
-            var p2 = context.Person.ToList().Find(p => p.Personnummer == "196212303456");
-            var adress2 = Adress.NyGatuadress(p2);
-            adress2.Gatuadress.AdressRad1 = "Hemvägen 3";
-            adress2.Gatuadress.Postnummer = "82240";
-            adress2.Gatuadress.Stad = "Järvsö";
-            adress2.Gatuadress.Land = "Sverige";
-            adress2.Metadata = metadata;
-            adress2.SetVariant(variantFolkbokforingsadress);
+           
+            var person1 = context.Person.ToList().Single(p => p.Fornamn == "Kalle" && p.Mellannamn == "Ove");
+            var adress1Hem = Adress.SkapaNyGatuadress("Hemmavägen 11", "84019", "Färila", "Sverige", Adressvariant.Folkbokforingsadress, Metadata, person1);
+            var adress1Arbete = Adress.SkapaNyGatuadress("Arbetarvägen 23", "82240", "Järvsö", "Sverige", Adressvariant.AdressArbete, Metadata, person1);
+            var adress1MailPrivat = Adress.SkapaNyEpostAdress("kalle.ove@gmail.com", Adressvariant.EpostAdressPrivat, Metadata, person1);
+            var adress1MailArbete = Adress.SkapaNyEpostAdress("jobb.jarvsobacken@ptj.se", Adressvariant.EpostAdressArbete, Metadata, person1);
+            var adress1TelArbete = Adress.SkapaNyTelefonAdress("070771567", Adressvariant.TelefonArbete, Metadata, person1);
+            var adress1TelPrivat = Adress.SkapaNyTelefonAdress("065161243", Adressvariant.TelefonPrivat, Metadata, person1);
+            
+            var person2 = context.Person.ToList().Find(p => p.Personnummer == "196212303456");
+            var adress2Hem = Adress.SkapaNyGatuadress("Hemvägen 3", "82240", "Järvsö", "Sverige", Adressvariant.Folkbokforingsadress, Metadata, person2);
 
             context.Adress.AddOrUpdate(
                 adress1Hem,
                 adress1Arbete,
-                adress1MailPrivate,
+                adress1MailPrivat,
                 adress1MailArbete,
                 adress1TelArbete,
-                adress1TelPrivate,
-                adress2
+                adress1TelPrivat,
+                adress2Hem
             );
-            
-
         }
 
-        private static void AddOrganisation(ODLDbContext context)
+        private Organisation SparaNyOrganisation(string kstNr, string typ, string organisationsId, string namn, ODLDbContext context)
         {
-            var metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
-            var org1 = Organisation.SkapaNyResultatenhet();
-            org1.Metadata = metadata;
-            org1.OrganisationsId = "12345678";
-            org1.Namn = "Södra ortopedmottagningen";
+           
+            var organisation = Organisation.SkapaNyResultatenhet(kstNr, typ, organisationsId, namn, Metadata);
 
-            var org1Resultatenhet = org1.Resultatenhet;
-            org1Resultatenhet.KstNr = "12345";
-            org1Resultatenhet.Typ = "H";
-            org1Resultatenhet.OrganisationId = 12345678;
+            context.Organisation.AddOrUpdate(organisation);
 
-            var org2 = Organisation.SkapaNyResultatenhet();
-            org2.Metadata = metadata;
-            org2.OrganisationsId = "23456789";
-            org2.Namn = "Norra ortopedmottagningen";
-
-            var org2Resultatenhet = org2.Resultatenhet;
-            org2Resultatenhet.KstNr = "12346";
-            org2Resultatenhet.Typ = "H";
-            org2Resultatenhet.OrganisationId = 23456789;
-
-            var org3 = Organisation.SkapaNyResultatenhet();
-            org3.Metadata = metadata;
-            org3.OrganisationsId = "34567890";
-            org3.Namn = "Tandläkarna i Väst, Gemensamma";
-
-            var org3Resultatenhet = org3.Resultatenhet;
-            org3Resultatenhet.KstNr = "12347";
-            org3Resultatenhet.Typ = "G";
-            org3Resultatenhet.OrganisationId = 34567890;
-
-            var org4 = Organisation.SkapaNyResultatenhet();
-            org4.Metadata = metadata;
-            org4.OrganisationsId = "34567891";
-            org4.Namn = "Järvsö vård och ved";
-
-            var org4Resultatenhet = org4.Resultatenhet;
-            org4Resultatenhet.KstNr = "32347";
-            org4Resultatenhet.Typ = "H";
-            org4Resultatenhet.OrganisationId = 34567890;
-
-
-            context.Organisation.AddOrUpdate(org1, org2, org3, org4);
-
+            return organisation;
         }
 
-        private void AddAvtal(ODLDbContext context)
+        private void SparaNyttAnstalldAvtal(Avtal avtal, Person person, Organisation organisation, bool huvudkostnadsstalle, decimal? procentuellFordelning, ODLDbContext context)
         {
-            var metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
-
-            var person = context.Person.ToList().Single(p => p.Personnummer == "197012123456");
-            var organisation = context.Organisation.ToList().Find(p => p.OrganisationsId == "12345678");
-
-            var avtal1 = new Avtal
-            {
-                KallsystemId = "334567349534",
-                Avtalskod = "K01",
-                Avtalstext = "Anställningsavtal X",
-                ArbetstidVecka = 24,
-                Befkod = 1,
-                BefText = "Tandläkare",
-                Aktiv = true,
-                Ansvarig = true,
-                Chef = true,
-                GrundArbtidVecka = 40,
-                Lon = 38400,
-                TimLon = 400,
-                Anstallningsdatum = DateTime.Now,
-                Metadata = metadata,
-            };
-
-            var orgAvtal1 = new OrganisationAvtal
-            {
-                OrganisationId = organisation.Id,
-                Huvudkostnadsstalle = true,
-                ProcentuellFordelning = 100
-            };
-
-            avtal1.LaggTillAnstalld(person);
-            avtal1.LaggTillOrganisationAvtal(orgAvtal1);
-            
-
-            var avtal2 = new Avtal
-            {
-                KallsystemId = "349534334567",
-                Avtalskod = "K02",
-                Avtalstext = "Anställningsavtal Y",
-                ArbetstidVecka = 16,
-                Befkod = 1,
-                BefText = "Odontologkonsult",
-                Aktiv = true,
-                Ansvarig = false,
-                Chef = true,
-                GrundArbtidVecka = 40,
-                Lon = 25600,
-                TimLon = 400,
-                Anstallningsdatum = DateTime.Now,
-                Metadata = metadata,
-            };
-
-            var orgAvtal2 = new OrganisationAvtal
-            {
-                OrganisationId = organisation.Id,
-                Huvudkostnadsstalle = true,
-                ProcentuellFordelning = 100
-            };
-
-            avtal2.LaggTillKonsult(person);
-            avtal2.LaggTillOrganisationAvtal(orgAvtal2);
-            
-            context.Avtal.AddOrUpdate(avtal1);
-            context.Avtal.AddOrUpdate(avtal2);
-            
+            avtal.KopplaTillKonsult(person);
+            avtal.LaggTillOrganisation(organisation, huvudkostnadsstalle, procentuellFordelning);
+            context.Avtal.AddOrUpdate(avtal);
+        }
+        private void SparaNyttKonsultAvtal(Avtal avtal, Person person, Organisation organisation, bool huvudkostnadsstalle, decimal? procentuellFordelning, ODLDbContext context)
+        {
+            avtal.KopplaTillKonsult(person);
+            avtal.LaggTillOrganisation(organisation, huvudkostnadsstalle, procentuellFordelning);
+            context.Avtal.AddOrUpdate(avtal);
         }
     }
 }

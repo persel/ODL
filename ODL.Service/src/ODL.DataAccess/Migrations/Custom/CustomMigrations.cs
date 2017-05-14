@@ -19,7 +19,7 @@ namespace ODL.DataAccess.Migrations.Custom
         protected void AddNonMappedTables()
         {
             CreateTable(
-                    "Adress.AdressTyp",
+                    "Adress.Adresstyp",
                     c => new
                     {
                         Id = c.Int(nullable: false, identity: false),
@@ -27,7 +27,7 @@ namespace ODL.DataAccess.Migrations.Custom
                     })
                 .PrimaryKey(t => t.Id);
 
-            AddForeignKey("Adress.AdressVariant", "AdressTypFKId", "Adress.AdressTyp", "Id");
+            AddForeignKey("Adress.Adressvariant", "AdressTypFKId", "Adress.Adresstyp", "Id");
         }
 
         protected void DropForeignKeysWithoutNavigationPropertyRelations()
@@ -43,8 +43,8 @@ namespace ODL.DataAccess.Migrations.Custom
 
         protected void DropNonMappedTables()
         {
-            DropForeignKey("Adress.AdressVariant", "AdressTypFKId", "Adress.AdressTyp");
-            DropTable("Adress.AdressTyp");
+            DropForeignKey("Adress.Adressvariant", "AdressTypFKId", "Adress.Adresstyp");
+            DropTable("Adress.Adresstyp");
         }
     }
 }

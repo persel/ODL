@@ -51,25 +51,17 @@ namespace ODL.DataAccess.Repositories
                 _internalGenericRepository.Find(adress => adress.OrganisationAdress.OrganisationId == organisationsId);
         }
 
-        public Adress GetAdressPerPersonIdAndVariantId(int personId, int variantId)
+        public Adress GetAdressPerPersonIdAndAdressvariant(int personId, Adressvariant variant)
         {
             return
-                _internalGenericRepository.FindSingle(a => a.PersonAdress.PersonId == personId && a.AdressVariant.Id == variantId);
+                _internalGenericRepository.FindSingle(a => a.PersonAdress.PersonId == personId && a.Adressvariant == variant);
         }
-
-        public Adress GetAdressPerOrganisationsIdAndVariantId(int orgId, int variantId)
+        
+        public Adress GetAdressPerOrganisationsIdAndAdressvariant(int orgId, Adressvariant variant)
         {
             return
                 _internalGenericRepository.FindSingle(
-                    a => a.OrganisationAdress.OrganisationId == orgId && a.AdressVariant.Id == variantId);
-        }
-
-
-        public IEnumerable<Adress> GetAdressPerOrganisationsIdAndVariantIdList(int orgId, int variantId)
-        {
-            return
-                _internalGenericRepository.Find(
-                    a => a.OrganisationAdress.OrganisationId == orgId && a.AdressVariant.Id == variantId).ToList();
+                    a => a.OrganisationAdress.OrganisationId == orgId && a.Adressvariant == variant);
         }
 
     }

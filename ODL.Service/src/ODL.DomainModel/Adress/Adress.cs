@@ -6,12 +6,11 @@ namespace ODL.DomainModel.Adress
     {
         public int Id { get; set; }
 
-
         public Metadata Metadata { get; set; }
         
-        public virtual AdressVariant AdressVariant { get; set; }
+        public virtual Adressvariant Adressvariant { get; set; }
 
-        public virtual Gatuadress Gatuadress { get; set; }
+        public virtual Gatuadress Gatuadress { get; private set; }
 
         public virtual Mail Mail { get; set; }
 
@@ -21,53 +20,122 @@ namespace ODL.DomainModel.Adress
 
         public virtual PersonAdress PersonAdress { get; set; }
 
-        public bool IsNew => Id == 0;
+        public bool Ny => Id == 0;
 
-        public static Adress NyGatuadress(Person.Person person)
+        public static Adress SkapaNyGatuadress(string adressRad1, string postnummer, string stad, string land, Adressvariant variant, Metadata metadata, Person.Person person)
         {
-            var adress = new Adress { Gatuadress = new Gatuadress() };
-            adress.PersonAdress = new PersonAdress { PersonId = person.Id };
+            VerifieraAdressTyp(variant, Adresstyp.Gatuadress);
+            
+            var gatuadress = new Gatuadress(adressRad1, postnummer, stad, land);
+            var adress = new Adress
+            {
+                Gatuadress = gatuadress,
+                PersonAdress = new PersonAdress {PersonId = person.Id},
+                Metadata = metadata
+                
+            };
+            return adress;
+        }
+        
+        public static Adress SkapaNyEpostAdress(string mailAdress, Adressvariant variant, Metadata metadata, Person.Person person)
+        {
+            VerifieraAdressTyp(variant, Adresstyp.EpostAdress);
+
+            var mail = new Mail(mailAdress);
+            var adress = new Adress
+            {
+                Mail = mail,
+                PersonAdress = new PersonAdress { PersonId = person.Id },
+                Metadata = metadata
+            };
+            
             return adress;
         }
 
-        public static Adress NyEpostAdress(Person.Person person)
+        public static Adress SkapaNyTelefonAdress(string telefonnummer, Adressvariant variant, Metadata metadata, Person.Person person)
         {
-            var adress = new Adress{Mail = new Mail()};
-            adress.PersonAdress = new PersonAdress { PersonId = person.Id };
+            VerifieraAdressTyp(variant, Adresstyp.Telefon);
+
+            var telefon = new Telefon(telefonnummer);
+            var adress = new Adress
+            {
+                Telefon = telefon,
+                PersonAdress = new PersonAdress { PersonId = person.Id },
+                Metadata = metadata
+            };
+
             return adress;
         }
 
-        public static Adress NyTelefonAdress(Person.Person person)
+        public static Adress SkapaNyGatuadress(string adressRad1, string postnummer, string stad, string land, Adressvariant variant, Metadata metadata, Organisation.Organisation organisation)
         {
-            var adress = new Adress { Telefon = new Telefon() };
-            adress.PersonAdress = new PersonAdress { PersonId = person.Id };
+            VerifieraAdressTyp(variant, Adresstyp.Gatuadress);
+
+            var gatuadress = new Gatuadress(adressRad1, postnummer, stad, land);
+            var adress = new Adress
+            {
+                Gatuadress = gatuadress,
+                OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id },
+                Metadata = metadata
+            };
             return adress;
         }
 
-        public static Adress NyGatuadress(Organisation.Organisation organisation)
+        public static Adress SkapaNyEpostAdress(string mailAdress, Adressvariant variant, Metadata metadata, Organisation.Organisation organisation)
         {
-            var adress = new Adress { Gatuadress = new Gatuadress() };
-            adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
+            VerifieraAdressTyp(variant, Adresstyp.EpostAdress);
+
+            var mail = new Mail(mailAdress);
+            var adress = new Adress
+            {
+                Mail = mail,
+                OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id },
+                Metadata = metadata
+            };
+
             return adress;
         }
 
-        public static Adress NyEpostAdress(Organisation.Organisation organisation)
+        public static Adress SkapaNyTelefonAdress(string telefonnummer, Adressvariant variant, Metadata metadata, Organisation.Organisation organisation)
         {
-            var adress = new Adress { Mail = new Mail() };
-            adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
+            VerifieraAdressTyp(variant, Adresstyp.Telefon);
+
+            var telefon = new Telefon(telefonnummer);
+            var adress = new Adress
+            {
+                Telefon = telefon,
+                OrganisationAdress = new OrganisationAdress{ OrganisationId = organisation.Id },
+                Metadata = metadata
+            };
+
             return adress;
         }
 
-        public static Adress NyTelefonAdress(Organisation.Organisation organisation)
+        private static void VerifieraAdressTyp(Adressvariant variant, Adresstyp adresstyp)
         {
-            var adress = new Adress { Telefon = new Telefon() };
-            adress.OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id };
-            return adress;
+            if (variant.Adresstyp() != adresstyp)
+                throw new BusinessLogicException($"Fel adresstyp - {adresstyp.Visningstext()} förväntades!");
         }
 
-        public void SetVariant(AdressVariant variant)
+        public void BytTelefonnummer(string telefonnummer, Metadata metadata)
         {
-            AdressVariant = variant;
+            Telefon.Telefonnummer = telefonnummer;
+            Metadata = metadata;
+        }
+
+        public void BytEpostAdress(string epostAdress, Metadata metadata)
+        {
+            Mail.MailAdress = epostAdress;
+            Metadata = metadata;
+        }
+
+        public void BytGatuadress(string adressRad1, string postnummer, string stad, string land, Metadata metadata)
+        {
+            Gatuadress.AdressRad1 = adressRad1;
+            Gatuadress.Postnummer = postnummer;
+            Gatuadress.Stad = stad;
+            Gatuadress.Land = land;
+            Metadata = metadata;
         }
     }
 }

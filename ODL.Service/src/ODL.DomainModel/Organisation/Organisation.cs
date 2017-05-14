@@ -13,10 +13,26 @@ namespace ODL.DomainModel.Organisation
             Underliggande = new HashSet<Organisation>();
         }
 
+        private Organisation(string organisationsId, string namn, Resultatenhet resultatenhet, Metadata metadata)
+        {
+            OrganisationsId = organisationsId;
+            Namn = namn;
+            Resultatenhet = resultatenhet;
+            Metadata = metadata;
+        }
+
         public static Organisation SkapaNyResultatenhet()
         {
-            var org = new Organisation {Resultatenhet = new Resultatenhet()};
-            return org;
+            var organisation = new Organisation {Resultatenhet = new Resultatenhet()};
+            return organisation;
+        }
+
+        public static Organisation SkapaNyResultatenhet(string kstNr, string typ, string organisationsId, string namn, Metadata metadata)
+        {
+            var resultatenhet = new Resultatenhet{KstNr = kstNr, Typ = typ};
+            var organisation = new Organisation(organisationsId, namn, resultatenhet, metadata);
+
+            return organisation;
         }
 
         public int Id { get; set; }

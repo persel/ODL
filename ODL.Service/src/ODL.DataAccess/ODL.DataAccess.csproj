@@ -54,7 +54,6 @@
     <Compile Include="IContext.cs" />
     <Compile Include="Mappningar\MetadataMappning.cs" />
     <Compile Include="Mappningar\AdressMappning.cs" />
-    <Compile Include="Mappningar\AdressVariantMappning.cs" />
     <Compile Include="Mappningar\AnstalldAvtalMappning.cs" />
     <Compile Include="Mappningar\AvtalMappning.cs" />
     <Compile Include="Mappningar\GatuadressMappning.cs" />
@@ -80,11 +79,9 @@
     <Compile Include="Repositories\AvtalRepository.cs" />
     <Compile Include="Repositories\IAdressRepository.cs" />
     <Compile Include="Repositories\IAvtalRepository.cs" />
-    <Compile Include="Repositories\IAdressVariantRepository.cs" />
     <Compile Include="Repositories\IOrganisationRepository.cs" />
     <Compile Include="Repositories\IPersonRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\AdressVariantRepository.cs" />
     <Compile Include="Repositories\PersonRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\OrganisationRepository.cs" />
