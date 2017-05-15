@@ -49,7 +49,7 @@
     <Compile Include="Adress\Adressvariant.cs" />
     <Compile Include="Adress\AdressVariantExtensions.cs" />
     <Compile Include="Adress\Gatuadress.cs" />
-    <Compile Include="Adress\Mail.cs" />
+    <Compile Include="Adress\Epost.cs" />
     <Compile Include="Adress\OrganisationAdress.cs" />
     <Compile Include="Adress\PersonAdress.cs" />
     <Compile Include="Adress\Telefon.cs" />

@@ -40,8 +40,8 @@ namespace ODL.ApplicationServices
             {
                 Id = adress.Id,
                 Gatuadress = GatuadressDTO.FromGatuadress(adress.Gatuadress),
-                Mail = MailDTO.FromMail(adress.Mail),
-                Telefon = TelefonDTO.Fromtelefon(adress.Telefon)
+                Epost = EpostDTO.FromEpost(adress.Epost),
+                Telefon = TelefonDTO.FromTelefon(adress.Telefon)
             });
         }
 
@@ -55,8 +55,8 @@ namespace ODL.ApplicationServices
                  {
                      Id = adress.Id,
                      Gatuadress = GatuadressDTO.FromGatuadress(adress.Gatuadress),
-                     Mail = MailDTO.FromMail(adress.Mail),
-                     Telefon = TelefonDTO.Fromtelefon(adress.Telefon)
+                     Epost = EpostDTO.FromEpost(adress.Epost),
+                     Telefon = TelefonDTO.FromTelefon(adress.Telefon)
                  });
         }
 
@@ -64,7 +64,7 @@ namespace ODL.ApplicationServices
         {
 
             var gatuadress = personAdressInput.GatuadressInput;
-            var epostadress = personAdressInput.MailInput;
+            var epostadress = personAdressInput.EpostInput;
             var telefon = personAdressInput.TelefonInput;
             var metadata = personAdressInput.GetMetadata();
 
@@ -103,9 +103,9 @@ namespace ODL.ApplicationServices
             else if (epostadress != null)
             {
                 if (nyAdress)
-                    adress = Adress.SkapaNyEpostAdress(epostadress.MailAdress, variant, metadata, person);
+                    adress = Adress.SkapaNyEpostAdress(epostadress.EpostAdress, variant, metadata, person);
                 else
-                    adress.BytEpostAdress(epostadress.MailAdress, metadata);
+                    adress.BytEpostAdress(epostadress.EpostAdress, metadata);
             }
             else if (telefon != null)
             {
@@ -126,7 +126,7 @@ namespace ODL.ApplicationServices
             if (organisationAdressInput == null) throw new ArgumentException("organisationAdressInput är null, felaktig indata ");
 
             var gatuadress = organisationAdressInput.GatuadressInput;
-            var epostadress = organisationAdressInput.MailInput;
+            var epostadress = organisationAdressInput.EpostInput;
             var telefon = organisationAdressInput.TelefonInput;
             var metadata = organisationAdressInput.GetMetadata();
 
@@ -160,9 +160,9 @@ namespace ODL.ApplicationServices
             else if (epostadress != null)
             {
                 if (nyAdress)
-                    adress = Adress.SkapaNyEpostAdress(epostadress.MailAdress, variant, metadata, organisation);
+                    adress = Adress.SkapaNyEpostAdress(epostadress.EpostAdress, variant, metadata, organisation);
                 else
-                    adress.BytEpostAdress(epostadress.MailAdress, metadata);
+                    adress.BytEpostAdress(epostadress.EpostAdress, metadata);
             }
             else if (telefon != null)
             {

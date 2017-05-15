@@ -17,7 +17,7 @@ namespace ODL.DataAccess.Mappningar
             HasOptional(e => e.Gatuadress)
                 .WithRequired(e => e.Adress);
 
-            HasOptional(e => e.Mail)
+            HasOptional(e => e.Epost)
                 .WithRequired(e => e.Adress);
 
             HasOptional(e => e.OrganisationAdress)

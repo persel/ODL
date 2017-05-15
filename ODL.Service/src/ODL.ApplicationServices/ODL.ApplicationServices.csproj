@@ -66,7 +66,7 @@
     <Compile Include="DTOModel\Load\AdressInputDTO.cs" />
     <Compile Include="DTOModel\Load\PersonAdressInputDTO.cs" />
     <Compile Include="DTOModel\Load\TelefonInputDTO.cs" />
-    <Compile Include="DTOModel\Load\MailInputDTO.cs" />
+    <Compile Include="DTOModel\Load\EpostInputDTO.cs" />
     <Compile Include="DTOModel\Load\InputDTO.cs" />
     <Compile Include="DTOModel\Load\OrganisationAvtalInputDTO.cs" />
     <Compile Include="DTOModel\Load\GatuadressInputDTO.cs" />
@@ -79,14 +79,14 @@
     <Compile Include="DTOModel\Query\PersonPerResultatenhetDTO.cs" />
     <Compile Include="DTOModel\Query\ResultatenhetansvarigDTO.cs" />
     <Compile Include="DTOModel\Query\TelefonDTO.cs" />
-    <Compile Include="DTOModel\Query\MailDTO.cs" />
+    <Compile Include="DTOModel\Query\EpostDTO.cs" />
     <Compile Include="IAdressService.cs" />
     <Compile Include="AdressService.cs" />
     <Compile Include="Queries\ResultatenhetPerPersonQuery.cs" />
     <Compile Include="Queries\PersonerPerResultatenhetQuery.cs" />
     <Compile Include="Queries\ResultatenhetsansvarigaMedLeveransadressQuery.cs" />
     <Compile Include="Validation\TelefonInputValidator.cs" />
-    <Compile Include="Validation\MailInputValidator.cs" />
+    <Compile Include="Validation\EpostInputValidator.cs" />
     <Compile Include="Validation\GatuadressInputValidator.cs" />
     <Compile Include="Validation\AvtalInputValidator.cs" />
     <Compile Include="Validation\AdressInputValidator.cs" />

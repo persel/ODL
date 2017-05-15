@@ -19,9 +19,9 @@ namespace ODL.DomainModel.Common
             SkapadAv = skapadAv;
         }
 
-        public DateTime? UppdateradDatum { get; set; }
-        public string UppdateradAv { get; set; }
-        public DateTime? SkapadDatum { get; set; }
-        public string SkapadAv { get; set; }
+        public DateTime? UppdateradDatum { get; private set; }
+        public string UppdateradAv { get; private set; }
+        public DateTime? SkapadDatum { get; private set; }
+        public string SkapadAv { get; private set; }
     }
 }

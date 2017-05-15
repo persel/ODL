@@ -8,7 +8,6 @@ namespace ODL.DataAccess.Mappningar
     {
         public GatuadressMappning()
         {
-
             ToTable("Adress.Gatuadress");
             HasKey(m => m.AdressId)
                 .Property(m => m.AdressId)

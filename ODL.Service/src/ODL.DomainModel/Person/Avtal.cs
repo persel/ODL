@@ -12,7 +12,28 @@ namespace ODL.DomainModel.Person
         {
             OrganisationAvtal = new HashSet<OrganisationAvtal>();
         }
-   
+
+
+       public Avtal(string kallsystemId, string avtalskod, string avtalstext, int? arbetstidVecka, int? befkod, string befText, bool? aktiv, bool ansvarig, bool? chef, decimal? grundArbtidVecka, int? lon, int? timLon, DateTime? anstallningsdatum, Metadata metadata)
+        {
+            KallsystemId = kallsystemId;
+            Avtalskod = avtalskod;
+            Avtalstext = avtalstext;
+            ArbetstidVecka = arbetstidVecka;
+            Befkod = befkod;
+            BefText = befText;
+            Aktiv = aktiv;
+            Ansvarig = ansvarig;
+            Chef = chef;
+            GrundArbtidVecka = grundArbtidVecka;
+            Lon = lon;
+            TimLon = timLon;
+            Anstallningsdatum = anstallningsdatum;
+            Metadata = metadata;
+
+            OrganisationAvtal = new HashSet<OrganisationAvtal>();
+        }
+
         public int Id { get; set; }
         public string KallsystemId { get; set; }
         public string Avtalskod { get; set; }
@@ -39,7 +60,9 @@ namespace ODL.DomainModel.Person
         public DateTime? Anstallningsdatum { get; set; }
         public DateTime? Avgangsdatum { get; set; }
         public Metadata Metadata { get; set; }
-        public bool IsNew => Id == default(int);
+
+        public bool Ny => Id == default(int);
+
         public virtual AnstalldAvtal AnstalldAvtal { get; private set; }
         public virtual KonsultAvtal KonsultAvtal { get; private set; }
         public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; }

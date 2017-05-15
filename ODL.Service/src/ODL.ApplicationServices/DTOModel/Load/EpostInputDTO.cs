@@ -2,8 +2,8 @@
 
 namespace ODL.ApplicationServices.DTOModel
 {
-    public class MailInputDTO : ValidatableDTO
+    public class EpostInputDTO : ValidatableDTO
     {
-        public string MailAdress { get; set; }
+        public string EpostAdress { get; set; }
     }
 }

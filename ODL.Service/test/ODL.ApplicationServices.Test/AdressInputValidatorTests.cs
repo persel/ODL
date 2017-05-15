@@ -56,7 +56,7 @@ namespace ODL.ApplicationServices.Test
                             "Fältet 'AdressInputDTO.SkapadAv' saknar värde.")));
         }
 
-        private PersonAdressInputDTO CreatePersonAdress(GatuadressInputDTO gatuadressInput, MailInputDTO mailInput, TelefonInputDTO telefonInput)
+        private PersonAdressInputDTO CreatePersonAdress(GatuadressInputDTO gatuadressInput, EpostInputDTO epostInput, TelefonInputDTO telefonInput)
         {
             var personAdress = new PersonAdressInputDTO();
             if (gatuadressInput != null)
@@ -71,20 +71,20 @@ namespace ODL.ApplicationServices.Test
                       Stad = "Knivsta",
                       Land = "USA"
                     },
-                    MailInput = null,
+                    EpostInput = null,
                     TelefonInput = null,
                     SystemId = null
                 };
                 personAdress = personGatuadress;
             }
-            if (mailInput != null)
+            if (epostInput != null)
             {
                 var personEpostadress = new PersonAdressInputDTO
                 {
                     Personnummer = "123456-7788",
-                    Adressvariant = "MailAdress Privat",
+                    Adressvariant = "EpostAdress Privat",
                     GatuadressInput = null,
-                    MailInput = new MailInputDTO { MailAdress = "eva.ek@home..se"},
+                    EpostInput = new EpostInputDTO { EpostAdress = "eva.ek@home..se"},
                     TelefonInput = null,
                     SystemId = null
                 };
@@ -97,7 +97,7 @@ namespace ODL.ApplicationServices.Test
                     Personnummer = "123456-7788",
                     Adressvariant = "Mobil Arbete",
                     GatuadressInput = null,
-                    MailInput = null,
+                    EpostInput = null,
                     TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
                     SystemId = null
                 };
@@ -106,7 +106,7 @@ namespace ODL.ApplicationServices.Test
             return personAdress;
         }
 
-        private OrganisationAdressInputDTO CreateOrganisationAdress(GatuadressInputDTO gatuadressInput, MailInputDTO mailInput, TelefonInputDTO telefonInput)
+        private OrganisationAdressInputDTO CreateOrganisationAdress(GatuadressInputDTO gatuadressInput, EpostInputDTO epostInput, TelefonInputDTO telefonInput)
         {
             var organisationAdress = new OrganisationAdressInputDTO();
             if (gatuadressInput != null)
@@ -121,20 +121,20 @@ namespace ODL.ApplicationServices.Test
                         Stad = "Knivsta",
                         Land = "USA"
                     },
-                    MailInput = null,
+                    EpostInput = null,
                     TelefonInput = null,
                     SystemId = null
                 };
                 organisationAdress = organisationGatuadress;
             }
-            if (mailInput != null)
+            if (epostInput != null)
             {
                 var organisationEpostadress = new OrganisationAdressInputDTO
                 {
                     KostnadsstalleNr = "338111",
-                    Adressvariant = "MailAdress Arbete",
+                    Adressvariant = "EpostAdress Arbete",
                     GatuadressInput = null,
-                    MailInput = new MailInputDTO { MailAdress = "tandis@home..se" },
+                    EpostInput = new EpostInputDTO { EpostAdress = "tandis@home..se" },
                     TelefonInput = null,
                     SystemId = null
                 };
@@ -147,7 +147,7 @@ namespace ODL.ApplicationServices.Test
                     KostnadsstalleNr = "338111",
                     Adressvariant = "Mobil Arbete",
                     GatuadressInput = null,
-                    MailInput = null,
+                    EpostInput = null,
                     TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
                     SystemId = null
                 };

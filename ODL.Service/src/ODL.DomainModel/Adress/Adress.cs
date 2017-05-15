@@ -4,21 +4,21 @@ namespace ODL.DomainModel.Adress
 {
     public class Adress
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public Metadata Metadata { get; set; }
+        public Metadata Metadata { get; private set; }
         
-        public virtual Adressvariant Adressvariant { get; set; }
+        public virtual Adressvariant Adressvariant { get; private set; }
 
         public virtual Gatuadress Gatuadress { get; private set; }
 
-        public virtual Mail Mail { get; set; }
+        public virtual Epost Epost { get; private set; }
 
-        public virtual Telefon Telefon { get; set; }
+        public virtual Telefon Telefon { get; private set; }
 
-        public virtual OrganisationAdress OrganisationAdress { get; set; }
+        public virtual OrganisationAdress OrganisationAdress { get; private set; }
 
-        public virtual PersonAdress PersonAdress { get; set; }
+        public virtual PersonAdress PersonAdress { get; private set; }
 
         public bool Ny => Id == 0;
 
@@ -37,14 +37,14 @@ namespace ODL.DomainModel.Adress
             return adress;
         }
         
-        public static Adress SkapaNyEpostAdress(string mailAdress, Adressvariant variant, Metadata metadata, Person.Person person)
+        public static Adress SkapaNyEpostAdress(string epostAdress, Adressvariant variant, Metadata metadata, Person.Person person)
         {
             VerifieraAdressTyp(variant, Adresstyp.EpostAdress);
 
-            var mail = new Mail(mailAdress);
+            var epost = new Epost(epostAdress);
             var adress = new Adress
             {
-                Mail = mail,
+                Epost = epost,
                 PersonAdress = new PersonAdress { PersonId = person.Id },
                 Metadata = metadata
             };
@@ -81,14 +81,14 @@ namespace ODL.DomainModel.Adress
             return adress;
         }
 
-        public static Adress SkapaNyEpostAdress(string mailAdress, Adressvariant variant, Metadata metadata, Organisation.Organisation organisation)
+        public static Adress SkapaNyEpostAdress(string epostAdress, Adressvariant variant, Metadata metadata, Organisation.Organisation organisation)
         {
             VerifieraAdressTyp(variant, Adresstyp.EpostAdress);
 
-            var mail = new Mail(mailAdress);
+            var epost = new Epost(epostAdress);
             var adress = new Adress
             {
-                Mail = mail,
+                Epost = epost,
                 OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id },
                 Metadata = metadata
             };
@@ -125,7 +125,7 @@ namespace ODL.DomainModel.Adress
 
         public void BytEpostAdress(string epostAdress, Metadata metadata)
         {
-            Mail.MailAdress = epostAdress;
+            Epost.EpostAdress = epostAdress;
             Metadata = metadata;
         }
 

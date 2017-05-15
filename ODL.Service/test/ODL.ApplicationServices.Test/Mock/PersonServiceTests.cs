@@ -30,14 +30,14 @@ namespace ODL.ApplicationServices.Test.Mock
         }
 
 
-        [Test]
-        public void SparaPerson_WhenExisting_ThenUpdated()
-        {
-            personRepositoryMock.Setup(m => m.GetByPersonnummer(It.IsAny<string>())).Returns(new Person {Id = 1}); // Mocka en existerande person, så vi får Update istället för Add.
+        //[Test]
+        //public void SparaPerson_WhenExisting_ThenUpdated()
+        //{
+        //    personRepositoryMock.Setup(m => m.GetByPersonnummer(It.IsAny<string>())).Returns(new Person {Id = 1}); // Mocka en existerande person, så vi får Update istället för Add.
             
-            service.SparaPerson(person);
-            personRepositoryMock.Verify(m => m.Update());
-        }
+        //    service.SparaPerson(person);
+        //    personRepositoryMock.Verify(m => m.Update());
+        //}
 
         [Test]
         public void SparaPerson_MissingFirstName_ValidationError()

@@ -6,14 +6,24 @@ namespace ODL.DomainModel.Organisation
 
     public class Resultatenhet
     {
-        public int OrganisationId { get; set; }
+        public Resultatenhet()
+        {
+        }
 
-        public string KstNr { get; set; }
+        public Resultatenhet(string kstNr, string typ)
+        {
+            KstNr = kstNr;
+            Typ = typ;
+        }
 
-        public string Typ { get; set; }
+        public int OrganisationId { get; private set; }
 
-        public virtual Organisation Organisation { get; set; }
+        public string KstNr { get; private set; }
 
-        public bool IsNew => OrganisationId == default(int);
+        public string Typ { get; private set; }
+
+        public virtual Organisation Organisation { get; private set; }
+
+        public bool Ny => OrganisationId == default(int);
     }
 }

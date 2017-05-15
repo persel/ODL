@@ -20,7 +20,7 @@ namespace ODL.ApplicationServices.Validation
             var allErrors = base.Validate(subject);
 
             var gatuadress = subject.GatuadressInput;
-            var epostadress = subject.MailInput;
+            var epostadress = subject.EpostInput;
             var telefon = subject.TelefonInput;
 
             var endastEnAngiven = (gatuadress != null) ^ (epostadress != null) ^ (telefon != null);
@@ -33,7 +33,7 @@ namespace ODL.ApplicationServices.Validation
                 new GatuadressInputValidator().Validate(gatuadress, allErrors);
 
             else if (epostadress != null)
-                new MailInputValidator().Validate(epostadress, allErrors);
+                new EpostInputValidator().Validate(epostadress, allErrors);
 
             else if (telefon != null)
                 new TelefonInputValidator().Validate(telefon, allErrors);

@@ -29,29 +29,29 @@ namespace ODL.DomainModel.Organisation
 
         public static Organisation SkapaNyResultatenhet(string kstNr, string typ, string organisationsId, string namn, Metadata metadata)
         {
-            var resultatenhet = new Resultatenhet{KstNr = kstNr, Typ = typ};
+            var resultatenhet = new Resultatenhet(kstNr, typ);
             var organisation = new Organisation(organisationsId, namn, resultatenhet, metadata);
 
             return organisation;
         }
 
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public string OrganisationsId { get; set; }
+        public string OrganisationsId { get; private set; }
 
-        public string Namn { get; set; }
+        public string Namn { get; private set; }
 
-        public int? IngarIOrganisationId { get; set; }
+        public int? IngarIOrganisationId { get; private set; }
 
-        public Metadata Metadata { get; set; }
+        public Metadata Metadata { get; private set; }
 
-        public virtual ICollection<Organisation> Underliggande { get; set; }
+        public virtual ICollection<Organisation> Underliggande { get; private set; }
 
-        public virtual Organisation Overordnad { get; set; }
+        public virtual Organisation Overordnad { get; private set; }
         
-        public virtual Resultatenhet Resultatenhet { get; set; }
+        public virtual Resultatenhet Resultatenhet { get; private set; }
 
-        public bool IsNew => Id == default(int);
+        public bool Ny => Id == default(int);
 
         public IList<Organisation> AllaRelaterade()
         {
@@ -73,6 +73,12 @@ namespace ODL.DomainModel.Organisation
             yield return organisation;
             foreach (var node in organisation.Underliggande.SelectMany(n => n.Flatten()))
                 yield return node;
+        }
+
+        public void BytNamn(string namn, Metadata metadata)
+        {
+            Namn = namn;
+            Metadata = Metadata;
         }
     }
 }

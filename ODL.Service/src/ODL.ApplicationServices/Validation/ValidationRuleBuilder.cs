@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq.Expressions;
-using System.Net.Mail;
 using System.Text.RegularExpressions;
 using ODL.ApplicationServices.DTOModel.Load;
 
@@ -60,10 +59,10 @@ namespace ODL.ApplicationServices.Validation
             return this;
         }
 
-        internal ValidationRuleBuilder<T> isValidMailAdress()
+        internal ValidationRuleBuilder<T> OgiltigEpostAdress()
         {
             //Func<T, bool> rule = x => MaxLengthCheck(PropertySelector.Compile().Invoke(x), maxLength);
-            Func<T, bool> rule = m => IsValidEmailAdress(PropertySelector.Compile().Invoke(m));
+            Func<T, bool> rule = m => OgiltigEpostAdress(PropertySelector.Compile().Invoke(m));
 
             Validator.AddRule(rule, $"Epostadressen '{SubjectName}.{PropertyName}' har fel format.", true);
             return this;
@@ -112,21 +111,10 @@ namespace ODL.ApplicationServices.Validation
         }
 
 
-        private bool IsValidEmailAdress(string emailaddress)
+        private bool OgiltigEpostAdress(string epostAdress)
         {
             //Fångar felaktiga epostadresser enligt RFC2822s
-            return Regex.IsMatch(emailaddress, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
-            //try
-            //{
-            //    MailAddress m = new MailAddress(emailaddress);
-
-            //    return true;
-            //}
-            //catch (FormatException)
-            //{
-            //    return false;
-            //}
+            return Regex.IsMatch(epostAdress, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
         }
-
     }
 }

@@ -91,22 +91,17 @@ namespace ODL.ApplicationServices
                 throw new BusinessLogicException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resultatenhet.KostnadsstalleNr}.");
             }
 
-            var organisation = organisationRepository.GetOrganisationByKstnr(resultatenhet.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet();
+            var organisation = organisationRepository.GetOrganisationByKstnr(resultatenhet.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet(resultatenhet.KostnadsstalleNr, resultatenhet.Typ, resultatenhet.OrganisationsId, resultatenhet.Namn, resultatenhet.GetMetadata());
 
-            organisation.OrganisationsId = resultatenhet.OrganisationsId;
-            organisation.Namn = resultatenhet.Namn;
-            organisation.Metadata = resultatenhet.GetMetadata();
-
-            var resultatenhetAttSpara = organisation.Resultatenhet;
-            resultatenhetAttSpara.Typ = resultatenhet.Typ;
-            resultatenhetAttSpara.KstNr = resultatenhet.KostnadsstalleNr;
-
-            if (resultatenhetAttSpara.IsNew)
+            if (organisation.Ny)
+            {
                 organisationRepository.Add(organisation);
+            }
             else
+            {
+                organisation.BytNamn(resultatenhet.Namn, resultatenhet.GetMetadata());
                 organisationRepository.Update();
+            }
         }
-
-
     }
 }

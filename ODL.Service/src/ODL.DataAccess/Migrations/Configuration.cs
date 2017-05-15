@@ -14,7 +14,7 @@ namespace ODL.DataAccess.Migrations
     internal sealed class Configuration : DbMigrationsConfiguration<ODLDbContext>
     {
         private bool insertTestdata;
-        private static readonly Metadata Metadata = new Metadata { SkapadAv = "DBO", SkapadDatum = DateTime.Now, UppdateradAv = "DBO", UppdateradDatum = DateTime.Now };
+        private static readonly Metadata Metadata = new Metadata (DateTime.Now, "DBO", DateTime.Now, "DBO");
 
         public Configuration()
         {
@@ -24,17 +24,19 @@ namespace ODL.DataAccess.Migrations
         protected override void Seed(ODLDbContext context)
         {
             bool.TryParse(ConfigurationManager.AppSettings["insert-testdata"], out insertTestdata);
-            
+
+            SparaAdressvarianter(context);
+
             if (insertTestdata)
             {
                 Person person1 = null;
                 if (context.Person.ToList().Count == 0)
                 {     
-                    person1 = SparaNyPerson(new Person { KallsystemId = "93574395", Fornamn = "Kalle", Mellannamn = "Ove", Efternamn = "Nilsson", Personnummer = "197012123456", Metadata = Metadata }, context);
-                    SparaNyPerson(new Person { KallsystemId = "39487983", Fornamn = "Marie", Mellannamn = "Eva", Efternamn = "Persson", Personnummer = "196212303456", Metadata = Metadata }, context);
-                    SparaNyPerson(new Person { KallsystemId = "48795842", Fornamn = "Anders", Mellannamn = "Ola", Efternamn = "Svensson", Personnummer = "197505223456", Metadata = Metadata }, context);
-                    SparaNyPerson(new Person { KallsystemId = "93285742", Fornamn = "Per", Mellannamn = "Sven", Efternamn = "Andersson", Personnummer = "198512123456", Metadata = Metadata }, context);
-                    SparaNyPerson(new Person { KallsystemId = "93285742", Fornamn = "Stina", Mellannamn = "Lisa", Efternamn = "Einarsson", Personnummer = "198512123456", Metadata = Metadata }, context);
+                    person1 = SparaNyPerson(new Person("Kalle", "Ove", "Nilsson", "197012123456", Metadata ), context);
+                    SparaNyPerson(new Person ("Marie", "Eva", "Persson", "196212303456", Metadata ), context);
+                    SparaNyPerson(new Person ("Anders", "Ola", "Svensson", "197505223456", Metadata ), context);
+                    SparaNyPerson(new Person ("Per", "Sven", "Andersson", "198512123456", Metadata ), context);
+                    SparaNyPerson(new Person ("Stina", "Lisa", "Einarsson", "198512123456", Metadata ), context);
                     
                     SparaAdresser(context);
                 }
@@ -47,40 +49,40 @@ namespace ODL.DataAccess.Migrations
                     SparaNyOrganisation("45678", "H", "4567890", "Järvsö vård och ved", context);
 
                     SparaNyttAnstalldAvtal(new Avtal
-                    {
-                        KallsystemId = "334567349534",
-                        Avtalskod = "K01",
-                        Avtalstext = "Anställningsavtal X",
-                        ArbetstidVecka = 24,
-                        Befkod = 1,
-                        BefText = "Tandläkare",
-                        Aktiv = true,
-                        Ansvarig = true,
-                        Chef = true,
-                        GrundArbtidVecka = 40,
-                        Lon = 38400,
-                        TimLon = 400,
-                        Anstallningsdatum = DateTime.Now,
-                        Metadata = Metadata
-                    }, person1, organisation1, true, 100m, context);
+                    (
+                        "334567349534",
+                        "K01",
+                        "Anställningsavtal X",
+                        24,
+                        1,
+                        "Tandläkare",
+                        true,
+                        true,
+                        true,
+                        40,
+                        38400,
+                        400,
+                        DateTime.Now,
+                        Metadata
+                    ), person1, organisation1, true, 100m, context);
 
                     SparaNyttKonsultAvtal(new Avtal
-                    {
-                        KallsystemId = "349534334567",
-                        Avtalskod = "K02",
-                        Avtalstext = "Anställningsavtal Y",
-                        ArbetstidVecka = 16,
-                        Befkod = 1,
-                        BefText = "Odontologkonsult",
-                        Aktiv = true,
-                        Ansvarig = false,
-                        Chef = true,
-                        GrundArbtidVecka = 40,
-                        Lon = 25600,
-                        TimLon = 400,
-                        Anstallningsdatum = DateTime.Now,
-                        Metadata = Metadata
-                    }, person1, organisation1, true, 100m, context);
+                    (
+                        "349534334567",
+                        "K02",
+                        "Anställningsavtal Y",
+                        16,
+                        1,
+                        "Odontologkonsult",
+                        true,
+                        false,
+                        true,
+                        40,
+                        25600,
+                        400,
+                        DateTime.Now,
+                        Metadata
+                    ), person1, organisation1, true, 100m, context);
                     
                 }
             }

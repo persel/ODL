@@ -4,17 +4,17 @@ using ODL.DomainModel.Adress;
 
 namespace ODL.DataAccess.Mappningar
 {
-    public class MailMappning : EntityTypeConfiguration<Mail>
+    public class EpostMappning : EntityTypeConfiguration<Epost>
     {
-        public MailMappning()
+        public EpostMappning()
         {
-            ToTable("Adress.Mail");
+            ToTable("Adress.Epost");
             HasKey(m => m.AdressId)
                 .Property(m => m.AdressId)
                 .HasColumnName("AdressFKId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(m => m.MailAdress).IsRequired().HasMaxLength(255).IsUnicode(false); 
+            Property(m => m.EpostAdress).IsRequired().HasMaxLength(255).IsUnicode(false); 
         }
     }
 }

@@ -7,8 +7,8 @@ namespace ODL.DomainModel.Adress
             Telefonnummer = telefonnummer;
         }
 
-        public int AdressId { get; set; }
-        public string Telefonnummer { get; set; }
+        public int AdressId { get; private set; }
+        public string Telefonnummer { get; internal set; }
         public virtual Adress Adress { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace ODL.ApplicationServices.DTOModel.Query
     public class TelefonDTO 
     {
 
-        public static TelefonDTO Fromtelefon(Telefon telefon)
+        public static TelefonDTO FromTelefon(Telefon telefon)
         {
             if (telefon == null)
                 return null;

@@ -13,9 +13,8 @@ namespace ODL.DataAccess.Mappningar
             Property(m => m.Fornamn).IsRequired().HasMaxLength(255);
             Property(m => m.Mellannamn).HasMaxLength(255);
             Property(m => m.Efternamn).IsRequired().HasMaxLength(255);
-            Property(m => m.KallsystemId).IsRequired().HasMaxLength(50);
             Property(m => m.Personnummer).IsRequired().HasMaxLength(12);
-            Ignore(m => m.IsNew);
+            Ignore(m => m.Ny);
 
         }
     }

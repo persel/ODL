@@ -47,7 +47,7 @@
 //                Stad = "Knivsta",
 //                Land = "USA"
 //            },
-//            MailInput = null,
+//            EpostInput = null,
 //            TelefonInput = null,
 //            SystemId = null,
 //            UppdateradDatum = "2017-01-20 12:00",

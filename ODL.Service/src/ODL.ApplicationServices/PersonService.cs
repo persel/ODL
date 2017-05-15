@@ -41,19 +41,18 @@ namespace ODL.ApplicationServices
                 throw new BusinessLogicException($"Valideringsfel inträffade vid validering av Person med Id: {personInputDTO.Personnummer}.");
             }
 
-            var person = personRepository.GetByPersonnummer(personInputDTO.Personnummer) ?? new Person();
+            var person = personRepository.GetByPersonnummer(personInputDTO.Personnummer) ?? new Person(personInputDTO.Fornamn, personInputDTO.Mellannamn, personInputDTO.Efternamn, personInputDTO.Personnummer, personInputDTO.GetMetadata());
 
-            person.Personnummer = personInputDTO.Personnummer;
-            person.Efternamn = personInputDTO.Efternamn;
-            person.Fornamn = personInputDTO.Fornamn;
-            person.Mellannamn = personInputDTO.Mellannamn;
-            person.KallsystemId = personInputDTO.SystemId;
-            person.Metadata = personInputDTO.GetMetadata();
-            
-            if (person.IsNew)
+            if (person.Ny)
+            {
                 personRepository.Add(person);
+            }
             else
+            {
+                person.AndraUppgifter(personInputDTO.Fornamn, personInputDTO.Mellannamn, personInputDTO.Efternamn, personInputDTO.Personnummer, personInputDTO.GetMetadata());
                 personRepository.Update();
+            }
+               
 
         }
 
@@ -120,7 +119,7 @@ namespace ODL.ApplicationServices
             avtal.Avgangsdatum = avtalDTO.Avgangsdatum.TillDatum();
             avtal.Metadata = avtalDTO.GetMetadata();
 
-            if (avtal.IsNew)
+            if (avtal.Ny)
             {
                 var person = personRepository.GetByPersonnummer(avtalDTO.Personnummer);
                 if (person == null)
@@ -150,7 +149,7 @@ namespace ODL.ApplicationServices
                 avtal.LaggTillOrganisation(organisation, kstDTO.Huvudkostnadsstalle, kstDTO.ProcentuellFordelning);
             }
             
-            if (avtal.IsNew)
+            if (avtal.Ny)
                     avtalRepository.Add(avtal);
                 else
                     avtalRepository.Update();
