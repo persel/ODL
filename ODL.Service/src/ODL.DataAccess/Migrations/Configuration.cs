@@ -25,7 +25,7 @@ namespace ODL.DataAccess.Migrations
         {
             bool.TryParse(ConfigurationManager.AppSettings["insert-testdata"], out insertTestdata);
 
-            SparaAdressvarianter(context);
+            SparaSystemdata(context);
 
             if (insertTestdata)
             {
@@ -88,7 +88,7 @@ namespace ODL.DataAccess.Migrations
             }
         }
 
-        private static void SparaAdressvarianter(ODLDbContext context)
+        private static void SparaSystemdata(ODLDbContext context)
         {
             //Adresstyp
             foreach (var enumValue in Enum.GetValues(typeof(Adresstyp)))
@@ -108,6 +108,7 @@ namespace ODL.DataAccess.Migrations
         private Person SparaNyPerson(Person person, ODLDbContext context)
         {
             context.Person.AddOrUpdate(person);
+            context.SaveChanges();
             return person;
         }
 
@@ -134,6 +135,7 @@ namespace ODL.DataAccess.Migrations
                 adress1TelPrivat,
                 adress2Hem
             );
+            context.SaveChanges();
         }
 
         private Organisation SparaNyOrganisation(string kstNr, string typ, string organisationsId, string namn, ODLDbContext context)
@@ -143,20 +145,24 @@ namespace ODL.DataAccess.Migrations
 
             context.Organisation.AddOrUpdate(organisation);
 
+            context.SaveChanges();
+
             return organisation;
         }
 
         private void SparaNyttAnstalldAvtal(Avtal avtal, Person person, Organisation organisation, bool huvudkostnadsstalle, decimal? procentuellFordelning, ODLDbContext context)
         {
-            avtal.KopplaTillKonsult(person);
+            avtal.KopplaTillAnstalld(person);
             avtal.LaggTillOrganisation(organisation, huvudkostnadsstalle, procentuellFordelning);
             context.Avtal.AddOrUpdate(avtal);
+            context.SaveChanges();
         }
         private void SparaNyttKonsultAvtal(Avtal avtal, Person person, Organisation organisation, bool huvudkostnadsstalle, decimal? procentuellFordelning, ODLDbContext context)
         {
             avtal.KopplaTillKonsult(person);
             avtal.LaggTillOrganisation(organisation, huvudkostnadsstalle, procentuellFordelning);
             context.Avtal.AddOrUpdate(avtal);
+            context.SaveChanges();
         }
     }
 }

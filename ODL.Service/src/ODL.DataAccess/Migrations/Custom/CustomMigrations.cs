@@ -12,7 +12,9 @@ namespace ODL.DataAccess.Migrations.Custom
 
             AddForeignKey("Adress.PersonAdress", "PersonFKId", "Person.Person", "Id");
             AddForeignKey("Adress.OrganisationAdress", "OrganisationFKId", "Organisation.Organisation", "Id");
-            
+
+            AddForeignKey("Adress.Adress", "AdressvariantFKId", "Adress.Adressvariant", "Id");
+            AddForeignKey("Adress.Adressvariant", "AdresstypFKId", "Adress.Adresstyp", "Id");
 
         }
 
@@ -37,8 +39,7 @@ namespace ODL.DataAccess.Migrations.Custom
                         Namn = c.String(nullable: false, maxLength: 100, unicode:false)
                     })
                 .PrimaryKey(t => t.Id);
-
-            AddForeignKey("Adress.Adressvariant", "AdresstypFKId", "Adress.Adresstyp", "Id");
+            
         }
 
         protected void DropForeignKeysWithoutNavigationPropertyRelations()
@@ -49,7 +50,10 @@ namespace ODL.DataAccess.Migrations.Custom
 
             DropForeignKey("Adress.PersonAdress", "PersonFKId", "Person.Person");
             DropForeignKey("Adress.OrganisationAdress", "OrganisationFKId", "Organisation.Organisation");
-            
+
+            DropForeignKey("Adress.Adress", "AdressvariantFKId", "Adress.Adressvariant");
+            DropForeignKey("Adress.Adressvariant", "AdresstypFKId", "Adress.Adresstyp");
+
         }
 
         protected void DropNonMappedTables()

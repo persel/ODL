@@ -31,6 +31,7 @@ namespace ODL.DomainModel.Adress
             {
                 Gatuadress = gatuadress,
                 PersonAdress = new PersonAdress {PersonId = person.Id},
+                Adressvariant = variant,
                 Metadata = metadata
                 
             };
@@ -46,6 +47,7 @@ namespace ODL.DomainModel.Adress
             {
                 Epost = epost,
                 PersonAdress = new PersonAdress { PersonId = person.Id },
+                Adressvariant = variant,
                 Metadata = metadata
             };
             
@@ -61,6 +63,7 @@ namespace ODL.DomainModel.Adress
             {
                 Telefon = telefon,
                 PersonAdress = new PersonAdress { PersonId = person.Id },
+                Adressvariant = variant,
                 Metadata = metadata
             };
 
@@ -76,6 +79,7 @@ namespace ODL.DomainModel.Adress
             {
                 Gatuadress = gatuadress,
                 OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id },
+                Adressvariant = variant,
                 Metadata = metadata
             };
             return adress;
@@ -90,6 +94,7 @@ namespace ODL.DomainModel.Adress
             {
                 Epost = epost,
                 OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id },
+                Adressvariant = variant,
                 Metadata = metadata
             };
 
@@ -105,6 +110,7 @@ namespace ODL.DomainModel.Adress
             {
                 Telefon = telefon,
                 OrganisationAdress = new OrganisationAdress{ OrganisationId = organisation.Id },
+                Adressvariant = variant,
                 Metadata = metadata
             };
 

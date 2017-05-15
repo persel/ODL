@@ -66,6 +66,10 @@
     <Compile Include="Mappningar\PersonMappning.cs" />
     <Compile Include="Mappningar\ResultatenhetMappning.cs" />
     <Compile Include="Mappningar\TelefonMappning.cs" />
+    <Compile Include="Migrations\201705151057374_Initial.cs" />
+    <Compile Include="Migrations\201705151057374_Initial.Designer.cs">
+      <DependentUpon>201705151057374_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Custom\CustomMigrations.cs" />
     <Compile Include="ODLDbContextFactory.cs" />
@@ -93,6 +97,11 @@
       <Project>{6820eef2-fc9d-49bc-8e01-b5ceca63a146}</Project>
       <Name>ODL.DomainModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705151057374_Initial.resx">
+      <DependentUpon>201705151057374_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

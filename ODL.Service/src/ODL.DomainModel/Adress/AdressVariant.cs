@@ -3,8 +3,7 @@ using ODL.DomainModel.Common;
 
 namespace ODL.DomainModel.Adress
 {
-    // TODO: Denna bör refaktoreras till en Value Object - vi ska inte skapa nya poster i db vid persistering av Adress. 
-    // TODO: Helst också kontrollera instansieringen, jfr. Adresstyp, som dock är en enum och har "fast antal" värden.
+    // TODO: Eventuellt refaktorera Adressvariant som Value Object, tillåt nya varianter dynamiskt via Admin-gui etc.
     public enum Adressvariant
     {
 
