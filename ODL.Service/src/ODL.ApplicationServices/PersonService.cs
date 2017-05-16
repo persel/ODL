@@ -134,8 +134,6 @@ namespace ODL.ApplicationServices
 
             var kstnrList = avtalDTO.Kostnadsstallen.Select(kst => kst.KostnadsstalleNr);
 
-            //var organisationer = organisationRepository.GetOrganisationerByKstnr(kstnrList);
-
             foreach (string kstNr in kstnrList)
             {
                 var organisation = organisationRepository.GetOrganisationByKstnr(kstNr);

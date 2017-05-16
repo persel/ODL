@@ -7,13 +7,11 @@ namespace ODL.DomainModel.Person
 {
     public class Avtal
     {
-        
         public Avtal()
         {
             OrganisationAvtal = new HashSet<OrganisationAvtal>();
         }
-
-
+        
        public Avtal(string kallsystemId, string avtalskod, string avtalstext, int? arbetstidVecka, int? befkod, string befText, bool? aktiv, bool ansvarig, bool? chef, decimal? grundArbtidVecka, int? lon, int? timLon, DateTime? anstallningsdatum, Metadata metadata)
         {
             KallsystemId = kallsystemId;
@@ -65,14 +63,24 @@ namespace ODL.DomainModel.Person
 
         public virtual AnstalldAvtal AnstalldAvtal { get; private set; }
         public virtual KonsultAvtal KonsultAvtal { get; private set; }
-        public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; }
+        internal virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; }
+
         public void KopplaTillKonsult(Person konsult)
         {
+            if (AnstalldAvtal != null || KonsultAvtal != null)
+                throw new BusinessLogicException(
+                    $"Avtalet är redan kopplat till en person (Id: {AnstalldAvtal.PersonId})");
+
             KonsultAvtal = new KonsultAvtal{PersonId = konsult.Id};
         }
 
         public void KopplaTillAnstalld(Person anstalld)
         {
+
+            if (AnstalldAvtal != null || KonsultAvtal != null)
+                throw new BusinessLogicException(
+                    $"Avtalet är redan kopplat till en person (Id: {AnstalldAvtal.PersonId})");
+
             AnstalldAvtal = new AnstalldAvtal { PersonId = anstalld.Id };
         }
 
@@ -82,7 +90,10 @@ namespace ODL.DomainModel.Person
 
             orgAvtal.Huvudkostnadsstalle = huvudkostnadsstalle;
             orgAvtal.ProcentuellFordelning = procentuellFordelning;
-            
+
+            var redanHuvud = OrganisationAvtal.Any(org => org.Huvudkostnadsstalle);
+           
+
             var organisationsAvtal = new OrganisationAvtal
             {
                 OrganisationId = organisation.Id,

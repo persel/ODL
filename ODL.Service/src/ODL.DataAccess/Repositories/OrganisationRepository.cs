@@ -45,11 +45,5 @@ namespace ODL.DataAccess.Repositories
         {
             return _internalGenericRepository.FindSingle(org => org.Resultatenhet.KstNr == kstnr);
         }
-
-        public List<Organisation> GetOrganisationerByKstnr(IEnumerable<string> kstNrList)
-        {
-            // TODO: Om vi bara har ett kstnr borde man inte behöva köra Contains...
-            return _internalGenericRepository.Find(org => kstNrList.Contains(org.Resultatenhet.KstNr)).ToList();
-        }
     }
 }

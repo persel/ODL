@@ -19,17 +19,7 @@ namespace ODL.ApplicationServices.Test
         public void TransactionTestStart()
         {
             Database.SetInitializer<ODLDbContext>(null);
-
-            var testConnection =
-                "Server = ds1ptjsql03; " +
-                "Database = ODL_CI_Test_Only; " +
-                "Trusted_Connection = False; " +
-                "MultipleActiveResultSets = true; " +
-                "Integrated Security = false; " +
-                "User ID = svcUser;" +
-                " Password = abcd1234";
-
-            context = new ODLDbContext(testConnection);
+            context = new ODLDbContext();
             transaction = context.Database.BeginTransaction();
         }
 

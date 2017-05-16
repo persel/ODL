@@ -13,7 +13,6 @@ namespace ODL.DataAccess.Repositories
         void Update();
         void Add(Organisation organisation);
         Organisation GetOrganisationByKstnr(string kstNr);
-       List<Organisation> GetOrganisationerByKstnr(IEnumerable<string> kstNrList);
         
     }
 }

@@ -8,6 +8,7 @@ using ODL.DataAccess.Repositories;
 using ODL.ApplicationServices.Validation;
 using ODL.DomainModel;
 using ODL.DomainModel.Adress;
+using ODL.DomainModel.Common;
 
 namespace ODL.ApplicationServices
 {
@@ -82,14 +83,9 @@ namespace ODL.ApplicationServices
             
             if (person == null)
                 throw new ArgumentException($"Kan ej spara adress för person med personummer: {personAdressInput.Personnummer}. Personen saknas i databasen.");
-
             
-            var variant = (Adressvariant)Enum.Parse(typeof(Adressvariant), personAdressInput.Adressvariant);
-
-            if (variant == null)
-                throw new ArgumentException($"Hittade ej Adressvarianten med namn: '{personAdressInput.Adressvariant}' i databasen.");
+            var variant = personAdressInput.Adressvariant.TillEnum<Adressvariant>();
             
-
             var adress = adressRepository.GetAdressPerPersonIdAndAdressvariant(person.Id, variant);
             var nyAdress = adress == null;
 
@@ -141,12 +137,12 @@ namespace ODL.ApplicationServices
             }
             
             var organisation = organisationRepository.GetOrganisationByKstnr(organisationAdressInput.KostnadsstalleNr);
-
-            var variant = (Adressvariant)Enum.Parse(typeof(Adressvariant), organisationAdressInput.Adressvariant);
             
             if (organisation == null)
                 throw new ArgumentException($"Kan ej spara adress för organisation med kostnadsställenummer: {organisationAdressInput.KostnadsstalleNr}. Organisationen saknas i databasen.");
-            
+
+            var variant = organisationAdressInput.Adressvariant.TillEnum<Adressvariant>();
+
             var adress = adressRepository.GetAdressPerOrganisationsIdAndAdressvariant(organisation.Id, variant);
             var nyAdress = adress == null;
 

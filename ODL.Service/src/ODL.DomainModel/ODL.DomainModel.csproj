@@ -47,7 +47,6 @@
     <Compile Include="Adress\Adress.cs" />
     <Compile Include="Adress\Adresstyp.cs" />
     <Compile Include="Adress\Adressvariant.cs" />
-    <Compile Include="Adress\AdressVariantExtensions.cs" />
     <Compile Include="Adress\Gatuadress.cs" />
     <Compile Include="Adress\Epost.cs" />
     <Compile Include="Adress\OrganisationAdress.cs" />
