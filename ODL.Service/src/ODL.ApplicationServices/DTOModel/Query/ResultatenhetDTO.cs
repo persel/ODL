@@ -2,6 +2,10 @@
 {
     public class ResultatenhetDTO
     {
+        public ResultatenhetDTO()
+        {
+
+        }
         public int Id { get; set; }
         public string KostnadsstalleNr { get; set; }
         public string Namn { get; set; }

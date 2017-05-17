@@ -31,15 +31,19 @@ namespace ODL.DataAccess.Migrations
             if (insertTestdata)
             {
                 Person person1 = null;
+                Person person2 = null;
+                Person person3 = null;
                 if (context.Person.ToList().Count == 0)
                 {     
                     person1 = SparaNyPerson(new Person("Kalle", "Ove", "Nilsson", "197012123456", Metadata ), context);
-                    SparaNyPerson(new Person ("Marie", "Eva", "Persson", "196212303456", Metadata ), context);
-                    SparaNyPerson(new Person ("Anders", "Ola", "Svensson", "197505223456", Metadata ), context);
+                    person2 = SparaNyPerson(new Person("Marie", "Eva", "Persson", "196212303456", Metadata), context);
+                    person3 = SparaNyPerson(new Person("Anders", "Ola", "Svensson", "197505223456", Metadata), context);
+
+                   
                     SparaNyPerson(new Person ("Per", "Sven", "Andersson", "198512123456", Metadata ), context);
                     SparaNyPerson(new Person ("Stina", "Lisa", "Einarsson", "198512123456", Metadata ), context);
                     
-                    SparaAdresser(context);
+                    
                 }
                 
                 if (context.Organisation.ToList().Count == 0)
@@ -48,6 +52,8 @@ namespace ODL.DataAccess.Migrations
                     SparaNyOrganisation("23456", "H", "2345678", "Norra ortopedmottagningen", context);
                     SparaNyOrganisation("34567", "G", "3456789", "Tandläkarna i Väst, Gemensamma", context);
                     SparaNyOrganisation("45678", "H", "4567890", "Järvsö vård och ved", context);
+
+                    SparaAdresser(context);
 
                     SparaNyttAnstalldAvtal(new Avtal
                     (
@@ -83,8 +89,26 @@ namespace ODL.DataAccess.Migrations
                         400,
                         DateTime.Now,
                         Metadata
-                    ), person1, organisation1, true, 100m, context);
-                    
+                    ), person2, organisation1, true, 100m, context);
+
+                    SparaNyttKonsultAvtal(new Avtal
+                    (
+                        "349534334568",
+                        "K32",
+                        "Anställningsavtal XY",
+                        18,
+                        1,
+                        "Ben läkare",
+                        true,
+                        false,
+                        true,
+                        40,
+                        25600,
+                        400,
+                        DateTime.Now,
+                        Metadata
+                    ), person3, organisation1, true, 100m, context);
+
                 }
             }
         }
@@ -136,6 +160,12 @@ namespace ODL.DataAccess.Migrations
                 adress1TelPrivat,
                 adress2Hem
             );
+            context.SaveChanges();
+
+            var org = context.Organisation.ToList().Find(o => o.OrganisationsId == "1234567");
+            var adressOrgArbete = Adress.SkapaNyGatuadress("Arbetarvägen 23", "82240", "Järvsö", "Sverige", Adressvariant.Leveransadress, Metadata, org);
+
+            context.Adress.AddOrUpdate(adressOrgArbete);
             context.SaveChanges();
         }
 
