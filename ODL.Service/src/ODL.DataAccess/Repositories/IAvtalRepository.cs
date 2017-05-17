@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ODL.DomainModel.Person;
+﻿using ODL.DomainModel.Avtal;
 
 namespace ODL.DataAccess.Repositories
 {

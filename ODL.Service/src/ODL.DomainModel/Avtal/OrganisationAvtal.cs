@@ -1,9 +1,8 @@
-using ODL.DomainModel.Person;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ODL.DomainModel
+namespace ODL.DomainModel.Organisation
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Person.OrganisationAvtal")]
     public class OrganisationAvtal
@@ -22,7 +21,7 @@ namespace ODL.DomainModel
 
         public bool Huvudkostnadsstalle { get; set; }
 
-        public virtual Avtal Avtal { get; set; }
+        public virtual Avtal.Avtal Avtal { get; set; }
         
         public bool Ny => AvtalId == 0;
     }

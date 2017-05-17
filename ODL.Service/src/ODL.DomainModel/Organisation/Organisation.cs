@@ -1,11 +1,11 @@
-
 using ODL.DomainModel.Common;
 using System.Collections.Generic;
 using System.Linq;
+using ODL.DomainModel.Adress;
 
 namespace ODL.DomainModel.Organisation
 {
-    public class Organisation
+    public class Organisation : Adressinnehavare
     {
        
         protected Organisation()
@@ -35,8 +35,8 @@ namespace ODL.DomainModel.Organisation
             return organisation;
         }
 
-        public int Id { get; private set; }
-
+        public override int Id { get; set; }
+        
         public string OrganisationsId { get; private set; }
 
         public string Namn { get; private set; }

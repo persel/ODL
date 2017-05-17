@@ -12,7 +12,6 @@ namespace ODL.ApplicationServices
         Adress GetByAdressId(int adressId);
         IEnumerable<AdressDTO> GetAdresserPerKostnadsstalleNr(string kstnr);
         IEnumerable<AdressDTO> GetAdresserPerPersonnummer(string personnummer);
-        void SparaPersonAdress(PersonAdressInputDTO personAdress);
-        void SparaOrganisationAdress(OrganisationAdressInputDTO organisationAdress);
+        void SparaAdress(AdressInputDTO adress);
     }
 }

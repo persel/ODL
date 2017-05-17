@@ -10,14 +10,14 @@ namespace ODL.ApplicationServices.Test
     public class AdressInputValidatorTests
     {
         [Test]
-        public void TestValidatePersonAdressGatuadress()
+        public void TestValidatePersonGatuadress()
         {
-            var personAdress = CreatePersonAdress(new GatuadressInputDTO(), null, null);
+            var personAdress = CreateGatuadress();
+            personAdress.Personnummer = "123456-7788";
 
-            var brokenRules = new PersonAdressInputValidator().Validate(personAdress);
-            new AdressInputValidator().Validate(personAdress, brokenRules);
+            var brokenRules = new AdressInputValidator().Validate(personAdress);
 
-            Assert.That(brokenRules.Count, Is.EqualTo(3));
+            Assert.That(brokenRules.Count, Is.EqualTo(2));
 
             Assert.That(
                 brokenRules.Any(
@@ -28,132 +28,102 @@ namespace ODL.ApplicationServices.Test
                 brokenRules.Any(
                     ve =>
                         ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.SkapadAv' saknar värde.")));
+                            "Personnumret som angivits för adressen är ej giltigt.")));
         }
-
 
         [Test]
-        public void TestValidateOrganisationAdressGatuadress()
+        public void TestValidateOrganisationGatuadress()
         {
 
-            var organisationAdress = CreateOrganisationAdress(new GatuadressInputDTO(), null, null);
+            var organisationAdress = CreateGatuadress();
+            organisationAdress.KostnadsstalleNr = "338111";
 
-            var brokenRules = new OrganisationAdressInputValidator().Validate(organisationAdress);
-            new AdressInputValidator().Validate(organisationAdress, brokenRules);
+            var brokenRules = new AdressInputValidator().Validate(organisationAdress);
 
-            Assert.That(brokenRules.Count, Is.EqualTo(3));
-
-
+            Assert.That(brokenRules.Count, Is.EqualTo(1));
+            
             Assert.That(
                 brokenRules.Any(
                     ve =>
                         ve.Message.Equals(
                             "Fältet 'GatuadressInputDTO.Postnummer' saknar värde.")));
+        }
+
+        [Test]
+        public void TestValidateOrganisationEllerPerson()
+        {
+            var adress = CreateTelefonAdress();
+            adress.Personnummer = "197001124554";
+            adress.KostnadsstalleNr = "123456";
+
+
+            var brokenRules = new AdressInputValidator().Validate(adress);
+
+            Assert.That(brokenRules.Count, Is.EqualTo(1));
+
             Assert.That(
                 brokenRules.Any(
                     ve =>
                         ve.Message.Equals(
-                            "Fältet 'AdressInputDTO.SkapadAv' saknar värde.")));
+                            "Adressen måste ange antingen en person eller en resultatenhet.")));
         }
 
-        private PersonAdressInputDTO CreatePersonAdress(GatuadressInputDTO gatuadressInput, EpostInputDTO epostInput, TelefonInputDTO telefonInput)
+        [Test]
+        public void TestValidateEpostAdress()
         {
-            var personAdress = new PersonAdressInputDTO();
-            if (gatuadressInput != null)
-            {
-                var personGatuadress = new PersonAdressInputDTO
-                {
-                    Personnummer = "123456-7788",
-                    Adressvariant = "Leveransadress",
-                    GatuadressInput = new GatuadressInputDTO
-                    {
-                      AdressRad1  = "Gatan 2",
-                      Stad = "Knivsta",
-                      Land = "USA"
-                    },
-                    EpostInput = null,
-                    TelefonInput = null,
-                    SystemId = null
-                };
-                personAdress = personGatuadress;
-            }
-            if (epostInput != null)
-            {
-                var personEpostadress = new PersonAdressInputDTO
-                {
-                    Personnummer = "123456-7788",
-                    Adressvariant = "EpostAdress Privat",
-                    GatuadressInput = null,
-                    EpostInput = new EpostInputDTO { EpostAdress = "eva.ek@home..se"},
-                    TelefonInput = null,
-                    SystemId = null
-                };
-                personAdress = personEpostadress;
-            }
-            if (telefonInput != null)
-            {
-                var personTelefon = new PersonAdressInputDTO
-                {
-                    Personnummer = "123456-7788",
-                    Adressvariant = "Mobil Arbete",
-                    GatuadressInput = null,
-                    EpostInput = null,
-                    TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
-                    SystemId = null
-                };
-                personAdress =  personTelefon;
-            }
-            return personAdress;
+            var adress = CreateEpostAdress();
+            adress.Personnummer = "197001124554";
+            
+            var brokenRules = new AdressInputValidator().Validate(adress);
+
+            Assert.That(brokenRules.Count, Is.EqualTo(1));
+
+            Assert.That(
+                brokenRules.Any(
+                    ve =>
+                        ve.Message.Equals(
+                            "Fältet 'EpostInputDTO.EpostAdress' har ogiltigt epost-format.")));
         }
 
-        private OrganisationAdressInputDTO CreateOrganisationAdress(GatuadressInputDTO gatuadressInput, EpostInputDTO epostInput, TelefonInputDTO telefonInput)
+        private AdressInputDTO CreateGatuadress()
         {
-            var organisationAdress = new OrganisationAdressInputDTO();
-            if (gatuadressInput != null)
+            return new AdressInputDTO
             {
-                var organisationGatuadress = new OrganisationAdressInputDTO
+                Adressvariant = "Leveransadress",
+                SkapadAv = "ABO",
+                SkapadDatum = "2016-02-28 13:45",
+                GatuadressInput = new GatuadressInputDTO
                 {
-                    KostnadsstalleNr = "338111",
-                    Adressvariant = "FaktureringsAdress",
-                    GatuadressInput = new GatuadressInputDTO
-                    {
-                        AdressRad1 = "Gatan 2",
-                        Stad = "Knivsta",
-                        Land = "USA"
-                    },
-                    EpostInput = null,
-                    TelefonInput = null,
-                    SystemId = null
-                };
-                organisationAdress = organisationGatuadress;
-            }
-            if (epostInput != null)
+                    AdressRad1 = "Gatan 2",
+                    Stad = "Knivsta",
+                    Land = "USA"
+                },
+                EpostInput = null,
+                TelefonInput = null,
+                SystemId = null
+            };
+        }
+
+        private AdressInputDTO CreateEpostAdress()
+        {
+            return  new AdressInputDTO
             {
-                var organisationEpostadress = new OrganisationAdressInputDTO
-                {
-                    KostnadsstalleNr = "338111",
-                    Adressvariant = "EpostAdress Arbete",
-                    GatuadressInput = null,
-                    EpostInput = new EpostInputDTO { EpostAdress = "tandis@home..se" },
-                    TelefonInput = null,
-                    SystemId = null
-                };
-                organisationAdress = organisationEpostadress;
-            }
-            if (telefonInput != null)
+                Adressvariant = "EpostAdressPrivat",
+                SkapadAv = "ABO",
+                SkapadDatum = "2016-02-28 13:45",
+                EpostInput = new EpostInputDTO { EpostAdress = "eva.ek@home..se"}
+            };
+         }
+
+        private AdressInputDTO CreateTelefonAdress()
+        { 
+            return new AdressInputDTO
             {
-                var organisationTelefon = new OrganisationAdressInputDTO
-                {
-                    KostnadsstalleNr = "338111",
-                    Adressvariant = "Mobil Arbete",
-                    GatuadressInput = null,
-                    EpostInput = null,
-                    TelefonInput = new TelefonInputDTO { Telefonnummer = "" },
-                    SystemId = null
-                };
-                organisationAdress = organisationTelefon;
-            }
-            return organisationAdress;
+                Adressvariant = "MobilArbete",
+                SkapadAv = "ABO",
+                SkapadDatum = "2016-02-28 13:45",
+                TelefonInput = new TelefonInputDTO { Telefonnummer = "070567645" }
+            };
         }
     }
 }

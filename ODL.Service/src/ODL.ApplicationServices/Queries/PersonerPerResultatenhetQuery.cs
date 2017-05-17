@@ -3,6 +3,7 @@ using System.Linq;
 using ODL.ApplicationServices.DTOModel.Query;
 using ODL.DataAccess;
 using ODL.DomainModel;
+using ODL.DomainModel.Avtal;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
 

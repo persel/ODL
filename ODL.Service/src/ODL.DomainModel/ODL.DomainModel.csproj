@@ -57,12 +57,13 @@
     <Compile Include="Common\Vardetyp.cs" />
     <Compile Include="Common\Metadata.cs" />
     <Compile Include="Common\VisningstextAttribute.cs" />
-    <Compile Include="Person\OrganisationAvtal.cs" />
-    <Compile Include="Person\Avtal.cs" />
+    <Compile Include="Adress\AdressInnehavare.cs" />
+    <Compile Include="Avtal\OrganisationAvtal.cs" />
+    <Compile Include="Avtal\Avtal.cs" />
     <Compile Include="Organisation\Organisation.cs" />
     <Compile Include="Organisation\Resultatenhet.cs" />
-    <Compile Include="Person\AnstalldAvtal.cs" />
-    <Compile Include="Person\Konsultavtal.cs" />
+    <Compile Include="Avtal\AnstalldAvtal.cs" />
+    <Compile Include="Avtal\Konsultavtal.cs" />
     <Compile Include="Person\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,9 +1,10 @@
+using ODL.DomainModel.Adress;
 using ODL.DomainModel.Common;
 
 namespace ODL.DomainModel.Person
 {
 
-    public class Person
+    public class Person : Adressinnehavare
     {
         public Person()
         {
@@ -18,7 +19,7 @@ namespace ODL.DomainModel.Person
             Metadata = metadata;
         }
 
-        public int Id { get; private set; }
+        public override int Id { get; set; }
 
         public string Fornamn { get; private set; }
 

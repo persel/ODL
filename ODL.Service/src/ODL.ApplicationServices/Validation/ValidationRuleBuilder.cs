@@ -64,7 +64,7 @@ namespace ODL.ApplicationServices.Validation
             //Func<T, bool> rule = x => MaxLengthCheck(PropertySelector.Compile().Invoke(x), maxLength);
             Func<T, bool> rule = m => OgiltigEpostAdress(PropertySelector.Compile().Invoke(m));
 
-            Validator.AddRule(rule, $"Epostadressen '{SubjectName}.{PropertyName}' har fel format.", true);
+            Validator.AddRule(rule, $"Fältet '{SubjectName}.{PropertyName}' har ogiltigt epost-format.", true);
             return this;
         }
 

@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using ODL.DomainModel.Adress;
+using ODL.DomainModel.Avtal;
 using ODL.DomainModel.Common;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;

@@ -62,9 +62,7 @@
   <ItemGroup>
     <Compile Include="DTOExtensions.cs" />
     <Compile Include="DTOModel\Load\AvtalInputDTO.cs" />
-    <Compile Include="DTOModel\Load\OrganisationAdressInputDTO.cs" />
     <Compile Include="DTOModel\Load\AdressInputDTO.cs" />
-    <Compile Include="DTOModel\Load\PersonAdressInputDTO.cs" />
     <Compile Include="DTOModel\Load\TelefonInputDTO.cs" />
     <Compile Include="DTOModel\Load\EpostInputDTO.cs" />
     <Compile Include="DTOModel\Load\InputDTO.cs" />
@@ -90,8 +88,6 @@
     <Compile Include="Validation\GatuadressInputValidator.cs" />
     <Compile Include="Validation\AvtalInputValidator.cs" />
     <Compile Include="Validation\AdressInputValidator.cs" />
-    <Compile Include="Validation\OrganisationAdressInputValidator.cs" />
-    <Compile Include="Validation\PersonAdressInputValidator.cs" />
     <Compile Include="Validation\ResultatenhetInputValidator.cs" />
     <Compile Include="Validation\OrganisationInputValidator.cs" />
     <Compile Include="Validation\PersonInputValidator.cs" />

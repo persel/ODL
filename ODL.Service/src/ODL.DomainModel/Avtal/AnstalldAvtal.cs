@@ -1,7 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace ODL.DomainModel.Person
+namespace ODL.DomainModel.Avtal
 {
 
     public class AnstalldAvtal

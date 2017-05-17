@@ -1,14 +1,10 @@
-
 namespace ODL.DomainModel.Organisation
-{
-        
+{  
     // Troligen är Organisation en bättre Aggregate root än Resultatenhet eftersom Resultatenhet alltid har en Organisation, medan Organisation inte alltid har Resultatenhet...
 
     public class Resultatenhet
     {
-        public Resultatenhet()
-        {
-        }
+        public Resultatenhet() {}
 
         public Resultatenhet(string kstNr, string typ)
         {

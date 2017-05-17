@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ODL.ApplicationServices;
 using ODL.ApplicationServices.DTOModel;
-using ODL.ApplicationServices.DTOModel.Load;
 using ODL.ApplicationServices.DTOModel.Query;
 using ODL.DomainModel.Adress;
 
@@ -38,19 +36,11 @@ namespace ODL.Service.Controllers
             return _adressService.GetAdresserPerKostnadsstalleNr(kstNr);
         }
 
-        // POST api/adress/personadress
-        [HttpPost("personadress")]
-        public void SparaPersonAdress([FromBody]PersonAdressInputDTO personAdress)
+        // POST api/adress
+        [HttpPost]
+        public void SparaPersonAdress([FromBody]AdressInputDTO adress)
         {
-            _adressService.SparaPersonAdress(personAdress);
+            _adressService.SparaAdress(adress);
         }
-
-        // POST api/adress/organisationadress
-        [HttpPost("organisationadress")]
-        public void SparaOrganisationAdress([FromBody]OrganisationAdressInputDTO organisationAdress)
-        {
-            _adressService.SparaOrganisationAdress(organisationAdress);
-        }
-
     }
 }

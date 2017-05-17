@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ODL.DomainModel.Common;
+using ODL.DomainModel.Organisation;
 
-namespace ODL.DomainModel.Person
+namespace ODL.DomainModel.Avtal
 {
     public class Avtal
     {
@@ -63,9 +64,9 @@ namespace ODL.DomainModel.Person
 
         public virtual AnstalldAvtal AnstalldAvtal { get; private set; }
         public virtual KonsultAvtal KonsultAvtal { get; private set; }
-        internal virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; }
+        public virtual ICollection<OrganisationAvtal> OrganisationAvtal { get; }
 
-        public void KopplaTillKonsult(Person konsult)
+        public void KopplaTillKonsult(Person.Person konsult)
         {
             if (AnstalldAvtal != null || KonsultAvtal != null)
                 throw new BusinessLogicException(
@@ -74,7 +75,7 @@ namespace ODL.DomainModel.Person
             KonsultAvtal = new KonsultAvtal{PersonId = konsult.Id};
         }
 
-        public void KopplaTillAnstalld(Person anstalld)
+        public void KopplaTillAnstalld(Person.Person anstalld)
         {
 
             if (AnstalldAvtal != null || KonsultAvtal != null)

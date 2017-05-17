@@ -2,6 +2,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
 using ODL.DomainModel.Adress;
+using ODL.DomainModel.Avtal;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
 

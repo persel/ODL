@@ -4,7 +4,6 @@ using Moq;
 using NUnit.Framework;
 using ODL.ApplicationServices;
 using ODL.ApplicationServices.DTOModel;
-using ODL.ApplicationServices.DTOModel.Load;
 using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel.Adress;
@@ -31,7 +30,7 @@ public class AdressServiceTest
         var loggerMock = new Mock<ILogger<AdressService>>().Object;
 
         var service = new AdressService(new AdressRepository(context), new PersonRepository(context), new OrganisationRepository(context), loggerMock);
-        var personGatauAdress = new PersonAdressInputDTO
+        var personGatauAdress = new AdressInputDTO
         {
             Personnummer = "197012123456",
             Adressvariant = Adressvariant.Leveransadress.ToString(),
@@ -54,7 +53,7 @@ public class AdressServiceTest
             SkapadDatum = "2017-01-20 12:00",
             SkapadAv = "MAH"
         };
-        service.SparaPersonAdress(personGatauAdress);
+        service.SparaAdress(personGatauAdress);
 
         var sparadPersonAdress = service.GetAdresserPerPersonnummer("197012123456");
         Assert.That(sparadPersonAdress, Is.Not.Null);

@@ -5,6 +5,7 @@ using ODL.ApplicationServices.DTOModel.Query;
 using ODL.DataAccess;
 using ODL.DomainModel;
 using ODL.DomainModel.Adress;
+using ODL.DomainModel.Avtal;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
 

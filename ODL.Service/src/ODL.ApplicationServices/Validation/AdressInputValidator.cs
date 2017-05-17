@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ODL.ApplicationServices.DTOModel;
-using ODL.ApplicationServices.DTOModel.Load;
 
 namespace ODL.ApplicationServices.Validation
 {
@@ -12,12 +11,21 @@ namespace ODL.ApplicationServices.Validation
         public AdressInputValidator()
         {
             RequireMetadata();
+            
         }
 
         public override List<ValidationError> Validate(AdressInputDTO subject)
         {
-
             var allErrors = base.Validate(subject);
+
+            var personEllerResultatenhet = subject.AvserPerson ^ subject.AvserResultatenhet; // Exclusive OR
+
+            if (!personEllerResultatenhet)
+                allErrors.Add(new ValidationError("Adressen måste ange antingen en person eller en resultatenhet."));
+            else if(subject.AvserPerson && subject.Personnummer.Length != 12)
+                allErrors.Add(new ValidationError("Personnumret som angivits för adressen är ej giltigt."));
+            else if (subject.AvserResultatenhet && subject.KostnadsstalleNr.Length != 6)
+                allErrors.Add(new ValidationError("Kostnadsställenumret som angivits för adressen ej giltigt."));
 
             var gatuadress = subject.GatuadressInput;
             var epostadress = subject.EpostInput;
@@ -27,8 +35,6 @@ namespace ODL.ApplicationServices.Validation
             if (!endastEnAngiven)
                 allErrors.Add(new ValidationError("Endast en av gatuadress, epostadress eller telefon får anges!"));
 
-                //if (!((gatuadress != null) ^ (epostadress != null) ^ (telefon != null)))
-            //    allErrors.Add(new ValidationError("Endast en av gatuadress, epostadress eller telefon får anges!"));
             else if (gatuadress != null)
                 new GatuadressInputValidator().Validate(gatuadress, allErrors);
 

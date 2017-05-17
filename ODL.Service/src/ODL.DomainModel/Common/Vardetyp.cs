@@ -1,5 +1,4 @@
-﻿
-namespace ODL.DomainModel.Common
+﻿namespace ODL.DomainModel.Common
 {
     public enum Vardetyp
     {

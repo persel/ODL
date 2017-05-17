@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using ODL.DomainModel;
+using ODL.DomainModel.Organisation;
 
 namespace ODL.DataAccess.Mappningar
 {

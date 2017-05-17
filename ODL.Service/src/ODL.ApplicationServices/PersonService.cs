@@ -9,6 +9,7 @@ using ODL.ApplicationServices.Validation;
 using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel;
+using ODL.DomainModel.Avtal;
 using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices
@@ -52,8 +53,6 @@ namespace ODL.ApplicationServices
                 person.AndraUppgifter(personInputDTO.Fornamn, personInputDTO.Mellannamn, personInputDTO.Efternamn, personInputDTO.Personnummer, personInputDTO.GetMetadata());
                 personRepository.Update();
             }
-               
-
         }
 
         public PersonDTO GetPersonByPersonnummer(string personnummer)
@@ -66,7 +65,6 @@ namespace ODL.ApplicationServices
                 Personnummer = person.Personnummer
             };
         }
-
         
         public IEnumerable<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet(string kstNr)
         {
@@ -78,7 +76,6 @@ namespace ODL.ApplicationServices
         {
             return new ResultatenhetsansvarigaMedLeveransadressQuery(context).Execute();
         }
-
 
         public void SparaAvtal(AvtalInputDTO avtalDTO)
         {

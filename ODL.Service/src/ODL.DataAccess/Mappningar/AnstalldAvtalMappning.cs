@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using ODL.DomainModel.Avtal;
 using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Mappningar

@@ -9,6 +9,7 @@ using ODL.ApplicationServices.Validation;
 using ODL.DomainModel;
 using ODL.DomainModel.Adress;
 using ODL.DomainModel.Common;
+using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices
 {
@@ -61,109 +62,54 @@ namespace ODL.ApplicationServices
                  });
         }
 
-        public void SparaPersonAdress(PersonAdressInputDTO personAdressInput)
+        public void SparaAdress(AdressInputDTO adressInput)
         {
 
-            var gatuadress = personAdressInput.GatuadressInput;
-            var epostadress = personAdressInput.EpostInput;
-            var telefon = personAdressInput.TelefonInput;
-            var metadata = personAdressInput.GetMetadata();
+            var gatuadress = adressInput.GatuadressInput;
+            var epostadress = adressInput.EpostInput;
+            var telefon = adressInput.TelefonInput;
+            var metadata = adressInput.GetMetadata();
 
-            var valideringsfel = new PersonAdressInputValidator().Validate(personAdressInput);
-            new AdressInputValidator().Validate(personAdressInput, valideringsfel);
+            var valideringsfel = new AdressInputValidator().Validate(adressInput);
 
             if (valideringsfel.Any())
             {
                 foreach (var fel in valideringsfel)
                     logger.LogError(fel.Message);
-                throw new BusinessLogicException($"Valideringsfel inträffade vid validering av adress för person med Id: {personAdressInput.Personnummer}.");
+                throw new BusinessLogicException($"Valideringsfel inträffade för adress: {adressInput}.");
             }
 
-            var person = personRepository.GetByPersonnummer(personAdressInput.Personnummer);
+            var adressInnehavare = adressInput.AvserPerson
+                ? personRepository.GetByPersonnummer(adressInput.Personnummer)
+                : organisationRepository.GetOrganisationByKstnr(adressInput.KostnadsstalleNr) as Adressinnehavare;
+
+
+            if (adressInnehavare == null)
+                throw new ArgumentException($"Kan ej spara adress. Innehavare saknas i databasen för adressen: {adressInput}.");
             
-            if (person == null)
-                throw new ArgumentException($"Kan ej spara adress för person med personummer: {personAdressInput.Personnummer}. Personen saknas i databasen.");
+            var variant = adressInput.Adressvariant.TillEnum<Adressvariant>();
             
-            var variant = personAdressInput.Adressvariant.TillEnum<Adressvariant>();
-            
-            var adress = adressRepository.GetAdressPerPersonIdAndAdressvariant(person.Id, variant);
+            var adress = adressRepository.GetAdressPerAdressInnehavareAndAdressvariant(adressInnehavare, variant);
             var nyAdress = adress == null;
 
             if (gatuadress != null)
             {
                 if (nyAdress)
-                    adress = Adress.SkapaNyGatuadress(gatuadress.AdressRad1, gatuadress.Postnummer, gatuadress.Stad, gatuadress.Land, variant, metadata, person);
+                    adress = Adress.SkapaNyGatuadress(gatuadress.AdressRad1, gatuadress.Postnummer, gatuadress.Stad, gatuadress.Land, variant, metadata, adressInnehavare);
                 else
                     adress.BytGatuadress(gatuadress.AdressRad1, gatuadress.Postnummer, gatuadress.Stad, gatuadress.Land, metadata);
             }
             else if (epostadress != null)
             {
                 if (nyAdress)
-                    adress = Adress.SkapaNyEpostAdress(epostadress.EpostAdress, variant, metadata, person);
+                    adress = Adress.SkapaNyEpostAdress(epostadress.EpostAdress, variant, metadata, adressInnehavare);
                 else
                     adress.BytEpostAdress(epostadress.EpostAdress, metadata);
             }
             else if (telefon != null)
             {
                 if (nyAdress)
-                    adress = Adress.SkapaNyTelefonAdress(telefon.Telefonnummer, variant, metadata, person);
-                else
-                    adress.BytTelefonnummer(telefon.Telefonnummer, metadata);
-            }
-            
-            if (adress.Ny)
-                adressRepository.Add(adress);
-            else
-                adressRepository.Update();
-        }
-
-        public void SparaOrganisationAdress(OrganisationAdressInputDTO organisationAdressInput)
-        {
-            if (organisationAdressInput == null) throw new ArgumentException("organisationAdressInput är null, felaktig indata ");
-
-            var gatuadress = organisationAdressInput.GatuadressInput;
-            var epostadress = organisationAdressInput.EpostInput;
-            var telefon = organisationAdressInput.TelefonInput;
-            var metadata = organisationAdressInput.GetMetadata();
-
-            var valideringsfel = new OrganisationAdressInputValidator().Validate(organisationAdressInput);
-            new AdressInputValidator().Validate(organisationAdressInput, valideringsfel);
-
-            if (valideringsfel.Any())
-            {
-                foreach (var fel in valideringsfel)
-                    logger.LogError(fel.Message);
-                throw new ArgumentException($"Valideringsfel inträffade vid validering av adress för organisation med Id: {organisationAdressInput.KostnadsstalleNr}.");
-            }
-            
-            var organisation = organisationRepository.GetOrganisationByKstnr(organisationAdressInput.KostnadsstalleNr);
-            
-            if (organisation == null)
-                throw new ArgumentException($"Kan ej spara adress för organisation med kostnadsställenummer: {organisationAdressInput.KostnadsstalleNr}. Organisationen saknas i databasen.");
-
-            var variant = organisationAdressInput.Adressvariant.TillEnum<Adressvariant>();
-
-            var adress = adressRepository.GetAdressPerOrganisationsIdAndAdressvariant(organisation.Id, variant);
-            var nyAdress = adress == null;
-
-            if (gatuadress != null)
-            {
-                if (nyAdress)
-                    adress = Adress.SkapaNyGatuadress(gatuadress.AdressRad1, gatuadress.Postnummer, gatuadress.Stad, gatuadress.Land, variant, metadata, organisation);
-                else
-                    adress.BytGatuadress(gatuadress.AdressRad1, gatuadress.Postnummer, gatuadress.Stad, gatuadress.Land, metadata);
-            }
-            else if (epostadress != null)
-            {
-                if (nyAdress)
-                    adress = Adress.SkapaNyEpostAdress(epostadress.EpostAdress, variant, metadata, organisation);
-                else
-                    adress.BytEpostAdress(epostadress.EpostAdress, metadata);
-            }
-            else if (telefon != null)
-            {
-                if (nyAdress)
-                    adress = Adress.SkapaNyTelefonAdress(telefon.Telefonnummer, variant, metadata, organisation);
+                    adress = Adress.SkapaNyTelefonAdress(telefon.Telefonnummer, variant, metadata, adressInnehavare);
                 else
                     adress.BytTelefonnummer(telefon.Telefonnummer, metadata);
             }

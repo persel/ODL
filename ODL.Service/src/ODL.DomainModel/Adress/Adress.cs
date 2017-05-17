@@ -1,4 +1,6 @@
+using System;
 using ODL.DomainModel.Common;
+using ODL.DomainModel.Person;
 
 namespace ODL.DomainModel.Adress
 {
@@ -22,7 +24,7 @@ namespace ODL.DomainModel.Adress
 
         public bool Ny => Id == 0;
 
-        public static Adress SkapaNyGatuadress(string adressRad1, string postnummer, string stad, string land, Adressvariant variant, Metadata metadata, Person.Person person)
+        public static Adress SkapaNyGatuadress(string adressRad1, string postnummer, string stad, string land, Adressvariant variant, Metadata metadata, Adressinnehavare adressinnehavare)
         {
             VerifieraAdressTyp(variant, Adresstyp.Gatuadress);
             
@@ -30,62 +32,16 @@ namespace ODL.DomainModel.Adress
             var adress = new Adress
             {
                 Gatuadress = gatuadress,
-                PersonAdress = new PersonAdress {PersonId = person.Id},
                 Adressvariant = variant,
                 Metadata = metadata
-                
             };
-            return adress;
-        }
-        
-        public static Adress SkapaNyEpostAdress(string epostAdress, Adressvariant variant, Metadata metadata, Person.Person person)
-        {
-            VerifieraAdressTyp(variant, Adresstyp.EpostAdress);
 
-            var epost = new Epost(epostAdress);
-            var adress = new Adress
-            {
-                Epost = epost,
-                PersonAdress = new PersonAdress { PersonId = person.Id },
-                Adressvariant = variant,
-                Metadata = metadata
-            };
+            adress.KopplaTillInnehavare(adressinnehavare);
             
             return adress;
         }
 
-        public static Adress SkapaNyTelefonAdress(string telefonnummer, Adressvariant variant, Metadata metadata, Person.Person person)
-        {
-            VerifieraAdressTyp(variant, Adresstyp.Telefon);
-
-            var telefon = new Telefon(telefonnummer);
-            var adress = new Adress
-            {
-                Telefon = telefon,
-                PersonAdress = new PersonAdress { PersonId = person.Id },
-                Adressvariant = variant,
-                Metadata = metadata
-            };
-
-            return adress;
-        }
-
-        public static Adress SkapaNyGatuadress(string adressRad1, string postnummer, string stad, string land, Adressvariant variant, Metadata metadata, Organisation.Organisation organisation)
-        {
-            VerifieraAdressTyp(variant, Adresstyp.Gatuadress);
-
-            var gatuadress = new Gatuadress(adressRad1, postnummer, stad, land);
-            var adress = new Adress
-            {
-                Gatuadress = gatuadress,
-                OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id },
-                Adressvariant = variant,
-                Metadata = metadata
-            };
-            return adress;
-        }
-
-        public static Adress SkapaNyEpostAdress(string epostAdress, Adressvariant variant, Metadata metadata, Organisation.Organisation organisation)
+        public static Adress SkapaNyEpostAdress(string epostAdress, Adressvariant variant, Metadata metadata, Adressinnehavare adressinnehavare)
         {
             VerifieraAdressTyp(variant, Adresstyp.EpostAdress);
 
@@ -93,15 +49,16 @@ namespace ODL.DomainModel.Adress
             var adress = new Adress
             {
                 Epost = epost,
-                OrganisationAdress = new OrganisationAdress { OrganisationId = organisation.Id },
                 Adressvariant = variant,
                 Metadata = metadata
             };
 
+            adress.KopplaTillInnehavare(adressinnehavare);
+
             return adress;
         }
 
-        public static Adress SkapaNyTelefonAdress(string telefonnummer, Adressvariant variant, Metadata metadata, Organisation.Organisation organisation)
+        public static Adress SkapaNyTelefonAdress(string telefonnummer, Adressvariant variant, Metadata metadata, Adressinnehavare adressinnehavare)
         {
             VerifieraAdressTyp(variant, Adresstyp.Telefon);
 
@@ -109,10 +66,11 @@ namespace ODL.DomainModel.Adress
             var adress = new Adress
             {
                 Telefon = telefon,
-                OrganisationAdress = new OrganisationAdress{ OrganisationId = organisation.Id },
                 Adressvariant = variant,
                 Metadata = metadata
             };
+
+            adress.KopplaTillInnehavare(adressinnehavare);
 
             return adress;
         }
@@ -120,7 +78,7 @@ namespace ODL.DomainModel.Adress
         private static void VerifieraAdressTyp(Adressvariant variant, Adresstyp adresstyp)
         {
             if (variant.Adresstyp() != adresstyp)
-                throw new BusinessLogicException($"Fel adresstyp - {adresstyp.Visningstext()} förväntades!");
+                throw new BusinessLogicException($"Fel adresstyp - {adresstyp.Visningstext()} förväntades.");
         }
 
         public void BytTelefonnummer(string telefonnummer, Metadata metadata)
@@ -142,6 +100,17 @@ namespace ODL.DomainModel.Adress
             Gatuadress.Stad = stad;
             Gatuadress.Land = land;
             Metadata = metadata;
+        }
+
+        private void KopplaTillInnehavare(Adressinnehavare adressinnehavare)
+        {
+            // Hmm, kanske går att använda vanlig OO/polymorfi, kompatibelt med Entity Framework, istället för att titta på typen som här...
+            // Men ev ej möjligt eftersom det är två olika tabeller i DB för PersonAdress och OrganisationAdress.
+
+            if (adressinnehavare.IsPerson)
+                PersonAdress = new PersonAdress { PersonId = adressinnehavare.Id };
+            else if (adressinnehavare.IsOrganisation)
+                OrganisationAdress = new OrganisationAdress { OrganisationId = adressinnehavare.Id };
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ODL.DomainModel.Adress;
-using ODL.DomainModel.Person;
 
 namespace ODL.DataAccess.Repositories
 {
@@ -51,7 +50,16 @@ namespace ODL.DataAccess.Repositories
                 _internalGenericRepository.Find(adress => adress.OrganisationAdress.OrganisationId == organisationsId);
         }
 
-        public Adress GetAdressPerPersonIdAndAdressvariant(int personId, Adressvariant variant)
+        public Adress GetAdressPerAdressInnehavareAndAdressvariant(Adressinnehavare adressinnehavare, Adressvariant variant)
+        {
+            if (adressinnehavare.IsPerson)
+                return _internalGenericRepository.FindSingle( a => a.PersonAdress.PersonId == adressinnehavare.Id && a.Adressvariant == variant);
+            if (adressinnehavare.IsOrganisation)
+                return _internalGenericRepository.FindSingle( a => a.OrganisationAdress.OrganisationId == adressinnehavare.Id && a.Adressvariant == variant);
+            throw new ArgumentException($"Ogiltig typ: {adressinnehavare}");
+        }
+
+    public Adress GetAdressPerPersonIdAndAdressvariant(int personId, Adressvariant variant)
         {
             return
                 _internalGenericRepository.FindSingle(a => a.PersonAdress.PersonId == personId && a.Adressvariant == variant);
