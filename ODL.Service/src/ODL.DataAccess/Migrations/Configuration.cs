@@ -115,19 +115,21 @@ namespace ODL.DataAccess.Migrations
 
         private static void SparaSystemdata(ODLDbContext context)
         {
-            //Adresstyp
-            foreach (var enumValue in Enum.GetValues(typeof(Adresstyp)))
+            if (context.Database.SqlQuery<int>("SELECT COUNT(*) FROM Adress.Adressvariant").First() == 0)
+            {
+                //Adresstyp
+                foreach (var enumValue in Enum.GetValues(typeof(Adresstyp)))
                 context.Database.ExecuteSqlCommand("INSERT INTO Adress.Adresstyp VALUES(@Id, @Namn)", new SqlParameter("Id", (int)(Adresstyp)enumValue), new SqlParameter("Namn", ((Adresstyp)enumValue).Visningstext()));
-
-            //Adressvariant
-            foreach (var enumValue in Enum.GetValues(typeof(Adressvariant)))
-                context.Database.ExecuteSqlCommand("INSERT INTO Adress.Adressvariant VALUES(@Id, @Namn, @AdresstypFKId)", 
-                    new SqlParameter("Id", (int)(Adressvariant)enumValue), 
-                    new SqlParameter("Namn", ((Adressvariant)enumValue).Visningstext()), 
-                    new SqlParameter("AdresstypFKId", (int)((Adressvariant)enumValue).Adresstyp()));
-
-            context.SaveChanges();
-
+                
+                //Adressvariant
+                foreach (var enumValue in Enum.GetValues(typeof(Adressvariant)))
+                    context.Database.ExecuteSqlCommand(
+                        "INSERT INTO Adress.Adressvariant VALUES(@Id, @Namn, @AdresstypFKId)",
+                        new SqlParameter("Id", (int) (Adressvariant) enumValue),
+                        new SqlParameter("Namn", ((Adressvariant) enumValue).Visningstext()),
+                        new SqlParameter("AdresstypFKId", (int) ((Adressvariant) enumValue).Adresstyp()));
+                context.SaveChanges();
+            }
         }
 
         private Person SparaNyPerson(Person person, ODLDbContext context)

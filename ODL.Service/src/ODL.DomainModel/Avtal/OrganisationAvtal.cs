@@ -19,7 +19,7 @@ namespace ODL.DomainModel.Organisation
 
         public decimal? ProcentuellFordelning { get; set; }
 
-        public bool Huvudkostnadsstalle { get; set; }
+        public bool HuvudsakligtKostnadsstalle { get; set; } // Kallas Huvudkostnadsställe i HR-plus, men för att särskilja mot ResultatenhetTyp 'H', kallar vi denna egenskap för HuvudsakligtKostnadsstalle
 
         public virtual Avtal.Avtal Avtal { get; set; }
         

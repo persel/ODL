@@ -89,16 +89,16 @@ namespace ODL.DomainModel.Avtal
         {
             var orgAvtal = OrganisationAvtal.SingleOrDefault(orgAvt => orgAvt.OrganisationId == organisation.Id) ?? new OrganisationAvtal();
 
-            orgAvtal.Huvudkostnadsstalle = huvudkostnadsstalle;
+            orgAvtal.HuvudsakligtKostnadsstalle = huvudkostnadsstalle;
             orgAvtal.ProcentuellFordelning = procentuellFordelning;
 
-            var redanHuvud = OrganisationAvtal.Any(org => org.Huvudkostnadsstalle);
+            var redanHuvud = OrganisationAvtal.Any(org => org.HuvudsakligtKostnadsstalle);
            
 
             var organisationsAvtal = new OrganisationAvtal
             {
                 OrganisationId = organisation.Id,
-                Huvudkostnadsstalle = huvudkostnadsstalle,
+                HuvudsakligtKostnadsstalle = huvudkostnadsstalle,
                 ProcentuellFordelning = procentuellFordelning
             };
 
