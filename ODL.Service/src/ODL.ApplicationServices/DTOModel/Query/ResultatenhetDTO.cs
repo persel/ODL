@@ -13,5 +13,6 @@
         public string LeveransAdress { get; set; }
         public string Postnummer { get; set; }
         public string Postadress { get; set; }
+        public bool Resultatenhetsansvarig { get; set; }
     }
 }

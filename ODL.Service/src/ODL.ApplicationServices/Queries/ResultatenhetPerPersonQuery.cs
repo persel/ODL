@@ -28,7 +28,7 @@ namespace ODL.ApplicationServices.Queries
                 join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
                 join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
                 where avtal.KonsultAvtal.PersonId == personId || avtal.AnstalldAvtal.PersonId == personId
-                select new ResultatenhetDTO { Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr, Typ = organisation.Resultatenhet.Typ, Namn = organisation.Namn};
+                select new ResultatenhetDTO { Id = organisation.Id, KostnadsstalleNr = organisation.Resultatenhet.KstNr, Typ = organisation.Resultatenhet.Typ, Namn = organisation.Namn, Resultatenhetsansvarig = avtal.Ansvarig};
 
             return projektionResultatenheter.Distinct();
 
