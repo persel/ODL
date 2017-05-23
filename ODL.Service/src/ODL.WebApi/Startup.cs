@@ -81,7 +81,8 @@ namespace ODL.Service
                         new MinimumRequirement(
                             anvandarNamn: "",
                             applikation: "PostOmbud",
-                            namn: "")
+                            namn: "",
+                            key: Configuration.GetSection("AppSettings")["Key"])
                     ));
             });
 

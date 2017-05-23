@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behorighet.cs" />
+    <Compile Include="EncrypDecrypt.cs" />
     <Compile Include="IBehorighet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
