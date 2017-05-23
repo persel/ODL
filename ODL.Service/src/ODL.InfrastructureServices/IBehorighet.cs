@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ODL.InfrastructureServices
 {
-    public class Class1
+    public interface IBehorighet
     {
+        void SetAnvandare(IIdentity anvandare);
+        bool IsBehorig();
     }
 }

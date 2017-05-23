@@ -10,6 +10,7 @@ namespace ODL.WebApi
 {
     /**
      * Får skapa denna klass här eftersom core teknologi därför platsar den ej i infrastruktur projektet..
+     * Här nedan får vi lägga in dom grundläggande kontrollerna 
      * */
     public class MinimumRequirementHandler : AuthorizationHandler<MinimumRequirement>
     {
@@ -26,7 +27,7 @@ namespace ODL.WebApi
             //ToDO test purpuse Swagger
             //if (mvcContext.HttpContext.Request.GetUri().Host == "localhost") return Task.CompletedTask;
 
-
+            //ToDo lägg in ett anrop för att kolla att det är en giltig alias? just nu kollar den bara att den existerar
             if (mvcContext.HttpContext.Request.Headers["AnvandarNamn"] == requirement.AnvandarNamn ||
                 mvcContext.HttpContext.Request.Headers["AnvandarNamn"].Count <= 0)
             {

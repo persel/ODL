@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <ProjectReference Include="..\ODL.ApplicationServices\ODL.ApplicationServices.csproj" />
+    <ProjectReference Include="..\ODL.InfrastructureServices\ODL.InfrastructureServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>

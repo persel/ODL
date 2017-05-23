@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices;
 using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
+using ODL.InfrastructureServices;
 using ODL.WebApi;
 using Serilog;
 using Swashbuckle.Swagger;
@@ -52,6 +53,8 @@ namespace ODL.Service
             services.AddScoped<IAvtalRepository, AvtalRepository>();
             services.AddScoped<IOrganisationRepository, OrganisationRepository>();
             services.AddScoped<IAdressRepository, AdressRepository>();
+
+            services.AddScoped<IBehorighet, Behorighet>();
 
             services.AddScoped(contextFactory);
 
