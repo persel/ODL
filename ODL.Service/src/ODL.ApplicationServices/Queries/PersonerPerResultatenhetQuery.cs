@@ -32,28 +32,34 @@ namespace ODL.ApplicationServices.Queries
                 join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
                 join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
                 where organisation.Resultatenhet.KstNr == kstNr
-                select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = person.Fornamn + " " + person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig};
+                select new { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Fornamn = person.Fornamn, Efternamn = person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig, Anstallningsdatum = avtal.Anstallningsdatum, Avgangsdatum = avtal.Avgangsdatum };
 
             var projektionKonsulter = from person in personer
                                       join avtal in allaAvtal on person.Id equals avtal.KonsultAvtal.PersonId
                                       join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
                                       join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
                                       where organisation.Resultatenhet.KstNr == kstNr
-                                      select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = person.Fornamn + " " + person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig };
+                                      select new { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Fornamn = person.Fornamn, Efternamn = person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig, Anstallningsdatum = avtal.Anstallningsdatum, Avgangsdatum = avtal.Avgangsdatum};
 
 
             var anstallda = projektionAnstallda.ToList();
             var konsulter = projektionKonsulter.ToList();
+			
+            anstallda.AddRange(konsulter);
 
-
-            anstallda.AddRange(konsulter); // TODO: Ta bort dubletter, ansvarig = true om både true/false finns
-
-            var personPerResultatenhet = anstallda.GroupBy(a => a.Personnummer)
-                .Select(g => g.OrderByDescending(p => p.Resultatenhetansvarig).First()); // OrderByDescending bool: true (1) först, därefter false (0)
-
-            return personPerResultatenhet;
-
-
+			var groups = anstallda.GroupBy(a => new { a.Id, a.Personnummer, a.Fornamn, a.Efternamn });
+			
+			var personPerResultatenhet = groups.Select(group =>
+			new PersonPerResultatenhetDTO {
+				Id = group.Key.Id,
+				Personnummer = group.Key.Personnummer,
+				KostnadsstalleNr = kstNr,
+				Fornamn = group.Key.Fornamn,
+				Efternamn = group.Key.Efternamn,
+				Resultatenhetansvarig = group.Any(item => item.Resultatenhetansvarig), // true om minst ett av avtalen har true!
+				Anstallningsdatum = group.Min(item => item.Anstallningsdatum).FormatteraSomDatum(), // tidigaste anställningsdatumet används
+				Avgangsdatum = group.Any(item => item.Avgangsdatum == null) ? null : group.Max(item => item.Avgangsdatum).FormatteraSomDatum() }); // Om något av avgångsdatumen är null, returnera då detta, annars det senaste!
+			return personPerResultatenhet;
         }
     }
 }
