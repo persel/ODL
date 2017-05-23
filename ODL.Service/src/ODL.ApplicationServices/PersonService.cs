@@ -71,12 +71,6 @@ namespace ODL.ApplicationServices
             return new PersonerPerResultatenhetQuery(context).Execute(kstNr);
         }
 
-
-        public IEnumerable<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress()
-        {
-            return new ResultatenhetsansvarigaMedLeveransadressQuery(context).Execute();
-        }
-
         public void SparaAvtal(AvtalInputDTO avtalDTO)
         {
             var valideringsfel = new AvtalInputValidator().Validate(avtalDTO);

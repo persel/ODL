@@ -32,14 +32,14 @@ namespace ODL.ApplicationServices.Queries
                 join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
                 join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
                 where organisation.Resultatenhet.KstNr == kstNr
-                select new { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Fornamn = person.Fornamn, Efternamn = person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig, Anstallningsdatum = avtal.Anstallningsdatum, Avgangsdatum = avtal.Avgangsdatum };
+                select new {person.Id, KostnadsstalleNr = kstNr, person.Personnummer, person.Fornamn, person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig, avtal.Anstallningsdatum, avtal.Avgangsdatum };
 
             var projektionKonsulter = from person in personer
                                       join avtal in allaAvtal on person.Id equals avtal.KonsultAvtal.PersonId
                                       join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
                                       join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
                                       where organisation.Resultatenhet.KstNr == kstNr
-                                      select new { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Fornamn = person.Fornamn, Efternamn = person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig, Anstallningsdatum = avtal.Anstallningsdatum, Avgangsdatum = avtal.Avgangsdatum};
+                                      select new {person.Id, KostnadsstalleNr = kstNr, person.Personnummer, person.Fornamn, person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig, avtal.Anstallningsdatum, avtal.Avgangsdatum};
 
 
             var anstallda = projektionAnstallda.ToList();

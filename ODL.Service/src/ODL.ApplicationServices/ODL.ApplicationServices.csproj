@@ -82,7 +82,6 @@
     <Compile Include="AdressService.cs" />
     <Compile Include="Queries\ResultatenhetPerPersonQuery.cs" />
     <Compile Include="Queries\PersonerPerResultatenhetQuery.cs" />
-    <Compile Include="Queries\ResultatenhetsansvarigaMedLeveransadressQuery.cs" />
     <Compile Include="Validation\TelefonInputValidator.cs" />
     <Compile Include="Validation\EpostInputValidator.cs" />
     <Compile Include="Validation\GatuadressInputValidator.cs" />

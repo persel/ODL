@@ -17,6 +17,5 @@ namespace ODL.ApplicationServices
 
         PersonDTO GetPersonByPersonnummer(string personnummer);
         IEnumerable<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet(string kstNr);
-        IEnumerable<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress();
     }
 }

@@ -16,14 +16,7 @@ namespace ODL.Service.Controllers
             _personService = personService;
         }
 
-        // GET api/person/resultatenhetansvarigamedleveransadress
-        [HttpGet("resultatenhetansvarigamedleveransadress")]
-        public IEnumerable<ResultatenhetansvarigDTO> GetResultatenhetsansvarigaMedLeveransadress()
-        {
-            return _personService.GetResultatenhetsansvarigaMedLeveransadress();
-        }
-
-        // GET api/person/resultatenhetansvarigamedleveransadress
+        // GET api/person/personerperresultatenhet
         [HttpGet("personerperresultatenhet")]
         public IEnumerable<PersonPerResultatenhetDTO> GetPersonerPerResultatenhet([FromQuery]string kstNr)
         {
