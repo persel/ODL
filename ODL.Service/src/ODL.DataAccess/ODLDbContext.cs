@@ -39,7 +39,6 @@ namespace ODL.DataAccess
 #endif
         }
 
-        // Person:
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Avtal> Avtal { get; set; }
         public virtual DbSet<Organisation> Organisation { get; set; }
@@ -49,7 +48,7 @@ namespace ODL.DataAccess
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Configurations.AddFromAssembly(typeof(ODLDbContext).Assembly); // Peka ut valfri klass i assembly där mappningarna finns! OBS att denna ska köras före 'strukturella' mappningarna nedan.
+            modelBuilder.Configurations.AddFromAssembly(typeof(ODLDbContext).Assembly); // Peka ut valfri klass i assembly där mappningarna finns!
         }
 
         public DbSet<T> DbSet<T>() where T : class

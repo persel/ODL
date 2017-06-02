@@ -2,8 +2,6 @@ using ODL.DataAccess.Migrations.Custom;
 
 namespace ODL.DataAccess.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
     
     public partial class Initial : CustomMigrations
     {
@@ -149,7 +147,7 @@ namespace ODL.DataAccess.Migrations
                         AvtalFKId = c.Int(nullable: false),
                         OrganisationFKId = c.Int(nullable: false),
                         ProcentuellFordelning = c.Decimal(precision: 5, scale: 2),
-                        Huvudkostnadsstalle = c.Boolean(nullable: false),
+                        HuvudsakligtKostnadsstalle = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => new { t.AvtalFKId, t.OrganisationFKId })
                 .ForeignKey("Avtal.Avtal", t => t.AvtalFKId)
@@ -178,7 +176,7 @@ namespace ODL.DataAccess.Migrations
                     {
                         OrganisationFKId = c.Int(nullable: false),
                         KstNr = c.String(maxLength: 6, unicode: false),
-                        Typ = c.String(maxLength: 10, unicode: false),
+                        Typ = c.String(nullable: false, maxLength: 1, unicode: false),
                     })
                 .PrimaryKey(t => t.OrganisationFKId)
                 .ForeignKey("Organisation.Organisation", t => t.OrganisationFKId)
@@ -200,6 +198,7 @@ namespace ODL.DataAccess.Migrations
                     })
                 .PrimaryKey(t => t.Id);
 
+
             AddForeignKeysWithoutNavigationPropertyRelations();
             AddNonMappedTables();
         }
@@ -208,7 +207,6 @@ namespace ODL.DataAccess.Migrations
         {
             DropForeignKeysWithoutNavigationPropertyRelations();
             DropNonMappedTables();
-            
             DropForeignKey("Organisation.Organisation", "IngarIOrganisationFKId", "Organisation.Organisation");
             DropForeignKey("Organisation.Resultatenhet", "OrganisationFKId", "Organisation.Organisation");
             DropForeignKey("Avtal.OrganisationAvtal", "AvtalFKId", "Avtal.Avtal");

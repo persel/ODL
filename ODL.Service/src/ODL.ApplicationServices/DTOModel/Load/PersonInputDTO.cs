@@ -11,9 +11,7 @@ namespace ODL.ApplicationServices.DTOModel.Load
         public string Mellannamn { get; set; }
 
         public string Efternamn { get; set; }
-
-
-
+        
         
     }
 }

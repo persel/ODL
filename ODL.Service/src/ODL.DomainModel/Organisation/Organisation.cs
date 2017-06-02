@@ -27,8 +27,9 @@ namespace ODL.DomainModel.Organisation
             return organisation;
         }
 
-        public static Organisation SkapaNyResultatenhet(string kstNr, string typ, string organisationsId, string namn, Metadata metadata)
+        public static Organisation SkapaNyResultatenhet(string kstNr, Kostnadsstalletyp typ, string organisationsId, string namn, Metadata metadata)
         {
+
             var resultatenhet = new Resultatenhet(kstNr, typ);
             var organisation = new Organisation(organisationsId, namn, resultatenhet, metadata);
 

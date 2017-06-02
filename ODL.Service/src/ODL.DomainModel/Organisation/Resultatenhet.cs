@@ -1,12 +1,15 @@
+using ODL.DomainModel.Common;
+
 namespace ODL.DomainModel.Organisation
-{  
-    // Troligen är Organisation en bättre Aggregate root än Resultatenhet eftersom Resultatenhet alltid har en Organisation, medan Organisation inte alltid har Resultatenhet...
+{
 
     public class Resultatenhet
     {
-        public Resultatenhet() {}
+        public Resultatenhet()
+        {
+        }
 
-        public Resultatenhet(string kstNr, string typ)
+        public Resultatenhet(string kstNr, Kostnadsstalletyp typ)
         {
             KstNr = kstNr;
             Typ = typ;
@@ -16,7 +19,15 @@ namespace ODL.DomainModel.Organisation
 
         public string KstNr { get; private set; }
 
-        public string Typ { get; private set; }
+        public Kostnadsstalletyp Typ
+        {
+            get => KostnadsstalletypString.TillEnum<Kostnadsstalletyp>();
+
+            private set => KostnadsstalletypString = value.ToString();
+        }
+
+        public string KostnadsstalletypString { get; private set; }
+
 
         public virtual Organisation Organisation { get; private set; }
 

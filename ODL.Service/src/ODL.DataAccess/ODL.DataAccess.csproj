@@ -66,13 +66,9 @@
     <Compile Include="Mappningar\PersonMappning.cs" />
     <Compile Include="Mappningar\ResultatenhetMappning.cs" />
     <Compile Include="Mappningar\TelefonMappning.cs" />
-    <Compile Include="Migrations\201705151057374_Initial.cs" />
-    <Compile Include="Migrations\201705151057374_Initial.Designer.cs">
-      <DependentUpon>201705151057374_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705180545070_Namnbyte_HuvudsakligtKostnadsstalle.cs" />
-    <Compile Include="Migrations\201705180545070_Namnbyte_HuvudsakligtKostnadsstalle.Designer.cs">
-      <DependentUpon>201705180545070_Namnbyte_HuvudsakligtKostnadsstalle.cs</DependentUpon>
+    <Compile Include="Migrations\201706010753213_Initial.cs" />
+    <Compile Include="Migrations\201706010753213_Initial.Designer.cs">
+      <DependentUpon>201706010753213_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Custom\CustomMigrations.cs" />
@@ -103,11 +99,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705151057374_Initial.resx">
-      <DependentUpon>201705151057374_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705180545070_Namnbyte_HuvudsakligtKostnadsstalle.resx">
-      <DependentUpon>201705180545070_Namnbyte_HuvudsakligtKostnadsstalle.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706010753213_Initial.resx">
+      <DependentUpon>201706010753213_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

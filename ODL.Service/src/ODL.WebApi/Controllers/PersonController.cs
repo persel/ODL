@@ -22,16 +22,9 @@ namespace ODL.Service.Controllers
         {
             return _personService.GetPersonerPerResultatenhet(kstNr);
         }
-
-        // POST api/person/avtal/
-        [HttpPost("avtal")]
-        public void SparaAvtal([FromBody]AvtalInputDTO avtal)
-        {
-            _personService.SparaAvtal(avtal);
-        }
-
-        // POST api/person/
-        [HttpPost("person")]
+        
+        // POST api/person/spara
+        [HttpPost("spara")]
         public void SparaPerson([FromBody]PersonInputDTO person)
         {
             _personService.SparaPerson(person);

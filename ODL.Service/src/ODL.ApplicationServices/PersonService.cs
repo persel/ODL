@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices.DTOModel.Load;
@@ -9,7 +8,6 @@ using ODL.ApplicationServices.Validation;
 using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
 using ODL.DomainModel;
-using ODL.DomainModel.Avtal;
 using ODL.DomainModel.Person;
 
 namespace ODL.ApplicationServices
@@ -17,19 +15,15 @@ namespace ODL.ApplicationServices
     public class PersonService : IPersonService
     {
         private readonly IPersonRepository personRepository;
-        private readonly IOrganisationRepository organisationRepository;
-        private readonly IAvtalRepository avtalRepository;
         private readonly IContext context;
         private readonly ILogger<PersonService> logger;
 
-        public PersonService(IPersonRepository personRepository, IOrganisationRepository organisationRepository, IAvtalRepository avtalRepository, IContext context, ILogger<PersonService> logger)
+        public PersonService(IPersonRepository personRepository, IContext context, ILogger<PersonService> logger)
         {
             this.personRepository = personRepository;
-            this.organisationRepository = organisationRepository;
-            this.avtalRepository = avtalRepository;
             this.context = context;
             this.logger = logger;
-    }
+        }
 
         public void SparaPerson(PersonInputDTO personInputDTO)
         {
@@ -39,6 +33,30 @@ namespace ODL.ApplicationServices
             {
                 foreach (var fel in valideringsfel)
                     logger.LogError(fel.Message); 
+                throw new BusinessLogicException($"Valideringsfel inträffade vid validering av Person med Id: {personInputDTO.Personnummer}.");
+            }
+
+            var person = personRepository.GetByPersonnummer(personInputDTO.Personnummer) ?? new Person(personInputDTO.Fornamn, personInputDTO.Mellannamn, personInputDTO.Efternamn, personInputDTO.Personnummer, personInputDTO.GetMetadata());
+
+            if (person.Ny)
+            {
+                personRepository.Add(person);
+            }
+            else
+            {
+                person.AndraUppgifter(personInputDTO.Fornamn, personInputDTO.Mellannamn, personInputDTO.Efternamn, personInputDTO.Personnummer, personInputDTO.GetMetadata());
+                personRepository.Update();
+            }
+        }
+
+        public void SparaNyPerson(PersonInputDTO personInputDTO)
+        {
+            var valideringsfel = new PersonInputValidator().Validate(personInputDTO);
+
+            if (valideringsfel.Any())
+            {
+                foreach (var fel in valideringsfel)
+                    logger.LogError(fel.Message);
                 throw new BusinessLogicException($"Valideringsfel inträffade vid validering av Person med Id: {personInputDTO.Personnummer}.");
             }
 
@@ -70,78 +88,5 @@ namespace ODL.ApplicationServices
         {
             return new PersonerPerResultatenhetQuery(context).Execute(kstNr);
         }
-
-        public void SparaAvtal(AvtalInputDTO avtalDTO)
-        {
-            var valideringsfel = new AvtalInputValidator().Validate(avtalDTO);
-
-            if (valideringsfel.Any())
-            {
-                foreach (var fel in valideringsfel)
-                    logger.LogError(fel.Message); // Hmm, borde vi logga detta med Info? 
-                throw new BusinessLogicException(
-                    $"Valideringsfel inträffade vid validering av Avtal med Id: {avtalDTO.SystemId}.");
-            }
-
-            var avtal = avtalRepository.GetByKallsystemId(avtalDTO.SystemId) ?? new Avtal();
-
-            avtal.KallsystemId = avtalDTO.SystemId;
-            avtal.Avtalskod = avtalDTO.Avtalskod;
-            avtal.Avtalstext = avtalDTO.Avtalstext;
-            avtal.ArbetstidVecka = avtalDTO.ArbetstidVecka;
-            avtal.Befkod = avtalDTO.Befkod;
-            avtal.BefText = avtalDTO.BefText;
-            avtal.Aktiv = avtalDTO.Aktiv;
-            avtal.Ansvarig = avtalDTO.Ansvarig;
-            avtal.Chef = avtalDTO.Chef;
-            avtal.TjledigFran = avtalDTO.TjledigFran.TillDatum();
-            avtal.TjledigTom = avtalDTO.TjledigTom.TillDatum();
-            avtal.Fproc = avtalDTO.Fproc;
-            avtal.DeltidFranvaro = avtalDTO.DeltidFranvaro;
-            avtal.FranvaroProcent = avtalDTO.FranvaroProcent;
-            avtal.SjukP = avtalDTO.SjukP;
-            avtal.GrundArbtidVecka = avtalDTO.GrundArbtidVecka;
-            avtal.Lon = avtalDTO.TimLon;
-            avtal.LonDatum = avtalDTO.LonDatum.TillDatum();
-            avtal.LoneTyp = avtalDTO.LoneTyp;
-            avtal.LoneTillagg = avtalDTO.LoneTillagg;
-            avtal.TimLon = avtalDTO.TimLon;
-            avtal.Anstallningsdatum = avtalDTO.Anstallningsdatum.TillDatum();
-            avtal.Avgangsdatum = avtalDTO.Avgangsdatum.TillDatum();
-            avtal.Metadata = avtalDTO.GetMetadata();
-
-            if (avtal.Ny)
-            {
-                var person = personRepository.GetByPersonnummer(avtalDTO.Personnummer);
-                if (person == null)
-                {
-                    throw new ArgumentException($"Avtalet kunde inte sparas - angiven person med personnummer '{avtalDTO.Personnummer}' saknas i ODL.");
-                }
-                if (!string.IsNullOrEmpty(avtalDTO.AnstalldPersonnummer))
-                    avtal.KopplaTillAnstalld(person);
-                else
-                    avtal.KopplaTillKonsult(person);
-            }
-
-            var kstnrList = avtalDTO.Kostnadsstallen.Select(kst => kst.KostnadsstalleNr);
-
-            foreach (string kstNr in kstnrList)
-            {
-                var organisation = organisationRepository.GetOrganisationByKstnr(kstNr);
-
-                if (organisation == null)
-                    throw new ArgumentException($"Avtalet kunde inte sparas - angiven resultatenhet med kostnadsställe '{kstNr}' saknas i ODL.");
-                
-
-                var kstDTO = avtalDTO.Kostnadsstallen.Single(kst => kst.KostnadsstalleNr == organisation.Resultatenhet.KstNr);
-
-                avtal.LaggTillOrganisation(organisation, kstDTO.Huvudkostnadsstalle, kstDTO.ProcentuellFordelning);
-            }
-            
-            if (avtal.Ny)
-                    avtalRepository.Add(avtal);
-                else
-                    avtalRepository.Update();
-            }
     }
 }

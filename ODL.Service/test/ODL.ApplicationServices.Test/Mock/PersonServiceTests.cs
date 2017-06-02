@@ -16,8 +16,6 @@ namespace ODL.ApplicationServices.Test.Mock
         private PersonInputDTO person;
 
         private Mock<IPersonRepository> personRepositoryMock;
-        private Mock<IOrganisationRepository> organisationRepositoryMock;
-        private Mock<IAvtalRepository> avtalRepositoryMock;
         private Mock<IContext> dbContextMock;
         private Mock<ILogger<PersonService>> loggerMock;
         private PersonService service;
@@ -90,11 +88,9 @@ namespace ODL.ApplicationServices.Test.Mock
             };
 
             personRepositoryMock = new Mock<IPersonRepository>();
-            organisationRepositoryMock = new Mock<IOrganisationRepository>();
-            avtalRepositoryMock = new Mock<IAvtalRepository>();
             dbContextMock = new Mock<IContext>();
             loggerMock = new Mock<ILogger<PersonService>>();
-            service = new PersonService(personRepositoryMock.Object, organisationRepositoryMock.Object, avtalRepositoryMock.Object, dbContextMock.Object, loggerMock.Object);
+            service = new PersonService(personRepositoryMock.Object, dbContextMock.Object, loggerMock.Object);
         }
 
         /// <summary>
