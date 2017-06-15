@@ -52,11 +52,11 @@ namespace ODL.Service.Controllers
             return _organisationService.GetResultatenheterForPersonnummer(personnummer);
         }
 
-        // POST api/resultatenhet/
-        [HttpPost("resultatenhet")]
-        public void SparaResultatenhet([FromBody]ResultatenhetInputDTO resultatenhet)
+        // POST api/organisation/spara
+        [HttpPost("spara")]
+        public void SparaResultatenhet([FromBody]IList<ResultatenhetInputDTO> resultatenheter)
         {
-            _organisationService.SparaResultatenhet(resultatenhet);
+            _organisationService.SparaResultatenheter(resultatenheter);
         }
 
     }

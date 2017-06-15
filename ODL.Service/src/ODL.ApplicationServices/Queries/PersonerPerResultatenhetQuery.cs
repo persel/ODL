@@ -2,7 +2,6 @@
 using System.Linq;
 using ODL.ApplicationServices.DTOModel.Query;
 using ODL.DataAccess;
-using ODL.DomainModel;
 using ODL.DomainModel.Avtal;
 using ODL.DomainModel.Organisation;
 using ODL.DomainModel.Person;
@@ -28,32 +27,40 @@ namespace ODL.ApplicationServices.Queries
             // Vi delar upp frågan i två separata delar för enkelhets skull:
 
             var projektionAnstallda = from person in personer
-                join avtal in allaAvtal on person.Id equals avtal.AnstalldAvtal.PersonId
-                join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
-                join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
-                where organisation.Resultatenhet.KstNr == kstNr
-                select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = person.Fornamn + " " + person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig};
+                                    join avtal in allaAvtal on person.Id equals avtal.AnstalldAvtal.PersonId
+                                    join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
+                                    join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
+                                    where organisation.Resultatenhet.KstNr == kstNr
+                                    select new {person.Id, KostnadsstalleNr = kstNr, person.Personnummer, person.Fornamn, person.Efternamn,
+                                        Resultatenhetansvarig = avtal.Ansvarig, avtal.Anstallningsdatum, avtal.Avgangsdatum };
 
             var projektionKonsulter = from person in personer
-                                      join avtal in allaAvtal on person.Id equals avtal.KonsultAvtal.PersonId
-                                      join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
-                                      join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
-                                      where organisation.Resultatenhet.KstNr == kstNr
-                                      select new PersonPerResultatenhetDTO { Id = person.Id, KostnadsstalleNr = kstNr, Personnummer = person.Personnummer, Namn = person.Fornamn + " " + person.Efternamn, Resultatenhetansvarig = avtal.Ansvarig };
+                                    join avtal in allaAvtal on person.Id equals avtal.KonsultAvtal.PersonId
+                                    join organisationsAvtal in allaOrganisationsAvtal on avtal.Id equals organisationsAvtal.AvtalId
+                                    join organisation in organisationer on organisationsAvtal.OrganisationId equals organisation.Id
+                                    where organisation.Resultatenhet.KstNr == kstNr
+                                    select new {person.Id, KostnadsstalleNr = kstNr, person.Personnummer, person.Fornamn, person.Efternamn,
+                                        Resultatenhetansvarig = avtal.Ansvarig, avtal.Anstallningsdatum, avtal.Avgangsdatum};
 
 
             var anstallda = projektionAnstallda.ToList();
             var konsulter = projektionKonsulter.ToList();
+			
+            anstallda.AddRange(konsulter);
 
-
-            anstallda.AddRange(konsulter); // TODO: Ta bort dubletter, ansvarig = true om både true/false finns
-
-            var personPerResultatenhet = anstallda.GroupBy(a => a.Personnummer)
-                .Select(g => g.OrderByDescending(p => p.Resultatenhetansvarig).First()); // OrderByDescending bool: true (1) först, därefter false (0)
-
-            return personPerResultatenhet;
-
-
+			var groups = anstallda.GroupBy(a => new { a.Id, a.Personnummer, a.Fornamn, a.Efternamn });
+			
+			var personPerResultatenhet = groups.Select(group =>
+			new PersonPerResultatenhetDTO {
+				Id = group.Key.Id,
+				Personnummer = group.Key.Personnummer,
+				KostnadsstalleNr = kstNr,
+				Fornamn = group.Key.Fornamn,
+				Efternamn = group.Key.Efternamn,
+				Resultatenhetansvarig = group.Any(item => item.Resultatenhetansvarig), // true om personen är ansvaig på minst ett av avtalen!
+				Anstallningsdatum = group.Min(item => item.Anstallningsdatum).FormatteraSomDatum(), // tidigaste anställningsdatumet används
+				Avgangsdatum = group.Any(item => item.Avgangsdatum == null) ? null : group.Max(item => item.Avgangsdatum).FormatteraSomDatum() }); // Om något av avgångsdatumen är null, returnera då detta, annars det senaste!
+			return personPerResultatenhet;
         }
     }
 }

@@ -14,7 +14,8 @@ namespace ODL.DataAccess.Mappningar
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             
             Property(m => m.KstNr).HasMaxLength(6).IsUnicode(false);
-            Property(m => m.Typ).HasMaxLength(10).IsUnicode(false);
+            Ignore(m => m.Typ);
+            Property(m => m.KostnadsstalletypString).HasColumnName("Typ").HasMaxLength(1).IsUnicode(false).IsRequired();
 
         }
     }

@@ -28,13 +28,10 @@ namespace ODL.ApplicationServices.Test
         [Category("LongRunning")]
         public void SparaPerson_WhenNew_ThenSaved()
         {
-
-            var organisationRepositoryMock = new Mock<IOrganisationRepository>().Object;
-            var avtalRepositoryMock = new Mock<IAvtalRepository>().Object;
             var dbContextMock = new Mock<IContext>().Object;
             var loggerMock = new Mock<ILogger<PersonService>>().Object;
 
-            var service = new PersonService(new PersonRepository(context), organisationRepositoryMock, avtalRepositoryMock, dbContextMock, loggerMock);
+            var service = new PersonService(new PersonRepository(context), dbContextMock, loggerMock);
             var person = new PersonInputDTO
             {
                 SystemId = "435345",
@@ -59,7 +56,6 @@ namespace ODL.ApplicationServices.Test
             transaction.Dispose();
             context.Dispose();
         }
-
     }
 }
 

@@ -14,6 +14,6 @@ namespace ODL.ApplicationServices
         IEnumerable<ResultatenhetDTO> GetResultatenheter();
 
         ResultatenhetDTO GetResultatenhetForKstNr(string kostnadsstalleNr);
-        void SparaResultatenhet(ResultatenhetInputDTO resultatenhet);
+        void SparaResultatenheter(IList<ResultatenhetInputDTO> resultatenheter);
     }
 }

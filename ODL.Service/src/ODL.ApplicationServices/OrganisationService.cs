@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using MoreLinq;
 using ODL.ApplicationServices.DTOModel;
 using ODL.ApplicationServices.DTOModel.Query;
 using ODL.ApplicationServices.Queries;
@@ -11,6 +12,7 @@ using ODL.ApplicationServices.Validation;
 using ODL.DataAccess;
 using ODL.DomainModel;
 using ODL.DomainModel.Adress;
+using ODL.DomainModel.Common;
 using ODL.DomainModel.Organisation;
 
 namespace ODL.ApplicationServices
@@ -52,7 +54,7 @@ namespace ODL.ApplicationServices
                 {
                     Id = enhet.OrganisationId,
                     KostnadsstalleNr = enhet.KstNr.ToString(),
-                    Typ = enhet.Typ,
+                    Typ = enhet.Typ.ToString(),
                     Namn = enhet.Organisation.Namn
                 });
         }
@@ -70,7 +72,7 @@ namespace ODL.ApplicationServices
                 {
                     Id = resultatenhet.OrganisationId,
                     KostnadsstalleNr = resultatenhet.KstNr,
-                    Typ = resultatenhet.Typ,
+                    Typ = resultatenhet.Typ.ToString(),
                     Namn = organisation.Namn,
                     LeveransAdress = leveransAdress?.AdressRad1,
                     Postadress = leveransAdress?.Stad,
@@ -80,27 +82,30 @@ namespace ODL.ApplicationServices
             return resultatenhetDTO;
         }
 
-        public void SparaResultatenhet(ResultatenhetInputDTO resultatenhet)
+        public void SparaResultatenheter(IList<ResultatenhetInputDTO> resultatenheter)
         {
-            var valideringsfel = new ResultatenhetInputValidator().Validate(resultatenhet);
 
-            if (valideringsfel.Any())
+            foreach (var resultatenhet in resultatenheter)
             {
-                foreach (var fel in valideringsfel)
-                    logger.LogError(fel.Message);
-                throw new BusinessLogicException($"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resultatenhet.KostnadsstalleNr}.");
-            }
+                var valideringsfel = new ResultatenhetInputValidator().Validate(resultatenhet);
+                if (valideringsfel.Any())
+                {
+                    foreach (var fel in valideringsfel)
+                        logger.LogError(fel.Message);
+                    throw new BusinessLogicException($@"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resultatenhet.KostnadsstalleNr}. 
+                                                     Följande kostnadsställen sparades ej: {string.Join("", "", resultatenheter.Select( re => re.KostnadsstalleNr))}");
+                }
+                var organisation = organisationRepository.GetOrganisationByKstnr(resultatenhet.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet(resultatenhet.KostnadsstalleNr, resultatenhet.Typ.TillEnum<Kostnadsstalletyp>(), resultatenhet.OrganisationsId, resultatenhet.Namn, resultatenhet.GetMetadata());
 
-            var organisation = organisationRepository.GetOrganisationByKstnr(resultatenhet.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet(resultatenhet.KostnadsstalleNr, resultatenhet.Typ, resultatenhet.OrganisationsId, resultatenhet.Namn, resultatenhet.GetMetadata());
-
-            if (organisation.Ny)
-            {
-                organisationRepository.Add(organisation);
-            }
-            else
-            {
-                organisation.BytNamn(resultatenhet.Namn, resultatenhet.GetMetadata());
-                organisationRepository.Update();
+                if (organisation.Ny)
+                {
+                    organisationRepository.Add(organisation);
+                }
+                else
+                {
+                    organisation.BytNamn(resultatenhet.Namn, resultatenhet.GetMetadata());
+                    organisationRepository.Update();
+                }
             }
         }
     }

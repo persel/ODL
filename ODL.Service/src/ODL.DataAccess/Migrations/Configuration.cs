@@ -48,10 +48,10 @@ namespace ODL.DataAccess.Migrations
                 
                 if (context.Organisation.ToList().Count == 0)
                 {
-                    var organisation1 = SparaNyOrganisation("12345", "H", "1234567", "Södra ortopedmottagningen", context);
-                    SparaNyOrganisation("23456", "H", "2345678", "Norra ortopedmottagningen", context);
-                    SparaNyOrganisation("34567", "G", "3456789", "Tandläkarna i Väst, Gemensamma", context);
-                    SparaNyOrganisation("45678", "H", "4567890", "Järvsö vård och ved", context);
+                    var organisation1 = SparaNyOrganisation("12345", Kostnadsstalletyp.H, "1234567", "Södra ortopedmottagningen", context);
+                    SparaNyOrganisation("23456", Kostnadsstalletyp.H, "2345678", "Norra ortopedmottagningen", context);
+                    SparaNyOrganisation("34567", Kostnadsstalletyp.G, "3456789", "Tandläkarna i Väst, Gemensamma", context);
+                    SparaNyOrganisation("45678", Kostnadsstalletyp.H, "4567890", "Järvsö vård och ved", context);
 
                     SparaAdresser(context);
 
@@ -171,7 +171,7 @@ namespace ODL.DataAccess.Migrations
             context.SaveChanges();
         }
 
-        private Organisation SparaNyOrganisation(string kstNr, string typ, string organisationsId, string namn, ODLDbContext context)
+        private Organisation SparaNyOrganisation(string kstNr, Kostnadsstalletyp typ, string organisationsId, string namn, ODLDbContext context)
         {
            
             var organisation = Organisation.SkapaNyResultatenhet(kstNr, typ, organisationsId, namn, Metadata);
