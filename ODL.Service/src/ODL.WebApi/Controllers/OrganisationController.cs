@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using ODL.ApplicationServices;
 using ODL.ApplicationServices.DTOModel;
@@ -15,12 +18,12 @@ namespace ODL.Service.Controllers
     public class OrganisationController : Controller
     {
         private readonly IOrganisationService _organisationService;
-        private readonly IBehorighet _behorighet;
+        //private readonly IAnvandare _behorighet;
 
-        public OrganisationController(IOrganisationService organisationService, IBehorighet behorighet)
+        public OrganisationController(IOrganisationService organisationService)
         {
             _organisationService = organisationService;
-            _behorighet = behorighet;
+           // _behorighet = behorighet;
         }
 
         // GET api/organisation/resultatenhet
@@ -29,8 +32,8 @@ namespace ODL.Service.Controllers
         {
             //ToDO får se över det här... Mest i test syfte nu
             // I MinimumRequirementHandler finns grundläggande behörighets kontroll som alltid körs här blir det mest vilken data man kan se..
-            //var headerAnvandare = new Behorighet(HttpContext.User.Identity);
-            _behorighet.SetAnvandare(HttpContext.User.Identity);
+           
+            var anvandare = new Anvandare(HttpContext.User);
 
             return _organisationService.GetResultatenheter();
         }

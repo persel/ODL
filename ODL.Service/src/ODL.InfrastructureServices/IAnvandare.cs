@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ODL.InfrastructureServices
 {
-    public interface IBehorighet
+    public interface IAnvandare
     {
-        void SetAnvandare(IIdentity anvandare);
         bool IsBehorig();
     }
 }
