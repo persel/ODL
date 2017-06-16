@@ -13,8 +13,7 @@ namespace ODL.InfrastructureServices
     {
        
         public Anvandare(ClaimsPrincipal user)
-        {
-           
+        { 
             Namn = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
             AnvandarNamn = user.Claims.FirstOrDefault(c => c.Type == "AnvandarNamn")?.Value;
             Email = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
@@ -27,7 +26,6 @@ namespace ODL.InfrastructureServices
             
             Personnummer = user.Claims.FirstOrDefault(c => c.Type == "Personnummer")?.Value;
             Applikation = user.Claims.FirstOrDefault(c => c.Type == "Applikation")?.Value;
-
         }
 
         public string Personnummer { get; }
@@ -38,9 +36,9 @@ namespace ODL.InfrastructureServices
 
         public string Email { get; }
 
-        public List<string> Roler { get; }
+        public IEnumerable<string> Roler { get; }
 
-        public List<string> Rbac { get; }
+        public IEnumerable<string> Rbac { get; }
 
         public string Applikation { get; }
 

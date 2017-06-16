@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using KlientApplikationer.InfrastructureServices;
 using Microsoft.AspNetCore.Authorization;
+using ODL.InfrastructureServices;
 
 namespace ODL.WebApi
 {
@@ -54,6 +55,8 @@ namespace ODL.WebApi
             context.User.Identities.FirstOrDefault()?.AddClaim(new Claim("Roler", mvcContext.HttpContext.Request.Headers["Roler"]));
             context.User.Identities.FirstOrDefault()?.AddClaim(new Claim("Rbac", mvcContext.HttpContext.Request.Headers["Rbac"]));
             context.User.Identities.FirstOrDefault()?.AddClaim(new Claim("Applikation", mvcContext.HttpContext.Request.Headers["Applikation"]));
+
+        
 
             return Task.CompletedTask;
         }

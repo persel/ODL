@@ -9,6 +9,19 @@ namespace ODL.InfrastructureServices
 {
     public interface IAnvandare
     {
+       string Personnummer { get; }
+
+        string AnvandarNamn { get; }
+
+        string Namn { get; }
+
+        string Email { get; }
+
+        IEnumerable<string> Roler { get; }
+        IEnumerable<string> Rbac { get; }
+
+        string Applikation { get; }
+
         bool IsBehorig();
     }
 }

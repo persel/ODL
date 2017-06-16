@@ -54,7 +54,7 @@ namespace ODL.Service
             services.AddScoped<IOrganisationRepository, OrganisationRepository>();
             services.AddScoped<IAdressRepository, AdressRepository>();
 
-           // services.AddScoped<IAnvandare, Anvandare>();
+            
 
             services.AddScoped(contextFactory);
 
@@ -95,7 +95,7 @@ namespace ODL.Service
                     config.Filters.Add(typeof(GlobalExceptionFilter));
                 }
             );
-            
+           
             //Inject an implementation of ISwaggerProvider with defaulted settings applied
             services.AddSwaggerGen();
         }
