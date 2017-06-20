@@ -11,6 +11,8 @@ namespace ODL.DataAccess.Repositories
         
         Person GetByPersonnummer(string personnummer);
 
+        bool Exists(string personnummer);
+
         void Update();
 
         void Add(Person person);
