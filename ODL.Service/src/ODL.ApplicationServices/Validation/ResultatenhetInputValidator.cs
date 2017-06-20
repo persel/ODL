@@ -12,7 +12,7 @@ namespace ODL.ApplicationServices.Validation
         {
             RuleFor(resEnhet => resEnhet.Namn).NotNullOrWhiteSpace().WithinMaxLength(255);
             RuleFor(resEnhet => resEnhet.KostnadsstalleNr).NotNullOrWhiteSpace();
-            RuleFor(resEnhet => resEnhet.Typ).NotNullOrWhiteSpace().WithinMaxLength(5);
+            RuleFor(resEnhet => resEnhet.Typ).NotNullOrWhiteSpace().WithinMaxLength(1);
             RequireMetadata();
         }
     }

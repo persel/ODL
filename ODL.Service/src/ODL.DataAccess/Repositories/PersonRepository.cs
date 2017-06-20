@@ -26,6 +26,11 @@ namespace ODL.DataAccess.Repositories
             return DbContext.Person.SingleOrDefault(person => person.Personnummer == personnummer);
         }
 
+        public bool Exists(string personnummer)
+        {
+            return DbContext.Person.Any(person => person.Personnummer == personnummer);
+        }
+
         public void Update()
         {
             _internalGenericRepository.Update();

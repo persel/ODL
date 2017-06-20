@@ -92,8 +92,7 @@ namespace ODL.ApplicationServices
                 {
                     foreach (var fel in valideringsfel)
                         logger.LogError(fel.Message);
-                    throw new BusinessLogicException($@"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: {resultatenhet.KostnadsstalleNr}. 
-                                                     Följande kostnadsställen sparades ej: {string.Join("", "", resultatenheter.Select( re => re.KostnadsstalleNr))}");
+                    throw new BusinessLogicException($@"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: '{resultatenhet.KostnadsstalleNr}'.");
                 }
                 var organisation = organisationRepository.GetOrganisationByKstnr(resultatenhet.KostnadsstalleNr) ?? Organisation.SkapaNyResultatenhet(resultatenhet.KostnadsstalleNr, resultatenhet.Typ.TillEnum<Kostnadsstalletyp>(), resultatenhet.OrganisationsId, resultatenhet.Namn, resultatenhet.GetMetadata());
 
