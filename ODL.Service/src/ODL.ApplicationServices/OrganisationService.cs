@@ -39,6 +39,8 @@ namespace ODL.ApplicationServices
         {
             var person = personRepository.GetByPersonnummer(personnummer);
 
+            if (person == null) return new List<ResultatenhetDTO>();
+
             var query = new ResultatenhetPerPersonQuery(context);
 
             return query.Execute(person.Id);

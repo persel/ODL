@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using ODL.ApplicationServices;
 using ODL.DataAccess;
 using ODL.DataAccess.Repositories;
+using ODL.InfrastructureServices;
 using ODL.WebApi;
 using Serilog;
 using Swashbuckle.Swagger;
@@ -53,6 +54,8 @@ namespace ODL.Service
             services.AddScoped<IOrganisationRepository, OrganisationRepository>();
             services.AddScoped<IAdressRepository, AdressRepository>();
 
+            
+
             services.AddScoped(contextFactory);
 
             // Lägg till service och skapa Policy med options
@@ -78,7 +81,8 @@ namespace ODL.Service
                         new MinimumRequirement(
                             anvandarNamn: "",
                             applikation: "PostOmbud",
-                            namn: "")
+                            namn: "",
+                            key: Configuration.GetSection("AppSettings")["Key"])
                     ));
             });
 
@@ -91,7 +95,7 @@ namespace ODL.Service
                     config.Filters.Add(typeof(GlobalExceptionFilter));
                 }
             );
-            
+           
             //Inject an implementation of ISwaggerProvider with defaulted settings applied
             services.AddSwaggerGen();
         }
