@@ -14,7 +14,7 @@ using ODL.InfrastructureServices;
 namespace ODL.Service.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Policy = "ValidUserName")]
+    //[Authorize(Policy = "ValidUserName")]
     public class OrganisationController : Controller
     {
         private readonly IOrganisationService _organisationService;
