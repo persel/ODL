@@ -92,6 +92,8 @@ namespace ODL.ApplicationServices
                 var valideringsfel = new ResultatenhetInputValidator().Validate(resultatenhet);
                 if (valideringsfel.Any())
                 {
+                    logger.LogError("");
+
                     foreach (var fel in valideringsfel)
                         logger.LogError(fel.Message);
                     throw new BusinessLogicException($@"Valideringsfel inträffade vid validering av resultatenhet med kostnadsställenummer: '{resultatenhet.KostnadsstalleNr}'.");
