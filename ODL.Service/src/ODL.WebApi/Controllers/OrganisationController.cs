@@ -52,9 +52,9 @@ namespace ODL.Service.Controllers
             return _organisationService.GetResultatenhetForKstNr(kstNr);
         }
 
-        // GET api/organisation/resultatenheter/personnummer/197501011405
-        [HttpGet("resultatenheter/personnummer/{personnummer}")]
-        public IEnumerable<ResultatenhetDTO> GetResultatenheterForPersonnummer(string personnummer)
+        // GET api/organisation/resultatenheter
+        [HttpGet("resultatenheter")]
+        public IEnumerable<ResultatenhetDTO> GetResultatenheterForPersonnummer([FromQuery]string personnummer)
         {
             return _organisationService.GetResultatenheterForPersonnummer(personnummer);
         }
