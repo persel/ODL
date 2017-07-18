@@ -89,9 +89,7 @@
   <ItemGroup>
     <None Include="App.test.config" />
     <None Include="App.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ODL.DomainModel\ODL.DomainModel.csproj">
