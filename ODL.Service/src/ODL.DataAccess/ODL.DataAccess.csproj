@@ -87,6 +87,7 @@
     <Compile Include="Repositories\OrganisationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.test.config" />
     <None Include="App.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
